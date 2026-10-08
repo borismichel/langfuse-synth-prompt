@@ -3,8 +3,10 @@
 `synth.assets.provision_assets(cfg)` prepares a fresh kit namespace. Reads use
 the pinned core `lfread` seam; writes use core HTTP with one attempt per create.
 An uncertain create outcome is not retried. The coordinator owns the durable
-seed guard and partial-failure recovery. No live request was made while building
-this code.
+seed guard and partial-failure recovery. The original build phase made no live
+requests. Subsequent [live pilot evidence](evidence/live-pilot.json) records 219
+passing checks and four pending prerequisites, including 36 exact trace checks
+and 18 exact historical experiment links; the pilot made no model calls.
 
 Before writing, the provisioner completely inventories prompt, dataset,
 score-config and model names. A collision with any of the nine authored prompt
@@ -41,6 +43,24 @@ saving a managed evaluator performs model validation. Invoke it explicitly befor
 seeding, with provider use authorised. It writes no RunState. `provision_assets`
 only discovers and validates already-configured evaluator/rule resources and
 cannot create them. Missing setup is recorded, never executed implicitly.
+
+If model setup happens after a successful seed, run the explicit developer
+command `synth seed --config config/demo.yaml --refresh-configuration`, with
+the same target, state directory and generation overrides as the imported run.
+It reads already-configured evaluators and rules through the same discovery
+checks, requires all eight currently supported pairs, and atomically refreshes
+their saved configuration receipts. Only `seed` writes RunState. No prompt,
+dataset, score, model, evaluator or rule is created; no history is generated or
+imported. The event receipt, IDs, spool and import status remain unchanged.
+Missing or conflicting setup, an unsuccessful seed, or a different target,
+authenticated project or generation configuration fails without changing state.
+This mode cannot be combined with `--dry-run`.
+
+Refresh removes only resolved evaluator-setup prerequisites and the missing
+`live.model` prerequisite when that setting is now present. It retains unrelated
+prerequisites, manual checks and the E-02/E-03 null-semantics blocker. A successful
+refresh is configuration evidence, not proof that live judges executed; run
+`verify` again and rehearse the remaining live outcomes separately.
 
 With `evaluation.provider` and `evaluation.model` configured, setup checks
 the selected provider's existing Langfuse LLM connection, then inventories

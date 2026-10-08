@@ -178,3 +178,28 @@ def test_invalid_history_reference_cannot_change_spool():
     with pytest.raises(StopIteration):
         bind_historical_experiments([], receipt,
             [{"prompt_id": "PR-01", "case_id": "unknown", "trace_id": "x"}])
+
+
+@pytest.mark.parametrize('mismatch', [None, 'dataset_id', 'id', 'name', 'trace_id', 'observation_id', 'experiment_id', 'item_id'])
+def test_v4_historical_experiment_checks_exact_run_and_item(mismatch):
+    from synth.assets import historical_experiment_matches
+    expected = dict(run_name='authored-run', experiment_id='run-1', dataset_id='dataset-1',
+                    dataset_item_id='case-1', trace_id='trace-1', observation_id='generation-1')
+    run = SimpleNamespace(id='run-1', name='authored-run', dataset_id='dataset-1')
+    item = SimpleNamespace(id='case-1', experiment_id='run-1', dataset_item_id=None,
+                           trace_id='trace-1', observation_id='generation-1')
+    if mismatch in ('dataset_id', 'id', 'name'):
+        setattr(run, mismatch, 'wrong')
+    elif mismatch:
+        setattr(item, 'id' if mismatch == 'item_id' else mismatch, 'wrong')
+
+    class Reader:
+        def experiments(self, *, name, limit_pages):
+            assert name == expected['run_name']
+            return [run]
+
+        def experiment_items(self, actual_run, *, limit_pages):
+            assert actual_run is run
+            return [item]
+
+    assert historical_experiment_matches(Reader(), expected) is (mismatch is None)

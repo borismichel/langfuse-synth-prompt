@@ -155,6 +155,23 @@ synth verify --config config/demo.yaml --set generation.target_traces=48
 synth companion --config config/demo.yaml --host 127.0.0.1 --port 8765
 ```
 
+If this project was successfully seeded before evaluator setup, complete
+`configure-evaluators` with authorised model use, then refresh its configuration
+receipt using the **same target, state directory, seed, trace count and explicit
+as-of date** as that import:
+
+```sh
+synth seed --config config/demo.yaml --set generation.target_traces=48 --refresh-configuration
+synth verify --config config/demo.yaml --set generation.target_traces=48
+```
+
+Refresh only reads existing evaluator definitions/rules and saves their validated
+receipts. It preserves seeded events, IDs, the spool and import status, and never
+provisions assets or reimports data. Incomplete or conflicting configuration
+leaves the receipt unchanged. E-02/E-03 and other unresolved prerequisites remain
+visible; a refresh does not establish live evaluator results. The companion reads
+the updated receipt on its next connection check.
+
 For the intended 1,620-trace run, use the same seed and as-of date on a **different
 fresh project** after the small walkthrough succeeds. The seed runbook is copied
 to the configured output directory (`/app/out` in Depot). The anchors file on the

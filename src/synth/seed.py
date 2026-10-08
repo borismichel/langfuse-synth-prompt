@@ -1,9 +1,11 @@
 """Model-free seed, strict fresh target, bounded receipts, append-safe failure state."""
 from __future__ import annotations
+from datetime import datetime
 import os
 from pathlib import Path
 import shutil
 import sys
+import tempfile
 from langfuse_synth_core.seed.ingest import Ingestor, assert_demo_project
 from langfuse_synth_core.seed import otlp
 from langfuse_synth_core.timegen import resolve_run_date
@@ -13,6 +15,78 @@ from .receipt import make_receipt
 from .state import RunState
 
 DEFAULT_SPOOL = Path('.synth_spool') / 'events.ndjson'
+
+
+def _refresh_configuration(cfg: Config, *, log=print) -> None:
+    """Read existing evaluator configuration; never regenerate or import events."""
+    from .assets import AssetAPI, NULLABLE_CRITERIA, _evaluation_assets
+    from .catalog import score_definitions
+
+    if not RunState.exists():
+        raise RuntimeError('Configuration refresh requires a successful live seed receipt.')
+    path = Path(RunState.state_path())
+    original = path.read_bytes()
+    state = RunState.load()
+    receipt = state.run_receipt
+    valid = (not state.dry_run and state.import_status == 'imported'
+             and state.base_url.rstrip('/') == cfg.target.base_url
+             and bool(state.project_id) and state.provisioning.get('project_id') == state.project_id
+             and state.seed == cfg.generation.seed == receipt.get('seed')
+             and state.target_traces == cfg.generation.target_traces == receipt.get('target_traces')
+             and receipt.get('schema_version') == 1
+             and state.spooled_events > 0 and state.spooled_events == receipt.get('spooled_events')
+             and bool(receipt.get('representative_traces'))
+             and isinstance(receipt.get('spool_sha256'), str) and len(receipt['spool_sha256']) == 64)
+    try:
+        run_date = datetime.fromisoformat(receipt.get('run_date', ''))
+        valid = valid and run_date.tzinfo is not None
+        if cfg.generation.as_of_date:
+            valid = valid and run_date.date() == cfg.generation.as_of_date
+    except (TypeError, ValueError):
+        valid = False
+    if not valid:
+        raise RuntimeError('Configuration refresh requires a complete imported receipt matching this target and generation configuration.')
+    project_id, _ = assert_demo_project(cfg.target.base_url, cfg.target.project_hint)
+    if project_id != state.project_id:
+        raise RuntimeError('Configuration refresh authenticated project does not match the seeded project.')
+
+    class ReadOnlyAssets:
+        # No create method: discovery cannot provision assets even accidentally.
+        def __init__(self):
+            self.read = AssetAPI(cfg.target.base_url).read
+
+    discovered = _evaluation_assets(cfg, ReadOnlyAssets(), create=False)
+    expected = {eid for eid, definition in score_definitions().items()
+                if definition['producer'] == 'llm-judge' and eid not in NULLABLE_CRITERIA}
+    if set(discovered['evaluators']) != expected or set(discovered['evaluator_rules']) != expected:
+        raise RuntimeError('Configuration refresh requires all supported evaluator definitions and live rules; complete evaluator setup first.')
+
+    # Remove only obsolete evaluator-setup gates. Keep unrelated and nullable gates.
+    setup_gates = {
+        'Set evaluation.provider/model and run the separate model-using evaluator setup before seed.',
+        'Selected judge provider/model is not available through a configured Langfuse LLM connection.',
+        *(f'{eid}: managed evaluator requires separate model-using setup before seed.' for eid in expected),
+        *(f'{eid}: live rule requires separate evaluator setup before seed.' for eid in expected),
+    }
+    if cfg.live.model:
+        setup_gates.add('Select live.model for native prompt experiments; synthetic history model names are not runnable.')
+    retained = [missing for missing in state.provisioning.get('missing', []) if missing not in setup_gates]
+    state.provisioning['missing'] = list(dict.fromkeys(retained + discovered['missing']))
+    state.provisioning['evaluators'] = discovered['evaluators']
+    state.provisioning['evaluator_rules'] = discovered['evaluator_rules']
+    state.evaluator_rules = discovered['evaluator_rules']
+    # Save through core IO to a sibling, then atomically replace. Failed reads,
+    # discovery, validation or serialization leave the prior receipt untouched.
+    with tempfile.NamedTemporaryFile(dir=path.parent, prefix='.configuration-', delete=False) as temporary:
+        temporary_path = Path(temporary.name)
+    try:
+        state.save(str(temporary_path))
+        if path.read_bytes() != original:
+            raise RuntimeError('Seed state changed during configuration refresh; no refresh was saved.')
+        os.replace(temporary_path, path)
+    finally:
+        temporary_path.unlink(missing_ok=True)
+    log(f'· refreshed {len(expected)} existing evaluator definitions and live rules; seed receipt and import unchanged')
 
 
 def deliver_artifacts(out_dir: Path | None = None) -> Path:
@@ -26,8 +100,13 @@ def deliver_artifacts(out_dir: Path | None = None) -> Path:
 
 
 def run_seed(cfg: Config, *, dry_run: bool=False, do_import: bool=True,
-             spool_path: str | Path | None=None, log=print) -> Path:
+             spool_path: str | Path | None=None, refresh_configuration: bool=False, log=print) -> Path:
     spool_path = Path(spool_path) if spool_path else DEFAULT_SPOOL
+    if refresh_configuration:
+        if dry_run or not do_import:
+            raise ValueError('Configuration refresh cannot be combined with dry-run or spool-only mode.')
+        _refresh_configuration(cfg, log=log)
+        return spool_path
     run_date = resolve_run_date(cfg.generation.as_of_date)
     # Do not allow regeneration to sidestep the core import marker after partial import.
     if RunState.exists():

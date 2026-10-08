@@ -30,7 +30,7 @@ def _add_config_args(parser: argparse.ArgumentParser) -> None:
 
 def _cmd_seed(args: argparse.Namespace) -> int:
     cfg = load_config(args.config, overrides=args.set)
-    run_seed(cfg, dry_run=args.dry_run)
+    run_seed(cfg, dry_run=args.dry_run, refresh_configuration=args.refresh_configuration)
     return 0
 
 
@@ -57,7 +57,10 @@ def build_parser() -> argparse.ArgumentParser:
 
     seed = sub.add_parser("seed", help="generate + ingest the backdated demo data")
     _add_config_args(seed)
-    seed.add_argument("--dry-run", action="store_true", help="spool only; no network")
+    seed_mode = seed.add_mutually_exclusive_group()
+    seed_mode.add_argument("--dry-run", action="store_true", help="spool only; no network")
+    seed_mode.add_argument("--refresh-configuration", action="store_true",
+                           help="developer mode: read existing evaluators/rules into a successful seed receipt; no import")
     seed.set_defaults(func=_cmd_seed)
 
     verify = sub.add_parser("verify", help="read the data back and assert the floor checks")

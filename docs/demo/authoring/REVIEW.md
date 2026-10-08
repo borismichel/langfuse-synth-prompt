@@ -28,6 +28,9 @@ That authorisation is not recorded as acceptance of this new implementation.
   discovers existing definitions/rules; it never creates a judge that can trigger
   provider validation. Fresh-namespace and partial-import guards prevent blind
   duplicate writes.
+- Read-only configuration refresh adopts later evaluator setup into the successful
+  seed receipt without regenerating/importing history. It validates the authenticated
+  project and generation identity and preserves state on incomplete setup or errors.
 - Presenter runbook, source manifest, image workflow, dependency declarations,
   current-run verification and isolated credential-free preview are included.
 
@@ -37,25 +40,31 @@ That authorisation is not recorded as acceptance of this new implementation.
 | --- | --- | --- |
 | Manifest | Passed | [manifest.txt](evidence/manifest.txt) |
 | Pinned core conformance | Passed, no skipped checks | [conformance.txt](evidence/conformance.txt) |
-| Scenario/integration suite | 49 passed | [tests.txt](evidence/tests.txt) |
+| Scenario/integration suite | 89 passed | [tests.txt](evidence/tests.txt) |
 | Process repeatability | Identical full spool for hash seeds 0, 1, 2 with networking denied | Included in test suite |
 | Package dependencies | No broken requirements | [dependencies.txt](evidence/dependencies.txt) |
 | Public request schemas | 144 asset/setup payloads validated against official OpenAPI snapshot, no errors | [schema-check.json](evidence/schema-check.json) |
 | Local runtime image | Built; non-root UID 10001, network disabled, small seed and runbook delivery succeeded; both provider clients bind without calls | [container-smoke.json](evidence/container-smoke.json) |
 | Companion browser | Three bots and feedback reviewed by implementation agent; parent replayed four product turns, corrected and rechecked consistent v7 voice | [preview-rehearsal.md](evidence/preview-rehearsal.md), [screenshot](evidence/companion-four-turns.jpg) |
+| Small live seed/readback | 219 passed, 4 readiness checks pending; all 36 representative traces and 18 experiment associations matched | [live-pilot.json](evidence/live-pilot.json) |
 | Intended population | Arithmetic plan reconciles 1,620 history traces / 2,100 generations / 9,320 eligible outcomes | [generation notes](GENERATION.md) |
 
 The golden is a deliberate replacement of the scaffold example: 24 history traces
 plus eighteen authored experiment traces. It is a small full-wire snapshot, frozen
 with the supported authoring command. Source fixtures preserve the accepted packet.
 The production-volume events have **not** been generated: the skill requires a
-complete small live walkthrough before scaling, and target access is pending.
+complete small live walkthrough before scaling. The small seed is now imported and
+read back; model setup and native UI rehearsal remain pending.
 
 ## Required decisions and external evidence
 
-1. **Live target:** no approved fresh Prompt project or accessible credential source
-   has been established. A secure workspace configuration was requested. Do not use
-   another kit's target or reset authorisation. No live assets have been written.
+1. **Live target:** the supplied credentials authenticated an empty dedicated project.
+   Imported once: 48 history traces plus 18 authored experiment traces, 80 generations
+   and 312 scores. All current-run trace and historical-experiment checks passed.
+   Credentials remain in ignored local configuration. No re-import occurred.
+   The project has no model connection; an approved provider credential source was
+   requested for native experiments/evaluators and the companion. Browser access
+   redirects to sign-in, so native UI rehearsal requires an authenticated session.
 2. **Nullable criteria:** accepted E-02 factual fidelity and E-03 claim support allow
    not-applicable outcomes. The current native numeric judge schema cannot return
    or omit such an outcome. These two managed definitions/rules are deliberately
@@ -80,5 +89,16 @@ permission enforcement, promotion, ingestion or session navigation has succeeded
 [author-langfuse-demo-kit SKILL.md](/Users/bmichel/.agents/skills/author-langfuse-demo-kit/SKILL.md) stage 3 says:
 “Keep scaling pending until the complete small walkthrough works; useful offline
 fixes can continue while a target is unavailable.” All available offline work has
-continued; the pending target and rubric decision must be resolved before the live
+continued; the pending model setup and rubric decision must be resolved before the live
 walkthrough, intended-volume run, admission and final rehearsal can be claimed.
+
+## Live verification compatibility correction
+
+The pinned core dataset-name lookup uses a legacy endpoint that returned 404 for
+these dataset names. Verification now queries experiments by name through the
+public core reader and requires exact experiment and dataset IDs. V4 exposes the
+seeded dataset item identity as `experimentItemId` (`ExperimentItem.id`), so the
+assertion checks that field plus the exact trace and generation. Eight regression
+cases reject wrong run, dataset, item, trace and observation identities. All eighteen
+associations passed on readback; no core transport change or duplicate import was
+needed. Historical examples remain authored illustrations, not executed model runs.

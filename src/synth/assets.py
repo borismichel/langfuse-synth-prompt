@@ -473,10 +473,24 @@ def verify_assets(cfg, provisioning: dict, *, api=None) -> list[tuple[str, bool,
         reader = LangfuseReader(cfg.target.base_url)
         for expected in historical:
             def experiment_check(expected=expected):
-                runs = reader.experiments(dataset_name=expected["dataset_name"], name=expected["run_name"], limit_pages=2)
-                return any(run.id == expected["experiment_id"] and
-                           any(i.trace_id == expected["trace_id"] and i.observation_id == expected["observation_id"]
-                               and i.dataset_item_id == expected["dataset_item_id"]
-                               for i in reader.experiment_items(run, limit_pages=2)) for run in runs)
+                return historical_experiment_matches(reader, expected)
             check("historical-experiment-" + expected["run_name"], experiment_check)
     return checks
+
+
+def historical_experiment_matches(reader, expected: dict) -> bool:
+    # The pinned core's name-to-dataset bridge uses an obsolete endpoint. Query
+    # by run name, then require the exact provisioned dataset and experiment IDs.
+    runs = reader.experiments(name=expected["run_name"], limit_pages=2)
+    for run in runs:
+        if (run.id != expected["experiment_id"] or run.name != expected["run_name"]
+                or run.dataset_id != expected["dataset_id"]):
+            continue
+        # V4 exposes experimentItemId as item.id, not dataset_item_id. Our seed
+        # deliberately sets experimentItemId to the actual dataset item ID.
+        if any(i.id == expected["dataset_item_id"] and i.experiment_id == run.id
+               and i.trace_id == expected["trace_id"]
+               and i.observation_id == expected["observation_id"]
+               for i in reader.experiment_items(run, limit_pages=2)):
+            return True
+    return False
