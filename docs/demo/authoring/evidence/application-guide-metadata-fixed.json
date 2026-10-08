@@ -1,0 +1,373 @@
+{
+  "schemaVersion": 1,
+  "auditedAt": "2026-10-08T21:53:12.437600+00:00",
+  "evidenceKind": "fresh_official_CLI_readback_of_one_post_fix_live_turn",
+  "implementation": {
+    "baseCommit": "99a4cafd5702d82ede81f0c32fc162b0f92dd707",
+    "state": "base commit plus working-tree metadata fix; no new commit claimed",
+    "sourceSha256": {
+      "src/synth/catalog.py": "a0ab98a45ac5f2977e8689e67f339e7bf7a8281297e1f2398ae4a13fc81cab27",
+      "src/synth/companion/service.py": "93b7c3208a12f669d31885b2be9e976604ba61b57190da965c041d6af927cb39",
+      "src/synth/materialize.py": "80468b99c104f58f10c18307cb29b236832c9ba157fa04fc3709cfc5a0df4f5c",
+      "src/synth/verify.py": "4db80a2cd83a7b5566e4a6813a58d00caae6248eb5dbcac9842b850401f2c93b"
+    }
+  },
+  "target": {
+    "projectId": "cmuzyfy1f0481ad0f7rajddig",
+    "sessionId": "prompt-live-629a9fe5f85943d8a326e281b6b24958",
+    "sessionUrl": "https://cloud.langfuse.com/project/cmuzyfy1f0481ad0f7rajddig/sessions/prompt-live-629a9fe5f85943d8a326e281b6b24958",
+    "traceId": "a42f8f85459ea3fb0c8308094f6e6e07",
+    "traceUrl": "https://cloud.langfuse.com/project/cmuzyfy1f0481ad0f7rajddig/traces/a42f8f85459ea3fb0c8308094f6e6e07"
+  },
+  "counts": {
+    "turns": 1,
+    "observations": 3,
+    "roots": 1,
+    "retrievers": 1,
+    "generations": 1,
+    "evalScores": 7,
+    "inputScoresOnRoots": 4,
+    "replyScoresOnGenerations": 3,
+    "tools": 0
+  },
+  "assertions": {
+    "subjectScopedRubricMapsVerifiedByLiveReadback": true,
+    "rootInputMapIsE05ThroughE08R1": true,
+    "generationReplyMapIsE02R2E03R2E04R1": true,
+    "retrieverHasNoRubricRevisionsOrEvaluationSubject": true,
+    "separateFullTraceMapInheritedByAllThreeObservations": true,
+    "allMapsAreDecodedJsonObjects": true,
+    "fourInputScoresTargetRootAndThreeReplyScoresGeneration": true,
+    "generationUsesApplicationsGuideV7AndClaudeSonnet46": true,
+    "exactV7SystemInstructionsAndReferenceVerified": true,
+    "rootAndGenerationCurrentMessageAndEmptyHistoryVerified": true,
+    "noUnnecessaryTool": true
+  },
+  "previousFailureEvidence": "docs/demo/authoring/evidence/application-guide-live.json",
+  "actualV7ManagedPrompt": [
+    {
+      "role": "system",
+      "content": "Use only the supplied reference_context and relevant conversation_history. Explain supplied document requirements and next steps; no application-status lookup. Preserve source facts and uncertainty. Never invent information or claim an action was completed. Return a concise, respectful answer in plain English.\n\nPreserve the maximum age of proof-of-address documents exactly. Start the processing interval only after complete documents are received; retain working-day units. If approval or upload status is unavailable, say so without inferring a status. Respect user corrections and follow-up context while retaining all material conditions."
+    },
+    {
+      "role": "system",
+      "content": "Supplied reference_context:\n{{reference_context}}"
+    },
+    {
+      "name": "conversation_history",
+      "type": "placeholder"
+    },
+    {
+      "role": "user",
+      "content": "{{user_message}}"
+    }
+  ],
+  "promptComparisonSource": "Official CLI applications/guide version 7 readback from the immediately preceding two-turn verification.",
+  "referenceContext": {
+    "id": "SRC-01",
+    "provenance": "Authored fictional product record; not an actual financial product or customer document.",
+    "name": "Everyday Account",
+    "currency": "EUR",
+    "monthly_fee": 4,
+    "waiver": {
+      "fee": 0,
+      "condition": "At least EUR 1200 in qualifying salary deposits in each calendar month.",
+      "exclusions": [
+        "Transfers from your own accounts do not count as salary deposits."
+      ],
+      "timing": "The waiver is assessed separately for each calendar month."
+    },
+    "eligibility": [
+      "Age 18 or older.",
+      "Resident of the fictional service region."
+    ],
+    "card_replacement_fee": 6,
+    "cash_withdrawals": {
+      "included_per_calendar_month": 2,
+      "fee_each_after_included": 1.5
+    },
+    "opening_documents": [
+      "Valid photo ID.",
+      "Proof of address dated within the last three months."
+    ],
+    "processing_time": "Two working days after complete documents are received.",
+    "unknowns": [
+      "Overdraft availability, interest rates and approval eligibility are not provided.",
+      "Document-upload status is not available to this assistant."
+    ],
+    "action_boundary": "The assistant explains supplied facts; it cannot open accounts, waive fees, approve credit or inspect a real account."
+  },
+  "input": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "Can I use proof of address from five months ago?"
+      }
+    ]
+  },
+  "output": [
+    {
+      "role": "assistant",
+      "content": "## Proof of Address Age Requirement\n\nUnfortunately, **no** — a proof of address from five months ago would **not meet the requirement**.\n\nThe policy states that proof of address must be **dated within the last three months**.\n\n---\n\n### What you should do\n\n1. **Obtain a new proof of address** that is dated within the last three months. Common examples of accepted documents typically include recent utility bills, bank statements, or official correspondence — though you should confirm exactly which document types are accepted directly with the provider.\n2. **Submit it along with your valid photo ID** to complete your application documents.\n3. Once **both complete documents are received**, processing takes **two working days**.\n\n---\n\nIf you have any questions about what specific documents qualify, I'd recommend checking directly with the provider, as that detail isn't specified in the information I have available."
+    }
+  ],
+  "generationInput": {
+    "messages": [
+      {
+        "role": "system",
+        "content": "Use only the supplied reference_context and relevant conversation_history. Explain supplied document requirements and next steps; no application-status lookup. Preserve source facts and uncertainty. Never invent information or claim an action was completed. Return a concise, respectful answer in plain English.\n\nPreserve the maximum age of proof-of-address documents exactly. Start the processing interval only after complete documents are received; retain working-day units. If approval or upload status is unavailable, say so without inferring a status. Respect user corrections and follow-up context while retaining all material conditions.\n\nSupplied reference_context:\n{\"id\": \"SRC-01\", \"provenance\": \"Authored fictional product record; not an actual financial product or customer document.\", \"name\": \"Everyday Account\", \"currency\": \"EUR\", \"monthly_fee\": 4, \"waiver\": {\"fee\": 0, \"condition\": \"At least EUR 1200 in qualifying salary deposits in each calendar month.\", \"exclusions\": [\"Transfers from your own accounts do not count as salary deposits.\"], \"timing\": \"The waiver is assessed separately for each calendar month.\"}, \"eligibility\": [\"Age 18 or older.\", \"Resident of the fictional service region.\"], \"card_replacement_fee\": 6, \"cash_withdrawals\": {\"included_per_calendar_month\": 2, \"fee_each_after_included\": 1.5}, \"opening_documents\": [\"Valid photo ID.\", \"Proof of address dated within the last three months.\"], \"processing_time\": \"Two working days after complete documents are received.\", \"unknowns\": [\"Overdraft availability, interest rates and approval eligibility are not provided.\", \"Document-upload status is not available to this assistant.\"], \"action_boundary\": \"The assistant explains supplied facts; it cannot open accounts, waive fees, approve credit or inspect a real account.\"}"
+      },
+      {
+        "role": "user",
+        "content": "Can I use proof of address from five months ago?"
+      }
+    ]
+  },
+  "priorMessages": [],
+  "observations": [
+    {
+      "id": "a3fc99641caaedbc",
+      "name": "handle-chat-turn",
+      "type": "SPAN",
+      "parentObservationId": "43b731c57fa0ef4b",
+      "isRootObservation": true,
+      "startTime": "2026-10-08T21:51:29.409Z",
+      "endTime": "2026-10-08T21:51:34.620Z",
+      "observedTraceRubricRevisions": {
+        "E-02": "r2",
+        "E-03": "r2",
+        "E-04": "r1",
+        "E-05": "r1",
+        "E-06": "r1",
+        "E-07": "r1",
+        "E-08": "r1"
+      },
+      "observedRubricRevisions": {
+        "E-05": "r1",
+        "E-06": "r1",
+        "E-07": "r1",
+        "E-08": "r1"
+      },
+      "observedEvaluationSubject": "user_input",
+      "observedMapValueType": "JSON object"
+    },
+    {
+      "id": "38cb925150defc40",
+      "name": "retrieve-product-context",
+      "type": "RETRIEVER",
+      "parentObservationId": "a3fc99641caaedbc",
+      "isRootObservation": false,
+      "startTime": "2026-10-08T21:51:29.409Z",
+      "endTime": "2026-10-08T21:51:29.409Z",
+      "observedTraceRubricRevisions": {
+        "E-02": "r2",
+        "E-03": "r2",
+        "E-04": "r1",
+        "E-05": "r1",
+        "E-06": "r1",
+        "E-07": "r1",
+        "E-08": "r1"
+      },
+      "observedRubricRevisions": null,
+      "observedEvaluationSubject": null,
+      "observedMapValueType": "JSON object"
+    },
+    {
+      "id": "67e19476e4482bf3",
+      "name": "generate-response",
+      "type": "GENERATION",
+      "parentObservationId": "a3fc99641caaedbc",
+      "isRootObservation": false,
+      "startTime": "2026-10-08T21:51:29.534Z",
+      "endTime": "2026-10-08T21:51:34.620Z",
+      "observedTraceRubricRevisions": {
+        "E-02": "r2",
+        "E-03": "r2",
+        "E-04": "r1",
+        "E-05": "r1",
+        "E-06": "r1",
+        "E-07": "r1",
+        "E-08": "r1"
+      },
+      "observedRubricRevisions": {
+        "E-02": "r2",
+        "E-03": "r2",
+        "E-04": "r1"
+      },
+      "observedEvaluationSubject": "assistant_reply",
+      "observedMapValueType": "JSON object",
+      "promptName": "applications/guide",
+      "promptVersion": 7,
+      "model": "claude-sonnet-4-6",
+      "usageDetails": {
+        "input": 432,
+        "output": 186,
+        "total": 618
+      },
+      "costDetails": {
+        "input": 0.001296,
+        "output": 0.00279,
+        "total": 0.004086
+      },
+      "totalCost": 0.004086,
+      "inputCanonicalSha256": "f9d2fb8156212d731abc1476a6c880e462bc5674f6b1dda3c94481e6d35360f6"
+    }
+  ],
+  "scores": [
+    {
+      "id": "e4a8a4f2-8baf-5fa5-8d0e-dee81759cb08",
+      "name": "claim_support",
+      "source": "EVAL",
+      "dataType": "CATEGORICAL",
+      "value": "Pass",
+      "comment": "The assistant states that proof of address must be dated within the last three months — supported by the record ('Proof of address dated within the last three months.'). It says five months ago does not meet the requirement — correct and supported. It states that valid photo ID must also be submitted — supported ('Valid photo ID.'). It states processing takes two working days after both complete documents are received — supported ('Two working days after complete documents are received.'). The assistant notes that specific accepted document types are not specified in the information available — consistent with the record, which only lists 'Proof of address' without specifying document types. All substantive claims are supported by the record.",
+      "timestamp": "2026-10-08T21:51:38.976Z",
+      "subject": {
+        "kind": "observation",
+        "id": "67e19476e4482bf3",
+        "traceId": "a42f8f85459ea3fb0c8308094f6e6e07"
+      },
+      "evaluator_provenance": {
+        "evaluator_id": "cmv01ch2s04zmad0fu7pjlod6",
+        "evaluator_version_id": "cmv01nhgw04niad0e00b6zk3q",
+        "evaluation_rule_id": "cmv01chns05cbad0jv9opx95f"
+      }
+    },
+    {
+      "id": "e04fc02a-5455-59cb-9e64-449f0d7e163e",
+      "name": "expressed_frustration",
+      "source": "EVAL",
+      "dataType": "NUMERIC",
+      "value": 0,
+      "comment": "The user's message is a straightforward, neutral question about eligibility requirements. There is no language expressing frustration, agitation, or strong emotion of any kind.",
+      "timestamp": "2026-10-08T21:51:36.984Z",
+      "subject": {
+        "kind": "observation",
+        "id": "a3fc99641caaedbc",
+        "traceId": "a42f8f85459ea3fb0c8308094f6e6e07"
+      },
+      "evaluator_provenance": {
+        "evaluator_id": "cmuzzwfey04d8ad0no9ohgepz",
+        "evaluator_version_id": "cmv01nmj20585ad0kt2wt0fkz",
+        "evaluation_rule_id": "cmuzzwfno04pjad0e09uph8h5"
+      }
+    },
+    {
+      "id": "34acbe12-e061-5a4b-8a0b-1f92caef150b",
+      "name": "record_fidelity",
+      "source": "EVAL",
+      "dataType": "CATEGORICAL",
+      "value": "Pass",
+      "comment": "The assistant correctly states that proof of address must be dated within the last three months, and therefore a document from five months ago does not qualify. This accurately reflects the reference record's requirement ('Proof of address dated within the last three months.'). No material conditions are omitted or misstated.",
+      "timestamp": "2026-10-08T21:51:37.502Z",
+      "subject": {
+        "kind": "observation",
+        "id": "67e19476e4482bf3",
+        "traceId": "a42f8f85459ea3fb0c8308094f6e6e07"
+      },
+      "evaluator_provenance": {
+        "evaluator_id": "cmv01cedw04ypad0h2cuzwn8h",
+        "evaluator_version_id": "cmv01nfnl04sead0n8ewdt1a2",
+        "evaluation_rule_id": "cmv01cf2w04wvad0eofx9iy1c"
+      }
+    },
+    {
+      "id": "1bd2814d-d1e2-5cc3-b3ba-6c164c251a79",
+      "name": "respectful_tone",
+      "source": "EVAL",
+      "dataType": "NUMERIC",
+      "value": 1,
+      "comment": "The assistant's reply provides a clear, factual answer about the proof of address requirement, directing the user to obtain a more recent document. There is no personal insult, threat, contempt, or mockery directed at the user. The tone is professional and helpful throughout.",
+      "timestamp": "2026-10-08T21:51:37.292Z",
+      "subject": {
+        "kind": "observation",
+        "id": "67e19476e4482bf3",
+        "traceId": "a42f8f85459ea3fb0c8308094f6e6e07"
+      },
+      "evaluator_provenance": {
+        "evaluator_id": "cmuzzwc8604ikad0hh1cho1bl",
+        "evaluator_version_id": "cmv01nj5n04shad0ngcwidvr3",
+        "evaluation_rule_id": "cmuzzwcgh04lxad0eimf3xrqo"
+      }
+    },
+    {
+      "id": "739d7742-c174-5f16-8fdb-d28024e291ed",
+      "name": "user_contradiction",
+      "source": "EVAL",
+      "dataType": "NUMERIC",
+      "value": 0,
+      "comment": "There are no prior messages in the conversation history, so there is no earlier user statement to conflict with the current message.",
+      "timestamp": "2026-10-08T21:51:36.668Z",
+      "subject": {
+        "kind": "observation",
+        "id": "a3fc99641caaedbc",
+        "traceId": "a42f8f85459ea3fb0c8308094f6e6e07"
+      },
+      "evaluator_provenance": {
+        "evaluator_id": "cmuzzwdwx04qaad0kd1q1d98a",
+        "evaluator_version_id": "cmv01nkwn04nlad0ercwx6oed",
+        "evaluation_rule_id": "cmuzzwe5604qfad0kcl269s17"
+      }
+    },
+    {
+      "id": "26e9915d-e1de-5437-8079-3609b42b4f13",
+      "name": "user_disagreement",
+      "source": "EVAL",
+      "dataType": "NUMERIC",
+      "value": 0,
+      "comment": "There are no prior assistant messages in the conversation. The user is asking a new, standalone question about proof of address. There is no preceding assistant assertion being challenged, rejected, or corrected.",
+      "timestamp": "2026-10-08T21:51:36.972Z",
+      "subject": {
+        "kind": "observation",
+        "id": "a3fc99641caaedbc",
+        "traceId": "a42f8f85459ea3fb0c8308094f6e6e07"
+      },
+      "evaluator_provenance": {
+        "evaluator_id": "cmuzzwikv04noad0f9ujj97g4",
+        "evaluator_version_id": "cmv01nq5704z1ad0ex1sxscnr",
+        "evaluation_rule_id": "cmuzzwith04ipad0hrb5thj1c"
+      }
+    },
+    {
+      "id": "3cafe0e6-20f1-5f4d-81da-ccd2e64bd67a",
+      "name": "user_profanity",
+      "source": "EVAL",
+      "dataType": "NUMERIC",
+      "value": 0,
+      "comment": "No profanity, quoted or direct, appears in the message. The user is asking a straightforward question about proof of address documentation.",
+      "timestamp": "2026-10-08T21:51:36.950Z",
+      "subject": {
+        "kind": "observation",
+        "id": "a3fc99641caaedbc",
+        "traceId": "a42f8f85459ea3fb0c8308094f6e6e07"
+      },
+      "evaluator_provenance": {
+        "evaluator_id": "cmuzzwh1j04ddad0num1bb6qt",
+        "evaluator_version_id": "cmv01noes04snad0n21wl8psu",
+        "evaluation_rule_id": "cmuzzwh9r04qbad0e7w5e35si"
+      }
+    }
+  ],
+  "actualOutcomeSummary": {
+    "claim_support": "Pass",
+    "expressed_frustration": 0,
+    "record_fidelity": "Pass",
+    "respectful_tone": 1,
+    "user_contradiction": 0,
+    "user_disagreement": 0,
+    "user_profanity": 0
+  },
+  "recordedGenerationCostUsd": 0.004086,
+  "findings": [
+    "Subject-scoped rubric metadata now persists correctly: the root has the four input revisions, the generation has the three reply revisions and the retriever has no scoring subject or scoped revisions. The separate full trace map persists on all three observations as a decoded JSON object.",
+    "record_fidelity and claim_support both returned Pass, all four input-signal outcomes are zero and respectful_tone is one. Actual seven EVAL values and reasons are preserved.",
+    "The reply correctly rejects a five-month-old proof of address and preserves the three-month threshold plus two working days after complete documents are received.",
+    "The reply again adds recent utility bills, bank statements and official correspondence as typical accepted documents. Those examples are absent from the supplied record. The claim_support judge returned Pass and described substantive claims as supported without flagging these examples. This remains a judge-calibration concern; no outcome was rewritten."
+  ],
+  "limitations": [
+    "One post-fix turn verifies metadata persistence and score routing, not broad reply quality or post-fix multi-turn history. The earlier two-turn evidence preserves the previous metadata failure and its independently verified history.",
+    "Actual LLM judge Pass results are not independent proof that every reply claim is sourced.",
+    "Generation usage and cost exclude separate managed evaluator model costs.",
+    "This record does not establish release publication, Depot admission, native permission enforcement or production promotion."
+  ]
+}

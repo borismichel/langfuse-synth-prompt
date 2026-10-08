@@ -163,10 +163,11 @@ def _root(*, trace_id, timestamp, name, metadata, user_id=None, session_id=None,
           environment="production-history", obs_type="span", prompt_ids=()):
     # Compose core builders: shell propagation and observation-local evaluator context.
     # Putting evaluation_subject into trace metadata would leak it to every child.
+    # Use a distinct rubric key: ingestion merges trace metadata over local keys.
     shell = trace_event(trace_id=trace_id, timestamp=timestamp, name=name, user_id=user_id,
                         session_id=session_id, tags=["authored-history", "fictional"],
                         environment=environment, input=input, output=output,
-                        metadata={"rubric_revisions": {eid: revision for pid in sorted(prompt_ids)
+                        metadata={"trace_rubric_revisions": {eid: revision for pid in sorted(prompt_ids)
                                                        for eid, revision in rubric_revisions(pid).items()}})
     root = observation_event(obs_id=trace_root_span_id(trace_id), trace_id=trace_id,
                              name=name, obs_type=obs_type, start=timestamp,

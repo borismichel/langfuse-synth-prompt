@@ -49,6 +49,19 @@ def rubric_revisions(prompt_id: str, *, subject: str | None = None) -> dict[str,
             if subject is None or definitions[eid]["subject"] == subject}
 
 
+def decode_rubric_revisions(value) -> dict[str, str] | None:
+    """Normalize supported readback JSON without accepting corrupted Python repr."""
+    if isinstance(value, str):
+        try:
+            value = json.loads(value)
+        except ValueError:
+            return None
+    if not isinstance(value, dict) or not all(isinstance(key, str) and isinstance(revision, str)
+                                              for key, revision in value.items()):
+        return None
+    return value
+
+
 def dataset_items(prompt_id: str) -> list[dict]:
     """The eight main cases or a normal/control/missing-information secondary triple."""
     prompt = prompt_by_id(prompt_id)

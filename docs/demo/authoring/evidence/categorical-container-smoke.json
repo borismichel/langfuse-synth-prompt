@@ -54,21 +54,22 @@
   "preview_claims_live_readiness": false,
   "native_experiment_context_serialized": true,
   "criterion_revision_provenance_scoped": true,
+  "real_sdk_export_provenance_scoped": true,
   "provider_packages": {
     "anthropic": "1.12.1",
     "openai": "3.26.1"
   },
   "runtime_source_sha256": {
     "synth.assets": "4172982189d047fc3da7ffb3c7f4475bd3002ae45c3e3fd891f0d588c7d63ab1",
-    "synth.catalog": "7c145a5dd4c79e2fa7dfba113ce32e586136329b6d51f805f873be2def0dbeab",
-    "synth.materialize": "6436080c2ef6897d0a0c830d242461d9b6724f4194c8860d40e6f0b05dc40505",
+    "synth.catalog": "a0ab98a45ac5f2977e8689e67f339e7bf7a8281297e1f2398ae4a13fc81cab27",
+    "synth.materialize": "80468b99c104f58f10c18307cb29b236832c9ba157fa04fc3709cfc5a0df4f5c",
     "synth.receipt": "bc83a1acd0d6cb68cabc694e0530aad8c73920ed27838cb82c38d9235fcf21f7",
     "synth.scores": "f8c00006852f7584cc898c189426639a01ce6c6901cdc5d2ecfe51b2923aa26c",
-    "synth.companion.service": "e495e4244eb1b29e32e282f9b9490e366e2e5d541cdd066bc86dc0a0b55f1763"
+    "synth.companion.service": "93b7c3208a12f669d31885b2be9e976604ba61b57190da965c041d6af927cb39"
   },
-  "checked_at": "2026-10-08T21:41:59.443841+00:00",
+  "checked_at": "2026-10-08T21:52:48.172810+00:00",
   "image": "langfuse-synth-prompt:categorical-local",
-  "image_id": "sha256:6daf0a548413b993607a5091380be8e8f7b5f8977a5770416f6a2d982eac0f8d",
+  "image_id": "sha256:65e71429e78c4ccd06f6b1a12e6cbaa87f8ab6c31fcca058134dcf566484f171",
   "published": false,
   "live_data_changed": false,
   "host_runtime_source_matches": true,
@@ -79,6 +80,6 @@
     "seed": 42,
     "as_of_date": "2026-10-08"
   },
-  "scope": "Local image rebuilt after per-criterion rubric provenance refinement. Offline model-free seed, categorical definitions and context, fixture preview; no live readiness or admission claim.",
-  "smoke_helper_sha256": "5f28dc16222e6eba31f7f3f1b3e22caca49e0dd0fdd7ecef823a7f6d581ab59c"
+  "scope": "Local image rebuilt after trace/observation rubric key collision fix. Actual core and SDK exporter exercised offline with fixture prompt/model; no new remote verification claim.",
+  "smoke_helper_sha256": "e7b4f200c8ac4282f92d9423383a9468fb2c6c9425c62f1e158d2a045485f29e"
 }

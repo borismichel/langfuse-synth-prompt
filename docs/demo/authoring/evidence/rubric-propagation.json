@@ -1,0 +1,100 @@
+{
+  "checked_at": "2026-10-08T21:52:48.173326+00:00",
+  "reported_session": "prompt-live-b77a310e4bb546ae9c88f9a240b6b550",
+  "archived_capture": "application-guide-live.json",
+  "symptom": "Official observations exposed the complete PR-03 rubric map as Python repr on root, retriever and generation, overwriting scoped maps.",
+  "feedback_loop": {
+    "command": ".venv/bin/pytest -q tests/test_sdk_metadata.py",
+    "network": "blocked",
+    "mechanism": "ConversationService, actual pinned core LiveEmitter, Langfuse 4.17.0, in-memory OTLP exporter; only prompt/model fixtures. Apply publicly verified trace-over-observation ingestion precedence.",
+    "red": "Service regression returned full Python-repr map where input-only dict E-05..E-08:r1 was expected.",
+    "green": "Same service regression preserves exact root and generation maps; retriever has no observation rubric map. Trace inventory is distinct and valid JSON."
+  },
+  "ranked_hypotheses": [
+    {
+      "hypothesis": "Trace metadata overwrites the same observation metadata key during ingestion",
+      "result": "confirmed by public source and four-way export probe"
+    },
+    {
+      "hypothesis": "SDK propagated dictionaries become Python repr instead of JSON",
+      "result": "confirmed; str(value) in installed propagation.py and actual exporter output"
+    },
+    {
+      "hypothesis": "Core reader corrupts otherwise correct server metadata",
+      "result": "ruled out as primary cause; official raw observations already corrupt; core passes row metadata through"
+    }
+  ],
+  "controlled_probes": [
+    {
+      "distinct_trace_key": false,
+      "serialize_trace_json": false,
+      "scoped_map_survives": false,
+      "trace_valid_json": false
+    },
+    {
+      "distinct_trace_key": false,
+      "serialize_trace_json": true,
+      "scoped_map_survives": false,
+      "trace_valid_json": true
+    },
+    {
+      "distinct_trace_key": true,
+      "serialize_trace_json": false,
+      "scoped_map_survives": true,
+      "trace_valid_json": false
+    },
+    {
+      "distinct_trace_key": true,
+      "serialize_trace_json": true,
+      "scoped_map_survives": true,
+      "trace_valid_json": true
+    }
+  ],
+  "source_provenance": {
+    "public_ingestion": "https://github.com/langfuse/langfuse/blob/c106bb3d945323688e6f6079f65fb0ab28203b53/packages/shared/src/server/otel/OtelIngestionProcessor.ts#L438",
+    "ingestion_behavior": "Metadata object spreads spanMetadata first, traceMetadata second (lines 472-473).",
+    "sdk": "langfuse 4.17.0, _client/propagation.py lines 395-398 coerces non-string propagated values with str(value).",
+    "core": "langfuse-synth-core v4.1.1; read.py passes row metadata through."
+  },
+  "fix": {
+    "trace_key": "trace_rubric_revisions",
+    "live_trace_encoding": "json.dumps with sort_keys=True",
+    "observation_key": "rubric_revisions",
+    "observation_encoding": "SDK structured dictionary",
+    "readback": "accept dict or valid JSON string; reject Python repr and wrong-scope maps",
+    "history": "distinct trace inventory key on finalized OTLP, scoped observation key unchanged"
+  },
+  "runtime_source_sha256": {
+    "synth.assets": "4172982189d047fc3da7ffb3c7f4475bd3002ae45c3e3fd891f0d588c7d63ab1",
+    "synth.catalog": "a0ab98a45ac5f2977e8689e67f339e7bf7a8281297e1f2398ae4a13fc81cab27",
+    "synth.materialize": "80468b99c104f58f10c18307cb29b236832c9ba157fa04fc3709cfc5a0df4f5c",
+    "synth.receipt": "bc83a1acd0d6cb68cabc694e0530aad8c73920ed27838cb82c38d9235fcf21f7",
+    "synth.scores": "f8c00006852f7584cc898c189426639a01ce6c6901cdc5d2ecfe51b2923aa26c",
+    "synth.companion.service": "93b7c3208a12f669d31885b2be9e976604ba61b57190da965c041d6af927cb39"
+  },
+  "repeatability": [
+    {
+      "hash_seed": "0",
+      "spool_sha256": "b7825490d6edfa8f87ebc08274e879b4ac1d85d94aa9fcdf970545d81e0b60da"
+    },
+    {
+      "hash_seed": "1",
+      "spool_sha256": "b7825490d6edfa8f87ebc08274e879b4ac1d85d94aa9fcdf970545d81e0b60da"
+    },
+    {
+      "hash_seed": "2",
+      "spool_sha256": "b7825490d6edfa8f87ebc08274e879b4ac1d85d94aa9fcdf970545d81e0b60da"
+    }
+  ],
+  "golden_bytes": 581194,
+  "validation": {
+    "tests_passed": 170,
+    "manifest": "passed",
+    "conformance": "passed",
+    "container_smoke": "passed",
+    "container_image_id": "sha256:65e71429e78c4ccd06f6b1a12e6cbaa87f8ab6c31fcca058134dcf566484f171"
+  },
+  "remote_writes": false,
+  "shared_dependencies_modified": false,
+  "limitations": "Offline export and public merge behavior establish the fix; parent workflow owns one bounded live readback. Archived failed live evidence remains unchanged."
+}

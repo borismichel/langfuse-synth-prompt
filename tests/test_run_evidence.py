@@ -150,3 +150,15 @@ def test_readback_rejects_wrong_criterion_revision_on_its_subject():
     value.observations[0] = replace(value.observations[0],
         metadata={'evaluation_subject': 'user_input', 'rubric_revisions': {'E-05': 'r2'}})
     assert not verify_trace(reader_for(value), e).ok
+
+
+@pytest.mark.parametrize('encoded,ok', [({'E-05': 'r1'}, True), ('{"E-05":"r1"}', True),
+                                       ("{'E-05': 'r1'}", False), ('{"E-02":"r2","E-05":"r1"}', False)])
+def test_rubric_readback_accepts_json_only_and_requires_exact_subject(encoded, ok):
+    from dataclasses import replace
+    e = expected()
+    e['observations'][0]['rubric_revisions'] = {'E-05': 'r1'}
+    value = actual()
+    value.observations[0] = replace(value.observations[0],
+        metadata={'evaluation_subject': 'user_input', 'rubric_revisions': encoded})
+    assert verify_trace(reader_for(value), e).ok is ok

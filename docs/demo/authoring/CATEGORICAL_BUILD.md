@@ -2,7 +2,7 @@
 
 Checked 2026-10-08. Rebuilt `langfuse-synth-prompt:categorical-local` from the
 current workspace; local image only, never published. Image ID:
-`sha256:6daf0a548413b993607a5091380be8e8f7b5f8977a5770416f6a2d982eac0f8d`.
+`sha256:65e71429e78c4ccd06f6b1a12e6cbaa87f8ab6c31fcca058134dcf566484f171`.
 The recorded hashes of six installed runtime modules and the delivered runbook
 match the current workspace.
 [Sanitized evidence](evidence/categorical-container-smoke.json).
@@ -20,11 +20,16 @@ successful final run. No application correction was needed for those checks.
 
 The final rebuild includes criterion-specific `rubric_revisions`: root input
 subjects contain applicable input criteria (r1), reply generations contain their
-applicable reply criteria (including E-02/E-03 r2), and trace metadata contains
-all criteria for the prompts in that trace. The isolated smoke checked this
-provenance on the fixture chat and generated history/experiments. Earlier live
+applicable reply criteria (including E-02/E-03 r2), and the distinct trace key `trace_rubric_revisions` contains
+all criteria for the prompts in that trace. Live trace propagation explicitly
+serializes that inventory as JSON. This prevents trace-level merging from
+overwriting an observation's own map or converting the inventory to Python repr. The isolated smoke checked this
+provenance through the actual core and SDK exporter with fixture prompt/model,
+as well as the fixture chat and generated history/experiments. The prior
+fixture-only smoke did not cover SDK propagation. The regression and controlled
+probes are recorded in [diagnostic evidence](evidence/rubric-propagation.json). Earlier live
 evidence with the umbrella r1 field remains archived unchanged; this check makes
-no new live-execution claim. The final offline suite reports **161 passed**;
+no new live-execution claim. The final offline suite reports **170 passed**;
 manifest validation and all conformance checks pass. The supported golden freeze
 followed identical output across process hash seeds 0, 1 and 2.
 

@@ -6,6 +6,7 @@ import time
 from langfuse_synth_core.target import TargetProfile
 from .config import Config
 from .state import RunState
+from .catalog import decode_rubric_revisions
 from .scores import read_score_value, SCORE_CONTRACT
 
 @dataclass
@@ -48,7 +49,7 @@ def verify_trace(reader, expected: dict) -> Check:
                 problems.append(f"{e['id']} wrong end timestamp")
         if (o.metadata or {}).get('evaluation_subject') != e.get('evaluation_subject'):
             problems.append(f"{e['id']} wrong evaluator subject")
-        if 'rubric_revisions' in e and (o.metadata or {}).get('rubric_revisions') != e['rubric_revisions']:
+        if 'rubric_revisions' in e and decode_rubric_revisions((o.metadata or {}).get('rubric_revisions')) != e['rubric_revisions']:
             problems.append(f"{e['id']} wrong rubric revisions")
         for key, value in e.get('operation_metadata', {}).items():
             if (o.metadata or {}).get(key) != value:

@@ -136,10 +136,13 @@ class ConversationService:
                   "generation_id": None, "evaluation_status": "pending", "preview": self.preview}
         try:
             emitter = self.emitter()
+            # SDK propagation stringifies dicts with Python repr; ingestion also
+            # lets trace metadata win same-name observation keys. Keep the trace
+            # inventory separate and valid JSON, never overwriting scoped maps.
             with emitter.trace(CHAT_OPERATION_NAME, session_id=session.id,
                                environment=LIVE_ENVIRONMENT, tags=["prompt", "live", session.prompt_id],
                                input=root_input, metadata={**{k: metadata[k] for k in ("kit", "evidence_kind", "application_id", "prompt_id", "prompt_name", "request_id")},
-                                                          "rubric_revisions": rubric_revisions(session.prompt_id)}) as root:
+                                                          "trace_rubric_revisions": json.dumps(rubric_revisions(session.prompt_id), sort_keys=True)}) as root:
                 root.update(metadata=metadata)
                 record.update(trace_id=root.id, root_observation_id=root.observation_id)
                 try:

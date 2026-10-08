@@ -35,7 +35,7 @@ acceptance of a finished implementation or claim the remaining delivery checks p
 
 | Check | Observed result | Evidence |
 | --- | --- | --- |
-| Scenario/integration suite | 161 passed | [tests](evidence/tests.txt) |
+| Scenario/integration suite | 170 passed | [tests](evidence/tests.txt) |
 | Manifest and pinned core conformance | Passed, no skips | [manifest](evidence/manifest.txt), [conformance](evidence/conformance.txt) |
 | Current local image | Built; UID 10001, no network/credentials, read-only root; small seed, runbook and preview passed | [categorical build](CATEGORICAL_BUILD.md) |
 | Process repeatability | Same complete spool across hash seeds with networking denied | Test suite |
@@ -45,6 +45,7 @@ acceptance of a finished implementation or claim the remaining delivery checks p
 | Native prompt portfolio | Opening versions and metrics inspected; protected production saved; v9 staged then promoted by owner | [native rehearsal](NATIVE_REHEARSAL.md) |
 | Refined fee conversation | Three turns, eleven observations, two real calculations, fifteen EVAL scores and saved-root feedback; native session/tree inspected | [fee evidence](evidence/refined-live-session.json) |
 | Latest promoted conversation | Four v9 turns, twelve observations, 32 correctly targeted EVAL scores; native session and generation link verified | [live readback](evidence/categorical-live-session.json), [native rehearsal](NATIVE_REHEARSAL.md) |
+| Application guide and final provenance | Two actual guide turns / 14 EVAL scores; one post-fix turn / 7 EVAL scores verifies distinct trace inventory and subject-scoped observation maps | [guide readback](evidence/application-guide-live.json), [metadata repair](evidence/application-guide-metadata-fixed.json) |
 | Intended population arithmetic | 1,620 history traces / 2,100 generations / 9,320 scores, including six explicit N/A outcomes | [generation](GENERATION.md) |
 
 The corrected native comparison has baseline style 0.00 and candidate style 0.75;
@@ -57,6 +58,11 @@ not to obtain a preferred score. Promotion remains a presenter decision.
 The live promoted run kept ordinary prose on all four replies despite verified v9
 style instructions. That visible-style payoff remains unreliable; it is recorded,
 not hidden or retried. The input judges also retain two correction false positives.
+
+The application-guide live check exposed trace/observation rubric-key precedence
+and SDK dictionary stringification. An actual SDK/export regression reproduced both;
+distinct trace metadata and explicit JSON fixed them. One new live turn confirms
+correct scoped maps. Existing results remain preserved.
 
 ## Remaining gates
 

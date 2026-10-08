@@ -131,3 +131,54 @@ per-criterion `rubric_revisions` from definitions, scoped to each evaluation sub
 E-02/E-03 are r2, other criteria r1. Existing recorded traces and judge results are
 preserved; this metadata-only refinement is verified locally and does not change
 rule matching, model requests, score targets or the recorded experiment comparison.
+
+## Application-guide verification — final implementation checkpoint
+
+The third companion was exercised from the actual UI at `http://127.0.0.1:8772`
+using implementation commit `99a4caf`. Its two-turn native session is
+`prompt-live-b77a310e4bb546ae9c88f9a240b6b550`. It rejects proof of address dated
+five months ago and declines to claim access to application approval status.
+The primary link opens a native session with two request/reply pairs once each.
+
+Readback confirms applications/guide v7, the actual selected model, six observations
+(two roots, two retrievers, two generations) and fourteen EVAL outcomes, all on the
+correct input/reply targets. Both factual checks passed both turns and tone is 1;
+all input flags are zero. The replies also add general document examples and provider
+capability suggestions absent from the record. The judges accepted those caveats;
+the original outputs and reasoning are retained as calibration concerns.
+
+This check exposed a real provenance defect: readback shows the full trace-level
+rubric map on every observation, as a Python-representation string, instead of the
+intended subject-scoped maps. Actual evaluation subjects and context remain correct.
+The preceding local-only provenance result is therefore insufficient; an adapter-level
+repair and another bounded live metadata check are required before closing this issue.
+
+[Actual readback](evidence/application-guide-live.json),
+[companion outcomes](evidence/application-guide-companion.png),
+[native two-turn session](evidence/application-guide-session.png).
+
+## Rubric propagation repair — verified live
+
+The actual SDK/export regression and public ingestion code confirmed two causes:
+trace metadata takes precedence over observation metadata with the same key, and
+SDK trace propagation converts a dictionary with Python `str()`. The kit now uses
+a distinct `trace_rubric_revisions` JSON field for the complete inventory and keeps
+`rubric_revisions` scoped to the observation. No core or Langfuse source was changed.
+Readback accepts a structured map or valid JSON; old Python-representation strings
+and the wrong full map are rejected.
+
+One bounded post-fix application-guide turn produced session
+`prompt-live-629a9fe5f85943d8a326e281b6b24958`. Its actual readback verifies:
+
+- Root: E-05–E-08 r1 map and `evaluation_subject=user_input`.
+- Generation: E-02/E-03 r2 plus E-04 r1 map and `assistant_reply` subject.
+- Retriever: no observation rubric map or evaluation subject.
+- All three observations: separate complete trace inventory decoded as JSON.
+- Seven EVAL outcomes correctly targeted, applications/guide v7 and the actual model.
+
+This follow-up repaired instrumentation, not answer quality. The original two-turn
+session and all judge decisions remain intact. General document examples still
+appear in the new answer and the judge accepts the caveat; that limitation remains.
+[Corrected live evidence](evidence/application-guide-metadata-fixed.json),
+[companion readback](evidence/application-guide-fixed-companion.png), and
+[adapter-level diagnosis](evidence/rubric-propagation.json).

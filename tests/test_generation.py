@@ -332,7 +332,7 @@ def test_rubric_provenance_is_scoped_to_score_subject_and_trace_prompts(history)
         for span in spans:
             attrs, meta = attributes(span), metadata(span)
             assert 'rubric_revision' not in meta
-            assert json.loads(attrs['langfuse.trace.metadata.rubric_revisions']) == trace_revisions
+            assert json.loads(attrs['langfuse.trace.metadata.trace_rubric_revisions']) == trace_revisions
             subject = meta.get('evaluation_subject')
             if subject:
                 expected = {eid: definitions[eid]['revision'] for eid in prompt_by_id(meta['prompt_id'])['evaluation_ids']

@@ -1,0 +1,685 @@
+{
+  "schemaVersion": 1,
+  "auditedAt": "2026-10-08T21:47:31.638880+00:00",
+  "evidenceKind": "fresh_official_CLI_readback_of_live_session",
+  "implementationCommit": "99a4cafd5702d82ede81f0c32fc162b0f92dd707",
+  "target": {
+    "projectId": "cmuzyfy1f0481ad0f7rajddig",
+    "sessionId": "prompt-live-b77a310e4bb546ae9c88f9a240b6b550",
+    "sessionUrl": "https://cloud.langfuse.com/project/cmuzyfy1f0481ad0f7rajddig/sessions/prompt-live-b77a310e4bb546ae9c88f9a240b6b550"
+  },
+  "counts": {
+    "turns": 2,
+    "observations": 6,
+    "roots": 2,
+    "retrievers": 2,
+    "generations": 2,
+    "evalScores": 14,
+    "inputScoresOnRoots": 8,
+    "replyScoresOnGenerations": 6,
+    "feeTools": 0,
+    "otherScores": 0
+  },
+  "assertions": {
+    "allGenerationsUseApplicationsGuideV7AndClaudeSonnet46": true,
+    "eachRootHasRetrieverAndGenerationDirectChildren": true,
+    "noUnnecessaryTools": true,
+    "fullOrderedHistoryAndOriginalReferenceContextVerified": true,
+    "fourInputScoresTargetEachRootAndThreeReplyScoresEachGeneration": true,
+    "recordFidelityAndClaimSupportAreCategorical": true,
+    "bothGenerationInputsExactlyMatchOfficialV7SystemInstructions": true,
+    "separateSubjectScopedRubricMapsVerifiedByLiveReadback": false
+  },
+  "actualV7ManagedPrompt": [
+    {
+      "role": "system",
+      "content": "Use only the supplied reference_context and relevant conversation_history. Explain supplied document requirements and next steps; no application-status lookup. Preserve source facts and uncertainty. Never invent information or claim an action was completed. Return a concise, respectful answer in plain English.\n\nPreserve the maximum age of proof-of-address documents exactly. Start the processing interval only after complete documents are received; retain working-day units. If approval or upload status is unavailable, say so without inferring a status. Respect user corrections and follow-up context while retaining all material conditions."
+    },
+    {
+      "role": "system",
+      "content": "Supplied reference_context:\n{{reference_context}}"
+    },
+    {
+      "name": "conversation_history",
+      "type": "placeholder"
+    },
+    {
+      "role": "user",
+      "content": "{{user_message}}"
+    }
+  ],
+  "actualV7SystemInstructionsSha256": "62ccc330c856a22b5145b5390b40b8dffbd5bb41c3acf2b000093713b6727d94",
+  "readbackPromptLabels": [
+    "production"
+  ],
+  "rubricRevisionProvenance": {
+    "implementationExpectedInputMap": {
+      "E-05": "r1",
+      "E-06": "r1",
+      "E-07": "r1",
+      "E-08": "r1"
+    },
+    "implementationExpectedReplyMap": {
+      "E-02": "r2",
+      "E-03": "r2",
+      "E-04": "r1"
+    },
+    "implementationExpectedFullTraceMap": {
+      "E-02": "r2",
+      "E-03": "r2",
+      "E-04": "r1",
+      "E-05": "r1",
+      "E-06": "r1",
+      "E-07": "r1",
+      "E-08": "r1"
+    },
+    "apiObservedMapOnEveryObservation": {
+      "E-02": "r2",
+      "E-03": "r2",
+      "E-04": "r1",
+      "E-05": "r1",
+      "E-06": "r1",
+      "E-07": "r1",
+      "E-08": "r1"
+    },
+    "apiObservedValueEncoding": "Python dictionary representation string",
+    "status": "failed_subject_scoped_map_readback",
+    "explanation": "Current implementation supplies scoped maps to root and generation and the full map to trace context. The official observations API exposes the full map under rubric_revisions on all six observations, failing the expected input/reply map scopes. This is consistent with trace metadata overlay, but the cause is not independently proven by this readback. evaluation_subject, current_user_message, prior_messages and reference_context independently retain their correct observation values."
+  },
+  "referenceContext": {
+    "id": "SRC-01",
+    "provenance": "Authored fictional product record; not an actual financial product or customer document.",
+    "name": "Everyday Account",
+    "currency": "EUR",
+    "monthly_fee": 4,
+    "waiver": {
+      "fee": 0,
+      "condition": "At least EUR 1200 in qualifying salary deposits in each calendar month.",
+      "exclusions": [
+        "Transfers from your own accounts do not count as salary deposits."
+      ],
+      "timing": "The waiver is assessed separately for each calendar month."
+    },
+    "eligibility": [
+      "Age 18 or older.",
+      "Resident of the fictional service region."
+    ],
+    "card_replacement_fee": 6,
+    "cash_withdrawals": {
+      "included_per_calendar_month": 2,
+      "fee_each_after_included": 1.5
+    },
+    "opening_documents": [
+      "Valid photo ID.",
+      "Proof of address dated within the last three months."
+    ],
+    "processing_time": "Two working days after complete documents are received.",
+    "unknowns": [
+      "Overdraft availability, interest rates and approval eligibility are not provided.",
+      "Document-upload status is not available to this assistant."
+    ],
+    "action_boundary": "The assistant explains supplied facts; it cannot open accounts, waive fees, approve credit or inspect a real account."
+  },
+  "turns": [
+    {
+      "turn": 1,
+      "traceId": "f57dc56ce3c3d6c2d98b3e9721d38d6f",
+      "traceUrl": "https://cloud.langfuse.com/project/cmuzyfy1f0481ad0f7rajddig/traces/f57dc56ce3c3d6c2d98b3e9721d38d6f",
+      "input": {
+        "messages": [
+          {
+            "role": "user",
+            "content": "Can I use proof of address from five months ago?"
+          }
+        ]
+      },
+      "output": [
+        {
+          "role": "assistant",
+          "content": "## Proof of Address Age Requirement\n\nUnfortunately, **no** — a proof of address from five months ago would **not meet the requirement**.\n\nThe policy states that proof of address must be **dated within the last three months**. A document from five months ago falls outside that window.\n\n---\n\n### What you should do\n\n1. **Obtain a more recent proof of address** — something dated within the last three months from today.\n2. Common examples of proof-of-address documents typically include utility bills, bank statements, or official correspondence, though you should confirm exactly which document types are accepted with the provider directly.\n3. Once you have a **valid photo ID *and* a qualifying proof of address**, you can submit your complete set of documents.\n\n---\n\n### What happens next\n\nOnce **complete documents are received**, your application will be processed within **two working days**.\n\n> ⚠️ I'm not able to check document-upload status or confirm whether any documents you've already submitted have been received or accepted — you'd need to contact the provider directly for that information."
+        }
+      ],
+      "priorMessages": [],
+      "priorMessageCount": 0,
+      "priorMessagesCanonicalSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "generationInput": {
+        "messages": [
+          {
+            "role": "system",
+            "content": "Use only the supplied reference_context and relevant conversation_history. Explain supplied document requirements and next steps; no application-status lookup. Preserve source facts and uncertainty. Never invent information or claim an action was completed. Return a concise, respectful answer in plain English.\n\nPreserve the maximum age of proof-of-address documents exactly. Start the processing interval only after complete documents are received; retain working-day units. If approval or upload status is unavailable, say so without inferring a status. Respect user corrections and follow-up context while retaining all material conditions.\n\nSupplied reference_context:\n{\"id\": \"SRC-01\", \"provenance\": \"Authored fictional product record; not an actual financial product or customer document.\", \"name\": \"Everyday Account\", \"currency\": \"EUR\", \"monthly_fee\": 4, \"waiver\": {\"fee\": 0, \"condition\": \"At least EUR 1200 in qualifying salary deposits in each calendar month.\", \"exclusions\": [\"Transfers from your own accounts do not count as salary deposits.\"], \"timing\": \"The waiver is assessed separately for each calendar month.\"}, \"eligibility\": [\"Age 18 or older.\", \"Resident of the fictional service region.\"], \"card_replacement_fee\": 6, \"cash_withdrawals\": {\"included_per_calendar_month\": 2, \"fee_each_after_included\": 1.5}, \"opening_documents\": [\"Valid photo ID.\", \"Proof of address dated within the last three months.\"], \"processing_time\": \"Two working days after complete documents are received.\", \"unknowns\": [\"Overdraft availability, interest rates and approval eligibility are not provided.\", \"Document-upload status is not available to this assistant.\"], \"action_boundary\": \"The assistant explains supplied facts; it cannot open accounts, waive fees, approve credit or inspect a real account.\"}"
+          },
+          {
+            "role": "user",
+            "content": "Can I use proof of address from five months ago?"
+          }
+        ]
+      },
+      "observations": [
+        {
+          "id": "c8e8fd4dc771ea19",
+          "name": "handle-chat-turn",
+          "type": "SPAN",
+          "parentObservationId": "58a76dc2574b0102",
+          "isRootObservation": true,
+          "startTime": "2026-10-08T21:43:56.100Z",
+          "endTime": "2026-10-08T21:44:02.326Z",
+          "observedRubricRevisions": {
+            "E-02": "r2",
+            "E-03": "r2",
+            "E-04": "r1",
+            "E-05": "r1",
+            "E-06": "r1",
+            "E-07": "r1",
+            "E-08": "r1"
+          },
+          "observedRubricRevisionsValueType": "str"
+        },
+        {
+          "id": "418647031e408adb",
+          "name": "retrieve-product-context",
+          "type": "RETRIEVER",
+          "parentObservationId": "c8e8fd4dc771ea19",
+          "isRootObservation": false,
+          "startTime": "2026-10-08T21:43:56.100Z",
+          "endTime": "2026-10-08T21:43:56.101Z",
+          "observedRubricRevisions": {
+            "E-02": "r2",
+            "E-03": "r2",
+            "E-04": "r1",
+            "E-05": "r1",
+            "E-06": "r1",
+            "E-07": "r1",
+            "E-08": "r1"
+          },
+          "observedRubricRevisionsValueType": "str"
+        },
+        {
+          "id": "1d9ce7a01f40a533",
+          "name": "generate-response",
+          "type": "GENERATION",
+          "parentObservationId": "c8e8fd4dc771ea19",
+          "isRootObservation": false,
+          "startTime": "2026-10-08T21:43:56.241Z",
+          "endTime": "2026-10-08T21:44:02.326Z",
+          "observedRubricRevisions": {
+            "E-02": "r2",
+            "E-03": "r2",
+            "E-04": "r1",
+            "E-05": "r1",
+            "E-06": "r1",
+            "E-07": "r1",
+            "E-08": "r1"
+          },
+          "observedRubricRevisionsValueType": "str",
+          "promptName": "applications/guide",
+          "promptVersion": 7,
+          "model": "claude-sonnet-4-6",
+          "usageDetails": {
+            "input": 432,
+            "output": 234,
+            "total": 666
+          },
+          "costDetails": {
+            "input": 0.001296,
+            "output": 0.00351,
+            "total": 0.004806
+          },
+          "totalCost": 0.004806,
+          "inputCanonicalSha256": "f9d2fb8156212d731abc1476a6c880e462bc5674f6b1dda3c94481e6d35360f6"
+        }
+      ],
+      "scores": [
+        {
+          "id": "0f4efd9d-2176-5e19-af41-27a693e2fbae",
+          "name": "claim_support",
+          "source": "EVAL",
+          "dataType": "CATEGORICAL",
+          "value": "Pass",
+          "comment": "The assistant states proof of address must be 'dated within the last three months' — supported by the record ('Proof of address dated within the last three months.'). The assistant correctly says five months ago falls outside that window. The processing time of 'two working days after complete documents are received' is supported. The assistant notes it cannot check document-upload status, which is consistent with the record's unknowns. The caveat about confirming accepted document types with the provider is a reasonable hedge, not an unsupported factual claim. All substantive claims are supported.",
+          "timestamp": "2026-10-08T21:44:06.202Z",
+          "subject": {
+            "kind": "observation",
+            "id": "1d9ce7a01f40a533",
+            "traceId": "f57dc56ce3c3d6c2d98b3e9721d38d6f"
+          },
+          "evaluator_provenance": {
+            "evaluator_id": "cmv01ch2s04zmad0fu7pjlod6",
+            "evaluator_version_id": "cmv01nhgw04niad0e00b6zk3q",
+            "evaluation_rule_id": "cmv01chns05cbad0jv9opx95f"
+          }
+        },
+        {
+          "id": "e506b072-1b5e-5628-b7d5-f0852b06425b",
+          "name": "expressed_frustration",
+          "source": "EVAL",
+          "dataType": "NUMERIC",
+          "value": 0,
+          "comment": "The user's message is a straightforward question about whether proof of address from five months ago is acceptable. There is no language expressing frustration, agitation, or strong emotion. The wording is neutral and polite.",
+          "timestamp": "2026-10-08T21:44:04.812Z",
+          "subject": {
+            "kind": "observation",
+            "id": "c8e8fd4dc771ea19",
+            "traceId": "f57dc56ce3c3d6c2d98b3e9721d38d6f"
+          },
+          "evaluator_provenance": {
+            "evaluator_id": "cmuzzwfey04d8ad0no9ohgepz",
+            "evaluator_version_id": "cmv01nmj20585ad0kt2wt0fkz",
+            "evaluation_rule_id": "cmuzzwfno04pjad0e09uph8h5"
+          }
+        },
+        {
+          "id": "37b3fc12-21c4-596a-ac0b-5dc094db1bbd",
+          "name": "record_fidelity",
+          "source": "EVAL",
+          "dataType": "CATEGORICAL",
+          "value": "Pass",
+          "comment": "The reference context states that proof of address must be 'dated within the last three months.' The assistant correctly answered that a document from five months ago does not meet this requirement, accurately citing the three-month condition. No material conditions were omitted or misstated.",
+          "timestamp": "2026-10-08T21:44:04.960Z",
+          "subject": {
+            "kind": "observation",
+            "id": "1d9ce7a01f40a533",
+            "traceId": "f57dc56ce3c3d6c2d98b3e9721d38d6f"
+          },
+          "evaluator_provenance": {
+            "evaluator_id": "cmv01cedw04ypad0h2cuzwn8h",
+            "evaluator_version_id": "cmv01nfnl04sead0n8ewdt1a2",
+            "evaluation_rule_id": "cmv01cf2w04wvad0eofx9iy1c"
+          }
+        },
+        {
+          "id": "dea11e19-80bb-52b9-ae80-37bfacbbb06e",
+          "name": "respectful_tone",
+          "source": "EVAL",
+          "dataType": "NUMERIC",
+          "value": 1,
+          "comment": "The assistant's reply is a straightforward, helpful factual correction explaining that a five-month-old proof of address does not meet the three-month requirement. There is no personal insult, threat, contempt, or mockery directed at the user. The tone is polite and informative throughout.",
+          "timestamp": "2026-10-08T21:44:05.373Z",
+          "subject": {
+            "kind": "observation",
+            "id": "1d9ce7a01f40a533",
+            "traceId": "f57dc56ce3c3d6c2d98b3e9721d38d6f"
+          },
+          "evaluator_provenance": {
+            "evaluator_id": "cmuzzwc8604ikad0hh1cho1bl",
+            "evaluator_version_id": "cmv01nj5n04shad0ngcwidvr3",
+            "evaluation_rule_id": "cmuzzwcgh04lxad0eimf3xrqo"
+          }
+        },
+        {
+          "id": "0a44f4e4-d359-5259-829e-535a7cfade67",
+          "name": "user_contradiction",
+          "source": "EVAL",
+          "dataType": "NUMERIC",
+          "value": 0,
+          "comment": "There are no prior messages in the conversation history, so there is no earlier user statement to conflict with.",
+          "timestamp": "2026-10-08T21:44:04.158Z",
+          "subject": {
+            "kind": "observation",
+            "id": "c8e8fd4dc771ea19",
+            "traceId": "f57dc56ce3c3d6c2d98b3e9721d38d6f"
+          },
+          "evaluator_provenance": {
+            "evaluator_id": "cmuzzwdwx04qaad0kd1q1d98a",
+            "evaluator_version_id": "cmv01nkwn04nlad0ercwx6oed",
+            "evaluation_rule_id": "cmuzzwe5604qfad0kcl269s17"
+          }
+        },
+        {
+          "id": "445f3e13-f57e-5ac1-a279-b790a5076f16",
+          "name": "user_disagreement",
+          "source": "EVAL",
+          "dataType": "NUMERIC",
+          "value": 0,
+          "comment": "There is no prior assistant message in the conversation. The user is asking a standalone question about proof of address from five months ago. There is no preceding assistant assertion to challenge, reject, or correct. This is a neutral new question.",
+          "timestamp": "2026-10-08T21:44:04.685Z",
+          "subject": {
+            "kind": "observation",
+            "id": "c8e8fd4dc771ea19",
+            "traceId": "f57dc56ce3c3d6c2d98b3e9721d38d6f"
+          },
+          "evaluator_provenance": {
+            "evaluator_id": "cmuzzwikv04noad0f9ujj97g4",
+            "evaluator_version_id": "cmv01nq5704z1ad0ex1sxscnr",
+            "evaluation_rule_id": "cmuzzwith04ipad0hrb5thj1c"
+          }
+        },
+        {
+          "id": "03e5ac2b-6463-5eac-b3d3-8125593ea9d0",
+          "name": "user_profanity",
+          "source": "EVAL",
+          "dataType": "NUMERIC",
+          "value": 0,
+          "comment": "No profanity, quoted or direct, appears in the message. The user is asking a straightforward question about proof of address documentation.",
+          "timestamp": "2026-10-08T21:44:04.524Z",
+          "subject": {
+            "kind": "observation",
+            "id": "c8e8fd4dc771ea19",
+            "traceId": "f57dc56ce3c3d6c2d98b3e9721d38d6f"
+          },
+          "evaluator_provenance": {
+            "evaluator_id": "cmuzzwh1j04ddad0num1bb6qt",
+            "evaluator_version_id": "cmv01noes04snad0n21wl8psu",
+            "evaluation_rule_id": "cmuzzwh9r04qbad0e7w5e35si"
+          }
+        }
+      ]
+    },
+    {
+      "turn": 2,
+      "traceId": "5e40d91ded6d82b0a38da803c401c07a",
+      "traceUrl": "https://cloud.langfuse.com/project/cmuzyfy1f0481ad0f7rajddig/traces/5e40d91ded6d82b0a38da803c401c07a",
+      "input": {
+        "messages": [
+          {
+            "role": "user",
+            "content": "Has my application been approved?"
+          }
+        ]
+      },
+      "output": [
+        {
+          "role": "assistant",
+          "content": "## Application Status\n\nI'm sorry, but **I'm not able to check your application status**. Approval eligibility and application status information are simply not available to me.\n\n---\n\n### What you should do\n\nTo get an update on your application, you would need to **contact the provider directly** — they will be able to look up your specific application and give you an accurate status."
+        }
+      ],
+      "priorMessages": [
+        {
+          "role": "user",
+          "content": "Can I use proof of address from five months ago?"
+        },
+        {
+          "role": "assistant",
+          "content": "## Proof of Address Age Requirement\n\nUnfortunately, **no** — a proof of address from five months ago would **not meet the requirement**.\n\nThe policy states that proof of address must be **dated within the last three months**. A document from five months ago falls outside that window.\n\n---\n\n### What you should do\n\n1. **Obtain a more recent proof of address** — something dated within the last three months from today.\n2. Common examples of proof-of-address documents typically include utility bills, bank statements, or official correspondence, though you should confirm exactly which document types are accepted with the provider directly.\n3. Once you have a **valid photo ID *and* a qualifying proof of address**, you can submit your complete set of documents.\n\n---\n\n### What happens next\n\nOnce **complete documents are received**, your application will be processed within **two working days**.\n\n> ⚠️ I'm not able to check document-upload status or confirm whether any documents you've already submitted have been received or accepted — you'd need to contact the provider directly for that information."
+        }
+      ],
+      "priorMessageCount": 2,
+      "priorMessagesCanonicalSha256": "25ba1eaa1b67f904de37521ad2a5cfdeed951cc3ae84a1e9b6edb11c9303c9f2",
+      "generationInput": {
+        "messages": [
+          {
+            "role": "system",
+            "content": "Use only the supplied reference_context and relevant conversation_history. Explain supplied document requirements and next steps; no application-status lookup. Preserve source facts and uncertainty. Never invent information or claim an action was completed. Return a concise, respectful answer in plain English.\n\nPreserve the maximum age of proof-of-address documents exactly. Start the processing interval only after complete documents are received; retain working-day units. If approval or upload status is unavailable, say so without inferring a status. Respect user corrections and follow-up context while retaining all material conditions.\n\nSupplied reference_context:\n{\"id\": \"SRC-01\", \"provenance\": \"Authored fictional product record; not an actual financial product or customer document.\", \"name\": \"Everyday Account\", \"currency\": \"EUR\", \"monthly_fee\": 4, \"waiver\": {\"fee\": 0, \"condition\": \"At least EUR 1200 in qualifying salary deposits in each calendar month.\", \"exclusions\": [\"Transfers from your own accounts do not count as salary deposits.\"], \"timing\": \"The waiver is assessed separately for each calendar month.\"}, \"eligibility\": [\"Age 18 or older.\", \"Resident of the fictional service region.\"], \"card_replacement_fee\": 6, \"cash_withdrawals\": {\"included_per_calendar_month\": 2, \"fee_each_after_included\": 1.5}, \"opening_documents\": [\"Valid photo ID.\", \"Proof of address dated within the last three months.\"], \"processing_time\": \"Two working days after complete documents are received.\", \"unknowns\": [\"Overdraft availability, interest rates and approval eligibility are not provided.\", \"Document-upload status is not available to this assistant.\"], \"action_boundary\": \"The assistant explains supplied facts; it cannot open accounts, waive fees, approve credit or inspect a real account.\"}"
+          },
+          {
+            "role": "user",
+            "content": "Can I use proof of address from five months ago?"
+          },
+          {
+            "role": "assistant",
+            "content": "## Proof of Address Age Requirement\n\nUnfortunately, **no** — a proof of address from five months ago would **not meet the requirement**.\n\nThe policy states that proof of address must be **dated within the last three months**. A document from five months ago falls outside that window.\n\n---\n\n### What you should do\n\n1. **Obtain a more recent proof of address** — something dated within the last three months from today.\n2. Common examples of proof-of-address documents typically include utility bills, bank statements, or official correspondence, though you should confirm exactly which document types are accepted with the provider directly.\n3. Once you have a **valid photo ID *and* a qualifying proof of address**, you can submit your complete set of documents.\n\n---\n\n### What happens next\n\nOnce **complete documents are received**, your application will be processed within **two working days**.\n\n> ⚠️ I'm not able to check document-upload status or confirm whether any documents you've already submitted have been received or accepted — you'd need to contact the provider directly for that information."
+          },
+          {
+            "role": "user",
+            "content": "Has my application been approved?"
+          }
+        ]
+      },
+      "observations": [
+        {
+          "id": "6e9040bf9dc2b921",
+          "name": "handle-chat-turn",
+          "type": "SPAN",
+          "parentObservationId": "3c5f039fe7aa5610",
+          "isRootObservation": true,
+          "startTime": "2026-10-08T21:44:09.731Z",
+          "endTime": "2026-10-08T21:44:12.657Z",
+          "observedRubricRevisions": {
+            "E-02": "r2",
+            "E-03": "r2",
+            "E-04": "r1",
+            "E-05": "r1",
+            "E-06": "r1",
+            "E-07": "r1",
+            "E-08": "r1"
+          },
+          "observedRubricRevisionsValueType": "str"
+        },
+        {
+          "id": "e22cb50972adbc26",
+          "name": "retrieve-product-context",
+          "type": "RETRIEVER",
+          "parentObservationId": "6e9040bf9dc2b921",
+          "isRootObservation": false,
+          "startTime": "2026-10-08T21:44:09.731Z",
+          "endTime": "2026-10-08T21:44:09.732Z",
+          "observedRubricRevisions": {
+            "E-02": "r2",
+            "E-03": "r2",
+            "E-04": "r1",
+            "E-05": "r1",
+            "E-06": "r1",
+            "E-07": "r1",
+            "E-08": "r1"
+          },
+          "observedRubricRevisionsValueType": "str"
+        },
+        {
+          "id": "e31f32987fe1a82d",
+          "name": "generate-response",
+          "type": "GENERATION",
+          "parentObservationId": "6e9040bf9dc2b921",
+          "isRootObservation": false,
+          "startTime": "2026-10-08T21:44:09.893Z",
+          "endTime": "2026-10-08T21:44:12.657Z",
+          "observedRubricRevisions": {
+            "E-02": "r2",
+            "E-03": "r2",
+            "E-04": "r1",
+            "E-05": "r1",
+            "E-06": "r1",
+            "E-07": "r1",
+            "E-08": "r1"
+          },
+          "observedRubricRevisionsValueType": "str",
+          "promptName": "applications/guide",
+          "promptVersion": 7,
+          "model": "claude-sonnet-4-6",
+          "usageDetails": {
+            "input": 675,
+            "output": 84,
+            "total": 759
+          },
+          "costDetails": {
+            "input": 0.002025,
+            "output": 0.00126,
+            "total": 0.003284999999
+          },
+          "totalCost": 0.003284999999,
+          "inputCanonicalSha256": "b2f840ff02564d79763b4042cb707ba6669f6276a537468bf2cf6847cd26d076"
+        }
+      ],
+      "scores": [
+        {
+          "id": "a182e21c-caf7-58ac-bf9f-df894f8b95d1",
+          "name": "claim_support",
+          "source": "EVAL",
+          "dataType": "CATEGORICAL",
+          "value": "Pass",
+          "comment": "The assistant claims it cannot check application status and that approval eligibility and application status information are not available to it. The reference record explicitly states under 'unknowns' that 'Overdraft availability, interest rates and approval eligibility are not provided' and under 'action_boundary' that the assistant 'cannot open accounts, waive fees, approve credit or inspect a real account.' It also states 'Document-upload status is not available to this assistant.' These entries directly support the assistant's claims. All substantive claims are supported by the record.",
+          "timestamp": "2026-10-08T21:44:16.509Z",
+          "subject": {
+            "kind": "observation",
+            "id": "e31f32987fe1a82d",
+            "traceId": "5e40d91ded6d82b0a38da803c401c07a"
+          },
+          "evaluator_provenance": {
+            "evaluator_id": "cmv01ch2s04zmad0fu7pjlod6",
+            "evaluator_version_id": "cmv01nhgw04niad0e00b6zk3q",
+            "evaluation_rule_id": "cmv01chns05cbad0jv9opx95f"
+          }
+        },
+        {
+          "id": "5423712d-8126-5a2b-8c7d-154540382883",
+          "name": "expressed_frustration",
+          "source": "EVAL",
+          "dataType": "NUMERIC",
+          "value": 0,
+          "comment": "The current user message 'Has my application been approved?' is a simple, neutral question. There is no frustrated or agitated language present. No profanity, exclamation marks, or emotionally charged wording.",
+          "timestamp": "2026-10-08T21:44:15.242Z",
+          "subject": {
+            "kind": "observation",
+            "id": "6e9040bf9dc2b921",
+            "traceId": "5e40d91ded6d82b0a38da803c401c07a"
+          },
+          "evaluator_provenance": {
+            "evaluator_id": "cmuzzwfey04d8ad0no9ohgepz",
+            "evaluator_version_id": "cmv01nmj20585ad0kt2wt0fkz",
+            "evaluation_rule_id": "cmuzzwfno04pjad0e09uph8h5"
+          }
+        },
+        {
+          "id": "d83bc388-5918-53d2-94c1-07cca2ae3bd4",
+          "name": "record_fidelity",
+          "source": "EVAL",
+          "dataType": "CATEGORICAL",
+          "value": "Pass",
+          "comment": "The user asks whether their application has been approved. The reference context explicitly states that 'Overdraft availability, interest rates and approval eligibility are not provided' and that 'Document-upload status is not available to this assistant.' The assistant correctly acknowledges it cannot check application status and directs the user to contact the provider. This is honest uncertainty grounded in the record's stated limitations, which passes the criterion.",
+          "timestamp": "2026-10-08T21:44:15.692Z",
+          "subject": {
+            "kind": "observation",
+            "id": "e31f32987fe1a82d",
+            "traceId": "5e40d91ded6d82b0a38da803c401c07a"
+          },
+          "evaluator_provenance": {
+            "evaluator_id": "cmv01cedw04ypad0h2cuzwn8h",
+            "evaluator_version_id": "cmv01nfnl04sead0n8ewdt1a2",
+            "evaluation_rule_id": "cmv01cf2w04wvad0eofx9iy1c"
+          }
+        },
+        {
+          "id": "2ec4bde3-5acc-5d6a-919d-298708589f8c",
+          "name": "respectful_tone",
+          "source": "EVAL",
+          "dataType": "NUMERIC",
+          "value": 1,
+          "comment": "The assistant's reply politely informs the user that it cannot check application status and directs them to contact the provider. There is no personal insult, threat, contempt, or mockery directed at the user.",
+          "timestamp": "2026-10-08T21:44:14.837Z",
+          "subject": {
+            "kind": "observation",
+            "id": "e31f32987fe1a82d",
+            "traceId": "5e40d91ded6d82b0a38da803c401c07a"
+          },
+          "evaluator_provenance": {
+            "evaluator_id": "cmuzzwc8604ikad0hh1cho1bl",
+            "evaluator_version_id": "cmv01nj5n04shad0ngcwidvr3",
+            "evaluation_rule_id": "cmuzzwcgh04lxad0eimf3xrqo"
+          }
+        },
+        {
+          "id": "265d0575-2df4-5006-91a6-4b1aa2d51069",
+          "name": "user_contradiction",
+          "source": "EVAL",
+          "dataType": "NUMERIC",
+          "value": 0,
+          "comment": "The current user message asks whether their application has been approved. There are no prior user statements making factual claims about the application's approval status. The prior conversation only discusses proof of address requirements. There is no conflict to identify.",
+          "timestamp": "2026-10-08T21:44:15.257Z",
+          "subject": {
+            "kind": "observation",
+            "id": "6e9040bf9dc2b921",
+            "traceId": "5e40d91ded6d82b0a38da803c401c07a"
+          },
+          "evaluator_provenance": {
+            "evaluator_id": "cmuzzwdwx04qaad0kd1q1d98a",
+            "evaluator_version_id": "cmv01nkwn04nlad0ercwx6oed",
+            "evaluation_rule_id": "cmuzzwe5604qfad0kcl269s17"
+          }
+        },
+        {
+          "id": "7aa33d75-4455-57d4-9ee1-227d805f2b9b",
+          "name": "user_disagreement",
+          "source": "EVAL",
+          "dataType": "NUMERIC",
+          "value": 0,
+          "comment": "The user is asking a new question about the status of their application. They are not challenging, rejecting, or correcting any assertion made by the assistant in the prior message. The assistant's prior message discussed proof of address requirements and processing timelines, and the user's new message simply asks a status question unrelated to contesting those assertions.",
+          "timestamp": "2026-10-08T21:44:15.622Z",
+          "subject": {
+            "kind": "observation",
+            "id": "6e9040bf9dc2b921",
+            "traceId": "5e40d91ded6d82b0a38da803c401c07a"
+          },
+          "evaluator_provenance": {
+            "evaluator_id": "cmuzzwikv04noad0f9ujj97g4",
+            "evaluator_version_id": "cmv01nq5704z1ad0ex1sxscnr",
+            "evaluation_rule_id": "cmuzzwith04ipad0hrb5thj1c"
+          }
+        },
+        {
+          "id": "f3daa1a7-322f-58fa-af3f-7667427b638f",
+          "name": "user_profanity",
+          "source": "EVAL",
+          "dataType": "NUMERIC",
+          "value": 0,
+          "comment": "No profanity, quoted or direct, appears in the message. The user is simply asking about the status of an application.",
+          "timestamp": "2026-10-08T21:44:14.857Z",
+          "subject": {
+            "kind": "observation",
+            "id": "6e9040bf9dc2b921",
+            "traceId": "5e40d91ded6d82b0a38da803c401c07a"
+          },
+          "evaluator_provenance": {
+            "evaluator_id": "cmuzzwh1j04ddad0num1bb6qt",
+            "evaluator_version_id": "cmv01noes04snad0n21wl8psu",
+            "evaluation_rule_id": "cmuzzwh9r04qbad0e7w5e35si"
+          }
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "claim_support": {
+      "distribution": {
+        "Pass": 2
+      }
+    },
+    "expressed_frustration": {
+      "distribution": {
+        "0": 2
+      },
+      "mean": 0.0
+    },
+    "record_fidelity": {
+      "distribution": {
+        "Pass": 2
+      }
+    },
+    "respectful_tone": {
+      "distribution": {
+        "1": 2
+      },
+      "mean": 1.0
+    },
+    "user_contradiction": {
+      "distribution": {
+        "0": 2
+      },
+      "mean": 0.0
+    },
+    "user_disagreement": {
+      "distribution": {
+        "0": 2
+      },
+      "mean": 0.0
+    },
+    "user_profanity": {
+      "distribution": {
+        "0": 2
+      },
+      "mean": 0.0
+    }
+  },
+  "findings": [
+    "Turn 1 rejects five-month-old proof of address, preserves the three-month maximum age and retains two working days after complete documents are received.",
+    "Turn 1 additionally proposes utility bills, bank statements and official correspondence as typical proof of address. Those examples are absent from the source. claim_support nevertheless returned Pass and explicitly accepted the provider-confirmation caveat. The actual wording and judge reasoning are retained as a calibration concern, not rewritten as a failure.",
+    "Turn 2 declines to check approval status. It also asserts that the provider can look up the specific application and give an accurate status, a capability not established in the supplied record. claim_support returned Pass; the actual output and explanation are retained.",
+    "Both record_fidelity and claim_support returned Pass on both turns. All eight input-signal outcomes are zero and both respectful_tone outcomes are one.",
+    "The readback exposes full rubric revision maps on each observation, so it does not verify the intended separate root/input and generation/reply scope maps."
+  ],
+  "limitations": [
+    "Two live rehearsal turns are not a statistically representative sample. Actual LLM judge values and reasoning are preserved and are not independent proof of reply correctness.",
+    "Official observations API readback combines trace and observation context and does not expose independently labelled trace versus observation rubric maps in this response.",
+    "A separate supported trace-endpoint comparison is unavailable: official CLI traces get help resolves legacy-traces and states that the deprecated operation is discoverable but cannot be called by this CLI. No legacy API bypass was used.",
+    "Prompt readback labels show production at audit time; generation prompt identity, version and exact system text prove the prompt actually used. No claim is made about native UI authorization or promotion.",
+    "Generation usage and cost come from Langfuse readback and exclude separate managed evaluator model costs."
+  ],
+  "recordedGenerationCostUsd": 0.008090999999
+}

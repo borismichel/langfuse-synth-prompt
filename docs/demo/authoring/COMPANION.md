@@ -226,3 +226,17 @@ are zero; two input-judge false positives on the correction remain visible.
 This evidence predates the final per-criterion metadata provenance refinement;
 its actual managed evaluator versions remain recorded unchanged.
 [Native walkthrough and screenshots](NATIVE_REHEARSAL.md).
+
+## Third assistant and SDK propagation verification
+
+The application guide now has independent live evidence for its document-recency
+question and missing-status boundary: two turns, six observations and fourteen
+correctly targeted EVAL outcomes. Native session replay shows each exchange once.
+[Evidence](evidence/application-guide-live.json) retains general suggestions outside
+the source and the judges' actual Pass decisions.
+
+That run exposed SDK trace metadata overriding an observation key of the same name.
+The trace inventory is now a distinct, explicitly JSON-encoded
+`trace_rubric_revisions`; observation `rubric_revisions` retains the applicable input
+or reply criteria. A real SDK/export regression and [one new live turn](evidence/application-guide-metadata-fixed.json)
+verify the repair, including no evaluation subject/rubric map on the retriever.
