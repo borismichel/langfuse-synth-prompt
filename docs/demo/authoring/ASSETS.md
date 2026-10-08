@@ -139,3 +139,14 @@ Current primary sources and access findings are in
 [READINESS_RESEARCH.md](READINESS_RESEARCH.md). Tests exercise later-page
 collision rejection before writes, accepted counts/labels, input-only mappings,
 live-only targeting, missing-provider behaviour and exact historical attachment.
+
+## Observed setup after authorised Depot credential reuse
+
+On 2026-10-08 the user authorised the existing Depot shared Anthropic credential
+for this kit. A separate setup operation created and read back the Langfuse
+Anthropic connection with `claude-sonnet-4-6`, then configured eight evaluator
+and eight live-rule definitions. E-02/E-03 remain explicitly excluded.
+Configuration refresh adopted those exact receipts without regenerating history.
+Four new interactive PR-01 turns yielded 24 EVAL results (six applicable criteria
+per turn). This proves actual execution of those six criteria; E-10/E-11 have
+configuration readback only. See [live evidence](evidence/live-model-session.json).

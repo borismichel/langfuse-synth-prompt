@@ -1,0 +1,1287 @@
+{
+  "recorded_at": "2026-10-08T20:44:27.603984+00:00",
+  "project_id": "cmuzyfy1f0481ad0f7rajddig",
+  "operation": "readback after evaluator configuration refresh; no history import",
+  "passed": 235,
+  "failed": 2,
+  "overall_passed": false,
+  "checks": [
+    {
+      "name": "receipt",
+      "ok": true,
+      "detail": "Current target and generation inputs match an imported run"
+    },
+    {
+      "name": "as_of_date",
+      "ok": true,
+      "detail": "Run anchor matches requested date"
+    },
+    {
+      "name": "trace:6cadcc31981bb1d4a4717e6a7cbcf3be",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:8eca014d25c921b8fd2df766a56e892c",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:08bd9400173e1c28e892255707bd5ef9",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:91f9306952345f25e5622491d574969c",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:b77a192ce695d48ef9dbfad26748d999",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:25dcf7730461fd437e157d64335cfaa2",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:5ace5e4d5a21f7c76c288bf661fea926",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:1e83b987c421a05ff69005383bc5d7f4",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:00643e1a94d7ab5431e770555ac8de86",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:909a585029ea05053d27f6d0886844bc",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:d5df9b552aa3ded5c16393fe8410d1c9",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:a3f54824640fd99b8415f071e3b4379a",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:6a61150c7554c271dbb427e73653ab7e",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:3a7669e6ec10034f0dc347a9a9939ae8",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:51746e5aa2946435b023d2164feb5e08",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:9f5301d739e26c67786ad9897a2c1833",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:40d45a5210de317e7f1071f2b3a46171",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:688ea1db56a25c005f729736744f0dd6",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:7cd344769aee3fcd2d7926b442f9e9aa",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:7e1bae54dd8a7d30954bd16fba78fafa",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:895eec3555f385718a5f855d1479af63",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:52fee624a2332a9ca89ac4162d2d562b",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:c35982e5723584600c034e7739cd64f7",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:bfb0cb329a5cf87fe968d8c8bd28c64f",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:ac1585c517eb7aeda429bf77ecddde19",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:0dbaa1b9cd4e50798ac901479b2c5806",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:84e65c219f692c04b3491a17de0d92e2",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:e34216948bfda7f6494c4688a0ac04dd",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:04d64a4c4f548f950dfeb4511118dfa0",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:1a21e409b8f0b17268a96a0eabe31a0d",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:017c3d8a237ce0959f282fec3ee4343a",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:6ab0e3a3ab1e8fe5865c94c70512c37c",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:99318c3215e67652162393e473a6eb39",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:3b5eb3a9575e486a03981e9c97a604d8",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:ec126a997e9c10ecdebd7271aa83cf16",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:881285a324bd2ffff4b4bd51144b01e4",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "asset-project",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "asset-inventory-prompts",
+      "ok": true,
+      "detail": "Expected 9 recorded prompts"
+    },
+    {
+      "name": "asset-inventory-datasets",
+      "ok": true,
+      "detail": "Expected 9 recorded datasets"
+    },
+    {
+      "name": "asset-inventory-score_configs",
+      "ok": true,
+      "detail": "Expected 12 recorded score_configs"
+    },
+    {
+      "name": "asset-inventory-models",
+      "ok": true,
+      "detail": "Expected 3 recorded models"
+    },
+    {
+      "name": "asset-prerequisite",
+      "ok": false,
+      "detail": "Managed numeric E-02/E-03 inapplicability is unsupported by the current output schema; these judges/rules are pending, and null must not be reported as zero."
+    },
+    {
+      "name": "prompt-PR-01-v1",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-01-v2",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-01-v3",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-01-v4",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-01-v5",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-01-v6",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-01-v7",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-01-v8",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "production-PR-01",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "development-PR-01",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-coverage-DS-01",
+      "ok": true,
+      "detail": "Every accepted dataset case must have a recorded persisted item"
+    },
+    {
+      "name": "dataset-DS-01",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-C-01",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-C-02",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-C-03",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-C-04",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-C-05",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-C-06",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-C-07",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-C-08",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-02-v1",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-02-v2",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-02-v3",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-02-v4",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-02-v5",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-02-v6",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-02-v7",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-02-v8",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "production-PR-02",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "development-PR-02",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-coverage-DS-02",
+      "ok": true,
+      "detail": "Every accepted dataset case must have a recorded persisted item"
+    },
+    {
+      "name": "dataset-DS-02",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-PC-02",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-PC-02-CTRL",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-PX-02",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-03-v1",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-03-v2",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-03-v3",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-03-v4",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-03-v5",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-03-v6",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-03-v7",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-03-v8",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "production-PR-03",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "development-PR-03",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-coverage-DS-03",
+      "ok": true,
+      "detail": "Every accepted dataset case must have a recorded persisted item"
+    },
+    {
+      "name": "dataset-DS-03",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-PC-03",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-PC-03-CTRL",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-PX-03",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-04-v1",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-04-v2",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-04-v3",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-04-v4",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-04-v5",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-04-v6",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-04-v7",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-04-v8",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "production-PR-04",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "development-PR-04",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-coverage-DS-04",
+      "ok": true,
+      "detail": "Every accepted dataset case must have a recorded persisted item"
+    },
+    {
+      "name": "dataset-DS-04",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-PC-04",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-PC-04-CTRL",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-PX-04",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-05-v1",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-05-v2",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-05-v3",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-05-v4",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-05-v5",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-05-v6",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-05-v7",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-05-v8",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "production-PR-05",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "development-PR-05",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-coverage-DS-05",
+      "ok": true,
+      "detail": "Every accepted dataset case must have a recorded persisted item"
+    },
+    {
+      "name": "dataset-DS-05",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-PC-05",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-PC-05-CTRL",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-PX-05",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-06-v1",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-06-v2",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-06-v3",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-06-v4",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-06-v5",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-06-v6",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-06-v7",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-06-v8",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "production-PR-06",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "development-PR-06",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-coverage-DS-06",
+      "ok": true,
+      "detail": "Every accepted dataset case must have a recorded persisted item"
+    },
+    {
+      "name": "dataset-DS-06",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-PC-06",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-PC-06-CTRL",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-PX-06",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-07-v1",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-07-v2",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-07-v3",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-07-v4",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-07-v5",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-07-v6",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-07-v7",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-07-v8",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "production-PR-07",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "development-PR-07",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-coverage-DS-07",
+      "ok": true,
+      "detail": "Every accepted dataset case must have a recorded persisted item"
+    },
+    {
+      "name": "dataset-DS-07",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-PC-07",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-PC-07-CTRL",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-PX-07",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-08-v1",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-08-v2",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-08-v3",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-08-v4",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-08-v5",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-08-v6",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-08-v7",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-08-v8",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "production-PR-08",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "development-PR-08",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-coverage-DS-08",
+      "ok": true,
+      "detail": "Every accepted dataset case must have a recorded persisted item"
+    },
+    {
+      "name": "dataset-DS-08",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-PC-08",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-PC-08-CTRL",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-PX-08",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-09-v1",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-09-v2",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-09-v3",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-09-v4",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-09-v5",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-09-v6",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-09-v7",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-09-v8",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "production-PR-09",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "development-PR-09",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-coverage-DS-09",
+      "ok": true,
+      "detail": "Every accepted dataset case must have a recorded persisted item"
+    },
+    {
+      "name": "dataset-DS-09",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-PC-09",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-PC-09-CTRL",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-PX-09",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "score-config-coverage",
+      "ok": true,
+      "detail": "Twelve criterion configurations required."
+    },
+    {
+      "name": "model-coverage",
+      "ok": true,
+      "detail": "Three synthetic pricing definitions required."
+    },
+    {
+      "name": "dataset-coverage",
+      "ok": true,
+      "detail": "Nine matching datasets required."
+    },
+    {
+      "name": "score-config-E-01",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "score-config-E-02",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "score-config-E-03",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "score-config-E-04",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "score-config-E-05",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "score-config-E-06",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "score-config-E-07",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "score-config-E-08",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "score-config-E-09",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "score-config-E-10",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "score-config-E-11",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "score-config-E-12",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "model-demo-compact-v1",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "model-demo-standard-v1",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "model-demo-reasoning-v1",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "managed-evaluator-coverage",
+      "ok": false,
+      "detail": "Ten managed rubric definitions required; missing setup is not live-ready."
+    },
+    {
+      "name": "evaluator-E-01",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "evaluator-rule-E-01",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "evaluator-E-04",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "evaluator-rule-E-04",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "evaluator-E-05",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "evaluator-rule-E-05",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "evaluator-E-06",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "evaluator-rule-E-06",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "evaluator-E-07",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "evaluator-rule-E-07",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "evaluator-E-08",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "evaluator-rule-E-08",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "evaluator-E-10",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "evaluator-rule-E-10",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "evaluator-E-11",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "evaluator-rule-E-11",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "historical-experiment-authored-history-PR-01-v2-r1",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "historical-experiment-authored-history-PR-01-v4-r1",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "historical-experiment-authored-history-PR-02-v2-r1",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "historical-experiment-authored-history-PR-02-v4-r1",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "historical-experiment-authored-history-PR-03-v2-r1",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "historical-experiment-authored-history-PR-03-v4-r1",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "historical-experiment-authored-history-PR-04-v2-r1",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "historical-experiment-authored-history-PR-04-v4-r1",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "historical-experiment-authored-history-PR-05-v2-r1",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "historical-experiment-authored-history-PR-05-v4-r1",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "historical-experiment-authored-history-PR-06-v2-r1",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "historical-experiment-authored-history-PR-06-v4-r1",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "historical-experiment-authored-history-PR-07-v2-r1",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "historical-experiment-authored-history-PR-07-v4-r1",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "historical-experiment-authored-history-PR-08-v2-r1",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "historical-experiment-authored-history-PR-08-v4-r1",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "historical-experiment-authored-history-PR-09-v2-r1",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "historical-experiment-authored-history-PR-09-v4-r1",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    }
+  ],
+  "scope_note": "Original pre-tool-enrichment history receipt remains unchanged. This readback verifies seed assets and configured judge/rule identities, not all native UI rehearsal or judge correctness.",
+  "evaluator_receipts": {
+    "E-01": {
+      "id": "cmuzzwaqj04q3ad0ezfpt2e5z",
+      "version": 1,
+      "version_id": "cmuzzwaqj04q5ad0e00ekcciu",
+      "name": "dark_side_delivery"
+    },
+    "E-04": {
+      "id": "cmuzzwc8604ikad0hh1cho1bl",
+      "version": 1,
+      "version_id": "cmuzzwc8604imad0hzsvk4le8",
+      "name": "respectful_tone"
+    },
+    "E-05": {
+      "id": "cmuzzwdwx04qaad0kd1q1d98a",
+      "version": 1,
+      "version_id": "cmuzzwdwy04qcad0kyzcrczu4",
+      "name": "user_contradiction"
+    },
+    "E-06": {
+      "id": "cmuzzwfey04d8ad0no9ohgepz",
+      "version": 1,
+      "version_id": "cmuzzwfey04daad0n1wz8cjng",
+      "name": "expressed_frustration"
+    },
+    "E-07": {
+      "id": "cmuzzwh1j04ddad0num1bb6qt",
+      "version": 1,
+      "version_id": "cmuzzwh1j04dfad0nbwwolbia",
+      "name": "user_profanity"
+    },
+    "E-08": {
+      "id": "cmuzzwikv04noad0f9ujj97g4",
+      "version": 1,
+      "version_id": "cmuzzwikv04nqad0f0hkh67a3",
+      "name": "user_disagreement"
+    },
+    "E-10": {
+      "id": "cmuzzwkly04qgad0ec15m70by",
+      "version": 1,
+      "version_id": "cmuzzwkly04qiad0ee3pgdxt5",
+      "name": "query_constraints_preserved"
+    },
+    "E-11": {
+      "id": "cmuzzwm3z04poad0ex4930gpw",
+      "version": 1,
+      "version_id": "cmuzzwm3z04pqad0esvqtpl11",
+      "name": "handoff_fidelity"
+    }
+  },
+  "live_rule_receipts": {
+    "E-01": {
+      "id": "cmuzzwayz050qad0eacc1vxds",
+      "enabled": true
+    },
+    "E-04": {
+      "id": "cmuzzwcgh04lxad0eimf3xrqo",
+      "enabled": true
+    },
+    "E-05": {
+      "id": "cmuzzwe5604qfad0kcl269s17",
+      "enabled": true
+    },
+    "E-06": {
+      "id": "cmuzzwfno04pjad0e09uph8h5",
+      "enabled": true
+    },
+    "E-07": {
+      "id": "cmuzzwh9r04qbad0e7w5e35si",
+      "enabled": true
+    },
+    "E-08": {
+      "id": "cmuzzwith04ipad0hrb5thj1c",
+      "enabled": true
+    },
+    "E-10": {
+      "id": "cmuzzwktz04qnad0k80j89hl1",
+      "enabled": true
+    },
+    "E-11": {
+      "id": "cmuzzwmc004qsad0khzplnrxd",
+      "enabled": true
+    }
+  },
+  "model_connection": {
+    "id": "cmuzzvepk04nfad0fzdytqbiv",
+    "provider": "anthropic",
+    "adapter": "anthropic",
+    "model": "claude-sonnet-4-6",
+    "credential_source": "Existing Depot shared provider credential, authorised by user; secret omitted"
+  }
+}

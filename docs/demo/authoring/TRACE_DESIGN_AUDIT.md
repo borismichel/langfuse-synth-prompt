@@ -50,9 +50,12 @@ application-directed retrieval path.
   roots should use SPAN or CHAIN; AGENT should describe actual agent orchestration.
 
 No further trace-shape code change or seed import was made during this audit.
-The added operations at d63c85f remain offline-verified only. The older cloud pilot
-cannot prove the new shape. A complete live model run and exact readback remain
-pending the model setup; do not substitute a fabricated model invocation.
+A subsequent authorised model setup enabled four actual PR-01 turns. Exact
+readback now confirms sixteen persisted observations with the implemented
+request/tool/retriever/generation hierarchy, linked prompt v7, usage/cost and
+correct score subjects. See [live evidence](evidence/live-model-session.json).
+This verifies the current implementation; the recommended design refinements above
+remain pending. The older seeded history still does not prove the revised shape.
 
 ## Sources and completion condition
 

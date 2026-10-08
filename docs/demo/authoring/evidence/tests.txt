@@ -1,3 +1,7 @@
 ........................................................................ [ 69%]
 ...............................                                          [100%]
 103 passed in 3.15s
+
+2026-10-08 model-connection and reply-rendering follow-up:
+103 Python tests passed; standalone node tests/test_reply_rendering.cjs passed.
+Renderer regression added to CI; CI itself has not been run remotely for this revision.

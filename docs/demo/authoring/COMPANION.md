@@ -130,11 +130,24 @@ overflow at 390px and no console errors. Screenshots were visually inspected in 
 tool. Presenter controls are collapsed on entry. Local font requests return successfully;
 computed heading style selects Space Grotesk. Reload resets the in-memory browser conversation.
 
-**Still requires authorised target verification:** actual provider output/usage; Langfuse
-readback of session, root/generation IDs and prompt versions; native session chat rendering;
-production-label refresh after admin promotion; actual input/reply evaluator outcomes and
-failure handling; feedback score readback; Depot proxy and admission/rehearsal. Neither the
-fixture browser rehearsal nor these tests establishes those outcomes.
+**Live evidence now observed:** four actual PR-01 turns with production v7,
+provider usage and cost, sixteen persisted request/tool/retriever/generation
+observations and twenty-four EVAL scores on their exact input/reply subjects.
+See [the sanitized readback](evidence/live-model-session.json) and
+[actual conversation screenshot](evidence/live-companion-four-turns.jpg).
+The turn-two self-correction produced false-positive contradiction/disagreement
+signals; this remains visible as a judge-calibration finding.
+
+**Still requires verification:** native session chat rendering; production-label
+refresh after admin promotion; E-02/E-03 N/A semantics and live rules; judge failure
+handling; live feedback score readback; native experiments; Depot proxy and full
+admission/rehearsal. The native browser currently requires sign-in.
+
+Assistant replies render a small Markdown subset (headings, flat lists, tables,
+rules, paragraphs, bold and inline code) using text nodes and safe elements.
+No model HTML executes and no automatic links are created; user input remains
+plaintext. Existing pre-wrap styling preserves paragraph line breaks. The offline
+renderer safety regression is included in CI.
 
 ## Official references inspected
 
@@ -148,3 +161,17 @@ fixture browser rehearsal nor these tests establishes those outcomes.
 - [User feedback](https://langfuse.com/docs/observability/features/user-feedback)
 - [Score ingestion](https://langfuse.com/docs/evaluation/evaluation-methods/scores-via-sdk)
 - [Trace best practices](https://langfuse.com/docs/observability/best-practices)
+
+## Additional real UI smoke checks
+
+After the four-turn PR-01 session, PR-02 explained the third-withdrawal fee as
+EUR 1.50. PR-03 rejected proof of address from five months ago and preserved the
+three-month limit. Both returned native session links. The PR-03 screenshot
+[shows the final reply renderer](evidence/live-companion-formatted.jpg), including
+headings, bold text and lists. These are UI smoke checks, not the separately
+validated four-turn session or claims of evaluator correctness for every bot.
+The PR-03 answer also supplied common document examples absent from the fictional
+reference; retain this as a grounding review example, not a verified factual pass.
+
+- PR-02 session: `prompt-live-e088c7ce0e804129a22fe8e11623ee95`
+- PR-03 session: `prompt-live-3ee8c16b9127473385f1dd4b29ad7a68`

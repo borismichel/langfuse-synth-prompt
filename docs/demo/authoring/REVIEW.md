@@ -47,6 +47,8 @@ That authorisation is not recorded as acceptance of this new implementation.
 | Local runtime image | Built; non-root UID 10001, network disabled, small seed and runbook delivery succeeded; both provider clients bind without calls | [container-smoke.json](evidence/container-smoke.json) |
 | Companion browser | Three bots and feedback reviewed by implementation agent; parent replayed four product turns, corrected and rechecked consistent v7 voice | [preview-rehearsal.md](evidence/preview-rehearsal.md), [screenshot](evidence/companion-four-turns.jpg) |
 | Prior pilot seed/readback (before tool enrichment) | 219 passed, 4 readiness checks pending; all 36 representative traces and 18 experiment associations matched | [live-pilot.json](evidence/live-pilot.json) |
+| Configured evaluators/readback | 235 passed; two N/A/coverage checks remain failed | [configuration-refresh-readback.json](evidence/configuration-refresh-readback.json) |
+| Actual PR-01 live session | Four turns, 16 observations, 24 EVAL scores; 76 structural assertions passed; two calibration mismatches preserved | [live-model-session.json](evidence/live-model-session.json) |
 | Intended population | Arithmetic plan reconciles 1,620 history traces / 2,100 generations / 9,320 eligible outcomes | [generation notes](GENERATION.md) |
 
 The golden is a deliberate replacement of the scaffold example: 24 history traces
@@ -54,7 +56,7 @@ plus eighteen authored experiment traces. It is a small full-wire snapshot, froz
 with the supported authoring command. Source fixtures preserve the accepted packet.
 The production-volume events have **not** been generated: the skill requires a
 complete small live walkthrough before scaling. The small seed is now imported and
-read back; model setup and native UI rehearsal remain pending.
+read back; model setup and four real companion turns are now verified. Native UI rehearsal remains pending.
 
 ## Required decisions and external evidence
 
@@ -62,35 +64,37 @@ read back; model setup and native UI rehearsal remain pending.
    Imported once: 48 history traces plus 18 authored experiment traces, 80 generations
    and 312 scores. All current-run trace and historical-experiment checks passed.
    Credentials remain in ignored local configuration. No re-import occurred.
-   The project has no model connection; an approved provider credential source was
-   requested for native experiments/evaluators and the companion. Browser access
+   The user authorised reuse of Depot model credentials. Its Anthropic connection
+   and eight managed evaluator/rule pairs are now configured and read back. Four
+   real production-v7 companion turns persisted with 24 EVAL results. Browser access
    redirects to sign-in, so native UI rehearsal requires an authenticated session.
 2. **Nullable criteria:** accepted E-02 factual fidelity and E-03 claim support allow
    not-applicable outcomes. The current native numeric judge schema cannot return
    or omit such an outcome. These two managed definitions/rules are deliberately
-   uninstalled; the other eight judges have implementation and schema tests.
+   uninstalled; the other eight judges are now configured and read back.
    Proposed decision, awaiting the user: categorical **Pass / Fail / Not applicable**
    for E-02/E-03 consistently across history, native experiments and live scores.
    This preserves meaning but replaces their numeric averages with category
    breakdowns, so it needs an explicit story/prototype contract update. No change
    to the accepted scores has been made pending that decision.
-3. **Native prerequisites:** verify actual model connections, judge calibration,
+3. **Native prerequisites:** finish judge calibration,
    protected-label support, member denial and administrator promotion, prompt
    metrics, native experiment comparisons, session replay and exact score placement.
 4. **Delivery:** signed immutable release, authenticated Depot admission, confirmed
    staging-only visibility and a full delivered-surface rehearsal are pending.
    No release tag, image publication, registry change or public deployment occurred.
 
-The full goal remains open. Offline success is not evidence that live evaluation,
-permission enforcement, promotion, ingestion or session navigation has succeeded.
+The full goal remains open. Live companion ingestion and applicable evaluations have
+now been observed; permission enforcement, promotion and native session rendering
+remain separate, unexecuted checks.
 
 ## Skill boundary for the pending scale check
 
 [author-langfuse-demo-kit SKILL.md](/Users/bmichel/.agents/skills/author-langfuse-demo-kit/SKILL.md) stage 3 says:
 “Keep scaling pending until the complete small walkthrough works; useful offline
 fixes can continue while a target is unavailable.” All available offline work has
-continued; the pending model setup and rubric decision must be resolved before the live
-walkthrough, intended-volume run, admission and final rehearsal can be claimed.
+continued; the remaining rubric decision and native UI walkthrough must be resolved
+before the intended-volume run, admission and final rehearsal can be claimed.
 
 ## Live verification compatibility correction
 
@@ -112,8 +116,9 @@ local catalog lookup and validation; history records explicit synthetic versions
 Input and reply evaluator subjects remain separate from tool observations.
 
 The prior 219 passing live checks apply to the pre-enrichment pilot. New tool
-shapes have offline implementation evidence only until a fresh/reset authorised
-pilot is imported and read back. Existing history was not appended or overwritten.
+shapes now have real companion persistence evidence for four turns. Revised history
+remains offline-only until a fresh/reset authorised pilot is imported and read back.
+Existing history was not appended or overwritten.
 
 The revised scenario suite passes 103 tests, including exact historical hierarchy,
 session/timing containment, live read/validation failures, correct evaluator
@@ -131,3 +136,36 @@ correct parent/session/score relationships, but the generic tool wrapper around
 retrieval provides limited additional value. The audit recommends specific
 retrieval types, distinct real tool actions and consistent operation naming.
 These design refinements are recorded as pending, not claimed implemented.
+
+## Depot model connection and actual live session
+
+The user authorised Depot credential reuse on 2026-10-08. The existing shared
+Anthropic credential was read from Depot's secret manager after its cap check;
+a secret-free audit event records the use. The credential is private, ignored
+local configuration. The model connection uses `claude-sonnet-4-6`; no Depot
+source, shared cap, authentication or existing deployment was changed.
+
+Eight managed evaluator definitions and eight live observation rules passed exact
+configuration readback. The separate refresh command adopted those receipts into
+the original seed state without importing additional history. Subsequent
+[verification](evidence/configuration-refresh-readback.json) passed 235 checks;
+two checks remain failed for the documented E-02/E-03 coverage/N/A decision.
+
+[Live session evidence](evidence/live-model-session.json) records four real PR-01
+turns, four traces, sixteen observations and twenty-four managed EVAL results.
+All generations used `products/explainer` production v7 and actual model usage/cost.
+Input scores target each request root; reply scores target the generation.
+Tool/retriever observations have no evaluation subjects. Native session UI replay
+is still pending an authenticated browser session.
+
+The explicit self-correction in turn two scored 1 for both contradiction and
+disagreement, despite accepted E-05/E-08 expecting 0. This is a calibration finding,
+not a passing quality result. The original scores and reasoning are preserved;
+no prompt rewrite, score replacement, automatic gate or retry-until-pass occurred.
+The baseline dark-side style score is 0 and respectful tone is 1 on all four turns.
+E-02/E-03 remain unconfigured pending the N/A representation decision.
+
+The live screenshot precedes a small display fix: assistant Markdown now uses
+safe text nodes and elements; user input, HTML and links remain inert plaintext.
+The full local suite still passes 103 tests, plus the offline renderer safety
+regression, manifest and core conformance.

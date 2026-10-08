@@ -17,6 +17,65 @@ function appearance() {
 }
 function notice(message) { $('notice').textContent = message; $('notice').hidden = !message; }
 function element(tag, text, className) { const e = document.createElement(tag); if (text !== undefined) e.textContent = text; if (className) e.className = className; return e; }
+function replyInline(tag, text) {
+  const node = element(tag);
+  let offset = 0;
+  // A small Markdown subset: never interpret model content as HTML or links.
+  for (const match of text.matchAll(/(?<!`)`([^`\n]+)`(?!`)|\*\*([^*\n]+)\*\*/g)) {
+    node.append(document.createTextNode(text.slice(offset, match.index)), element(match[1] === undefined ? 'strong' : 'code', match[1] ?? match[2]));
+    offset = match.index + match[0].length;
+  }
+  node.append(document.createTextNode(text.slice(offset)));
+  return node;
+}
+function replyContent(text, className) {
+  const content = element('div', undefined, ['reply-content', className].filter(Boolean).join(' '));
+  const lines = text.replace(/\r\n?/g, '\n').split('\n');
+  const heading = line => /^ {0,3}(#{1,6})\s+(.+?)\s*#*\s*$/.exec(line);
+  const listItem = line => /^ {0,3}([-+*]|\d+[.)])\s+(.+)$/.exec(line);
+  const rule = line => /^ {0,3}(?:(?:-\s*){3,}|(?:_\s*){3,}|(?:\*\s*){3,})$/.test(line);
+  const cells = line => line.trim().replace(/^\|/, '').replace(/\|$/, '').split('|').map(cell => cell.trim());
+  const tableHeader = index => {
+    if (!lines[index]?.includes('|') || !lines[index + 1]?.includes('|')) return null;
+    const header = cells(lines[index]), separator = cells(lines[index + 1]);
+    return header.length > 1 && header.length === separator.length && separator.every(cell => /^:?-{3,}:?$/.test(cell)) ? header : null;
+  };
+  const startsBlock = index => heading(lines[index]) || rule(lines[index]) || listItem(lines[index]) || tableHeader(index);
+  for (let index = 0; index < lines.length;) {
+    if (!lines[index].trim()) { index++; continue; }
+    const title = heading(lines[index]);
+    if (title) { content.append(replyInline(title[1].length <= 3 ? 'h3' : 'h4', title[2])); index++; continue; }
+    if (rule(lines[index])) { content.append(element('hr')); index++; continue; }
+    const header = tableHeader(index);
+    if (header) {
+      const wrapper = element('div', undefined, 'reply-table-wrap'), table = element('table'), head = element('thead'), row = element('tr'), body = element('tbody');
+      header.forEach(cell => { const th = replyInline('th', cell); th.scope = 'col'; row.append(th); });
+      head.append(row); table.append(head, body); index += 2;
+      while (index < lines.length && lines[index].includes('|')) {
+        const values = cells(lines[index]);
+        if (values.length !== header.length) break;
+        const row = element('tr'); values.forEach(cell => row.append(replyInline('td', cell))); body.append(row); index++;
+      }
+      wrapper.append(table); content.append(wrapper); continue;
+    }
+    const firstItem = listItem(lines[index]);
+    if (firstItem) {
+      const ordered = /^\d/.test(firstItem[1]), list = element(ordered ? 'ol' : 'ul');
+      while (index < lines.length) {
+        const item = listItem(lines[index]);
+        if (!item || /^\d/.test(item[1]) !== ordered || rule(lines[index])) break;
+        const li = replyInline('li', item[2]);
+        if (ordered) li.value = Number.parseInt(item[1], 10);
+        list.append(li); index++;
+      }
+      content.append(list); continue;
+    }
+    const paragraph = [lines[index++]];
+    while (index < lines.length && lines[index].trim() && !startsBlock(index)) paragraph.push(lines[index++]);
+    content.append(replyInline('p', paragraph.join('\n')));
+  }
+  return content;
+}
 async function api(path, options = {}, session) {
   const response = await fetch(base + path, {...options, headers: {'Content-Type':'application/json', ...(session ? {'X-Conversation-Token':session.token} : {}), ...options.headers}});
   const data = await response.json();
@@ -46,7 +105,7 @@ function render() {
   for (const turn of session?.turns || []) {
     const wrapper=element('div',undefined,'chat-turn');
     const user=element('div',undefined,'chat-message user-message');user.append(element('small','You'),element('p',turn.user));
-    const reply=element('div',undefined,'chat-message assistant-message');reply.append(element('small',bot.title),element('p',turn.reply || turn.error || 'Reply in progress…',turn.status==='failed'?'error-message':''));
+    const reply=element('div',undefined,'chat-message assistant-message');reply.append(element('small',bot.title),turn.reply ? replyContent(turn.reply,turn.status==='failed'?'error-message':'') : element('p',turn.error || 'Reply in progress…',turn.status==='failed'?'error-message':''));
     if (turn.reply && turn.error) reply.append(element('p',turn.error,'error-message'));
     if(turn.status==='complete') {
       const f=element('div',undefined,'feedback');f.append(element('span','Was this helpful?'));
