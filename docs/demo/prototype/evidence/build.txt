@@ -1,0 +1,15 @@
+
+> build
+> vite build
+
+vite v6.1.0 building for production...
+(node:75428) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+transforming...
+✓ 1631 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.38 kB │ gzip:   0.28 kB
+dist/assets/index-BLTeG3I7.css   82.38 kB │ gzip:  16.41 kB
+dist/assets/index-BYx9hefK.js   398.71 kB │ gzip: 120.70 kB
+✓ built in 1m 34s

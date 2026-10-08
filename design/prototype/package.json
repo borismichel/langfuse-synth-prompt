@@ -1,0 +1,24 @@
+{
+  "name": "prompt-portfolio-prototype",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1 --port 4185",
+    "build": "vite build",
+    "check": "node src/check.mjs"
+  },
+  "dependencies": {
+    "@radix-ui/react-slot": "1.2.3",
+    "@tailwindcss/vite": "4.1.14",
+    "@tanstack/react-virtual": "3.13.12",
+    "class-variance-authority": "0.7.1",
+    "clsx": "2.1.1",
+    "decimal.js": "10.6.0",
+    "lucide-react": "0.468.0",
+    "react": "19.1.1",
+    "react-dom": "19.1.1",
+    "tailwind-merge": "3.3.1",
+    "tailwindcss": "4.1.14",
+    "vite": "6.1.0"
+  }
+}

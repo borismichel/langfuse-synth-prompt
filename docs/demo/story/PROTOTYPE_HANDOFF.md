@@ -1,7 +1,6 @@
 # Prototype handoff
 
-Status: **prepared for story review; execution waits for story acceptance and a
-prototype request**. Read STORY_BRIEF.md, story-contract.yaml, PORTFOLIO.json,
+Status: **accepted prototype input; execution requested on 2026-10-08**. Read STORY_BRIEF.md, story-contract.yaml, PORTFOLIO.json,
 EVALUATION_PLAN.md, POPULATION.md, both case files and PRODUCT_RESEARCH.md.
 Preserve accepted D-01–D-31 and stable IDs; list proposed changes for review.
 

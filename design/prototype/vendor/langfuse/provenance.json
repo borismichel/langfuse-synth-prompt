@@ -1,0 +1,70 @@
+{
+  "repository": "https://github.com/langfuse/langfuse",
+  "revision": "9aca47c2b2879677122712b9a97f2f27f270a1f5",
+  "unmodified_files": [
+    {
+      "path": "web/src/features/traces/components/TraceTree.tsx",
+      "sha256": "7ba9d54e57deef8d22177673cdce76183e6688d2bd0dcb08c5b85065fe432e03"
+    },
+    {
+      "path": "web/src/features/traces/components/VirtualizedTree.tsx",
+      "sha256": "4b4e9dca13c8ce0c428bb68175ac0dfbe95f4c97bc4ad551636cc8222d25a97c"
+    },
+    {
+      "path": "web/src/features/traces/components/VirtualizedTreeNodeWrapper.tsx",
+      "sha256": "4faecb12e90060030bdc4affe6c1d131e9a7d581883328c8aaa94ae200a2e6b0"
+    },
+    {
+      "path": "web/src/features/traces/components/SpanContent.tsx",
+      "sha256": "e386aae550e7e945dfe8c384d615884eb62a04ea7067b7f68d19805b942853c3"
+    },
+    {
+      "path": "web/src/features/traces/fns/flattenTree.ts",
+      "sha256": "a39fb852a61c5e4eada3f6d895e97c4b2b1bc5caf2e6295ed22b28d558f35a4c"
+    },
+    {
+      "path": "web/src/features/traces/fns/visualDepth.ts",
+      "sha256": "5f30b05614abff9ea9c754452457fcc6fc5419e96b78c7ed614c2971b2ba054a"
+    },
+    {
+      "path": "web/src/features/traces/fns/metricEmphasis.ts",
+      "sha256": "b29d843e742ea87ecccd6f5c2960d8039365231595dca9cec8492a17e0587fc9"
+    },
+    {
+      "path": "web/src/features/traces/fns/nodeScores.ts",
+      "sha256": "88379766b17be10c09ef0c6503482cedd0d713622dd434dea625e1bb9c0f96ea"
+    },
+    {
+      "path": "web/src/components/ItemBadge.tsx",
+      "sha256": "a5593e734b510d0a74d5f7d0e67d197199ca827411b62f6d47d71a225c57b7e4"
+    },
+    {
+      "path": "web/src/components/ui/button.tsx",
+      "sha256": "928f507d74a5ea219206b4c443bb67cdf28846ed21f7ba8cf13a355186e6df21"
+    },
+    {
+      "path": "web/src/components/ScoreBadge/ScoreBadge.tsx",
+      "sha256": "e5c74f8239c0c22cdf580c3e1e8925640a41897fa2dce9762937c2d60aeeab37"
+    },
+    {
+      "path": "web/src/components/score-tag.tsx",
+      "sha256": "555c4071ee23b6af4cb611a987621a341ddc8c39dcfba2cd0dd0db97e278d32a"
+    },
+    {
+      "path": "web/src/components/ScoreValue.tsx",
+      "sha256": "75a6ea6664928f90160266e0ccef454ef5e5167c7853d050012282f9b53c4b47"
+    },
+    {
+      "path": "web/src/features/traces/components/ObservationLevelBadge.tsx",
+      "sha256": "ef333f0f4bdde4c373ebf3c62c440be60d4985a93d87279a9ae1711326d6d513"
+    },
+    {
+      "path": "web/src/features/comments/CommentCountIcon.tsx",
+      "sha256": "0418b35cf1861e0641f241fa8d34952dc947ccd2ea3d4acb7ca55fde6922a40d"
+    },
+    {
+      "path": "web/src/components/design-system/Badge/Badge.tsx",
+      "sha256": "147f0396988c12363e7ac1b2b9c2f97cd31ba702fa53146e054dcf5f286be2eb"
+    }
+  ]
+}

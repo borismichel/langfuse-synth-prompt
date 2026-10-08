@@ -1,0 +1,218 @@
+{
+  "recorded": "2026-10-08",
+  "repository": "https://github.com/langfuse/langfuse",
+  "revision": "9aca47c2b2879677122712b9a97f2f27f270a1f5",
+  "upstream_unmodified": [
+    {
+      "path": "web/src/features/traces/components/TraceTree.tsx",
+      "sha256": "7ba9d54e57deef8d22177673cdce76183e6688d2bd0dcb08c5b85065fe432e03"
+    },
+    {
+      "path": "web/src/features/traces/components/VirtualizedTree.tsx",
+      "sha256": "4b4e9dca13c8ce0c428bb68175ac0dfbe95f4c97bc4ad551636cc8222d25a97c"
+    },
+    {
+      "path": "web/src/features/traces/components/VirtualizedTreeNodeWrapper.tsx",
+      "sha256": "4faecb12e90060030bdc4affe6c1d131e9a7d581883328c8aaa94ae200a2e6b0"
+    },
+    {
+      "path": "web/src/features/traces/components/SpanContent.tsx",
+      "sha256": "e386aae550e7e945dfe8c384d615884eb62a04ea7067b7f68d19805b942853c3"
+    },
+    {
+      "path": "web/src/features/traces/fns/flattenTree.ts",
+      "sha256": "a39fb852a61c5e4eada3f6d895e97c4b2b1bc5caf2e6295ed22b28d558f35a4c"
+    },
+    {
+      "path": "web/src/features/traces/fns/visualDepth.ts",
+      "sha256": "5f30b05614abff9ea9c754452457fcc6fc5419e96b78c7ed614c2971b2ba054a"
+    },
+    {
+      "path": "web/src/features/traces/fns/metricEmphasis.ts",
+      "sha256": "b29d843e742ea87ecccd6f5c2960d8039365231595dca9cec8492a17e0587fc9"
+    },
+    {
+      "path": "web/src/features/traces/fns/nodeScores.ts",
+      "sha256": "88379766b17be10c09ef0c6503482cedd0d713622dd434dea625e1bb9c0f96ea"
+    },
+    {
+      "path": "web/src/components/ItemBadge.tsx",
+      "sha256": "a5593e734b510d0a74d5f7d0e67d197199ca827411b62f6d47d71a225c57b7e4"
+    },
+    {
+      "path": "web/src/components/ui/button.tsx",
+      "sha256": "928f507d74a5ea219206b4c443bb67cdf28846ed21f7ba8cf13a355186e6df21"
+    },
+    {
+      "path": "web/src/components/ScoreBadge/ScoreBadge.tsx",
+      "sha256": "e5c74f8239c0c22cdf580c3e1e8925640a41897fa2dce9762937c2d60aeeab37"
+    },
+    {
+      "path": "web/src/components/score-tag.tsx",
+      "sha256": "555c4071ee23b6af4cb611a987621a341ddc8c39dcfba2cd0dd0db97e278d32a"
+    },
+    {
+      "path": "web/src/components/ScoreValue.tsx",
+      "sha256": "75a6ea6664928f90160266e0ccef454ef5e5167c7853d050012282f9b53c4b47"
+    },
+    {
+      "path": "web/src/features/traces/components/ObservationLevelBadge.tsx",
+      "sha256": "ef333f0f4bdde4c373ebf3c62c440be60d4985a93d87279a9ae1711326d6d513"
+    },
+    {
+      "path": "web/src/features/comments/CommentCountIcon.tsx",
+      "sha256": "0418b35cf1861e0641f241fa8d34952dc947ccd2ea3d4acb7ca55fde6922a40d"
+    },
+    {
+      "path": "web/src/components/design-system/Badge/Badge.tsx",
+      "sha256": "147f0396988c12363e7ac1b2b9c2f97cd31ba702fa53146e054dcf5f286be2eb"
+    }
+  ],
+  "local_provider_stubs": [
+    {
+      "path": "design/prototype/vendor/langfuse/web/src/components/design-system/HoverCard/HoverCard.tsx",
+      "sha256": "ec83df5253fada932031808a5ce3227b8808b83581cba31694afafdcde13c691"
+    },
+    {
+      "path": "design/prototype/vendor/langfuse/web/src/components/design-system/Spinner/Spinner.tsx",
+      "sha256": "df5c76040ef5d3767acb70608a6d5615081f70f01e51038a1fce53c493a566c2"
+    },
+    {
+      "path": "design/prototype/vendor/langfuse/web/src/components/design-system/Tooltip/Tooltip.tsx",
+      "sha256": "e4a235125c7f8305bef2bbc4866a838d6fa4c4d17fb2042f287bad2699ed256b"
+    },
+    {
+      "path": "design/prototype/vendor/langfuse/web/src/components/grouped-score-badge.tsx",
+      "sha256": "3e5892e0f7f3a4e0be11be94e78adc326e64d80d91ca6f6992e777d318c65632"
+    },
+    {
+      "path": "design/prototype/vendor/langfuse/web/src/components/ui/CodeJsonViewer.tsx",
+      "sha256": "5d25cc8a7970aee06b29e0085b217aa532ec82f81590f39eb46e9d1c4d8a2df0"
+    },
+    {
+      "path": "design/prototype/vendor/langfuse/web/src/components/ui/badge.tsx",
+      "sha256": "adb415adb03989b45d76ae0e6c1de67997096b5a6a1f141fcca802bbc5739eea"
+    },
+    {
+      "path": "design/prototype/vendor/langfuse/web/src/features/traces/contexts/SelectionContext.tsx",
+      "sha256": "2a439c0bc32e6176aeaaafbc8531346ee5041987acadbe89d1e08db9aeb7192d"
+    },
+    {
+      "path": "design/prototype/vendor/langfuse/web/src/features/traces/contexts/TraceDataContext.tsx",
+      "sha256": "6dd24c97adcc4237d04432402f55dd5f877ce0d9b7fcc645984adf53182f4db6"
+    },
+    {
+      "path": "design/prototype/vendor/langfuse/web/src/features/traces/contexts/ViewPreferencesContext.tsx",
+      "sha256": "e7dbdb285fd89e94bd033d8833fa0cb6cc908179a2a355ace36553760c875005"
+    },
+    {
+      "path": "design/prototype/vendor/langfuse/web/src/features/traces/hooks/useHandlePrefetchObservation.ts",
+      "sha256": "9b3a1e4f63707369cf68bb1d71082c5e6504ad1962704b8553c3bf82fc80fbc6"
+    },
+    {
+      "path": "design/prototype/vendor/langfuse/web/src/features/traces/hooks/useSelectTraceNode.ts",
+      "sha256": "f01ed9d8844ee289bca97f7c1738960127d7417a2d8e5580439be237fbb966de"
+    },
+    {
+      "path": "design/prototype/vendor/langfuse/web/src/fixture-context.tsx",
+      "sha256": "4ac0ad0e6c2a90875e0d06f870d626e6a3564bfe90b8ed77ef25d4ff58079cda"
+    },
+    {
+      "path": "design/prototype/vendor/langfuse/web/src/hooks/useProjectIdFromURL.ts",
+      "sha256": "2c41cf029451fd0c97acaa20a6c07ea7af0eea7428e8fd8c083a2ec3b74e9c2d"
+    },
+    {
+      "path": "design/prototype/vendor/langfuse/web/src/utils/dates.ts",
+      "sha256": "3173e4feeff6e104b40fa4cfc8822d10f2717cf4ffe0fb280e7f95fac1b096c5"
+    },
+    {
+      "path": "design/prototype/vendor/langfuse/web/src/utils/numbers.ts",
+      "sha256": "7ba1d8d92b98393d76be323b4a97a90df9bf23f646b2d61578a062fb5e811515"
+    },
+    {
+      "path": "design/prototype/vendor/langfuse/web/src/utils/tailwind.ts",
+      "sha256": "3bdbf0cbe0fb0247ea8e6603496f3419d299810036bd5cb1d5293839002ca1a4"
+    }
+  ],
+  "adaptations": {
+    "tree": "Unchanged upstream rendering; fixture provider omits nested comment triggers in tree only. Full original score records and comments retained in detail.",
+    "details_and_session": "Local role-aware and session-replay adaptation, not upstream detail/session component reuse.",
+    "native_theme": "Copied pinned harness stylesheet; :root and .dark variable selectors scoped to .native-scope. Other framework styles retained.",
+    "brand": "Actual brand token snapshot, local Inter/Geist Mono plus disclosed Space Grotesk substitution."
+  },
+  "inspected_upstream_message_sources": [
+    {
+      "path": "web/src/features/traces/components/IOPreview/components/ChatMessage.tsx",
+      "sha256": "55e70eaeba7800d2e3796bb113aaf657e78457f74da124503366c85ef46ad669",
+      "url": "https://github.com/langfuse/langfuse/blob/9aca47c2b2879677122712b9a97f2f27f270a1f5/web/src/features/traces/components/IOPreview/components/ChatMessage.tsx",
+      "verification": "Fetched directly from pinned GitHub source; hash matches inspected cache."
+    },
+    {
+      "path": "web/src/features/traces/components/IOPreview/IOPreviewPretty.tsx",
+      "sha256": "5672d3b09081838186282d25371d4cca581f13424afb48bfc82635c6a97a5d51",
+      "url": "https://github.com/langfuse/langfuse/blob/9aca47c2b2879677122712b9a97f2f27f270a1f5/web/src/features/traces/components/IOPreview/IOPreviewPretty.tsx",
+      "verification": "Fetched directly from pinned GitHub source; hash matches inspected cache."
+    }
+  ],
+  "authoritative_inputs": [
+    {
+      "path": "docs/demo/story/PORTFOLIO.json",
+      "sha256": "4b6e61a4741ce3a4cce262f54b93dbf896b2d25a4c7aa3ef8f8927dd279add58"
+    },
+    {
+      "path": "docs/demo/story/cases/product-explainer.json",
+      "sha256": "030098d3c310497ace6e4236e6cce5bf9c164aa37d4257b095772c739588ecd0"
+    },
+    {
+      "path": "docs/demo/story/cases/portfolio-examples.json",
+      "sha256": "7ae9d676f8056c1386eb6757340367f7f387c99bbff15c09e6124ecc3ac1c645"
+    },
+    {
+      "path": "docs/demo/story/story-contract.yaml",
+      "sha256": "020556c45f386aa5acb003ffff22078026b5728e68b59698b776161c138c4803"
+    }
+  ],
+  "native_theme": [
+    {
+      "path": "design/prototype/src/langfuse-theme.css",
+      "sha256": "c8e3182f9bcea3eb7194e8e36278b4ac87157d78d46e9b8001e9e1b7526dc837"
+    }
+  ],
+  "brand_assets": [
+    {
+      "path": "design/prototype/src/brand.css",
+      "sha256": "e392c790cb7507217541baf9bb21e7f8c7271e364b7d6ad1c69fa0659d19b5fc"
+    },
+    {
+      "path": "design/prototype/public/fonts/GeistMono-OFL.txt",
+      "sha256": "1781d2806a07d91c4edf4740b88449fab7d0eadad53f7c351b94cd4d4eb8c00f"
+    },
+    {
+      "path": "design/prototype/public/fonts/Inter-OFL.txt",
+      "sha256": "5b9321a4298cfeb6b34354164a1c3afc3db114569984c502b9b35d988fd58c57"
+    },
+    {
+      "path": "design/prototype/public/fonts/SpaceGrotesk-OFL.txt",
+      "sha256": "564ce565c371c5e5bbf286006565a7c9aa55a9f56e7ca58d56e05d649dd61a72"
+    },
+    {
+      "path": "design/prototype/public/fonts/geist-mono.ttf",
+      "sha256": "5c1b7b77c2d6132460f03b60c175adc80da1ebd0b418c785135b1aed27a28b30"
+    },
+    {
+      "path": "design/prototype/public/fonts/inter.ttf",
+      "sha256": "29160a80ff49ddcab2c97711247e08b1fab27a484a329ce8b813d820dc559031"
+    },
+    {
+      "path": "design/prototype/public/fonts/space-grotesk.ttf",
+      "sha256": "3e699ead1876244fa392243054ddefe7cf631b488438828a8a100731a22ab995"
+    }
+  ],
+  "licenses": [
+    "design/prototype/vendor/langfuse/LICENSE",
+    "design/prototype/public/fonts/Inter-OFL.txt",
+    "design/prototype/public/fonts/GeistMono-OFL.txt",
+    "design/prototype/public/fonts/SpaceGrotesk-OFL.txt"
+  ],
+  "network_boundaries": "All runtime data/providers in-memory; no Langfuse/model calls. Vite development HMR is local."
+}

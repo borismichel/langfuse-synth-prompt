@@ -1,8 +1,8 @@
 {
   "schema_note": "Story review contract, expressed as JSON-compatible YAML; not a Langfuse ingestion schema.",
   "status": {
-    "state": "ready-for-review",
-    "story_accepted": false,
+    "state": "accepted-for-prototyping",
+    "story_accepted": true,
     "accepted_scope": [
       {
         "id": "D-01",
@@ -30,7 +30,7 @@
       },
       {
         "id": "D-07",
-        "decision": "Illustrative breadth: roughly 6–10 prompts, each with roughly 7–10 meaningful versions."
+        "decision": "Illustrative breadth: roughly 6\u201310 prompts, each with roughly 7\u201310 meaningful versions."
       },
       {
         "id": "D-08",
@@ -98,7 +98,7 @@
       },
       {
         "id": "D-24",
-        "decision": "Primary companion link opens the native Langfuse session chat view; show roughly 2–5 multi-turn exchanges."
+        "decision": "Primary companion link opens the native Langfuse session chat view; show roughly 2\u20135 multi-turn exchanges."
       },
       {
         "id": "D-25",
@@ -136,7 +136,7 @@
       "Rubric details, score targets and historical population assumptions"
     ],
     "review_file": "REVIEW.md",
-    "next_open_decision": "User review of the completed packet and proposed details."
+    "next_open_decision": "Review the runnable prototype; production build not requested."
   },
   "cases": {
     "files": [

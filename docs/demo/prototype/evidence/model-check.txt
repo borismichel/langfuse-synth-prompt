@@ -1,0 +1,33 @@
+
+> check
+> node src/check.mjs
+
+{
+  "passed": true,
+  "initial": {
+    "records": 137,
+    "definitions": 12,
+    "observations": 51,
+    "traces": 24
+  },
+  "afterRehearsal": {
+    "records": 256,
+    "definitions": 13,
+    "observations": 97,
+    "traces": 47
+  },
+  "checks": [
+    "source hashes",
+    "explicit targets",
+    "session propagation/history",
+    "pending evaluation",
+    "paired experiment 64 outcomes",
+    "mixed-score admin promotion",
+    "historic version immutability",
+    "feedback upsert/isolation",
+    "all three bots",
+    "population totals",
+    "reset"
+  ]
+}
+Additional checks passed: rerun coverage, non-improvement, immutable versions, unsupported prompt guard, multi-prompt attribution.

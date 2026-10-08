@@ -1,6 +1,6 @@
 # Prompt portfolio: inspect, experiment, promote
 
-Status: **ready for review — not yet accepted**. Prepared 2026-10-08.
+Status: **accepted for prototyping**. Prepared 2026-10-08.
 The user's agreed decisions are preserved as D-01–D-31 in
 [the story contract](story-contract.yaml). Concrete records, counts and rubrics in
 this packet are agent-authored proposals implementing those decisions.
@@ -149,7 +149,7 @@ separate concepts; there is no universal quality average.
 ## Review and next stage
 
 See [REVIEW.md](REVIEW.md) for the complete proposal recap and readiness checks.
-The packet is ready for that review; user acceptance has not been inferred.
+The user accepted this packet for prototyping with “Run proto on the packet”.
 [PROTOTYPE_HANDOFF.md](PROTOTYPE_HANDOFF.md) specifies the next stage's questions,
 inspectable evidence and verification limits. It preserves the prompt-first
 presenter journey and direct companion entry for chatbot users.

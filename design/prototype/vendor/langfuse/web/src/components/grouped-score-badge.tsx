@@ -1,0 +1,2 @@
+// LOCAL FIXTURE ADAPTER — not upstream Langfuse source.
+import {ScoreBadge} from './ScoreBadge/ScoreBadge'; export function GroupedScoreBadges({scores,maxVisible=1}:any){const groups=Object.groupBy(scores,(s:any)=>s.name); return <>{Object.entries(groups).slice(0,maxVisible).map(([name,list])=><ScoreBadge key={name} name={name} scores={list as any}/>)}{Object.keys(groups).length>maxVisible&&<span title="Select this observation to inspect all its scores" className="text-xs text-muted-foreground">+{Object.keys(groups).length-maxVisible}</span>}</>;}

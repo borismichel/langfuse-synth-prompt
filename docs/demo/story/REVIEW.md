@@ -1,8 +1,9 @@
 # Story packet review
 
-Prepared 2026-10-08. **Ready for review; acceptance pending.**
-The user authorised completing this packet after the readiness audit. That
-instruction was not acceptance of the concrete details subsequently drafted.
+Prepared 2026-10-08. **Accepted for prototyping on 2026-10-08.**
+The user subsequently instructed: “Run proto on the packet”. This accepts the
+completed packet as the input to this prototype. It does not accept the future
+prototype or authorise a production build.
 
 ## Agreed story
 
@@ -43,7 +44,7 @@ in [story-contract.yaml](story-contract.yaml).
 | History | 28 complete days, 360 conversations/1,080 chat turns plus historical-only workflows; declared denominators and coverage | [Population](POPULATION.md) |
 | Prototype scope | Connected local fixtures, golden session/trace inspection, companion and coverage preview; native UI/API questions explicit | [Prototype handoff](PROTOTYPE_HANDOFF.md) |
 
-These proposed details have not been silently promoted into user decisions. The
+These concrete details are now accepted as the prototype input. The
 fictional examples and synthetic accounting rates are original demo assumptions.
 No model, judge or live Langfuse mutation was executed to produce them.
 
@@ -63,12 +64,10 @@ No model, judge or live Langfuse mutation was executed to produce them.
   receiving-stage checks, not asserted successes.
 - The full packet has been checked for broken local links, invalid JSON, duplicate
   IDs, orphaned references, inconsistent planned totals and customer identifiers.
-- No story acceptance, prototype acceptance, runtime readiness or deployment is
-  claimed by these checks.
+- Checks establish packet consistency only; acceptance is the user decision below.
 
 ## Decision to record
 
-Pending the user's review of this completed packet. If accepted, record that
-actual decision here and update the story checkpoint to accepted. If revised,
-change the authoritative files and regenerate the ready checkpoint. Prototype
-execution still requires a request for that stage.
+On 2026-10-08 the user requested “Run proto on the packet”. Proceed with the
+accepted packet and a local fixture prototype. No change to D-01–D-31.
+Prototype acceptance and any production implementation remain separate decisions.

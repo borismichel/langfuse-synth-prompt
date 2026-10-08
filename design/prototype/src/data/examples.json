@@ -1,0 +1,178 @@
+{
+  "status": "proposed_for_review",
+  "provenance": "All source records, requests and outputs are authored fiction. Expected values are not live scores.",
+  "cases": [
+    {
+      "id": "PC-02",
+      "prompt_id": "PR-02",
+      "source_id": "SRC-01",
+      "input": "I made three cash withdrawals this calendar month. What withdrawal fee applies?",
+      "expected_output": "The first two withdrawals in the calendar month are included. The third costs EUR 1.50.",
+      "control_input": "I made two cash withdrawals this calendar month.",
+      "control_output": "Both withdrawals are included; no withdrawal fee applies.",
+      "expected_scores": {
+        "E-02": 1,
+        "E-03": 1,
+        "E-04": 1
+      }
+    },
+    {
+      "id": "PC-03",
+      "prompt_id": "PR-03",
+      "source_id": "SRC-01",
+      "input": "Can I use proof of address from five months ago?",
+      "expected_output": "The supplied checklist requires proof of address dated within the last three months. A five-month-old document does not meet that requirement.",
+      "control_input": "Has my application been approved?",
+      "control_output": "I do not have application-status information and cannot confirm approval.",
+      "expected_scores": {
+        "E-02": 1,
+        "E-03": 1,
+        "E-04": 1
+      }
+    },
+    {
+      "id": "PC-04",
+      "prompt_id": "PR-04",
+      "source_id": "SRC-02",
+      "source": {
+        "allowed_intents": [
+          "fees",
+          "eligibility",
+          "application",
+          "other"
+        ]
+      },
+      "input": "Why was I charged for a replacement card?",
+      "expected_output": {
+        "intent": "fees"
+      },
+      "control_input": "What documents do I need to open an account?",
+      "control_output": {
+        "intent": "application"
+      },
+      "expected_scores": {
+        "E-09": 1
+      }
+    },
+    {
+      "id": "PC-05",
+      "prompt_id": "PR-05",
+      "source_id": "SRC-03",
+      "source": {
+        "required_constraints": [
+          "EUR 1300",
+          "own-account transfer",
+          "monthly fee waiver"
+        ]
+      },
+      "input": "Will EUR 1300 transferred from my own savings waive the monthly account fee?",
+      "expected_output": "monthly fee waiver EUR 1300 own-account transfer",
+      "control_input": "Will EUR 1300 salary waive the monthly account fee?",
+      "control_output": "monthly fee waiver EUR 1300 salary",
+      "expected_scores": {
+        "E-10": 1
+      },
+      "control_source": {
+        "required_constraints": [
+          "EUR 1300",
+          "salary",
+          "monthly fee waiver"
+        ]
+      }
+    },
+    {
+      "id": "PC-06",
+      "prompt_id": "PR-06",
+      "source_id": "SRC-04",
+      "source": {
+        "messages": [
+          {
+            "role": "user",
+            "content": "I thought any transfer waived the fee."
+          },
+          {
+            "role": "assistant",
+            "content": "Only qualifying salary deposits count."
+          },
+          {
+            "role": "user",
+            "content": "Understood. I still need to find a current proof of address."
+          }
+        ]
+      },
+      "input": "Summarise this exchange for an internal handoff.",
+      "expected_output": "The user now understands that only qualifying salary deposits count toward the waiver. They still need current proof of address.",
+      "control_input": "Summarise the same conversation without claiming that the missing document was supplied.",
+      "control_output": "The waiver rule was clarified; proof of address is still outstanding.",
+      "expected_scores": {
+        "E-11": 1
+      }
+    },
+    {
+      "id": "PC-07",
+      "prompt_id": "PR-07",
+      "source_id": "SRC-05",
+      "source": {
+        "text": "Application A-042. Requested amount EUR 2500. Submitted 2026-09-04. No employment status supplied."
+      },
+      "input": "Extract application_id, requested_amount_eur, submitted_date and employment_status.",
+      "expected_output": {
+        "application_id": "A-042",
+        "requested_amount_eur": 2500,
+        "submitted_date": "2026-09-04",
+        "employment_status": null
+      },
+      "control_input": "Same extraction when the requested amount is also absent.",
+      "control_output": {
+        "application_id": "A-042",
+        "requested_amount_eur": null,
+        "submitted_date": "2026-09-04",
+        "employment_status": null
+      },
+      "expected_scores": {
+        "E-12": 1
+      },
+      "control_source": {
+        "text": "Application A-042. Submitted 2026-09-04. No requested amount or employment status supplied."
+      }
+    },
+    {
+      "id": "PC-08",
+      "prompt_id": "PR-08",
+      "source_id": "SRC-06",
+      "source": {
+        "event": "Documents received",
+        "received_date": "2026-09-04",
+        "required_action": "None at present",
+        "delivery_date": null
+      },
+      "input": "Draft a short customer notification.",
+      "expected_output": "We received your documents on 4 September 2026. You do not need to do anything further at present.",
+      "control_input": "Include a delivery date if available.",
+      "control_output": "We received your documents on 4 September 2026. No delivery date is provided. No action is needed at present.",
+      "expected_scores": {
+        "E-02": 1,
+        "E-03": 1,
+        "E-04": 1
+      }
+    },
+    {
+      "id": "PC-09",
+      "prompt_id": "PR-09",
+      "source_id": "SRC-07",
+      "source": {
+        "user_claim": "My own savings transfer should waive the monthly fee.",
+        "intent": "fees",
+        "rule": "Own-account transfers do not count as qualifying salary deposits.",
+        "account_ledger": "unavailable"
+      },
+      "input": "Prepare a handoff note with the concern, relevant rule and missing information.",
+      "expected_output": "The user disputes the monthly fee, believing an own-account transfer qualifies. The supplied rule excludes those transfers. No account ledger is available, so the actual charge has not been verified.",
+      "control_input": "Do not imply a refund or account review occurred.",
+      "control_output": "Fee dispute about an own-account transfer; the rule excludes it. Ledger unavailable; no refund or account review performed.",
+      "expected_scores": {
+        "E-11": 1
+      }
+    }
+  ]
+}
