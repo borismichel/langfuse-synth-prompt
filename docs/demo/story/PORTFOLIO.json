@@ -1,0 +1,1106 @@
+{
+  "status": "proposed_for_review",
+  "provenance": "Agent-authored fictional portfolio within user-agreed ranges.",
+  "prompts": [
+    {
+      "id": "PR-01",
+      "name": "products/explainer",
+      "title": "Product explainer",
+      "application_id": "APP-01",
+      "live_companion": true,
+      "purpose": "Answer product questions from supplied facts.",
+      "input_output": "question + product reference -> explanation",
+      "operation_id": "OP-01",
+      "dataset_id": "DS-01",
+      "representative_case_id": "C-01",
+      "evaluation_ids": [
+        "E-01",
+        "E-02",
+        "E-03",
+        "E-04",
+        "E-05",
+        "E-06",
+        "E-07",
+        "E-08"
+      ],
+      "versions": [
+        {
+          "version": 1,
+          "purpose": "Initial product explanation",
+          "use": "production_history",
+          "relative_days_inclusive": [
+            -28,
+            -25
+          ],
+          "opening_labels": []
+        },
+        {
+          "version": 2,
+          "purpose": "Shortened disclaimers; experimental only",
+          "use": "experiment_only",
+          "relative_days_inclusive": [
+            -25,
+            -25
+          ],
+          "opening_labels": []
+        },
+        {
+          "version": 3,
+          "purpose": "Preserve waiver threshold",
+          "use": "production_history",
+          "relative_days_inclusive": [
+            -24,
+            -18
+          ],
+          "opening_labels": []
+        },
+        {
+          "version": 4,
+          "purpose": "Concise alternative; experiment only",
+          "use": "experiment_only",
+          "relative_days_inclusive": [
+            -18,
+            -18
+          ],
+          "opening_labels": []
+        },
+        {
+          "version": 5,
+          "purpose": "Handle own-account exclusion",
+          "use": "production_history",
+          "relative_days_inclusive": [
+            -17,
+            -10
+          ],
+          "opening_labels": []
+        },
+        {
+          "version": 6,
+          "purpose": "Clarify missing terms",
+          "use": "production_history",
+          "relative_days_inclusive": [
+            -9,
+            -5
+          ],
+          "opening_labels": []
+        },
+        {
+          "version": 7,
+          "purpose": "Current plain-English production",
+          "use": "production_history",
+          "relative_days_inclusive": [
+            -4,
+            -1
+          ],
+          "opening_labels": [
+            "production"
+          ]
+        },
+        {
+          "version": 8,
+          "purpose": "Unpublished alternative opening",
+          "use": "unused_draft",
+          "relative_days_inclusive": null,
+          "opening_labels": [
+            "development"
+          ]
+        }
+      ],
+      "proposal": "Eight stored versions. PR-01 v9 is created during the walkthrough; no seeded production calls for it.",
+      "current_system_prompt_ref": "cases/product-explainer.json#/prompt_comparison/baseline_system"
+    },
+    {
+      "id": "PR-02",
+      "name": "fees/explainer",
+      "title": "Fee explainer",
+      "application_id": "APP-02",
+      "live_companion": true,
+      "purpose": "Explain a fee using supplied facts; never claim to execute a charge or refund.",
+      "input_output": "question + fee schedule -> explanation",
+      "operation_id": "OP-02",
+      "dataset_id": "DS-02",
+      "representative_case_id": "PC-02",
+      "evaluation_ids": [
+        "E-02",
+        "E-03",
+        "E-04",
+        "E-05",
+        "E-06",
+        "E-07",
+        "E-08"
+      ],
+      "versions": [
+        {
+          "version": 1,
+          "purpose": "Initial fee glossary",
+          "use": "production_history",
+          "relative_days_inclusive": [
+            -28,
+            -26
+          ],
+          "opening_labels": []
+        },
+        {
+          "version": 2,
+          "purpose": "Alternative compact style",
+          "use": "experiment_only",
+          "relative_days_inclusive": [
+            -26,
+            -26
+          ],
+          "opening_labels": []
+        },
+        {
+          "version": 3,
+          "purpose": "Preserve included allowance",
+          "use": "production_history",
+          "relative_days_inclusive": [
+            -25,
+            -19
+          ],
+          "opening_labels": []
+        },
+        {
+          "version": 4,
+          "purpose": "Experimental examples",
+          "use": "experiment_only",
+          "relative_days_inclusive": [
+            -19,
+            -19
+          ],
+          "opening_labels": []
+        },
+        {
+          "version": 5,
+          "purpose": "Clarify replacement fee",
+          "use": "production_history",
+          "relative_days_inclusive": [
+            -18,
+            -12
+          ],
+          "opening_labels": []
+        },
+        {
+          "version": 6,
+          "purpose": "Respectful disputed-fee response",
+          "use": "production_history",
+          "relative_days_inclusive": [
+            -11,
+            -7
+          ],
+          "opening_labels": []
+        },
+        {
+          "version": 7,
+          "purpose": "Current fee explanation",
+          "use": "production_history",
+          "relative_days_inclusive": [
+            -6,
+            -1
+          ],
+          "opening_labels": [
+            "production"
+          ]
+        },
+        {
+          "version": 8,
+          "purpose": "Draft shorter opening",
+          "use": "unused_draft",
+          "relative_days_inclusive": null,
+          "opening_labels": [
+            "development"
+          ]
+        }
+      ],
+      "proposal": "Eight stored versions. PR-01 v9 is created during the walkthrough; no seeded production calls for it.",
+      "current_system_prompt_proposal": "Use only the supplied reference_context and relevant conversation_history. Explain a fee using supplied facts; never claim to execute a charge or refund. Preserve source facts and uncertainty. Never invent information or claim an action was completed. Return a concise, respectful answer in plain English."
+    },
+    {
+      "id": "PR-03",
+      "name": "applications/guide",
+      "title": "Application guide",
+      "application_id": "APP-03",
+      "live_companion": true,
+      "purpose": "Explain supplied document requirements and next steps; no application-status lookup.",
+      "input_output": "question + checklist -> guidance",
+      "operation_id": "OP-03",
+      "dataset_id": "DS-03",
+      "representative_case_id": "PC-03",
+      "evaluation_ids": [
+        "E-02",
+        "E-03",
+        "E-04",
+        "E-05",
+        "E-06",
+        "E-07",
+        "E-08"
+      ],
+      "versions": [
+        {
+          "version": 1,
+          "purpose": "Initial checklist",
+          "use": "production_history",
+          "relative_days_inclusive": [
+            -28,
+            -23
+          ],
+          "opening_labels": []
+        },
+        {
+          "version": 2,
+          "purpose": "Experimental bullet format",
+          "use": "experiment_only",
+          "relative_days_inclusive": [
+            -23,
+            -23
+          ],
+          "opening_labels": []
+        },
+        {
+          "version": 3,
+          "purpose": "Include document recency",
+          "use": "production_history",
+          "relative_days_inclusive": [
+            -22,
+            -16
+          ],
+          "opening_labels": []
+        },
+        {
+          "version": 4,
+          "purpose": "Experimental compact phrasing",
+          "use": "experiment_only",
+          "relative_days_inclusive": [
+            -16,
+            -16
+          ],
+          "opening_labels": []
+        },
+        {
+          "version": 5,
+          "purpose": "Clarify processing start",
+          "use": "production_history",
+          "relative_days_inclusive": [
+            -15,
+            -9
+          ],
+          "opening_labels": []
+        },
+        {
+          "version": 6,
+          "purpose": "Honest missing-status response",
+          "use": "production_history",
+          "relative_days_inclusive": [
+            -8,
+            -3
+          ],
+          "opening_labels": []
+        },
+        {
+          "version": 7,
+          "purpose": "Current application guidance",
+          "use": "production_history",
+          "relative_days_inclusive": [
+            -2,
+            -1
+          ],
+          "opening_labels": [
+            "production"
+          ]
+        },
+        {
+          "version": 8,
+          "purpose": "Draft question-first opening",
+          "use": "unused_draft",
+          "relative_days_inclusive": null,
+          "opening_labels": [
+            "development"
+          ]
+        }
+      ],
+      "proposal": "Eight stored versions. PR-01 v9 is created during the walkthrough; no seeded production calls for it.",
+      "current_system_prompt_proposal": "Use only the supplied reference_context and relevant conversation_history. Explain supplied document requirements and next steps; no application-status lookup. Preserve source facts and uncertainty. Never invent information or claim an action was completed. Return a concise, respectful answer in plain English."
+    },
+    {
+      "id": "PR-04",
+      "name": "service/intent",
+      "title": "Intent classifier",
+      "application_id": "APP-04",
+      "live_companion": false,
+      "purpose": "Classify a service request for a simulated agent workflow.",
+      "input_output": "request -> one allowed intent",
+      "operation_id": "OP-04",
+      "dataset_id": "DS-04",
+      "representative_case_id": "PC-04",
+      "evaluation_ids": [
+        "E-09"
+      ],
+      "versions": [
+        {
+          "version": 1,
+          "purpose": "Initial labels",
+          "use": "production_history",
+          "relative_days_inclusive": [
+            -28,
+            -25
+          ],
+          "opening_labels": []
+        },
+        {
+          "version": 2,
+          "purpose": "Experimental wording",
+          "use": "experiment_only",
+          "relative_days_inclusive": [
+            -25,
+            -25
+          ],
+          "opening_labels": []
+        },
+        {
+          "version": 3,
+          "purpose": "Distinguish fees from eligibility",
+          "use": "production_history",
+          "relative_days_inclusive": [
+            -24,
+            -18
+          ],
+          "opening_labels": []
+        },
+        {
+          "version": 4,
+          "purpose": "Experimental terse rules",
+          "use": "experiment_only",
+          "relative_days_inclusive": [
+            -18,
+            -18
+          ],
+          "opening_labels": []
+        },
+        {
+          "version": 5,
+          "purpose": "Add application intent",
+          "use": "production_history",
+          "relative_days_inclusive": [
+            -17,
+            -10
+          ],
+          "opening_labels": []
+        },
+        {
+          "version": 6,
+          "purpose": "Handle ambiguity",
+          "use": "production_history",
+          "relative_days_inclusive": [
+            -9,
+            -5
+          ],
+          "opening_labels": []
+        },
+        {
+          "version": 7,
+          "purpose": "Current intent vocabulary",
+          "use": "production_history",
+          "relative_days_inclusive": [
+            -4,
+            -1
+          ],
+          "opening_labels": [
+            "production"
+          ]
+        },
+        {
+          "version": 8,
+          "purpose": "Unused route wording",
+          "use": "unused_draft",
+          "relative_days_inclusive": null,
+          "opening_labels": [
+            "development"
+          ]
+        }
+      ],
+      "proposal": "Eight stored versions. PR-01 v9 is created during the walkthrough; no seeded production calls for it.",
+      "current_system_prompt_proposal": "Use only the supplied reference_context and relevant conversation_history. Classify a service request for a simulated agent workflow. Preserve source facts and uncertainty. Never invent information or claim an action was completed. Return only the allowed structured result."
+    },
+    {
+      "id": "PR-05",
+      "name": "service/query-rewrite",
+      "title": "Reference query rewriter",
+      "application_id": "APP-04",
+      "live_companion": false,
+      "purpose": "Create a lookup query without losing material constraints.",
+      "input_output": "request -> concise lookup query",
+      "operation_id": "OP-05",
+      "dataset_id": "DS-05",
+      "representative_case_id": "PC-05",
+      "evaluation_ids": [
+        "E-10"
+      ],
+      "versions": [
+        {
+          "version": 1,
+          "purpose": "Initial keyword query",
+          "use": "production_history",
+          "relative_days_inclusive": [
+            -28,
+            -26
+          ],
+          "opening_labels": []
+        },
+        {
+          "version": 2,
+          "purpose": "Experimental short query",
+          "use": "experiment_only",
+          "relative_days_inclusive": [
+            -26,
+            -26
+          ],
+          "opening_labels": []
+        },
+        {
+          "version": 3,
+          "purpose": "Preserve amounts",
+          "use": "production_history",
+          "relative_days_inclusive": [
+            -25,
+            -19
+          ],
+          "opening_labels": []
+        },
+        {
+          "version": 4,
+          "purpose": "Experimental deduplication",
+          "use": "experiment_only",
+          "relative_days_inclusive": [
+            -19,
+            -19
+          ],
+          "opening_labels": []
+        },
+        {
+          "version": 5,
+          "purpose": "Preserve deposit type",
+          "use": "production_history",
+          "relative_days_inclusive": [
+            -18,
+            -12
+          ],
+          "opening_labels": []
+        },
+        {
+          "version": 6,
+          "purpose": "Preserve calendar period",
+          "use": "production_history",
+          "relative_days_inclusive": [
+            -11,
+            -7
+          ],
+          "opening_labels": []
+        },
+        {
+          "version": 7,
+          "purpose": "Current rewrite",
+          "use": "production_history",
+          "relative_days_inclusive": [
+            -6,
+            -1
+          ],
+          "opening_labels": [
+            "production"
+          ]
+        },
+        {
+          "version": 8,
+          "purpose": "Unused alternate syntax",
+          "use": "unused_draft",
+          "relative_days_inclusive": null,
+          "opening_labels": [
+            "development"
+          ]
+        }
+      ],
+      "proposal": "Eight stored versions. PR-01 v9 is created during the walkthrough; no seeded production calls for it.",
+      "current_system_prompt_proposal": "Use only the supplied reference_context and relevant conversation_history. Create a lookup query without losing material constraints. Preserve source facts and uncertainty. Never invent information or claim an action was completed. Return a concise, respectful answer in plain English."
+    },
+    {
+      "id": "PR-06",
+      "name": "service/conversation-summary",
+      "title": "Conversation summariser",
+      "application_id": "APP-05",
+      "live_companion": false,
+      "purpose": "Summarise a conversation faithfully for an internal handoff.",
+      "input_output": "conversation -> summary with unresolved issue",
+      "operation_id": "OP-06",
+      "dataset_id": "DS-06",
+      "representative_case_id": "PC-06",
+      "evaluation_ids": [
+        "E-11"
+      ],
+      "versions": [
+        {
+          "version": 1,
+          "purpose": "Initial narrative summary",
+          "use": "production_history",
+          "relative_days_inclusive": [
+            -28,
+            -23
+          ],
+          "opening_labels": []
+        },
+        {
+          "version": 2,
+          "purpose": "Experimental brief summary",
+          "use": "experiment_only",
+          "relative_days_inclusive": [
+            -23,
+            -23
+          ],
+          "opening_labels": []
+        },
+        {
+          "version": 3,
+          "purpose": "Preserve user correction",
+          "use": "production_history",
+          "relative_days_inclusive": [
+            -22,
+            -16
+          ],
+          "opening_labels": []
+        },
+        {
+          "version": 4,
+          "purpose": "Experimental structure",
+          "use": "experiment_only",
+          "relative_days_inclusive": [
+            -16,
+            -16
+          ],
+          "opening_labels": []
+        },
+        {
+          "version": 5,
+          "purpose": "Separate facts from claims",
+          "use": "production_history",
+          "relative_days_inclusive": [
+            -15,
+            -9
+          ],
+          "opening_labels": []
+        },
+        {
+          "version": 6,
+          "purpose": "Keep unresolved action",
+          "use": "production_history",
+          "relative_days_inclusive": [
+            -8,
+            -3
+          ],
+          "opening_labels": []
+        },
+        {
+          "version": 7,
+          "purpose": "Current handoff summary",
+          "use": "production_history",
+          "relative_days_inclusive": [
+            -2,
+            -1
+          ],
+          "opening_labels": [
+            "production"
+          ]
+        },
+        {
+          "version": 8,
+          "purpose": "Unused bullet ordering",
+          "use": "unused_draft",
+          "relative_days_inclusive": null,
+          "opening_labels": [
+            "development"
+          ]
+        }
+      ],
+      "proposal": "Eight stored versions. PR-01 v9 is created during the walkthrough; no seeded production calls for it.",
+      "current_system_prompt_proposal": "Use only the supplied reference_context and relevant conversation_history. Summarise a conversation faithfully for an internal handoff. Preserve source facts and uncertainty. Never invent information or claim an action was completed. Return a concise, respectful answer in plain English."
+    },
+    {
+      "id": "PR-07",
+      "name": "documents/field-extractor",
+      "title": "Document field extractor",
+      "application_id": "APP-06",
+      "live_companion": false,
+      "purpose": "Extract supplied identifiers and amounts; represent absent fields as null.",
+      "input_output": "fictional document -> structured fields",
+      "operation_id": "OP-07",
+      "dataset_id": "DS-07",
+      "representative_case_id": "PC-07",
+      "evaluation_ids": [
+        "E-12"
+      ],
+      "versions": [
+        {
+          "version": 1,
+          "purpose": "Initial extraction",
+          "use": "production_history",
+          "relative_days_inclusive": [
+            -28,
+            -25
+          ],
+          "opening_labels": []
+        },
+        {
+          "version": 2,
+          "purpose": "Experimental strict format",
+          "use": "experiment_only",
+          "relative_days_inclusive": [
+            -25,
+            -25
+          ],
+          "opening_labels": []
+        },
+        {
+          "version": 3,
+          "purpose": "Preserve decimal amounts",
+          "use": "production_history",
+          "relative_days_inclusive": [
+            -24,
+            -18
+          ],
+          "opening_labels": []
+        },
+        {
+          "version": 4,
+          "purpose": "Experimental aliases",
+          "use": "experiment_only",
+          "relative_days_inclusive": [
+            -18,
+            -18
+          ],
+          "opening_labels": []
+        },
+        {
+          "version": 5,
+          "purpose": "Null missing fields",
+          "use": "production_history",
+          "relative_days_inclusive": [
+            -17,
+            -10
+          ],
+          "opening_labels": []
+        },
+        {
+          "version": 6,
+          "purpose": "Keep dates verbatim",
+          "use": "production_history",
+          "relative_days_inclusive": [
+            -9,
+            -5
+          ],
+          "opening_labels": []
+        },
+        {
+          "version": 7,
+          "purpose": "Current extraction",
+          "use": "production_history",
+          "relative_days_inclusive": [
+            -4,
+            -1
+          ],
+          "opening_labels": [
+            "production"
+          ]
+        },
+        {
+          "version": 8,
+          "purpose": "Unused format alternative",
+          "use": "unused_draft",
+          "relative_days_inclusive": null,
+          "opening_labels": [
+            "development"
+          ]
+        }
+      ],
+      "proposal": "Eight stored versions. PR-01 v9 is created during the walkthrough; no seeded production calls for it.",
+      "current_system_prompt_proposal": "Use only the supplied reference_context and relevant conversation_history. Extract supplied identifiers and amounts; represent absent fields as null. Preserve source facts and uncertainty. Never invent information or claim an action was completed. Return only the allowed structured result."
+    },
+    {
+      "id": "PR-08",
+      "name": "communications/message-drafter",
+      "title": "Customer-message drafter",
+      "application_id": "APP-07",
+      "live_companion": false,
+      "purpose": "Draft a message from an approved event record without adding promises.",
+      "input_output": "event record -> draft message",
+      "operation_id": "OP-08",
+      "dataset_id": "DS-08",
+      "representative_case_id": "PC-08",
+      "evaluation_ids": [
+        "E-02",
+        "E-03",
+        "E-04"
+      ],
+      "versions": [
+        {
+          "version": 1,
+          "purpose": "Initial notification",
+          "use": "production_history",
+          "relative_days_inclusive": [
+            -28,
+            -26
+          ],
+          "opening_labels": []
+        },
+        {
+          "version": 2,
+          "purpose": "Experimental warmer phrasing",
+          "use": "experiment_only",
+          "relative_days_inclusive": [
+            -26,
+            -26
+          ],
+          "opening_labels": []
+        },
+        {
+          "version": 3,
+          "purpose": "Preserve event date",
+          "use": "production_history",
+          "relative_days_inclusive": [
+            -25,
+            -19
+          ],
+          "opening_labels": []
+        },
+        {
+          "version": 4,
+          "purpose": "Experimental concise version",
+          "use": "experiment_only",
+          "relative_days_inclusive": [
+            -19,
+            -19
+          ],
+          "opening_labels": []
+        },
+        {
+          "version": 5,
+          "purpose": "No invented delivery promise",
+          "use": "production_history",
+          "relative_days_inclusive": [
+            -18,
+            -12
+          ],
+          "opening_labels": []
+        },
+        {
+          "version": 6,
+          "purpose": "Clarify no action required",
+          "use": "production_history",
+          "relative_days_inclusive": [
+            -11,
+            -7
+          ],
+          "opening_labels": []
+        },
+        {
+          "version": 7,
+          "purpose": "Current draft style",
+          "use": "production_history",
+          "relative_days_inclusive": [
+            -6,
+            -1
+          ],
+          "opening_labels": [
+            "production"
+          ]
+        },
+        {
+          "version": 8,
+          "purpose": "Unused alternate greeting",
+          "use": "unused_draft",
+          "relative_days_inclusive": null,
+          "opening_labels": [
+            "development"
+          ]
+        }
+      ],
+      "proposal": "Eight stored versions. PR-01 v9 is created during the walkthrough; no seeded production calls for it.",
+      "current_system_prompt_proposal": "Use only the supplied reference_context and relevant conversation_history. Draft a message from an approved event record without adding promises. Preserve source facts and uncertainty. Never invent information or claim an action was completed. Return a concise, respectful answer in plain English."
+    },
+    {
+      "id": "PR-09",
+      "name": "service/handoff-note",
+      "title": "Handoff-note writer",
+      "application_id": "APP-04",
+      "live_companion": false,
+      "purpose": "Write a handoff note from a simulated multi-step request review.",
+      "input_output": "request + classifications + retrieved rule -> handoff",
+      "operation_id": "OP-09",
+      "dataset_id": "DS-09",
+      "representative_case_id": "PC-09",
+      "evaluation_ids": [
+        "E-11"
+      ],
+      "versions": [
+        {
+          "version": 1,
+          "purpose": "Initial note",
+          "use": "production_history",
+          "relative_days_inclusive": [
+            -28,
+            -23
+          ],
+          "opening_labels": []
+        },
+        {
+          "version": 2,
+          "purpose": "Experimental compression",
+          "use": "experiment_only",
+          "relative_days_inclusive": [
+            -23,
+            -23
+          ],
+          "opening_labels": []
+        },
+        {
+          "version": 3,
+          "purpose": "Preserve original concern",
+          "use": "production_history",
+          "relative_days_inclusive": [
+            -22,
+            -16
+          ],
+          "opening_labels": []
+        },
+        {
+          "version": 4,
+          "purpose": "Experimental ordering",
+          "use": "experiment_only",
+          "relative_days_inclusive": [
+            -16,
+            -16
+          ],
+          "opening_labels": []
+        },
+        {
+          "version": 5,
+          "purpose": "Separate evidence and user claim",
+          "use": "production_history",
+          "relative_days_inclusive": [
+            -15,
+            -9
+          ],
+          "opening_labels": []
+        },
+        {
+          "version": 6,
+          "purpose": "Keep missing information",
+          "use": "production_history",
+          "relative_days_inclusive": [
+            -8,
+            -3
+          ],
+          "opening_labels": []
+        },
+        {
+          "version": 7,
+          "purpose": "Current handoff note",
+          "use": "production_history",
+          "relative_days_inclusive": [
+            -2,
+            -1
+          ],
+          "opening_labels": [
+            "production"
+          ]
+        },
+        {
+          "version": 8,
+          "purpose": "Unused title format",
+          "use": "unused_draft",
+          "relative_days_inclusive": null,
+          "opening_labels": [
+            "development"
+          ]
+        }
+      ],
+      "proposal": "Eight stored versions. PR-01 v9 is created during the walkthrough; no seeded production calls for it.",
+      "current_system_prompt_proposal": "Use only the supplied reference_context and relevant conversation_history. Write a handoff note from a simulated multi-step request review. Preserve source facts and uncertainty. Never invent information or claim an action was completed. Return a concise, respectful answer in plain English."
+    }
+  ],
+  "datasets": [
+    {
+      "id": "DS-01",
+      "prompt_id": "PR-01",
+      "version": "r1",
+      "cases": [
+        "C-01",
+        "C-02",
+        "C-03",
+        "C-04",
+        "C-05",
+        "C-06",
+        "C-07",
+        "C-08"
+      ],
+      "population": "Curated cases and adjacent controls, not production prevalence.",
+      "expansion": "Prototype adds at least normal, boundary and missing-information/control items suitable for this task; preserve supplied truth."
+    },
+    {
+      "id": "DS-02",
+      "prompt_id": "PR-02",
+      "version": "r1",
+      "cases": [
+        "PC-02"
+      ],
+      "population": "Curated cases and adjacent controls, not production prevalence.",
+      "expansion": "Prototype adds at least normal, boundary and missing-information/control items suitable for this task; preserve supplied truth."
+    },
+    {
+      "id": "DS-03",
+      "prompt_id": "PR-03",
+      "version": "r1",
+      "cases": [
+        "PC-03"
+      ],
+      "population": "Curated cases and adjacent controls, not production prevalence.",
+      "expansion": "Prototype adds at least normal, boundary and missing-information/control items suitable for this task; preserve supplied truth."
+    },
+    {
+      "id": "DS-04",
+      "prompt_id": "PR-04",
+      "version": "r1",
+      "cases": [
+        "PC-04"
+      ],
+      "population": "Curated cases and adjacent controls, not production prevalence.",
+      "expansion": "Prototype adds at least normal, boundary and missing-information/control items suitable for this task; preserve supplied truth."
+    },
+    {
+      "id": "DS-05",
+      "prompt_id": "PR-05",
+      "version": "r1",
+      "cases": [
+        "PC-05"
+      ],
+      "population": "Curated cases and adjacent controls, not production prevalence.",
+      "expansion": "Prototype adds at least normal, boundary and missing-information/control items suitable for this task; preserve supplied truth."
+    },
+    {
+      "id": "DS-06",
+      "prompt_id": "PR-06",
+      "version": "r1",
+      "cases": [
+        "PC-06"
+      ],
+      "population": "Curated cases and adjacent controls, not production prevalence.",
+      "expansion": "Prototype adds at least normal, boundary and missing-information/control items suitable for this task; preserve supplied truth."
+    },
+    {
+      "id": "DS-07",
+      "prompt_id": "PR-07",
+      "version": "r1",
+      "cases": [
+        "PC-07"
+      ],
+      "population": "Curated cases and adjacent controls, not production prevalence.",
+      "expansion": "Prototype adds at least normal, boundary and missing-information/control items suitable for this task; preserve supplied truth."
+    },
+    {
+      "id": "DS-08",
+      "prompt_id": "PR-08",
+      "version": "r1",
+      "cases": [
+        "PC-08"
+      ],
+      "population": "Curated cases and adjacent controls, not production prevalence.",
+      "expansion": "Prototype adds at least normal, boundary and missing-information/control items suitable for this task; preserve supplied truth."
+    },
+    {
+      "id": "DS-09",
+      "prompt_id": "PR-09",
+      "version": "r1",
+      "cases": [
+        "PC-09"
+      ],
+      "population": "Curated cases and adjacent controls, not production prevalence.",
+      "expansion": "Prototype adds at least normal, boundary and missing-information/control items suitable for this task; preserve supplied truth."
+    }
+  ],
+  "operations": [
+    {
+      "id": "OP-01",
+      "prompt_id": "PR-01",
+      "inputs_outputs": "question + product reference -> explanation",
+      "owner": "APP-01",
+      "mode": "proposed_live_and_seeded_history"
+    },
+    {
+      "id": "OP-02",
+      "prompt_id": "PR-02",
+      "inputs_outputs": "question + fee schedule -> explanation",
+      "owner": "APP-02",
+      "mode": "proposed_live_and_seeded_history"
+    },
+    {
+      "id": "OP-03",
+      "prompt_id": "PR-03",
+      "inputs_outputs": "question + checklist -> guidance",
+      "owner": "APP-03",
+      "mode": "proposed_live_and_seeded_history"
+    },
+    {
+      "id": "OP-04",
+      "prompt_id": "PR-04",
+      "inputs_outputs": "request -> one allowed intent",
+      "owner": "APP-04",
+      "mode": "authored_historical_simulation"
+    },
+    {
+      "id": "OP-05",
+      "prompt_id": "PR-05",
+      "inputs_outputs": "request -> concise lookup query",
+      "owner": "APP-04",
+      "mode": "authored_historical_simulation"
+    },
+    {
+      "id": "OP-06",
+      "prompt_id": "PR-06",
+      "inputs_outputs": "conversation -> summary with unresolved issue",
+      "owner": "APP-05",
+      "mode": "authored_historical_simulation"
+    },
+    {
+      "id": "OP-07",
+      "prompt_id": "PR-07",
+      "inputs_outputs": "fictional document -> structured fields",
+      "owner": "APP-06",
+      "mode": "authored_historical_simulation"
+    },
+    {
+      "id": "OP-08",
+      "prompt_id": "PR-08",
+      "inputs_outputs": "event record -> draft message",
+      "owner": "APP-07",
+      "mode": "authored_historical_simulation"
+    },
+    {
+      "id": "OP-09",
+      "prompt_id": "PR-09",
+      "inputs_outputs": "request + classifications + retrieved rule -> handoff",
+      "owner": "APP-04",
+      "mode": "authored_historical_simulation"
+    }
+  ],
+  "multi_prompt_example": {
+    "id": "FLOW-01",
+    "mode": "historical_simulation",
+    "application_id": "APP-04",
+    "user_request": "My own savings transfer should waive the monthly fee.",
+    "sequence": [
+      "OP-04",
+      "OP-05",
+      "SIM-LOOKUP",
+      "OP-09"
+    ],
+    "lookup_source_id": "SRC-01",
+    "terminal_case_id": "PC-09",
+    "rule": "OP-04, OP-05 and OP-09 each link their own generation to its own exact prompt version. SIM-LOOKUP is a simulated tool operation with no prompt assignment."
+  }
+}

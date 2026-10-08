@@ -1,0 +1,282 @@
+{
+  "schema_note": "Story review contract, expressed as JSON-compatible YAML; not a Langfuse ingestion schema.",
+  "status": {
+    "state": "ready-for-review",
+    "story_accepted": false,
+    "accepted_scope": [
+      {
+        "id": "D-01",
+        "decision": "Journey: prompt portfolio/history, experiment, then protected production promotion and live chatbot effect; linked traces support the journey."
+      },
+      {
+        "id": "D-02",
+        "decision": "Reusable fictional financial-services demo; product-explainer task accepted, replacing the initial sector-neutral proposal."
+      },
+      {
+        "id": "D-03",
+        "decision": "Concrete work and business impact."
+      },
+      {
+        "id": "D-04",
+        "decision": "Fictional identities and examples; exclude customer-identifying material."
+      },
+      {
+        "id": "D-05",
+        "decision": "Research and story development only at this stage."
+      },
+      {
+        "id": "D-06",
+        "decision": "Established multi-agent prompt portfolio and historical analysis form the opening."
+      },
+      {
+        "id": "D-07",
+        "decision": "Illustrative breadth: roughly 6–10 prompts, each with roughly 7–10 meaningful versions."
+      },
+      {
+        "id": "D-08",
+        "decision": "Show prompt discovery, versions, Enterprise protected labels and native prompt metrics."
+      },
+      {
+        "id": "D-09",
+        "decision": "Different costs across prompts and coherent positive history on some measures."
+      },
+      {
+        "id": "D-10",
+        "decision": "Existing applicable evaluation criteria carry through history, experiments and production."
+      },
+      {
+        "id": "D-11",
+        "decision": "Seed exact generation-to-prompt-version links, including multi-prompt traces."
+      },
+      {
+        "id": "D-12",
+        "decision": "Voice interview, one conversational question at a time; no choice widgets."
+      },
+      {
+        "id": "D-13",
+        "decision": "Ongoing improvement motivates the change; an incident is not required."
+      },
+      {
+        "id": "D-14",
+        "decision": "Compare prompt versions with a fixed model, or models with a fixed prompt version."
+      },
+      {
+        "id": "D-15",
+        "decision": "Each explorable application prompt has its own matching dataset."
+      },
+      {
+        "id": "D-16",
+        "decision": "Edit an interactable application's prompt, save a testing/staging version, then create an experiment on its dataset."
+      },
+      {
+        "id": "D-17",
+        "decision": "Main experiment uses candidate prompt, existing dataset/model and established evaluators; actual outcome may improve or regress."
+      },
+      {
+        "id": "D-18",
+        "decision": "An authorised admin promotes the chosen version to protected production."
+      },
+      {
+        "id": "D-19",
+        "decision": "Two or three live companion chatbots retrieve managed production prompts as system prompts."
+      },
+      {
+        "id": "D-20",
+        "decision": "Remaining portfolio prompts provide historical breadth without live companion integrations."
+      },
+      {
+        "id": "D-21",
+        "decision": "Show before/after chatbot behaviour; the playful space-villain style change was subsequently accepted in D-26."
+      },
+      {
+        "id": "D-22",
+        "decision": "Main chatbot explains financial-services products from supplied information; demonstrate a visible language/style change."
+      },
+      {
+        "id": "D-23",
+        "decision": "Instrument live chat, ingest its real trace and inspect the exact prompt version used after promotion."
+      },
+      {
+        "id": "D-24",
+        "decision": "Primary companion link opens the native Langfuse session chat view; show roughly 2–5 multi-turn exchanges."
+      },
+      {
+        "id": "D-25",
+        "decision": "Evaluate fact preservation and requested speaking style in experiments and newly recorded live interactions."
+      },
+      {
+        "id": "D-26",
+        "decision": "Use The Dark Side of Customer Service as the fixed playful speaking-style criterion."
+      },
+      {
+        "id": "D-27",
+        "decision": "Include serious answer factuality, tone and grounding criteria."
+      },
+      {
+        "id": "D-28",
+        "decision": "Also evaluate user-message contradiction, expressed agitation and profanity; exact definitions unresolved."
+      },
+      {
+        "id": "D-29",
+        "decision": "Generated-answer quality drives the experiment; input evaluation is a required parallel live track."
+      },
+      {
+        "id": "D-30",
+        "decision": "Demonstrate both user-message and chatbot-message evaluators, with input-signal trends in Langfuse motivating further prompt engineering; no separate companion surface."
+      },
+      {
+        "id": "D-31",
+        "decision": "Presenter decides how to act on actual evaluation results and whether to promote; no automatic score gate or mandatory retry loop. Success is surfacing information, not guaranteed prompt improvement."
+      }
+    ],
+    "proposal_scope": [
+      "Nine prompt families and three live chatbots",
+      "Eight stored versions per family, new PR-01 v9 created on stage",
+      "Fictional records, concrete conversations and controls",
+      "Rubric details, score targets and historical population assumptions"
+    ],
+    "review_file": "REVIEW.md",
+    "next_open_decision": "User review of the completed packet and proposed details."
+  },
+  "cases": {
+    "files": [
+      "cases/product-explainer.json",
+      "cases/portfolio-examples.json"
+    ],
+    "main_case_id": "C-01",
+    "control_ids": [
+      "C-02",
+      "C-03",
+      "C-04",
+      "C-06",
+      "C-07",
+      "C-08",
+      "CTRL-01",
+      "CTRL-02",
+      "CTRL-03"
+    ],
+    "session_id": "SESSION-01",
+    "truth": "Authored source records are authoritative within the fictional scenario; outputs are inspectable proposals, not measured runs."
+  },
+  "operations": {
+    "file": "PORTFOLIO.json",
+    "primary": "OP-01",
+    "multi_prompt_flow": "FLOW-01",
+    "session_boundary": "SESSION-01 has four requests/traces, same session; a generation records the exact fetched prompt version on each turn.",
+    "live_vs_history": "PR-01 through PR-03 will have working chatbots at authoring; PR-04 through PR-09 have historical simulations only. Prototype simulates all execution locally."
+  },
+  "prompts": {
+    "file": "PORTFOLIO.json",
+    "comparison_file": "cases/product-explainer.json",
+    "main_prompt": "PR-01",
+    "baseline_version": 7,
+    "created_candidate_version": 9,
+    "candidate_label": "staging",
+    "production_label": "production",
+    "protection": "Only authorised admin/owner changes protected production; native capability/plan and API boundary require validation.",
+    "rollout": "Record per-request resolved versions; refresh explicitly or use demo TTL zero, keeping production cache explanation separate."
+  },
+  "experiments": {
+    "dataset_id": "DS-01",
+    "dataset_version": "r1",
+    "baseline": 7,
+    "candidate": 9,
+    "fixed": [
+      "model identifier/settings",
+      "source record",
+      "dataset version",
+      "rubric revision",
+      "case conversation history"
+    ],
+    "decision_owner": "presenter",
+    "mandatory_retry": false,
+    "automatic_score_gate": false,
+    "results": "Display actual measured results in delivered demo; prototype uses visibly authored outcomes. Scores need not improve to make the demonstration successful."
+  },
+  "scores": {
+    "definitions": "EVALUATION_PLAN.md",
+    "expected_records": "cases/product-explainer.json",
+    "portfolio_criteria": "cases/portfolio-examples.json",
+    "required_tracks": [
+      "assistant-output quality and style",
+      "user-input disagreement, contradiction, expressed frustration and profanity"
+    ],
+    "subjects": "Selected reply generation for output scores; request root for input scores, as proposed in evaluation plan. Session is the primary viewing surface, not a substitute score target.",
+    "provenance": "Authored historical expectations versus actual experiment/live evaluator execution remain distinct."
+  },
+  "population": {
+    "file": "POPULATION.md",
+    "window": "28 complete days preceding chosen demo anchor; Europe/Berlin local reporting boundaries.",
+    "denominators": "Specified per metric; separate experiment, production-history and live-demo cohorts."
+  },
+  "discoveries": [
+    {
+      "id": "P-01",
+      "stage": 1,
+      "action": "Browse prompt portfolio, versions, protected labels and cost/latency/score history.",
+      "claim": "A team can understand and govern multiple prompt families.",
+      "evidence": [
+        "PORTFOLIO.json",
+        "POPULATION.md",
+        "E-01",
+        "E-02",
+        "E-08"
+      ],
+      "surface": "Langfuse prompt views; native score/tracing surfaces if a requested metric is not supported in prompt metrics.",
+      "next_question": "What happens when we try a new version?"
+    },
+    {
+      "id": "P-02",
+      "stage": 2,
+      "action": "Create v9 by adding the style instruction; assign staging; compare with v7 on DS-01/r1 using existing criteria.",
+      "claim": "Experiments reveal the consequences of a proposed prompt change.",
+      "evidence": [
+        "C-01",
+        "C-02",
+        "C-03",
+        "CTRL-01",
+        "E-01",
+        "E-02",
+        "E-03",
+        "E-04"
+      ],
+      "surface": "Native prompt editing and experiment comparison.",
+      "next_question": "What should the presenter do with these results?"
+    },
+    {
+      "id": "P-04",
+      "stage": 3,
+      "action": "Presenter decides whether to promote; authorised admin changes production; run a new multi-turn chat and open its Langfuse session.",
+      "claim": "A managed system prompt changes application behaviour, with live input/output evaluation and version provenance.",
+      "evidence": [
+        "SESSION-01",
+        "PR-01/v9",
+        "E-01",
+        "E-02",
+        "E-03",
+        "E-04",
+        "E-05",
+        "E-06",
+        "E-07",
+        "E-08"
+      ],
+      "surface": "Companion chatbot -> native Langfuse session -> underlying generation when needed.",
+      "next_question": "What do the response quality and user reactions tell us to investigate next?"
+    },
+    {
+      "id": "P-03",
+      "stage": "supporting",
+      "action": "Inspect exact prompt/version on a generation, including the historical multi-prompt example.",
+      "claim": "Trace provenance explains which prompts produced which outputs.",
+      "evidence": [
+        "FLOW-01",
+        "SESSION-01"
+      ],
+      "surface": "Underlying native trace/generation inspector."
+    }
+  ],
+  "prototype_questions": {
+    "file": "PROTOTYPE_HANDOFF.md",
+    "stage_boundary": "Build only after accepted story and user request. Prototype stays local and fixture-backed; actual live validation is later authoring work."
+  }
+}

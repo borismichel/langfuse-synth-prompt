@@ -11,5 +11,29 @@
   "depot_repository": "https://github.com/borismichel/langfuse-demo-depot",
   "skills_repository": "https://github.com/borismichel/my-skills",
   "skills_ref": "95b253028c2c183ee3dfab963f16b38adfd8f2af",
-  "handoffs": {}
+  "handoffs": {
+    "story": {
+      "status": "ready",
+      "paths": [
+        "docs/demo/story",
+        "docs/demo/story/REVIEW.md"
+      ],
+      "files": {
+        "docs/demo/story/EVALUATION_PLAN.md": "5c05a051fea82b8868d378b51113765cdb587459f1440811f2a09ac684731383",
+        "docs/demo/story/GLOSSARY.md": "ac56ee54c22c1c6e1f70755199ee7cf190bb23f9bf1391d58401d689e1d07339",
+        "docs/demo/story/POPULATION.md": "6cfb9e5717b1b5e2ca96146c0dfa7897f83ff4aaa175fee9999cefc73e8aaa34",
+        "docs/demo/story/PORTFOLIO.json": "4b6e61a4741ce3a4cce262f54b93dbf896b2d25a4c7aa3ef8f8927dd279add58",
+        "docs/demo/story/PRODUCT_RESEARCH.md": "67caaddd1d07def67a6a53c3ef8844ae972211512b21e21efa0c2869d421c75a",
+        "docs/demo/story/PROTOTYPE_HANDOFF.md": "6759692278982bc6764ac7a0669c6e30c5e794312d54843cf2be80fb1134100d",
+        "docs/demo/story/REVIEW.md": "88b16a96e3c38cc63004eb76fdd2b07111c43f54e824ab4fc0147d24ab43c26e",
+        "docs/demo/story/STORY_BRIEF.md": "59813b56fff9c0bef0b152ec9f64d0cdd106d047de2ba10091871d28d2c6e9d8",
+        "docs/demo/story/cases/portfolio-examples.json": "7ae9d676f8056c1386eb6757340367f7f387c99bbff15c09e6124ecc3ac1c645",
+        "docs/demo/story/cases/product-explainer.json": "030098d3c310497ace6e4236e6cce5bf9c164aa37d4257b095772c739588ecd0",
+        "docs/demo/story/story-contract.yaml": "b41a5ac7d2e4e387bce9ca39c8a1f3acfc34d0db6dea02f5652cdaa1fb2172ba"
+      },
+      "decision_file": "docs/demo/story/REVIEW.md",
+      "note": "Complete story packet prepared for user review. Decisions D-01 through D-31 preserved; concrete examples, portfolio, rubrics and population are proposed details. Acceptance pending.",
+      "input_checkpoint": null
+    }
+  }
 }

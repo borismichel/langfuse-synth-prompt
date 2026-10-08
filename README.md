@@ -9,8 +9,10 @@ will be defined during story development.
 
 ## Next action
 
-Invoke `$develop-langfuse-demo-story` in this repository. Save the story packet
-under `docs/demo/story/`; initialization has not started or accepted any stage.
+Review the [complete story packet](docs/demo/story/REVIEW.md). It is ready for
+review; user acceptance is pending. The [prototype brief](docs/demo/story/PROTOTYPE_HANDOFF.md)
+preserves the three-stage journey, both evaluation tracks and session-first
+companion navigation. No prototype or runtime has been built.
 
 Check handoffs with `python3 scripts/demo_workspace.py status`. Refresh the
 generated dossier with `python3 scripts/demo_workspace.py render`.
