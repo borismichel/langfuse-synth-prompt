@@ -1,8 +1,8 @@
 # Trace design audit against the Langfuse skill
 
-Reviewed 2026-10-08 after the user's request to use the Langfuse skill to find a
-good trace shape. This is a design audit of revision d63c85f, not a claim that a
-new live trace was sent or inspected.
+Initial audit reviewed revision d63c85f on 2026-10-08 after the user's request
+to use the Langfuse skill. The follow-up implementation described below replaces
+the redundant wrapper; earlier audit findings are retained as design rationale.
 
 ## Recommended shape for this application
 
@@ -70,3 +70,38 @@ that completion condition.
 - [Data model](https://langfuse.com/docs/observability/data-model)
 - [Sessions](https://langfuse.com/docs/observability/features/sessions)
 - [Observation evaluator migration and score cardinality](https://langfuse.com/faq/all/llm-as-a-judge-migration)
+
+## Implemented refinement
+
+The current runtime implements the recommended sibling structure. It retrieves
+and validates the source once; PR-02 invokes `calculate-fee` only for its supported
+explicit monthly count. The actual derived result enters the provider context and
+generation metadata. No model-selected tool loop is claimed. Historical chat
+uses the same functions and explicitly synthetic timing; fixed roots now use
+SPAN and FLOW-01's lookup is a RETRIEVER. Stable operation names match live/history.
+
+The deliberate small golden change preserves all 50 generation IDs, prompt links,
+outputs and expected outcomes, and all 174 score IDs/subjects/values. It removes
+16 redundant wrapper spans and adds one applicable fee calculation. Cross-process
+outputs match before the supported golden freeze. The complete suite now passes
+131 tests, plus renderer safety and core conformance.
+
+The earlier four-turn live evidence proves the former wrapper implementation only.
+Fresh verification of this refined path is recorded separately; no revised
+historical spool was imported into the existing populated project.
+
+
+## Refined live readback
+
+A new three-turn PR-02 session exercised the refined runtime without reimporting
+history. Readback contains eleven observations: three request roots, three
+retrievers, three generations and two actual fee calculations. Three withdrawals
+produce EUR 1.50; two produce EUR 0.00. The third incomplete correction has no
+calculator observation or stale derived context. Fifteen managed EVAL outcomes
+attach to the correct request/reply subjects. A labelled rehearsal feedback score
+was read back on the third request root. See
+[refined live evidence](evidence/refined-live-session.json) and
+[companion screenshot](evidence/refined-companion-feedback.jpg).
+
+This closes the revised companion trace/feedback persistence checks, not native
+UI replay, permission enforcement, promotion, experiment comparison or admission.

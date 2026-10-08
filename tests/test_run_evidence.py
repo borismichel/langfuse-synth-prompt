@@ -97,3 +97,30 @@ def test_tool_readback_rejects_leaked_evaluator_subject_and_wrong_timing():
     assert not verify_trace(reader_for(value), e).ok
     value.observations[0] = replace(tool, metadata={'invocation': 'model'})
     assert not verify_trace(reader_for(value), e).ok
+
+
+def test_receipt_keeps_conditional_calculator_evidence_and_synthetic_provenance(tmp_path):
+    from langfuse_synth_core.seed.otlp import finalize
+    from synth.materialize import build_events
+    from synth.receipt import make_receipt
+    from synth.reference_tools import FEE_TOOL_NAME
+    events = finalize(build_events(24, {"seed": 42}, run_date=datetime(2026, 10, 8, tzinfo=timezone.utc)))
+    spool = tmp_path / 'events.ndjson'
+    spool.write_text('offline receipt test')
+    receipt = make_receipt(events, spool, run_date=datetime(2026, 10, 8, tzinfo=timezone.utc), seed=42, target_traces=24)
+    calculations = [o for trace in receipt['representative_traces'] for o in trace['observations']
+                    if o['name'] == FEE_TOOL_NAME]
+    assert calculations
+    for operation in calculations:
+        assert operation['type'] == 'TOOL'
+        assert operation['input']['withdrawal_count'] == 3
+        assert operation['output']['total_fee'] == '1.50'
+        assert operation['evaluation_subject'] is None
+        assert operation['operation_metadata']['evidence_kind'] == 'authored-synthetic-history'
+
+    for trace in receipt['representative_traces']:
+        tool = next((o for o in trace['observations'] if o['name'] == FEE_TOOL_NAME), None)
+        if tool is not None:
+            generation = next(o for o in trace['observations'] if o['type'] == 'GENERATION')
+            assert generation['operation_metadata']['calculation_results'] == [{
+                'operation': FEE_TOOL_NAME, 'arguments': tool['input'], 'result': tool['output']}]

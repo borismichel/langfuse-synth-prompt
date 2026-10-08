@@ -1,0 +1,654 @@
+{
+  "schemaVersion": 1,
+  "evidenceKind": "sanitized_audit_of_saved_live_api_exports",
+  "auditedAt": "2026-10-08T21:00:24.725269+00:00",
+  "target": {
+    "host": "https://cloud.langfuse.com",
+    "projectId": "cmuzyfy1f0481ad0f7rajddig",
+    "sessionId": "prompt-live-1f4d2b384f8b49e091c7d04022a4fb6c",
+    "sessionUrl": "https://cloud.langfuse.com/project/cmuzyfy1f0481ad0f7rajddig/sessions/prompt-live-1f4d2b384f8b49e091c7d04022a4fb6c"
+  },
+  "provenance": {
+    "sourceFileSha256": {
+      ".scratch/refined-session-observations.json": "0a5b86285621fb05caea6c520d7112c21a890c06e66715719ec2b7b5d8c0d4ef",
+      ".scratch/refined-session-scores.json": "e391907e05b7cefa47a3ab4660b3d403ec57017625b3794de8f816c9d69b82f3"
+    },
+    "currentFileSha256": {
+      "src/synth/companion/service.py": "7a2fdf6e573d7fab2b6f41f309bd300ed0ed53c89743d0f5f62a3b0ecb2b80d3",
+      "src/synth/reference_tools.py": "442b7b4ad70b5b8ac42943f0bc99be03f7d4ffda9ef950a4f58255c3ca9c8948",
+      "src/synth/materialize.py": "c7cee4d566236101ce3c3479726477d9e0711a0b58b4783b5faf839ec39b5f6f",
+      "tests/test_companion_runtime.py": "a8f2dc1cc2aa9f74c247f174f83c08e76f8002bc13955fb00a27f512387ce568",
+      "tests/test_reference_tools.py": "64438dd1889083ddcbe72c48a951e98e283081170a861c11e8f8c3d93bf95b3d",
+      "tests/test_provider_binding.py": "79cf5dd1b2b906381919bee5eac17de4c64f3a8e5226a4922fec6925b72d1fc0",
+      "tests/golden/prompt_spool.ndjson": "adc0a500981a540b41e9e0c0ab727d23a3d5671381ee041aad802eb024c908fc"
+    },
+    "hashConventions": "File/system-text hashes use exact UTF-8 bytes. Canonical JSON uses sort_keys=True, separators=(',', ':'), ensure_ascii=False.",
+    "sanitization": "Explicit field whitelist. No raw observation or score metadata, scope attributes, resource attributes, credentials, or session tokens are exported. Only audited calculation/reference content and individual assertions are retained.",
+    "workspaceHandoffStatusAtAudit": {
+      "story": "stale",
+      "prototype": "stale",
+      "authoring": "stale"
+    }
+  },
+  "counts": {
+    "turns": 3,
+    "observations": 11,
+    "scores": 16,
+    "evalScores": 15,
+    "apiRehearsalFeedback": 1,
+    "feeTools": 2
+  },
+  "shared": {
+    "originalReferenceContext": {
+      "id": "SRC-01",
+      "provenance": "Authored fictional product record; not an actual financial product or customer document.",
+      "name": "Everyday Account",
+      "currency": "EUR",
+      "monthly_fee": 4,
+      "waiver": {
+        "fee": 0,
+        "condition": "At least EUR 1200 in qualifying salary deposits in each calendar month.",
+        "exclusions": [
+          "Transfers from your own accounts do not count as salary deposits."
+        ],
+        "timing": "The waiver is assessed separately for each calendar month."
+      },
+      "eligibility": [
+        "Age 18 or older.",
+        "Resident of the fictional service region."
+      ],
+      "card_replacement_fee": 6,
+      "cash_withdrawals": {
+        "included_per_calendar_month": 2,
+        "fee_each_after_included": 1.5
+      },
+      "opening_documents": [
+        "Valid photo ID.",
+        "Proof of address dated within the last three months."
+      ],
+      "processing_time": "Two working days after complete documents are received.",
+      "unknowns": [
+        "Overdraft availability, interest rates and approval eligibility are not provided.",
+        "Document-upload status is not available to this assistant."
+      ],
+      "action_boundary": "The assistant explains supplied facts; it cannot open accounts, waive fees, approve credit or inspect a real account."
+    },
+    "originalReferenceCanonicalSha256": "33d3f611785a31d24abed46254c42820b1c51718b6211fdc2a8ab8c49fe40ba9",
+    "systemPrefixIncludingReferenceMarker": "Use only the supplied reference_context and relevant conversation_history. Explain a fee using supplied facts; never claim to execute a charge or refund. Preserve source facts and uncertainty. Never invent information or claim an action was completed. Return a concise, respectful answer in plain English.\n\nState how many withdrawals are included before calculating an excess-withdrawal charge. Distinguish the one-off replacement-card fee from withdrawal charges and the monthly account fee. Acknowledge disputed fees without blaming the user or claiming account access. Use relevant conversation_history, preserve calendar periods, and admit missing fees.\n\nSupplied reference_context:\n",
+    "generationInputReconstruction": "For each turn, copy originalReferenceContext; when calculation is non-null, add calculation_results=[calculation]. Serialize that context with json.dumps(..., ensure_ascii=False), preserving stored key order, and append it to systemPrefixIncludingReferenceMarker. The exact generation input is {'messages': [{'role':'system','content':systemText}, *all earlier turns' input.messages and output in order, *this turn's input.messages]}. The generation output is this turn's output. Exact reconstruction and canonical hashes were checked against each saved export.",
+    "logicalRootNote": "Each handle-chat-turn isRootObservation is true. Its physical parent ID lies outside this export; this audit does not require parentObservationId=null. All exported operation children attach directly to handle-chat-turn."
+  },
+  "turns": [
+    {
+      "turn": 1,
+      "traceId": "ed1b4f04268d9aea69c7d6fdca465280",
+      "traceUrl": "https://cloud.langfuse.com/project/cmuzyfy1f0481ad0f7rajddig/traces/ed1b4f04268d9aea69c7d6fdca465280",
+      "input": {
+        "messages": [
+          {
+            "role": "user",
+            "content": "I made three cash withdrawals this calendar month. What withdrawal fee applies?"
+          }
+        ]
+      },
+      "output": [
+        {
+          "role": "assistant",
+          "content": "## Withdrawal Fee for This Calendar Month\n\nBased on the Everyday Account terms, here's how the fee is calculated for your three withdrawals:\n\n| | |\n|---|---|\n| **Withdrawals made** | 3 |\n| **Included free per calendar month** | 2 |\n| **Chargeable withdrawals** | 1 |\n| **Fee per excess withdrawal** | EUR 1.50 |\n| **Total withdrawal fee** | **EUR 1.50** |\n\n### How it works\nYour Everyday Account **includes 2 free cash withdrawals each calendar month**. Since you made 3 withdrawals, only the **1 withdrawal beyond the free allowance** is chargeable, at a rate of **EUR 1.50 each** — giving a total withdrawal fee of **EUR 1.50** for this calendar month.\n\n---\n\n### A couple of things to note:\n- This **withdrawal fee is separate** from the **EUR 4.00 monthly account fee** (which applies unless you meet the salary deposit waiver condition).\n- It is also **entirely separate** from the **one-off EUR 6.00 card replacement fee**, which only applies if you request a replacement card.\n\nI can explain any of these fees in more detail if that would help."
+        }
+      ],
+      "priorMessageCount": 0,
+      "priorMessagesCanonicalSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "calculation": {
+        "operation": "calculate-fee",
+        "arguments": {
+          "source_id": "SRC-01",
+          "currency": "EUR",
+          "period": "calendar_month",
+          "withdrawal_count": 3,
+          "included_count": 2,
+          "fee_each_after_included": 1.5
+        },
+        "result": {
+          "currency": "EUR",
+          "period": "calendar_month",
+          "chargeable_withdrawals": 1,
+          "total_fee": "1.50"
+        }
+      },
+      "observations": [
+        {
+          "id": "cafcfe812c2096cd",
+          "name": "retrieve-product-context",
+          "type": "RETRIEVER",
+          "parentObservationId": "5e5c41a697e6006b",
+          "isRootObservation": false,
+          "startTime": "2026-10-08T20:54:50.496Z",
+          "endTime": "2026-10-08T20:54:50.496Z",
+          "inputCanonicalSha256": "babbcf84f1856c0b636c0d38de6600d819adcd492591cd0794b717c3995ac258",
+          "outputCanonicalSha256": "33d3f611785a31d24abed46254c42820b1c51718b6211fdc2a8ab8c49fe40ba9",
+          "input": {
+            "source_id": "SRC-01",
+            "prompt_id": "PR-02"
+          },
+          "outputRef": "/shared/originalReferenceContext"
+        },
+        {
+          "id": "5e5c41a697e6006b",
+          "name": "handle-chat-turn",
+          "type": "SPAN",
+          "parentObservationId": "d12f6044656aa291",
+          "isRootObservation": true,
+          "startTime": "2026-10-08T20:54:50.496Z",
+          "endTime": "2026-10-08T20:54:57.660Z",
+          "inputCanonicalSha256": "c3dee82235f539ff3ba7614ff7de658f157075f6a042f332532112852cb1e2f1",
+          "outputCanonicalSha256": "4b2a15fb1d384732386c6884b418ea3e6239ffac217343ebc54a8a2fd1e7d086",
+          "inputRef": "/turns/0/input",
+          "outputRef": "/turns/0/output"
+        },
+        {
+          "id": "447780078cafd8fc",
+          "name": "calculate-fee",
+          "type": "TOOL",
+          "parentObservationId": "5e5c41a697e6006b",
+          "isRootObservation": false,
+          "startTime": "2026-10-08T20:54:50.497Z",
+          "endTime": "2026-10-08T20:54:50.497Z",
+          "inputCanonicalSha256": "53aadf6c1a7160f1a16bee393bf3a9643fb259201fff8c875233cc07510fc22b",
+          "outputCanonicalSha256": "afd6c9a222ebe4bffd3c417210c53c8df07b7c424e9ce26aed8403a329573f5b",
+          "inputRef": "/turns/0/calculation/arguments",
+          "outputRef": "/turns/0/calculation/result"
+        },
+        {
+          "id": "37f811c2023dfa90",
+          "name": "generate-response",
+          "type": "GENERATION",
+          "parentObservationId": "5e5c41a697e6006b",
+          "isRootObservation": false,
+          "startTime": "2026-10-08T20:54:50.615Z",
+          "endTime": "2026-10-08T20:54:57.660Z",
+          "inputCanonicalSha256": "b6650cb0adb12ceb473bdca1c33bb3e866421386bf596d781ebac20db8b9d096",
+          "outputCanonicalSha256": "4b2a15fb1d384732386c6884b418ea3e6239ffac217343ebc54a8a2fd1e7d086",
+          "promptName": "fees/explainer",
+          "promptVersion": 7,
+          "model": "claude-sonnet-4-6",
+          "usageDetails": {
+            "input": 549,
+            "output": 295,
+            "total": 844
+          },
+          "costDetails": {
+            "input": 0.001647,
+            "output": 0.004425,
+            "total": 0.006072
+          },
+          "outputRef": "/turns/0/output",
+          "inputReconstruction": "See shared.generationInputReconstruction.",
+          "systemTextSha256": "d462939bd6c1a0737633ab44d27f05a36db3dd8083dd9a610d144835fdaa1422"
+        }
+      ],
+      "assertions": {
+        "childrenAttachToLogicalRoot": true,
+        "rootContainsOnlyNewUserAndAssistantMessages": true,
+        "fullOrderedHistoryMatchesPriorTurnsInRootAndGenerationMetadataAndModelInput": true,
+        "originalReferenceUnmodifiedInRetrieverOutputAndRootAndGenerationMetadata": true,
+        "modelSystemReferenceExactlyEqualsOriginalPlusThisTurnsCalculationIfAny": true,
+        "generationCalculationMetadataExactlyMatchesActualToolArgumentsAndResult": true,
+        "inputSignalsAttachToRootAndRespectfulToneToGeneration": true
+      },
+      "scores": [
+        {
+          "id": "446f5738-1f88-55bd-bbe8-815b304bacec",
+          "name": "expressed_frustration",
+          "source": "EVAL",
+          "dataType": "NUMERIC",
+          "value": 0,
+          "comment": "The user's message is a straightforward, neutral inquiry about withdrawal fees. There is no language expressing frustration, agitation, or strong emotion. The wording is calm and factual.",
+          "timestamp": "2026-10-08T20:55:00.074Z",
+          "subject": {
+            "kind": "observation",
+            "id": "5e5c41a697e6006b",
+            "traceId": "ed1b4f04268d9aea69c7d6fdca465280"
+          }
+        },
+        {
+          "id": "f3bcdb63-b85d-5f89-baba-f50884a11341",
+          "name": "respectful_tone",
+          "source": "EVAL",
+          "dataType": "NUMERIC",
+          "value": 1,
+          "comment": "The assistant's reply is purely informational and helpful. It explains the withdrawal fee structure clearly using a table, provides additional context about related fees, and ends with an offer to help further. There is no personal insult, threat, contempt, or mockery directed at the user at any point.",
+          "timestamp": "2026-10-08T20:55:00.567Z",
+          "subject": {
+            "kind": "observation",
+            "id": "37f811c2023dfa90",
+            "traceId": "ed1b4f04268d9aea69c7d6fdca465280"
+          }
+        },
+        {
+          "id": "91373a02-c3dc-5bee-9982-64a4ddc695d9",
+          "name": "user_contradiction",
+          "source": "EVAL",
+          "dataType": "NUMERIC",
+          "value": 0,
+          "comment": "There are no prior messages in the conversation, so there is no earlier user statement to compare against. No conflict is possible.",
+          "timestamp": "2026-10-08T20:54:59.774Z",
+          "subject": {
+            "kind": "observation",
+            "id": "5e5c41a697e6006b",
+            "traceId": "ed1b4f04268d9aea69c7d6fdca465280"
+          }
+        },
+        {
+          "id": "4466cdd7-80f7-5ba7-ab9e-405fe054b6a9",
+          "name": "user_disagreement",
+          "source": "EVAL",
+          "dataType": "NUMERIC",
+          "value": 0,
+          "comment": "There are no prior assistant messages in this conversation, so there is no preceding assistant assertion to challenge, reject, or correct. The user is asking a neutral new question about withdrawal fees.",
+          "timestamp": "2026-10-08T20:54:59.934Z",
+          "subject": {
+            "kind": "observation",
+            "id": "5e5c41a697e6006b",
+            "traceId": "ed1b4f04268d9aea69c7d6fdca465280"
+          }
+        },
+        {
+          "id": "a847c026-5834-5003-bfc7-364d897e8c91",
+          "name": "user_profanity",
+          "source": "EVAL",
+          "dataType": "NUMERIC",
+          "value": 0,
+          "comment": "No profanity, quoted or direct, appears in the message. The user is asking a straightforward question about cash withdrawal fees.",
+          "timestamp": "2026-10-08T20:55:00.098Z",
+          "subject": {
+            "kind": "observation",
+            "id": "5e5c41a697e6006b",
+            "traceId": "ed1b4f04268d9aea69c7d6fdca465280"
+          }
+        }
+      ]
+    },
+    {
+      "turn": 2,
+      "traceId": "d1d9a4a41418de561c3602347ef2a697",
+      "traceUrl": "https://cloud.langfuse.com/project/cmuzyfy1f0481ad0f7rajddig/traces/d1d9a4a41418de561c3602347ef2a697",
+      "input": {
+        "messages": [
+          {
+            "role": "user",
+            "content": "I made two cash withdrawals this calendar month. What withdrawal fee applies?"
+          }
+        ]
+      },
+      "output": [
+        {
+          "role": "assistant",
+          "content": "## Withdrawal Fee for This Calendar Month\n\nBased on the Everyday Account terms, here's how the fee is calculated for your two withdrawals:\n\n| | |\n|---|---|\n| **Withdrawals made** | 2 |\n| **Included free per calendar month** | 2 |\n| **Chargeable withdrawals** | 0 |\n| **Fee per excess withdrawal** | EUR 1.50 |\n| **Total withdrawal fee** | **EUR 0.00** |\n\n### How it works\nYour Everyday Account **includes 2 free cash withdrawals each calendar month**. Since you made exactly 2 withdrawals, you have used your full free allowance but have **not exceeded it** — so **no withdrawal fee applies** for this calendar month.\n\n---\n\n### A couple of things to note:\n- This is **separate** from the **EUR 4.00 monthly account fee** (which applies unless you meet the salary deposit waiver condition).\n- It is also **entirely separate** from the **one-off EUR 6.00 card replacement fee**, which only applies if you request a replacement card.\n\nLet me know if you have any other questions!"
+        }
+      ],
+      "priorMessageCount": 2,
+      "priorMessagesCanonicalSha256": "2a74e7ce7866d8042de51b5b6d6ffb5295f1b7eaec9ece122583bc0e662e3d79",
+      "calculation": {
+        "operation": "calculate-fee",
+        "arguments": {
+          "source_id": "SRC-01",
+          "currency": "EUR",
+          "period": "calendar_month",
+          "withdrawal_count": 2,
+          "included_count": 2,
+          "fee_each_after_included": 1.5
+        },
+        "result": {
+          "currency": "EUR",
+          "period": "calendar_month",
+          "chargeable_withdrawals": 0,
+          "total_fee": "0.00"
+        }
+      },
+      "observations": [
+        {
+          "id": "d5b70fc6737b0610",
+          "name": "handle-chat-turn",
+          "type": "SPAN",
+          "parentObservationId": "28422fc1156439bc",
+          "isRootObservation": true,
+          "startTime": "2026-10-08T20:55:24.701Z",
+          "endTime": "2026-10-08T20:55:28.737Z",
+          "inputCanonicalSha256": "6705a178c83eec6f08587daec06c0e6124d0d793184d97b58355eafd8cf1e240",
+          "outputCanonicalSha256": "d7a5d37db565784713ceb02510f487108aaac65863999a3ca9a042272ea64b37",
+          "inputRef": "/turns/1/input",
+          "outputRef": "/turns/1/output"
+        },
+        {
+          "id": "2c6896cba263f708",
+          "name": "retrieve-product-context",
+          "type": "RETRIEVER",
+          "parentObservationId": "d5b70fc6737b0610",
+          "isRootObservation": false,
+          "startTime": "2026-10-08T20:55:24.701Z",
+          "endTime": "2026-10-08T20:55:24.701Z",
+          "inputCanonicalSha256": "babbcf84f1856c0b636c0d38de6600d819adcd492591cd0794b717c3995ac258",
+          "outputCanonicalSha256": "33d3f611785a31d24abed46254c42820b1c51718b6211fdc2a8ab8c49fe40ba9",
+          "input": {
+            "source_id": "SRC-01",
+            "prompt_id": "PR-02"
+          },
+          "outputRef": "/shared/originalReferenceContext"
+        },
+        {
+          "id": "acfff9bef2486a39",
+          "name": "calculate-fee",
+          "type": "TOOL",
+          "parentObservationId": "d5b70fc6737b0610",
+          "isRootObservation": false,
+          "startTime": "2026-10-08T20:55:24.702Z",
+          "endTime": "2026-10-08T20:55:24.702Z",
+          "inputCanonicalSha256": "0a7bce33644891f46da709665f1fcd1154e4b8f7624235fc767054ff2c03782f",
+          "outputCanonicalSha256": "6f07a99ade72f3a7396dc19cf43f044ce2ab863fc1c668699c1b552e23ad035b",
+          "inputRef": "/turns/1/calculation/arguments",
+          "outputRef": "/turns/1/calculation/result"
+        },
+        {
+          "id": "8b3d5f2db2b9288b",
+          "name": "generate-response",
+          "type": "GENERATION",
+          "parentObservationId": "d5b70fc6737b0610",
+          "isRootObservation": false,
+          "startTime": "2026-10-08T20:55:24.840Z",
+          "endTime": "2026-10-08T20:55:28.736Z",
+          "inputCanonicalSha256": "7851ff5fe0e118bdcc07b150392bf8c38a7c040aaa34dfc77a4e326448480b12",
+          "outputCanonicalSha256": "d7a5d37db565784713ceb02510f487108aaac65863999a3ca9a042272ea64b37",
+          "promptName": "fees/explainer",
+          "promptVersion": 7,
+          "model": "claude-sonnet-4-6",
+          "usageDetails": {
+            "input": 862,
+            "output": 268,
+            "total": 1130
+          },
+          "costDetails": {
+            "input": 0.002586,
+            "output": 0.00402,
+            "total": 0.006606
+          },
+          "outputRef": "/turns/1/output",
+          "inputReconstruction": "See shared.generationInputReconstruction.",
+          "systemTextSha256": "f7afc6d5b2ade3125ba8d8a7ffb70e527fc48482b6ef58692da25ee403b01c48"
+        }
+      ],
+      "assertions": {
+        "childrenAttachToLogicalRoot": true,
+        "rootContainsOnlyNewUserAndAssistantMessages": true,
+        "fullOrderedHistoryMatchesPriorTurnsInRootAndGenerationMetadataAndModelInput": true,
+        "originalReferenceUnmodifiedInRetrieverOutputAndRootAndGenerationMetadata": true,
+        "modelSystemReferenceExactlyEqualsOriginalPlusThisTurnsCalculationIfAny": true,
+        "generationCalculationMetadataExactlyMatchesActualToolArgumentsAndResult": true,
+        "inputSignalsAttachToRootAndRespectfulToneToGeneration": true
+      },
+      "scores": [
+        {
+          "id": "5c6a7072-17a9-590c-8482-90a910a4df02",
+          "name": "expressed_frustration",
+          "source": "EVAL",
+          "dataType": "NUMERIC",
+          "value": 0,
+          "comment": "The current user message is a straightforward factual inquiry ('I made two cash withdrawals this calendar month. What withdrawal fee applies?'). The language is calm, neutral, and informational with no expressions of frustration or agitation.",
+          "timestamp": "2026-10-08T20:55:30.848Z",
+          "subject": {
+            "kind": "observation",
+            "id": "d5b70fc6737b0610",
+            "traceId": "d1d9a4a41418de561c3602347ef2a697"
+          }
+        },
+        {
+          "id": "c88aa376-413e-5712-ae3f-049bf617649d",
+          "name": "respectful_tone",
+          "source": "EVAL",
+          "dataType": "NUMERIC",
+          "value": 1,
+          "comment": "The assistant's reply is factually accurate and helpful. It corrects the user's scenario (two withdrawals vs. three in the prior message) and explains the fee structure clearly. There is no personal insult, threat, contempt, or mockery directed at the user. The tone is neutral and professional throughout.",
+          "timestamp": "2026-10-08T20:55:31.499Z",
+          "subject": {
+            "kind": "observation",
+            "id": "8b3d5f2db2b9288b",
+            "traceId": "d1d9a4a41418de561c3602347ef2a697"
+          }
+        },
+        {
+          "id": "5f462163-da7f-5ec7-8f07-bff680fdf398",
+          "name": "user_contradiction",
+          "source": "EVAL",
+          "dataType": "NUMERIC",
+          "value": 1,
+          "comment": "The user previously stated they made three cash withdrawals this calendar month. In the current message, the user states they made two cash withdrawals this calendar month. This is a conflicting factual self-report about the same situation (number of withdrawals in the current calendar month) without any acknowledgment of a correction. The earlier statement (three withdrawals) directly conflicts with the current statement (two withdrawals).",
+          "timestamp": "2026-10-08T20:55:31.879Z",
+          "subject": {
+            "kind": "observation",
+            "id": "d5b70fc6737b0610",
+            "traceId": "d1d9a4a41418de561c3602347ef2a697"
+          }
+        },
+        {
+          "id": "9b3e5676-7bcd-5f8f-9e50-4555369fc75d",
+          "name": "user_disagreement",
+          "source": "EVAL",
+          "dataType": "NUMERIC",
+          "value": 0,
+          "comment": "The user's current message states they made two cash withdrawals, whereas in the prior message they said three. This is a correction of the user's own earlier statement (not a challenge to the assistant's response). The assistant correctly applied the fee rules to the three withdrawals the user originally claimed. The user is now correcting their own input, not disputing the assistant's logic or assertions.",
+          "timestamp": "2026-10-08T20:55:32.046Z",
+          "subject": {
+            "kind": "observation",
+            "id": "d5b70fc6737b0610",
+            "traceId": "d1d9a4a41418de561c3602347ef2a697"
+          }
+        },
+        {
+          "id": "c438c369-347f-5750-b1c1-908d60fd8f1f",
+          "name": "user_profanity",
+          "source": "EVAL",
+          "dataType": "NUMERIC",
+          "value": 0,
+          "comment": "The message is a straightforward banking inquiry about withdrawal fees. No profanity, direct or quoted, is present.",
+          "timestamp": "2026-10-08T20:55:30.709Z",
+          "subject": {
+            "kind": "observation",
+            "id": "d5b70fc6737b0610",
+            "traceId": "d1d9a4a41418de561c3602347ef2a697"
+          }
+        }
+      ]
+    },
+    {
+      "turn": 3,
+      "traceId": "06239db84cad5ab19e5e7fbfd97f1670",
+      "traceUrl": "https://cloud.langfuse.com/project/cmuzyfy1f0481ad0f7rajddig/traces/06239db84cad5ab19e5e7fbfd97f1670",
+      "input": {
+        "messages": [
+          {
+            "role": "user",
+            "content": "Actually, I made two withdrawals, not three."
+          }
+        ]
+      },
+      "output": [
+        {
+          "role": "assistant",
+          "content": "Thank you for the correction! As I explained in my previous response, **two withdrawals fall exactly within the free allowance** of 2 included per calendar month — so **no withdrawal fee applies** for this calendar month.\n\nTo summarise:\n- **Withdrawals made:** 2\n- **Free allowance:** 2\n- **Excess withdrawals:** 0\n- **Total withdrawal fee: EUR 0.00**\n\nLet me know if you have any other questions!"
+        }
+      ],
+      "priorMessageCount": 4,
+      "priorMessagesCanonicalSha256": "b9a29ef7a2cbc69c7c1a039827875a0b68cc56ea8032cbe3a4db307d609d8354",
+      "calculation": null,
+      "observations": [
+        {
+          "id": "69afbb6cf1c630d2",
+          "name": "handle-chat-turn",
+          "type": "SPAN",
+          "parentObservationId": "9bf1dae080b82907",
+          "isRootObservation": true,
+          "startTime": "2026-10-08T20:55:53.029Z",
+          "endTime": "2026-10-08T20:55:56.292Z",
+          "inputCanonicalSha256": "fbab222bceb91a8295c033015d12c73a070ffc782652c10b5e218571b105285f",
+          "outputCanonicalSha256": "e4334aaaf3b4c8ec4f609bb925e1acbd0a39f4e5f8d57dd88103f985d0ec0dda",
+          "inputRef": "/turns/2/input",
+          "outputRef": "/turns/2/output"
+        },
+        {
+          "id": "5ce48452ed69c9ee",
+          "name": "retrieve-product-context",
+          "type": "RETRIEVER",
+          "parentObservationId": "69afbb6cf1c630d2",
+          "isRootObservation": false,
+          "startTime": "2026-10-08T20:55:53.029Z",
+          "endTime": "2026-10-08T20:55:53.030Z",
+          "inputCanonicalSha256": "babbcf84f1856c0b636c0d38de6600d819adcd492591cd0794b717c3995ac258",
+          "outputCanonicalSha256": "33d3f611785a31d24abed46254c42820b1c51718b6211fdc2a8ab8c49fe40ba9",
+          "input": {
+            "source_id": "SRC-01",
+            "prompt_id": "PR-02"
+          },
+          "outputRef": "/shared/originalReferenceContext"
+        },
+        {
+          "id": "6de83c9c5a11f6c4",
+          "name": "generate-response",
+          "type": "GENERATION",
+          "parentObservationId": "69afbb6cf1c630d2",
+          "isRootObservation": false,
+          "startTime": "2026-10-08T20:55:53.562Z",
+          "endTime": "2026-10-08T20:55:56.291Z",
+          "inputCanonicalSha256": "5e2588f263289b04657d69a2ec8b3673ffce894eb0936f31ab24b51da672ba2d",
+          "outputCanonicalSha256": "e4334aaaf3b4c8ec4f609bb925e1acbd0a39f4e5f8d57dd88103f985d0ec0dda",
+          "promptName": "fees/explainer",
+          "promptVersion": 7,
+          "model": "claude-sonnet-4-6",
+          "usageDetails": {
+            "input": 1033,
+            "output": 108,
+            "total": 1141
+          },
+          "costDetails": {
+            "input": 0.003099,
+            "output": 0.00162,
+            "total": 0.004719
+          },
+          "outputRef": "/turns/2/output",
+          "inputReconstruction": "See shared.generationInputReconstruction.",
+          "systemTextSha256": "d42f1f0921dc7210fe948daaa5007e4c22d41765afdbc08e712d8f3dbc325534"
+        }
+      ],
+      "assertions": {
+        "childrenAttachToLogicalRoot": true,
+        "rootContainsOnlyNewUserAndAssistantMessages": true,
+        "fullOrderedHistoryMatchesPriorTurnsInRootAndGenerationMetadataAndModelInput": true,
+        "originalReferenceUnmodifiedInRetrieverOutputAndRootAndGenerationMetadata": true,
+        "modelSystemReferenceExactlyEqualsOriginalPlusThisTurnsCalculationIfAny": true,
+        "generationCalculationMetadataExactlyMatchesActualToolArgumentsAndResult": "not_applicable_no_tool_or_calculation_metadata",
+        "inputSignalsAttachToRootAndRespectfulToneToGeneration": true
+      },
+      "scores": [
+        {
+          "id": "a2df954ebcb3b2abb6c4249ce2791c2b",
+          "name": "user-helpfulness",
+          "source": "API",
+          "dataType": "BOOLEAN",
+          "value": true,
+          "comment": "Demo rehearsal: the corrected two-withdrawal fee is clearly explained.",
+          "timestamp": "2026-10-08T20:57:00.678Z",
+          "subject": {
+            "kind": "observation",
+            "id": "69afbb6cf1c630d2",
+            "traceId": "06239db84cad5ab19e5e7fbfd97f1670"
+          }
+        },
+        {
+          "id": "b540623d-b88c-5122-88cf-67528e379b15",
+          "name": "expressed_frustration",
+          "source": "EVAL",
+          "dataType": "NUMERIC",
+          "value": 0,
+          "comment": "The current user message 'Actually, I made two withdrawals, not three.' is a simple factual correction. The word 'Actually' signals a mild correction but does not constitute explicit frustration or agitation in its language. There is no profanity, exclamation, or emotionally charged wording. It is a neutral disagreement/correction.",
+          "timestamp": "2026-10-08T20:55:59.430Z",
+          "subject": {
+            "kind": "observation",
+            "id": "69afbb6cf1c630d2",
+            "traceId": "06239db84cad5ab19e5e7fbfd97f1670"
+          }
+        },
+        {
+          "id": "5491f1bb-bbdd-5771-aeb4-a2ec056cc253",
+          "name": "respectful_tone",
+          "source": "EVAL",
+          "dataType": "NUMERIC",
+          "value": 1,
+          "comment": "The assistant's reply is polite, informative, and simply confirms the correct information without any insult, threat, contempt, or mockery directed at the user. It acknowledges the correction graciously ('Thank you for the correction!') and provides a clear summary. No disrespectful behavior present.",
+          "timestamp": "2026-10-08T20:55:59.273Z",
+          "subject": {
+            "kind": "observation",
+            "id": "6de83c9c5a11f6c4",
+            "traceId": "06239db84cad5ab19e5e7fbfd97f1670"
+          }
+        },
+        {
+          "id": "c40486ad-92aa-5527-907c-0cc731e55eae",
+          "name": "user_contradiction",
+          "source": "EVAL",
+          "dataType": "NUMERIC",
+          "value": 0,
+          "comment": "The user first stated they made three withdrawals, then in a subsequent message stated they made two withdrawals. The current message ('Actually, I made two withdrawals, not three') is consistent with the second prior user message and explicitly corrects the first. There is no conflict between the current message and the most recent prior statement (two withdrawals); rather, the user is acknowledging and correcting the earlier statement. This counts as an explicit correction, so no conflict score applies.",
+          "timestamp": "2026-10-08T20:55:59.709Z",
+          "subject": {
+            "kind": "observation",
+            "id": "69afbb6cf1c630d2",
+            "traceId": "06239db84cad5ab19e5e7fbfd97f1670"
+          }
+        },
+        {
+          "id": "9d225bcc-f31a-5d7f-b183-ce5e0d27e2de",
+          "name": "user_disagreement",
+          "source": "EVAL",
+          "dataType": "NUMERIC",
+          "value": 0,
+          "comment": "The user's message 'Actually, I made two withdrawals, not three' is a correction of their own earlier statement. In the first user turn, they said they made three cash withdrawals. The assistant responded based on that figure. Then the user already submitted a new question in the second turn ('I made two cash withdrawals this calendar month') and the assistant responded to that. The current message is the user correcting their own earlier statement (three withdrawals), not challenging any assertion made by the assistant. The assistant never asserted the user made three withdrawals as a fact; it simply used the user-provided figure. This is a self-correction by the user, not a challenge to the assistant.",
+          "timestamp": "2026-10-08T20:56:00.828Z",
+          "subject": {
+            "kind": "observation",
+            "id": "69afbb6cf1c630d2",
+            "traceId": "06239db84cad5ab19e5e7fbfd97f1670"
+          }
+        },
+        {
+          "id": "572db7d1-2546-59f0-88c6-a406c20f70f6",
+          "name": "user_profanity",
+          "source": "EVAL",
+          "dataType": "NUMERIC",
+          "value": 0,
+          "comment": "No profanity present in the message. The user is simply clarifying the number of withdrawals made.",
+          "timestamp": "2026-10-08T20:55:58.225Z",
+          "subject": {
+            "kind": "observation",
+            "id": "69afbb6cf1c630d2",
+            "traceId": "06239db84cad5ab19e5e7fbfd97f1670"
+          }
+        }
+      ]
+    }
+  ],
+  "findings": [
+    "Three live PR-02 generations link to actual managed prompt fees/explainer version 7 and model claude-sonnet-4-6; usage and cost are copied from the observation API export.",
+    "Explicit three-withdrawal and two-withdrawal calendar-month inputs invoke application calculate-fee tools, producing EUR 1.50 and EUR 0.00 respectively.",
+    "The third correction does not specify the calendar period in its current message: no fee tool runs and no calculation_results are added. The generation receives all four earlier messages and answers EUR 0.00 using that history.",
+    "The second turn's actual user_contradiction score is 1 because the changed count is unacknowledged. The third explicit correction scores 0; user_disagreement is 0 on all three turns. These actual judge outcomes are preserved, not relabelled as failures or replaced with expected values.",
+    "Four input EVAL signals attach to each logical root, respectful_tone attaches to each generation, and no scores attach to either tool or any retriever.",
+    "The BOOLEAN API feedback reads true (equivalent to submitted value 1) on the third root. It is synthetic demo rehearsal feedback, not independent customer validation."
+  ],
+  "limitations": [
+    "E-02 record_fidelity and E-03 claim_support have no scores in these exports and remain unresolved; this is not complete evaluator coverage or a claim of full quality validation.",
+    "No native UI, role access, prompt promotion, or experiment verification is established by this artifact.",
+    "Historical fixture data has not been reimported; this session establishes only the three listed live turns.",
+    "This is an offline audit of saved API readbacks, not a fresh network read or a new model call. Source hashes identify the local exports, which remain ignored and are not distributed with this artifact.",
+    "Provider inputs are the generation's recorded payload, cross-checked against the current service implementation. This audit does not independently inspect provider wire traffic. Current code hashes identify audit-time files, not a proof of the exact deployed revision.",
+    "Project handoffs were stale during the audit because upstream edits were in progress. Checkpoint renewal, admission and full presenter rehearsal are outside this evidence file."
+  ]
+}

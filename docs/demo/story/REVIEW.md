@@ -77,3 +77,10 @@ Prototype acceptance and any production implementation remain separate decisions
 On 2026-10-08 the user explicitly requested proper live/history trace shapes with
 tool calls. [TRACE_SHAPES.md](TRACE_SHAPES.md) records this additive instruction.
 It leaves the accepted three-beat journey and business/evaluation truth intact.
+
+
+The subsequent trace-design refinement applies the user's instruction to use the
+Langfuse skill: a single retrieval and optional real fee calculation replace the
+redundant wrapper. Prompt-first flow, source facts, rubrics, examples and presenter
+discretion are unchanged. This is implementation compatibility under the existing
+request; it does not record a new user review of the runtime or live evidence.

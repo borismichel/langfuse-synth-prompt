@@ -38,8 +38,8 @@ allocation preserves the exact requested total at smaller and larger volumes.
 
 | History scale | Request traces | Generations | All observations | Outcomes | Chat turns | Chat sessions | Chat users |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| Small verified fixture | 24 | 32 | 92 | 138 | 16 | 6 | 4 |
-| Accepted full plan, arithmetic only | 1,620 | 2,100 | 6,120 | 9,320 | 1,080 | 360 | 216 |
+| Small fixture, seed 42 | 24 | 32 | 77 | 138 | 16 | 6 | 4 |
+| Accepted full plan, arithmetic only, seed 42 | 1,620 | 2,100 | 5,101 | 9,320 | 1,080 | 360 | 216 |
 
 The full plan preserves 180/108/72 conversations and 540/325/215 turns across
 PR-01/02/03. Session length allocations are respectively 72/72/36, 43/43/22 and
@@ -83,7 +83,7 @@ propagates session/user attributes to children. The stored prompt version is
 selected from each family's accepted historical interval.
 
 The root combines attributes emitted by core's `trace_event` shell and typed
-`observation_event` builder. This retains an agent root and observation-local
+`observation_event` builder. This retains a SPAN root and observation-local
 evaluation metadata while avoiding trace metadata that would inherit an input
 evaluator selector onto every child. Core continues to own OTLP transport and
 finalization; the kit does not maintain another wire encoder.
@@ -137,12 +137,16 @@ and [prompt links](https://langfuse.com/docs/prompt-management/features/link-to-
 
 ## Reference operations
 
-Each historical chat turn now includes an application-invoked reference tool and
-a nested catalog retriever before its reply generation. Both carry the exact
-structured reference record, simulated provenance and stable deterministic IDs.
-They have no prompt association or evaluation subject. Existing prompt, root,
-generation and score identities remain stable. Historical native prompt
-experiments remain prompt-only because their context comes from dataset inputs.
+Each historical chat turn includes one validated catalog RETRIEVER. Explicit
+PR-02 calendar-month withdrawal counts additionally execute a deterministic
+`calculate-fee` TOOL; unclear or absent counts do not. For seed 42 there is one
+such calculation in the 24-trace fixture and 61 in the full arithmetic plan.
+Operation counts are derived with the same template-selection substreams as the
+generator. Tools carry structured arguments/results, simulated provenance and
+stable IDs, without prompt links or evaluation subjects. Source reference facts
+stay separate from derived calculation context. Existing root, generation and
+score identities remain stable. Historical native prompt experiments remain
+prompt-only because their context comes from dataset inputs.
 
 The existing live pilot predates this amendment. Its saved verification report
 remains evidence of the prior shape, not these new spans. Do not reimport the

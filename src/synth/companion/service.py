@@ -17,7 +17,8 @@ from uuid import uuid4
 
 from synth.catalog import load_fixture, prompt_by_id, score_definitions
 from synth.reference_tools import (
-    REFERENCE_RETRIEVER_NAME, REFERENCE_TOOL_NAME, reference_arguments, validate_reference,
+    CHAT_OPERATION_NAME, GENERATION_OPERATION_NAME, REFERENCE_RETRIEVER_NAME, FEE_TOOL_NAME,
+    reference_arguments, validate_reference, fee_arguments, calculate_fee, generation_reference,
 )
 
 LIVE_ENVIRONMENT = "prompt-live"
@@ -134,31 +135,35 @@ class ConversationService:
                   "generation_id": None, "evaluation_status": "pending", "preview": self.preview}
         try:
             emitter = self.emitter()
-            with emitter.trace("prompt-chat-request", session_id=session.id,
+            with emitter.trace(CHAT_OPERATION_NAME, session_id=session.id,
                                environment=LIVE_ENVIRONMENT, tags=["prompt", "live", session.prompt_id],
                                input=root_input, metadata={k: metadata[k] for k in ("kit", "evidence_kind", "application_id", "prompt_id", "prompt_name", "rubric_revision", "request_id")}) as root:
                 root.update(metadata=metadata)
                 record.update(trace_id=root.id, root_observation_id=root.observation_id)
                 try:
-                    # The application invokes this tool; the model never emits a tool call.
+                    # These are application actions, not model-selected tool calls.
                     arguments = reference_arguments(session.prompt_id)
-                    with root.observation(REFERENCE_TOOL_NAME, as_type="tool", input=arguments,
-                                          metadata={"invocation": "application", "source_id": arguments["source_id"]}) as tool:
+                    with root.observation(REFERENCE_RETRIEVER_NAME, as_type="retriever", input=arguments,
+                                          metadata={"invocation": "application", "source_id": arguments["source_id"],
+                                                    "source": "local-product-catalog"}) as retriever:
                         try:
-                            with tool.observation(REFERENCE_RETRIEVER_NAME, as_type="retriever",
-                                                  input={"source_id": arguments["source_id"]},
-                                                  metadata={"source": "local-product-catalog"}) as retriever:
-                                try:
-                                    retrieved = load_fixture("product")["source"]
-                                    retriever.update(output=retrieved)
-                                except Exception as exc:
-                                    retriever.update(level="ERROR", status_message=type(exc).__name__)
-                                    raise
-                            reference = validate_reference(retrieved, arguments)
-                            tool.update(output=reference)
+                            reference = validate_reference(load_fixture("product")["source"], arguments)
+                            retriever.update(output=reference)
                         except Exception as exc:
-                            tool.update(level="ERROR", status_message=type(exc).__name__)
+                            retriever.update(level="ERROR", status_message=type(exc).__name__)
                             raise
+                    calculation = fee_arguments(session.prompt_id, message, reference)
+                    result = None
+                    if calculation is not None:
+                        with root.observation(FEE_TOOL_NAME, as_type="tool", input=calculation,
+                                              metadata={"invocation": "application", "source_id": reference["id"]}) as tool:
+                            try:
+                                result = calculate_fee(calculation)
+                                tool.update(output=result)
+                            except Exception as exc:
+                                tool.update(level="ERROR", status_message=type(exc).__name__)
+                                raise
+                    model_reference = generation_reference(reference, calculation, result)
                     context = {**context, "reference_context": reference}
                     metadata = {**metadata, **context}
                     root.update(metadata=metadata)
@@ -167,7 +172,7 @@ class ConversationService:
                         spec["name"], label="production", cache_ttl_seconds=0, type="chat")
                     if getattr(prompt, "is_fallback", False):
                         raise ValueError("Managed prompt fallback is not permitted")
-                    compiled = prompt.compile(reference_context=json.dumps(reference, ensure_ascii=False),
+                    compiled = prompt.compile(reference_context=json.dumps(model_reference, ensure_ascii=False),
                                               conversation_history=history, user_message=message)
                     if not isinstance(compiled, list) or not compiled:
                         raise ValueError("Production must be a managed chat prompt")
@@ -183,7 +188,9 @@ class ConversationService:
                     model_messages = [{"role": "system", "content": system_with_reference}, *messages]
                     llm = self.adapter.llm()
                     generation_metadata = {**metadata, "evaluation_subject": "assistant_reply"}
-                    with root.generation("reply", model=llm.model, prompt=prompt,
+                    if calculation is not None:
+                        generation_metadata["calculation_results"] = model_reference["calculation_results"]
+                    with root.generation(GENERATION_OPERATION_NAME, model=llm.model, prompt=prompt,
                                          input={"messages": model_messages},
                                          model_parameters={"max_tokens": 700, **({"temperature": 0} if llm.provider == "openai" else {})},
                                          metadata=generation_metadata) as generation:

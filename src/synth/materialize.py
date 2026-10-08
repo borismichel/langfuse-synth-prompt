@@ -19,8 +19,9 @@ from langfuse_synth_core.seed.otlp import trace_root_span_id
 
 from .catalog import dataset_items, load_fixture, prompt_by_id, score_definitions, system_prompt
 from .config import DERIVATION_HOOK
-from .reference_tools import (REFERENCE_RETRIEVER_NAME, REFERENCE_TOOL_NAME,
-                              reference_arguments, validate_reference)
+from .reference_tools import (CHAT_OPERATION_NAME, GENERATION_OPERATION_NAME, REFERENCE_RETRIEVER_NAME, FEE_TOOL_NAME,
+                              reference_arguments, validate_reference, fee_arguments, calculate_fee,
+                              generation_reference, withdrawal_count)
 
 WINDOW_DAYS = 28
 HISTORY_TRACES = 1620
@@ -60,9 +61,37 @@ def _session_lengths(turns: int, prompt_id: str) -> list[int]:
     return lengths
 
 
+def _chat_sessions(counts, rng):
+    sessions = []
+    for prompt_id in ("PR-01", "PR-02", "PR-03"):
+        lengths = _session_lengths(counts[prompt_id], prompt_id)
+        rng.sub("lengths", prompt_id).shuffle(lengths)
+        sessions.extend((prompt_id, length) for length in lengths)
+    return sessions
+
+
+def _chat_template(templates, rng, ordinal):
+    template = rng.choices(templates, [t["weight"] for t in templates])[0]
+    return templates[0] if ordinal == 0 else template
+
+
+def _planned_calculations(counts, seed):
+    # Count only operations that the same deterministic template selection runs.
+    # This plans volume without materializing traces, usage or score events.
+    rng, ordinals = Rng(seed), Counter()
+    templates = load_fixture("conversations")
+    count = 0
+    for index, (pid, length) in enumerate(_chat_sessions(counts, rng)):
+        template = _chat_template(templates[pid], rng.sub("session", index), ordinals[pid])
+        ordinals[pid] += 1
+        count += sum(withdrawal_count(pid, turn["user_message"]) is not None
+                     for turn in template["turns"][:length])
+    return count
+
+
 def population_plan(target_traces: int, params: Mapping[str, Any] | None = None,
                     *, run_date: datetime | None = None) -> dict:
-    """Pure volume arithmetic; does not materialize or seed the large population."""
+    """Plan volume and conditional operations without materializing or seeding history."""
     count = int(DERIVATION_HOOK(target_traces, params or {})["target_traces"])
     if count < 0:
         raise ValueError("target_traces must be nonnegative")
@@ -73,8 +102,10 @@ def population_plan(target_traces: int, params: Mapping[str, Any] | None = None,
     lengths = {pid: _session_lengths(counts[pid], pid) for pid in ("PR-01", "PR-02", "PR-03")}
     sessions = sum(len(values) for values in lengths.values())
     chat_turns = sum(counts[pid] for pid in lengths)
+    calculations = _planned_calculations(counts, int((params or {}).get("seed", 42)))
     return {"target_traces": count, "request_counts": counts, "generations": generations,
-            "observations": count + generations + counts["FLOW-01"] + 2 * chat_turns, "outcomes": outcomes,
+            "observations": count + generations + counts["FLOW-01"] + chat_turns + calculations, "outcomes": outcomes,
+            "fee_calculations": calculations,
             "chat_turns": chat_turns, "chat_sessions": sessions,
             "chat_users": sessions - 2 * (sessions // 5),
             "session_lengths": {pid: dict(sorted(Counter(values).items())) for pid, values in lengths.items()}}
@@ -128,7 +159,7 @@ def _task_timestamp(index: int, rng: Rng, run_date: datetime) -> tuple[datetime,
 
 
 def _root(*, trace_id, timestamp, name, metadata, user_id=None, session_id=None, input=None, output=None,
-          environment="production-history", obs_type="agent"):
+          environment="production-history", obs_type="span"):
     # Compose core builders: shell propagation and observation-local evaluator context.
     # Putting evaluation_subject into trace metadata would leak it to every child.
     shell = trace_event(trace_id=trace_id, timestamp=timestamp, name=name, user_id=user_id,
@@ -143,31 +174,31 @@ def _root(*, trace_id, timestamp, name, metadata, user_id=None, session_id=None,
     return shell
 
 
-def _reference_resolution(rng, trace_id, index, prompt_id, start, source):
-    """Authored timing for the application's local read-and-validate operation.
-
-    The app invokes this tool before calling the provider; it is not a model
-    tool-call message. An isolated substream preserves existing session choices.
-    """
+def _reference_resolution(rng, trace_id, index, prompt_id, start, source, question):
+    """Synthetic historical timing around the same local application functions."""
     arguments = reference_arguments(prompt_id)
     resolved = validate_reference(source, arguments)
-    tool_id = rng.obs_id("reference-tool", index)
-    retrieval_start = start + timedelta(milliseconds=5)
-    retrieval_end = retrieval_start + timedelta(milliseconds=rng.sub("reference-timing", index).randint(25, 55))
-    end = retrieval_end + timedelta(milliseconds=8)
+    end = start + timedelta(milliseconds=rng.sub("reference-timing", index).randint(25, 55))
     metadata = {"application_id": prompt_by_id(prompt_id)["application_id"],
                 "request_id": trace_id, "source_id": arguments["source_id"],
                 "cohort": "production-history", "evidence_kind": "authored-synthetic-history",
                 "invocation": "application", "simulated": True}
-    tool = observation_event(obs_id=tool_id, trace_id=trace_id,
-        name=REFERENCE_TOOL_NAME, obs_type="tool", parent_id=trace_root_span_id(trace_id),
+    retriever = observation_event(obs_id=rng.obs_id("reference-retriever", index), trace_id=trace_id,
+        name=REFERENCE_RETRIEVER_NAME, obs_type="retriever", parent_id=trace_root_span_id(trace_id),
         start=start, end=end, environment="production-history",
         input=arguments, output=resolved, metadata=metadata)
-    retriever = observation_event(obs_id=rng.obs_id("reference-retriever", index), trace_id=trace_id,
-        name=REFERENCE_RETRIEVER_NAME, obs_type="retriever", parent_id=tool_id,
-        start=retrieval_start, end=retrieval_end, environment="production-history",
-        input={"source_id": arguments["source_id"]}, output=source, metadata=metadata)
-    return [tool, retriever], end, resolved
+    events = [retriever]
+    calculation = fee_arguments(prompt_id, question, resolved)
+    result = None
+    if calculation is not None:
+        result = calculate_fee(calculation)
+        tool_end = end + timedelta(milliseconds=8)
+        events.append(observation_event(obs_id=rng.obs_id("fee-calculation", index), trace_id=trace_id,
+            name=FEE_TOOL_NAME, obs_type="tool", parent_id=trace_root_span_id(trace_id),
+            start=end, end=tool_end, environment="production-history",
+            input=calculation, output=result, metadata=metadata))
+        end = tool_end
+    return events, end, resolved, generation_reference(resolved, calculation, result)
 
 
 def _metadata(prompt_id, version, case_id, source, question, history, *, subject, output=None):
@@ -184,7 +215,7 @@ def _metadata(prompt_id, version, case_id, source, question, history, *, subject
 
 
 def _generation(rng, trace_id, index, prompt_id, version, start, case_id, question, source, history, output, outcomes,
-                environment="production-history"):
+                environment="production-history", model_reference=None):
     prompt = prompt_by_id(prompt_id)
     obs_id = rng.obs_id("generation", index, prompt_id)
     base_in, base_out = TOKEN_BASES[prompt_id]
@@ -199,20 +230,22 @@ def _generation(rng, trace_id, index, prompt_id, version, start, case_id, questi
                          subject="assistant_reply", output=output)
     metadata["cohort"] = environment
     metadata["request_id"] = trace_id
+    if model_reference is not None and "calculation_results" in model_reference:
+        metadata["calculation_results"] = deepcopy(model_reference["calculation_results"])
     definitions = score_definitions()
     metadata.update({"synthetic_pricing": True, "synthetic_usage": True,
                      "expected_outcomes": {eid: {"value": value, "status": "inapplicable" if value is None else "complete"}
                                            for eid, value in sorted(outcomes.items())
                                            if definitions[eid]["subject"] == "assistant_reply"}})
     rendered = output if isinstance(output, str) else json.dumps(output, sort_keys=True)
-    generation = generation_event(obs_id=obs_id, trace_id=trace_id, name=prompt["name"],
+    generation = generation_event(obs_id=obs_id, trace_id=trace_id, name=GENERATION_OPERATION_NAME,
         parent_id=trace_root_span_id(trace_id), start=start, end=end, environment=environment,
         model=model, model_parameters={"temperature": 0, "fixture_replay": True},
         usage_details={"input": in_tokens, "output": out_tokens, "total": in_tokens + out_tokens},
         cost_details={"input": in_cost, "output": out_cost, "total": in_cost + out_cost},
         prompt_name=prompt["name"], prompt_version=version,
         input=[{"role": "system", "content": system_prompt(prompt_id, version) +
-               "\n\nReference context:\n" + json.dumps(source, sort_keys=True)},
+               "\n\nReference context:\n" + json.dumps(source if model_reference is None else model_reference, sort_keys=True)},
                *deepcopy(history), {"role": "user", "content": question}],
         output={"role": "assistant", "content": rendered}, metadata=metadata)
     return generation, end, obs_id
@@ -259,11 +292,7 @@ def build_events(target_traces: int, params: Mapping[str, Any], *, run_date: dat
     local_day_bounds(run_date, -1)
     events, counts = [], plan["request_counts"]
     source = load_fixture("product")["source"]
-    sessions = []
-    for prompt_id in ("PR-01", "PR-02", "PR-03"):
-        lengths = _session_lengths(counts[prompt_id], prompt_id)
-        rng.sub("lengths", prompt_id).shuffle(lengths)
-        sessions.extend((prompt_id, length) for length in lengths)
+    sessions = _chat_sessions(counts, rng)
     schedule = _session_schedule(len(sessions), rng, run_date)
     triples = len(sessions) // 5
     single_users = len(sessions) - 3 * triples
@@ -279,9 +308,7 @@ def build_events(target_traces: int, params: Mapping[str, Any], *, run_date: dat
         templates = templates_by_prompt[prompt_id]
         ordinal = prompt_session_indices[prompt_id]
         prompt_session_indices[prompt_id] += 1
-        template = r.choices(templates, [t["weight"] for t in templates])[0]
-        if ordinal == 0:
-            template = templates[0]
+        template = _chat_template(templates, r, ordinal)
         history, timestamp = [], start
         for turn_index in range(length):
             turn = template["turns"][turn_index]
@@ -292,14 +319,15 @@ def build_events(target_traces: int, params: Mapping[str, Any], *, run_date: dat
             metadata.update({"session_turn": turn_index + 1, "session_length": length, "topic": template["theme"],
                              "relative_day": day, "expected_outcomes": {eid: {"value": value, "status": "complete"}
                                  for eid, value in sorted(outcomes.items()) if definitions[eid]["subject"] == "user_input"}})
-            events.append(_root(trace_id=trace_id, timestamp=timestamp, name=prompt_by_id(prompt_id)["title"] + " request",
+            events.append(_root(trace_id=trace_id, timestamp=timestamp, name=CHAT_OPERATION_NAME,
                 user_id=user_id, session_id=session_id, metadata=metadata, obs_type="span",
                 input={"role": "user", "content": turn["user_message"]}, output={"role": "assistant", "content": output}))
-            reference_events, generation_start, resolved = _reference_resolution(
-                r, trace_id, turn_index, prompt_id, timestamp, source)
+            reference_events, generation_start, resolved, model_reference = _reference_resolution(
+                r, trace_id, turn_index, prompt_id, timestamp, source, turn["user_message"])
             events.extend(reference_events)
             gen, end, gen_id = _generation(r, trace_id, turn_index, prompt_id, version, generation_start,
-                turn["case_id"], turn["user_message"], resolved, history, output, outcomes)
+                turn["case_id"], turn["user_message"], resolved, history, output, outcomes,
+                model_reference=model_reference)
             events.append(gen)
             events.extend(_scores(r, trace_id, turn_index, trace_root_span_id(trace_id), gen_id, outcomes, end, turn["case_id"]))
             history += [{"role": "user", "content": turn["user_message"]}, {"role": "assistant", "content": output}]
@@ -320,10 +348,11 @@ def build_events(target_traces: int, params: Mapping[str, Any], *, run_date: dat
             if operation == 2:
                 tool_end = cursor + timedelta(milliseconds=75)
                 events.append(observation_event(obs_id=r.obs_id("lookup"), trace_id=trace_id,
-                    name="Reference lookup", obs_type="tool", parent_id=trace_root_span_id(trace_id),
+                    name=REFERENCE_RETRIEVER_NAME, obs_type="retriever", parent_id=trace_root_span_id(trace_id),
                     start=cursor, end=tool_end, environment="production-history",
                     input={"query": "monthly fee waiver own-account transfer"}, output=source,
-                    metadata={"operation_id": "SIM-LOOKUP", "simulated": True, "source_id": "SRC-01"}))
+                    metadata={"operation_id": "SIM-LOOKUP", "simulated": True, "source_id": "SRC-01",
+                              "evidence_kind": "authored-synthetic-history"}))
                 cursor = tool_end
             case = dataset_items(pid)[0]
             context = case["input"]["reference_context"]

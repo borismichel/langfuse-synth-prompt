@@ -33,6 +33,19 @@ def make_receipt(events: list[dict], spool_path: Path, *, run_date: datetime, se
         if key not in seen:
             seen.add(key)
             if e['traceId'] not in trace_ids: trace_ids.append(e['traceId'])
+    # Conditional application actions need representative evidence even when the
+    # first trace for that prompt/version did not invoke them.
+    operation_shapes = set()
+    for e in spans:
+        a = attributes(e)
+        kind = a.get(otlp.OBS_TYPE, "span").lower()
+        if kind not in {"tool", "retriever"}:
+            continue
+        shape = (kind, e["name"])
+        if shape not in operation_shapes:
+            operation_shapes.add(shape)
+            if e["traceId"] not in trace_ids:
+                trace_ids.append(e["traceId"])
     if not trace_ids:
         trace_ids = list(dict.fromkeys(e['traceId'] for e in spans))[:3]
     trace_ids = trace_ids[:72]
@@ -53,7 +66,7 @@ def make_receipt(events: list[dict], spool_path: Path, *, run_date: datetime, se
                 'input': _decoded(a.get(otlp.OBS_INPUT)), 'output': _decoded(a.get(otlp.OBS_OUTPUT)),
                 'evaluation_subject': _decoded(a.get(otlp.OBS_METADATA_PREFIX + 'evaluation_subject')),
                 'operation_metadata': {key: _decoded(a[otlp.OBS_METADATA_PREFIX + key])
-                    for key in ('invocation', 'simulated', 'source_id')
+                    for key in ('invocation', 'simulated', 'source_id', 'evidence_kind', 'calculation_results')
                     if otlp.OBS_METADATA_PREFIX + key in a},
             })
         scores = []

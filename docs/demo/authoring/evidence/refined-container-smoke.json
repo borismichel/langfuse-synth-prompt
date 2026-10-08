@@ -1,0 +1,31 @@
+{
+  "uid": 10001,
+  "network": "none",
+  "dry_run": true,
+  "history_target": 24,
+  "actual_traces": 42,
+  "generations": 50,
+  "scores": 174,
+  "spooled_events": 287,
+  "observations": 113,
+  "runbook_delivered": true,
+  "secret_files_excluded": true,
+  "provider_packages": {
+    "anthropic": "1.12.1",
+    "openai": "3.26.1"
+  },
+  "runtime_source_sha256": {
+    "synth.reference_tools": "442b7b4ad70b5b8ac42943f0bc99be03f7d4ffda9ef950a4f58255c3ca9c8948",
+    "synth.companion.service": "7a2fdf6e573d7fab2b6f41f309bd300ed0ed53c89743d0f5f62a3b0ecb2b80d3",
+    "synth.materialize": "c7cee4d566236101ce3c3479726477d9e0711a0b58b4783b5faf839ec39b5f6f",
+    "synth.receipt": "b92ed83c94a6f917edf1baf77727de8058aaee46e0b0c512eed13b01ef27c12a"
+  },
+  "checked_at": "2026-10-08",
+  "image": "langfuse-synth-prompt:trace-refinement",
+  "published": false,
+  "scope": "Current runtime source smoke check; local image only, not an admitted release candidate.",
+  "core_release": "v4.1.1",
+  "core_tag_object": "571f47a003b5f64c6177e48f0a26685ddc3ed75c",
+  "core_peeled_commit": "6b86ac16d797cd0c6a80da1cdd68e8fc8998c18d",
+  "image_id": "sha256:d9f786d854ed750078575255eb697b02d9d9001b3e307334c5267d451c33ccb5"
+}

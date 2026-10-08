@@ -40,7 +40,7 @@ That authorisation is not recorded as acceptance of this new implementation.
 | --- | --- | --- |
 | Manifest | Passed | [manifest.txt](evidence/manifest.txt) |
 | Pinned core conformance | Passed, no skipped checks | [conformance.txt](evidence/conformance.txt) |
-| Scenario/integration suite | 103 passed | [tests.txt](evidence/tests.txt) |
+| Scenario/integration suite | 131 passed after trace refinement | [tests.txt](evidence/tests.txt) |
 | Process repeatability | Identical full spool for hash seeds 0, 1, 2 with networking denied | Included in test suite |
 | Package dependencies | No broken requirements | [dependencies.txt](evidence/dependencies.txt) |
 | Public request schemas | 144 asset/setup payloads validated against official OpenAPI snapshot, no errors | [schema-check.json](evidence/schema-check.json) |
@@ -49,6 +49,8 @@ That authorisation is not recorded as acceptance of this new implementation.
 | Prior pilot seed/readback (before tool enrichment) | 219 passed, 4 readiness checks pending; all 36 representative traces and 18 experiment associations matched | [live-pilot.json](evidence/live-pilot.json) |
 | Configured evaluators/readback | 235 passed; two N/A/coverage checks remain failed | [configuration-refresh-readback.json](evidence/configuration-refresh-readback.json) |
 | Actual PR-01 live session | Four turns, 16 observations, 24 EVAL scores; 76 structural assertions passed; two calibration mismatches preserved | [live-model-session.json](evidence/live-model-session.json) |
+| Refined live fee session | Three turns, 11 observations, two correct fee tools, 15 EVAL results and one saved-root feedback score | [refined-live-session.json](evidence/refined-live-session.json) |
+| Refined packaged runtime | Non-root, network disabled; 24 history + 18 experiment traces, 113 observations, 174 scores; runbook delivered; source hashes match | [refined-container-smoke.json](evidence/refined-container-smoke.json) |
 | Intended population | Arithmetic plan reconciles 1,620 history traces / 2,100 generations / 9,320 eligible outcomes | [generation notes](GENERATION.md) |
 
 The golden is a deliberate replacement of the scaffold example: 24 history traces
@@ -135,7 +137,8 @@ best-practices page and instrumentation skill. The implemented hierarchy has
 correct parent/session/score relationships, but the generic tool wrapper around
 retrieval provides limited additional value. The audit recommends specific
 retrieval types, distinct real tool actions and consistent operation naming.
-These design refinements are recorded as pending, not claimed implemented.
+The refinement below now implements these recommendations; older evidence remains
+labelled with its prior shape.
 
 ## Depot model connection and actual live session
 
@@ -169,3 +172,39 @@ The live screenshot precedes a small display fix: assistant Markdown now uses
 safe text nodes and elements; user input, HTML and links remain inert plaintext.
 The full local suite still passes 103 tests, plus the offline renderer safety
 regression, manifest and core conformance.
+
+## Trace refinement and remaining access
+
+The runtime now uses one source RETRIEVER and an optional real fee-calculation
+TOOL as siblings of the answer GENERATION. Fixed orchestration roots are SPANs;
+FLOW-01 lookup is a RETRIEVER. The 24-trace history fixture has 77 observations,
+including one calculation. Seed 42's full arithmetic plan has 5,101 observations
+and 61 calculations; no full-volume history has been generated or imported.
+
+[Fresh nullable-evaluator research](NULLABLE_EVALUATOR_RESEARCH.md) confirms the
+native numeric limitation against current official code/schema. An external
+nullable judge adapter for just E-02/E-03 could preserve numeric semantics, but
+would change the producer and require automatic processing of native experiment
+outputs. Categorical Pass/Fail/N/A is another possible contract change. Neither
+has been substituted silently for the accepted managed-evaluator workflow.
+
+The native Langfuse session page currently reports no access and offers Sign In.
+Depot redirects to its sign-in page. Automatic approval review rejected initiating
+Depot's Google sign-in because account-use authorization was not established;
+explicit approval has been requested. No authentication bypass was attempted.
+
+
+## Refined live readback
+
+A new three-turn PR-02 session exercised the refined runtime without reimporting
+history. Readback contains eleven observations: three request roots, three
+retrievers, three generations and two actual fee calculations. Three withdrawals
+produce EUR 1.50; two produce EUR 0.00. The third incomplete correction has no
+calculator observation or stale derived context. Fifteen managed EVAL outcomes
+attach to the correct request/reply subjects. A labelled rehearsal feedback score
+was read back on the third request root. See
+[refined live evidence](evidence/refined-live-session.json) and
+[companion screenshot](evidence/refined-companion-feedback.jpg).
+
+This closes the revised companion trace/feedback persistence checks, not native
+UI replay, permission enforcement, promotion, experiment comparison or admission.

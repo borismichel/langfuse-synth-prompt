@@ -92,7 +92,7 @@ the accepted story and prototype and verify the required live behaviour. Use the
 ## Compatibility with the later trace-detail instruction
 
 The user subsequently requested proper tool-call shapes in live companion and
-history. The [trace amendment](../story/TRACE_SHAPES.md) adds nested reference work
+history. The [trace amendment](../story/TRACE_SHAPES.md) adds explicit retrieval and conditional fee calculation
 in the authored runtime. It preserves the accepted companion layout, prompt-first
 journey, session entry point and distinct evaluation subjects. The prototype's
 original screenshots/counts remain evidence of the earlier prototype; they do not

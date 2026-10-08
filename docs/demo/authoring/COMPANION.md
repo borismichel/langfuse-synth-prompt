@@ -33,9 +33,9 @@ compiled system messages are joined with a blank line; the generation input reco
 exact system string plus the actual history and current message sent to the provider.
 The generation receives the real SDK prompt object, retaining its resolved version.
 
-Each request emits a `prompt-chat-request` SPAN root, an application-invoked
-`resolve_product_reference` TOOL with a nested `read_product_record` RETRIEVER,
-and a sibling `reply` GENERATION, with
+Each request emits a `handle-chat-turn` SPAN root, a validated
+`retrieve-product-context` RETRIEVER, an optional `calculate-fee` TOOL,
+and a sibling `generate-response` GENERATION, with
 `environment=prompt-live` and the same session ID. The root's `input.messages` contains only
 the new user message; its output contains only the new assistant message, avoiding repeated
 history in session replay. Root and generation both expose:
@@ -44,11 +44,16 @@ history in session replay. Root and generation both expose:
 - application/prompt IDs, prompt name, resolved prompt version and rubric revision;
 - `evaluation_subject=user_input` on the root, `assistant_reply` on the generation.
 
-The tool executes a real local catalog read and validates its required fields before
-returning the exact record supplied to the model. Tool arguments/results are structured
-and carry no evaluator subject or managed-prompt attachment. Read/validation errors
-mark the failed operation and request, and prevent a provider call. These are application
-operations, so no fictional model-selected tool messages are inserted.
+The retriever executes a real catalog read and validates its required fields.
+For PR-02's supported explicit current-message monthly withdrawal count, a separate
+tool calculates the excess fee from that record. Its structured result is added
+to a copied reference context for the model and retained in generation metadata
+as `calculation_results`; evaluator `reference_context` stays the original source.
+The strict parser skips ambiguous corrections, hypotheticals and unsupported
+wording rather than inventing tool arguments. Tool/retriever observations carry no
+evaluation subject or managed-prompt attachment. Errors mark the failed operation
+and request and prevent a provider call. These are application operations, so no
+fictional model-selected tool messages are inserted.
 
 Only short correlation fields use propagated metadata because the SDK truncates propagated
 values. Full structured evaluator context is set explicitly on each observation. Input
@@ -140,7 +145,7 @@ signals; this remains visible as a judge-calibration finding.
 
 **Still requires verification:** native session chat rendering; production-label
 refresh after admin promotion; E-02/E-03 N/A semantics and live rules; judge failure
-handling; live feedback score readback; native experiments; Depot proxy and full
+handling; native experiments; Depot proxy and full
 admission/rehearsal. The native browser currently requires sign-in.
 
 Assistant replies render a small Markdown subset (headings, flat lists, tables,
@@ -175,3 +180,19 @@ reference; retain this as a grounding review example, not a verified factual pas
 
 - PR-02 session: `prompt-live-e088c7ce0e804129a22fe8e11623ee95`
 - PR-03 session: `prompt-live-3ee8c16b9127473385f1dd4b29ad7a68`
+
+
+## Refined live readback
+
+A new three-turn PR-02 session exercised the refined runtime without reimporting
+history. Readback contains eleven observations: three request roots, three
+retrievers, three generations and two actual fee calculations. Three withdrawals
+produce EUR 1.50; two produce EUR 0.00. The third incomplete correction has no
+calculator observation or stale derived context. Fifteen managed EVAL outcomes
+attach to the correct request/reply subjects. A labelled rehearsal feedback score
+was read back on the third request root. See
+[refined live evidence](evidence/refined-live-session.json) and
+[companion screenshot](evidence/refined-companion-feedback.jpg).
+
+This closes the revised companion trace/feedback persistence checks, not native
+UI replay, permission enforcement, promotion, experiment comparison or admission.

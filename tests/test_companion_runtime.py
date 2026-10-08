@@ -12,7 +12,7 @@ from synth.catalog import load_fixture, score_definitions
 from synth.companion.app import create_app
 from synth.companion.preview import FixtureAdapter
 from synth.companion.service import ConversationService
-from synth.reference_tools import REFERENCE_RETRIEVER_NAME, REFERENCE_TOOL_NAME, reference_arguments
+from synth.reference_tools import CHAT_OPERATION_NAME, GENERATION_OPERATION_NAME, REFERENCE_RETRIEVER_NAME, FEE_TOOL_NAME, reference_arguments
 
 
 class TestAdapter(FixtureAdapter):
@@ -42,30 +42,38 @@ def post_turn(client, state, message=None, request_id="request-0001"):
 
 def request_tree(adapter, turn):
     observations = [o for o in adapter.observations if o.trace_id == turn["trace_id"]]
-    root, tool, retriever, generation = observations
-    assert [o.fields["type"] for o in observations] == ["SPAN", "TOOL", "RETRIEVER", "GENERATION"]
+    root, retriever, *rest = observations
+    generation = rest[-1]
+    tools = rest[:-1]
+    assert [o.fields["type"] for o in observations] == ["SPAN", "RETRIEVER", *(["TOOL"] if tools else []), "GENERATION"]
     assert root.root and root.fields["parent_id"] is None
-    assert root.children == [tool, generation] and tool.children == [retriever]
-    assert tool.fields["parent_id"] == generation.fields["parent_id"] == root.observation_id
-    assert retriever.fields["parent_id"] == tool.id
+    assert root.fields["name"] == CHAT_OPERATION_NAME
+    assert generation.fields["name"] == GENERATION_OPERATION_NAME
+    assert root.children == observations[1:]
+    assert all(o.fields["parent_id"] == root.observation_id for o in observations[1:])
     assert all(o.fields["session_id"] == turn["session_id"] and o.ended for o in observations)
-    assert tool.fields["name"] == REFERENCE_TOOL_NAME
     assert retriever.fields["name"] == REFERENCE_RETRIEVER_NAME
-    assert tool.fields["input"] == reference_arguments(root.fields["metadata"]["prompt_id"])
-    assert retriever.fields["input"] == {"source_id": "SRC-01"}
-    assert tool.fields["metadata"]["invocation"] == "application"
-    for operation in (tool, retriever):
+    assert retriever.fields["input"] == reference_arguments(root.fields["metadata"]["prompt_id"])
+    source = load_fixture("product")["source"]
+    assert retriever.fields["output"] == source
+    for operation in (retriever, *tools):
+        assert operation.fields["metadata"]["invocation"] == "application"
         assert "evaluation_subject" not in operation.fields["metadata"]
         assert "prompt" not in operation.fields
-        assert operation.fields["output"] == load_fixture("product")["source"]
-    assert generation.fields["metadata"]["reference_context"] == tool.fields["output"]
+    assert generation.fields["metadata"]["reference_context"] == source
     assert root.fields["input"] == {"messages": [{"role": "user", "content": turn["user"]}]}
     assert set(generation.fields["input"]) == {"messages"}
-    assert generation.fields["input"]["messages"][0]["content"].endswith(
-        "Reference context: " + json.dumps(tool.fields["output"], ensure_ascii=False))
+    actual_context = json.loads(generation.fields["input"]["messages"][0]["content"].split("Reference context: ", 1)[1])
+    if tools:
+        tool, = tools
+        assert tool.fields["name"] == FEE_TOOL_NAME
+        assert actual_context["calculation_results"] == generation.fields["metadata"]["calculation_results"]
+        assert actual_context.pop("calculation_results") == [{"operation": FEE_TOOL_NAME,
+            "arguments": tool.fields["input"], "result": tool.fields["output"]}]
+    assert actual_context == source
     assert all(m["role"] in {"system", "user", "assistant"}
                and "tool_calls" not in m for m in generation.fields["input"]["messages"])
-    return root, tool, retriever, generation
+    return root, retriever, generation
 
 
 def test_each_turn_refreshes_prompt_and_old_reply_retains_resolved_version():
@@ -147,7 +155,7 @@ def test_errors_preserve_request_identity_without_a_fabricated_reply(failure):
 
 
 @pytest.mark.parametrize("failure", ["read", "validation"])
-def test_reference_resolution_runs_inside_real_nested_observations_and_stops_failed_turn(monkeypatch, failure):
+def test_reference_read_and_validation_run_inside_retriever_and_stop_failed_turn(monkeypatch, failure):
     from synth.companion import service as service_module
     adapter, client = setup_client()
     state = session(client)
@@ -156,9 +164,9 @@ def test_reference_resolution_runs_inside_real_nested_observations_and_stops_fai
 
     def read_product(name):
         calls.append(name)
-        root, tool, retriever = adapter.observations
-        assert not root.ended and not tool.ended and not retriever.ended
-        assert retriever.parent is tool and tool.parent is root
+        root, retriever = adapter.observations
+        assert not root.ended and not retriever.ended
+        assert retriever.parent is root
         if failure == "read":
             raise RuntimeError("Secret-shaped sentinel must never be recorded")
         return {"source": {"id": "SRC-01"}}
@@ -168,21 +176,16 @@ def test_reference_resolution_runs_inside_real_nested_observations_and_stops_fai
     assert calls == ["product"]
     assert turn["status"] == "failed" and turn["generation_id"] is None
     assert not adapter.completions and not adapter.prompt_fetches
-    root, tool, retriever = adapter.observations
+    root, retriever = adapter.observations
     assert all(o.ended for o in adapter.observations)
-    assert root.fields["level"] == tool.fields["level"] == "ERROR"
-    assert root.fields["status_message"] == tool.fields["status_message"] == turn["error_type"]
-    assert "output" not in tool.fields and "reference_context" not in root.fields["metadata"]
-    if failure == "read":
-        assert retriever.fields["level"] == "ERROR" and "output" not in retriever.fields
-    else:
-        assert retriever.fields["output"] == {"id": "SRC-01"}
-        assert "level" not in retriever.fields  # Read succeeded; validation belongs to the tool.
+    assert root.fields["level"] == retriever.fields["level"] == "ERROR"
+    assert root.fields["status_message"] == retriever.fields["status_message"] == turn["error_type"]
+    assert "output" not in retriever.fields and "reference_context" not in root.fields["metadata"]
     assert "Secret-shaped sentinel" not in str([o.fields for o in adapter.observations])
     assert "Secret-shaped sentinel" not in str(turn)
 
 
-def test_generation_receives_the_exact_record_read_and_validated_by_the_tool(monkeypatch):
+def test_generation_receives_the_exact_record_read_and_validated_by_the_retriever(monkeypatch):
     from synth.companion import service as service_module
     adapter, client = setup_client()
     state = session(client)
@@ -191,20 +194,19 @@ def test_generation_receives_the_exact_record_read_and_validated_by_the_tool(mon
     reads = []
 
     def read_product(name):
-        root, tool, retriever = adapter.observations
+        root, retriever = adapter.observations
         assert retriever.fields["type"] == "RETRIEVER" and not retriever.ended
-        assert tool.fields["type"] == "TOOL" and not tool.ended
         reads.append(name)
         return product
 
     monkeypatch.setattr(service_module, "load_fixture", read_product)
     response = post_turn(client, state, product["conversation"]["turns"][0]["user"]).json()
     assert response["status"] == "complete" and reads == ["product"]
-    root, tool, retriever, generation = adapter.observations
+    root, retriever, generation = adapter.observations
     for observation in (root, generation):
         assert observation.fields["metadata"]["reference_context"] == product["source"]
-    assert retriever.fields["output"] == tool.fields["output"] == product["source"]
-    assert tool.fields["output"] is not product["source"]  # Validated snapshot.
+    assert retriever.fields["output"] == product["source"]
+    assert retriever.fields["output"] is not product["source"]  # Validated snapshot.
     assert adapter.completions[0]["system"].endswith(
         "Reference context: " + json.dumps(product["source"], ensure_ascii=False))
 
@@ -375,7 +377,7 @@ def test_four_turn_preview_conversation_keeps_version_voice_and_exact_context(ve
         assert response["reply"] == expected
         assert response["prompt_version"] == version
         assert adapter.completions[index]["messages"] == [*history, {"role": "user", "content": authored["user"]}]
-        root, tool, retriever, generation = request_tree(adapter, response)
+        root, retriever, generation = request_tree(adapter, response)
         for observation in (root, generation):
             assert observation.fields["metadata"]["current_user_message"] == authored["user"]
             assert observation.fields["metadata"]["prior_messages"] == history
@@ -387,3 +389,67 @@ def test_four_turn_preview_conversation_keeps_version_voice_and_exact_context(ve
     assert len(adapter.prompt_fetches) == 4
     assert len({o.trace_id for o in adapter.observations}) == 4
     assert {o.fields["session_id"] for o in adapter.observations} == {state["session_id"]}
+
+
+@pytest.mark.parametrize("count,total,chargeable", [("three", "1.50", 1), ("two", "0.00", 0)])
+def test_real_fee_calculation_is_traced_and_supplied_to_provider(monkeypatch, count, total, chargeable):
+    from synth.companion import service as service_module
+    real_calculate = service_module.calculate_fee
+    adapter, client = setup_client()
+    def provider(**kwargs):
+        adapter.completions.append({"system": kwargs["system"], "messages": kwargs["messages"]})
+        return SimpleNamespace(text="Authored calculator test response", input_tokens=12, output_tokens=6)
+    monkeypatch.setattr(adapter, "complete", provider)
+    calls = []
+    def calculate(arguments):
+        root, retriever, tool = adapter.observations
+        assert retriever.ended and not tool.ended and tool.parent is root
+        calls.append(arguments)
+        return real_calculate(arguments)
+    monkeypatch.setattr(service_module, "calculate_fee", calculate)
+    state = session(client, "PR-02")
+    turn = post_turn(client, state, f"I made {count} cash withdrawals this calendar month. What withdrawal fee applies?").json()
+    assert turn["status"] == "complete" and len(calls) == 1
+    root, retriever, generation = request_tree(adapter, turn)
+    tool = adapter.observations[2]
+    assert tool.fields["output"] == {"currency": "EUR", "period": "calendar_month",
+                                      "chargeable_withdrawals": chargeable, "total_fee": total}
+    assert generation.fields["input"]["messages"] == [
+        {"role": "system", "content": adapter.completions[0]["system"]},
+        *adapter.completions[0]["messages"]]
+    assert generation.fields["usage_details"] == {"input": 12, "output": 6}
+    assert "calculation_results" not in root.fields["metadata"]["reference_context"]
+    assert generation.fields["metadata"]["reference_context"] == retriever.fields["output"]
+
+
+def test_ambiguous_followup_does_not_reuse_previous_calculation(monkeypatch):
+    adapter, client = setup_client()
+    state = session(client, "PR-02")
+    first = post_turn(client, state, "I made three cash withdrawals this calendar month. What withdrawal fee applies?").json()
+    def provider(**kwargs):
+        adapter.completions.append({"system": kwargs["system"], "messages": kwargs["messages"]})
+        return SimpleNamespace(text="Both withdrawals are included; no withdrawal fee applies.", input_tokens=12, output_tokens=6)
+    monkeypatch.setattr(adapter, "complete", provider)
+    second = post_turn(client, state, "Actually, I made two withdrawals, not three.", "request-0002").json()
+    assert first["status"] == second["status"] == "complete"
+    root, retriever, generation = request_tree(adapter, second)
+    assert len(root.children) == 2
+    assert "calculation_results" not in adapter.completions[1]["system"]
+    assert adapter.completions[1]["messages"][0]["content"] == first["user"]
+
+
+def test_calculator_failure_is_recorded_without_fabricated_generation(monkeypatch):
+    from synth.companion import service as service_module
+    adapter, client = setup_client()
+    def fail(arguments):
+        raise RuntimeError("Secret-shaped sentinel")
+    monkeypatch.setattr(service_module, "calculate_fee", fail)
+    state = session(client, "PR-02")
+    turn = post_turn(client, state, "I made three cash withdrawals this calendar month. What withdrawal fee applies?").json()
+    root, retriever, tool = adapter.observations
+    assert retriever.ended and tool.ended and root.ended
+    assert root.fields["level"] == tool.fields["level"] == "ERROR"
+    assert "output" not in tool.fields
+    assert turn["status"] == "failed" and turn["generation_id"] is None
+    assert not adapter.completions and not adapter.prompt_fetches
+    assert "Secret-shaped sentinel" not in str([o.fields for o in adapter.observations])

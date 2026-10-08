@@ -52,6 +52,15 @@ For example, an explicit self-correction is not an unresolved contradiction and
 quoted profanity is not automatically user frustration. The fee assistant also
 has a worsening disagreement cohort, giving the team a reason for future work.
 
+For optional tool detail, open the fee explainer and ask: “I made three cash
+withdrawals this calendar month. What withdrawal fee applies?” The trace shows
+source retrieval, a real calculation of one chargeable withdrawal at EUR 1.50,
+and the linked answer generation. An explicit two-withdrawal version of the same
+question calculates EUR 0.00. The calculator supports this precise statement form;
+it does not infer ambiguous counts or periods from free text. Explain that these
+are application-invoked operations, not model-selected tools. Return to the
+product prompt for the main experiment story.
+
 ## Beat 2 — compare a proposed improvement
 
 From product explainer v7, save a new version with this addition to its **first
