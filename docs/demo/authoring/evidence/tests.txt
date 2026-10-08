@@ -1,11 +1,4 @@
-........................................................................ [ 69%]
-...............................                                          [100%]
-103 passed in 3.15s
-
-2026-10-08 model-connection and reply-rendering follow-up:
-103 Python tests passed; standalone node tests/test_reply_rendering.cjs passed.
-Renderer regression added to CI; CI itself has not been run remotely for this revision.
-
-2026-10-08 meaningful trace refinement:
-131 passed in 3.69s. Renderer safety and core conformance passed.
-Supported freeze: 555201 bytes, SHA256 adc0a500981a540b41e9e0c0ab727d23a3d5671381ee041aad802eb024c908fc.
+........................................................................ [ 44%]
+........................................................................ [ 89%]
+.................                                                        [100%]
+161 passed in 8.39s

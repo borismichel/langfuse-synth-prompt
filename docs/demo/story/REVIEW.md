@@ -26,7 +26,7 @@ required evaluation track, with no additional companion dashboard.
 
 Customer identity stays out of all demo materials. The story demonstrates what
 the tool reveals and how the workflow connects, not a guaranteed quality win or
-the presenter's ability to make every judge happy. Accepted decisions are D-01–D-31
+the presenter's ability to make every judge happy. The original accepted decisions are D-01–D-31
 in [story-contract.yaml](story-contract.yaml).
 
 ## Concrete proposals prepared for this review
@@ -84,3 +84,17 @@ Langfuse skill: a single retrieval and optional real fee calculation replace the
 redundant wrapper. Prompt-first flow, source facts, rubrics, examples and presenter
 discretion are unchanged. This is implementation compatibility under the existing
 request; it does not record a new user review of the runtime or live evidence.
+
+## Approved factual-check representation amendment
+
+On 2026-10-08 the user answered **“Sure”** to the proposal to use
+**Pass / Fail / Not applicable** for the two factual checks consistently across
+history, experiments and live chats, with category counts instead of numeric
+averages because native numeric evaluators cannot return not applicable.
+This is acceptance of that representation amendment (D-32), not a new acceptance
+of implementation, deployment or live evidence. E-02 `record_fidelity` and E-03
+`claim_support` retain their distinct semantic rules, IDs, subjects and cases.
+Authored `1` / `0` / `null` values remain calibration inputs and map explicitly
+to `Pass` / `Fail` / `Not applicable`; absent or failed results do not map to N/A.
+The earlier screenshots and native numeric readbacks do not verify the amended
+categorical implementation. Fresh implementation checks/readback remain required.

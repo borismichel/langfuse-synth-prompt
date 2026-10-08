@@ -6,6 +6,7 @@ import time
 from langfuse_synth_core.target import TargetProfile
 from .config import Config
 from .state import RunState
+from .scores import read_score_value, SCORE_CONTRACT
 
 @dataclass
 class Check:
@@ -47,6 +48,8 @@ def verify_trace(reader, expected: dict) -> Check:
                 problems.append(f"{e['id']} wrong end timestamp")
         if (o.metadata or {}).get('evaluation_subject') != e.get('evaluation_subject'):
             problems.append(f"{e['id']} wrong evaluator subject")
+        if 'rubric_revisions' in e and (o.metadata or {}).get('rubric_revisions') != e['rubric_revisions']:
+            problems.append(f"{e['id']} wrong rubric revisions")
         for key, value in e.get('operation_metadata', {}).items():
             if (o.metadata or {}).get(key) != value:
                 problems.append(f"{e['id']} wrong operation metadata {key}")
@@ -57,8 +60,8 @@ def verify_trace(reader, expected: dict) -> Check:
         s = scores.get(e['id'])
         if not s:
             problems.append(f"missing score {e['id']}"); continue
-        if s.name != e['name'] or s.observation_id != e['observationId'] or s.value != e['value']:
-            problems.append(f"score {e['id']} name/subject/value differs")
+        if s.name != e['name'] or s.observation_id != e['observationId'] or read_score_value(s) != e['value'] or s.data_type != e['dataType']:
+            problems.append(f"score {e['id']} name/subject/type/value differs")
     if len(actual.scores) != len(expected['scores']):
         problems.append('score count differs (unexpected judge or duplicate result)')
     return Check(f'trace:{tid}', not problems, '; '.join(problems[:8]) if problems else 'Exact observations, prompt versions, payloads, session, timestamps and score subjects match')
@@ -76,6 +79,10 @@ def run_verify(cfg: Config, *, log=print, reader=None, clock=time.monotonic, sle
     if not valid:
         log("✗ Seed receipt is missing, dry-run, incomplete, or for another target/config")
         return report
+    categorical_history = state.run_receipt.get('score_contract') == SCORE_CONTRACT
+    report.add('score-contract', categorical_history,
+               'Current categorical factual score contract' if categorical_history else
+               'Categorical factual history requires a fresh target or authorised reset; earlier numeric pilot data is unchanged.')
     if cfg.generation.as_of_date:
         report.add('as_of_date',state.run_receipt['run_date'][:10]==cfg.generation.as_of_date.isoformat(),'Run anchor matches requested date')
     if reader is None:

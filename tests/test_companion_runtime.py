@@ -1,5 +1,6 @@
 """Scenario assertions at the actual companion HTTP and adapter seams, no egress."""
 from types import SimpleNamespace
+from langfuse_synth_core.read import Score
 import json
 import subprocess
 import sys
@@ -283,7 +284,9 @@ def test_evaluation_readback_filters_exact_targets_and_never_invents_missing_sco
     for index in range(1, 9):
         definition = definitions[f"E-{index:02d}"]
         target = turn["root_observation_id"] if definition["subject"] == "user_input" else turn["generation_id"]
-        adapter.score_rows.append(SimpleNamespace(id=str(index), name=definition["name"], observation_id=target, value=0.5, comment="Actual judge result"))
+        adapter.score_rows.append(Score(id=str(index), name=definition["name"], observation_id=target,
+            data_type=definition["data_type"], numeric_value=2 if index in (2, 3) else 0.5,
+            string_value="Not applicable" if index in (2, 3) else None, comment="Actual judge result"))
     adapter.score_rows.append(SimpleNamespace(id="unrelated", name="record_fidelity", observation_id="unrelated", value=1, comment="Wrong subject"))
     for tool in (o for o in adapter.observations if o.fields["type"] in ("TOOL", "RETRIEVER")):
         for definition in definitions.values():
@@ -291,7 +294,7 @@ def test_evaluation_readback_filters_exact_targets_and_never_invents_missing_sco
                 observation_id=tool.id, value=1, comment="Wrong tool subject"))
     complete = client.get(path, headers=headers).json()
     assert complete["status"] == "complete" and complete["received"] == 8
-    assert all(s["value"] == 0.5 for s in complete["scores"])
+    assert all(s["value"] == ("Not applicable" if s["name"] in ("record_fidelity", "claim_support") else 0.5) for s in complete["scores"])
     adapter.fail_scores = True
     assert client.get(path, headers=headers).json()["status"] == "unavailable"
 
@@ -453,3 +456,43 @@ def test_calculator_failure_is_recorded_without_fabricated_generation(monkeypatc
     assert turn["status"] == "failed" and turn["generation_id"] is None
     assert not adapter.completions and not adapter.prompt_fetches
     assert "Secret-shaped sentinel" not in str([o.fields for o in adapter.observations])
+
+
+@pytest.mark.parametrize('kind', ['numeric', 'missing-label', 'unknown-category', 'duplicate'])
+def test_live_factual_readback_does_not_call_invalid_or_missing_outcome_not_applicable(kind):
+    adapter, client = setup_client()
+    state = session(client)
+    turn = post_turn(client, state).json()
+    fields = dict(id='factual', name='record_fidelity', observation_id=turn['generation_id'],
+                  data_type='CATEGORICAL', string_value='Not applicable', numeric_value=2)
+    if kind == 'numeric': fields.update(data_type='NUMERIC', string_value=None, numeric_value=0)
+    if kind == 'missing-label': fields['string_value'] = None
+    if kind == 'unknown-category': fields['string_value'] = 'N/A'
+    adapter.score_rows.append(Score(**fields))
+    if kind == 'duplicate': adapter.score_rows.append(Score(**{**fields, 'id': 'other'}))
+    result = client.get(f"/api/conversations/{state['session_id']}/evaluations/{turn['request_id']}",
+                        headers={'X-Conversation-Token': state['token']}).json()
+    assert result['status'] == 'invalid'
+    assert result['received'] == (1 if kind == 'duplicate' else 0)
+
+
+@pytest.mark.parametrize('prompt_id', ['PR-01', 'PR-02', 'PR-03'])
+def test_live_rubric_provenance_separates_input_reply_and_trace(prompt_id):
+    from synth.catalog import prompt_by_id
+    adapter, client = setup_client()
+    state = session(client, prompt_id)
+    turn = post_turn(client, state).json()
+    assert turn['status'] == 'complete'
+    root = next(o for o in adapter.observations if o.root)
+    generation = next(o for o in adapter.observations if o.fields['type'] == 'GENERATION')
+    definitions = score_definitions()
+    applicable = prompt_by_id(prompt_id)['evaluation_ids']
+    expected_all = {eid: definitions[eid]['revision'] for eid in applicable}
+    assert root.trace_fields['metadata']['rubric_revisions'] == expected_all
+    for target, subject in ((root, 'user_input'), (generation, 'assistant_reply')):
+        metadata = target.fields['metadata']
+        assert 'rubric_revision' not in metadata
+        assert metadata['rubric_revisions'] == {eid: definitions[eid]['revision'] for eid in applicable
+                                               if definitions[eid]['subject'] == subject}
+    assert generation.fields['metadata']['rubric_revisions']['E-02'] == 'r2'
+    assert generation.fields['metadata']['rubric_revisions']['E-03'] == 'r2'

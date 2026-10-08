@@ -41,7 +41,7 @@ the new user message; its output contains only the new assistant message, avoidi
 history in session replay. Root and generation both expose:
 
 - `current_user_message`, `prior_messages` and `reference_context` in metadata;
-- application/prompt IDs, prompt name, resolved prompt version and rubric revision;
+- application/prompt IDs, prompt name, resolved prompt version and per-criterion rubric revisions;
 - `evaluation_subject=user_input` on the root, `assistant_reply` on the generation.
 
 The retriever executes a real catalog read and validates its required fields.
@@ -66,8 +66,12 @@ observation rules. Readback matches exact `(criterion name, observation ID)` pai
 scores cannot satisfy completion. Missing results stay pending, read failures are unavailable,
 and the UI points to native evaluation logs because an absent score alone cannot establish
 whether the judge is queued or failed. There is no score gate, automatic promotion or
-retry-until-pass loop. E-02/E-03's native nullable-result support remains a provisioning and
-live-verification concern; the companion never turns a missing result into a pass.
+retry-until-pass loop. E-02/E-03 now expect the approved CATEGORICAL labels
+`Pass`, `Fail`, `Not applicable`. Readback uses the category string, never an
+internal numeric category code. Unexpected types, labels or duplicate criterion/
+subject rows are invalid; missing results stay pending. A completed Not applicable
+judgment does not imply a pass, missing result or failed execution. The native
+rules are configured; new live outcome/calibration checks remain separate.
 
 ## Feedback and failure behaviour
 
@@ -97,7 +101,9 @@ Its JSON `ready` is independent and remains false when the write/model binding, 
 production prompts, target-matched anchors or enabled evaluator rules are unavailable.
 `/api/connection` returns the same story prerequisite report, exposed by **Refresh connection
 and prompts**. Health does not prove a provider completion or executed evaluator result.
-Eight managed evaluator rule IDs are read back, not merely trusted from the receipt.
+The eight companion evaluator rule IDs are read back, not merely trusted from the receipt.
+The full kit provisions ten managed pairs, including two additional portfolio criteria.
+An earlier numeric seed receipt does not establish categorical history readiness.
 
 All internal assets/API/navigation respect `LIVE_BASE_PATH`; routes themselves stay mounted
 at `/`, matching Depot's prefix-stripping proxy. Native Langfuse URLs use the adapter's actual
@@ -143,10 +149,19 @@ See [the sanitized readback](evidence/live-model-session.json) and
 The turn-two self-correction produced false-positive contradiction/disagreement
 signals; this remains visible as a judge-calibration finding.
 
-**Still requires verification:** native session chat rendering; production-label
-refresh after admin promotion; E-02/E-03 N/A semantics and live rules; judge failure
-handling; native experiments; Depot proxy and full
-admission/rehearsal. The native browser currently requires sign-in.
+**Later native evidence:** authenticated Chrome now verifies session chat rendering,
+the refined trace, prompt metrics, saved production-label protection and staged
+PR-01 v9. Ten managed criteria are configured, including categorical E-02/E-03.
+The corrected native v7 experiment completed eight outputs and 32 scores after
+explicit evaluator-context repair. See [native rehearsal](NATIVE_REHEARSAL.md)
+and [experiment readback](evidence/native-experiments.json) for the evolving
+comparison and promotion evidence; the earlier IAB sign-in limitation is superseded.
+
+**Still separate gates at this checkpoint:** complete corrected comparison and
+production-label refresh after promotion; live E-02/E-03 Pass/Fail/Not applicable
+calibration and exact-target readback; judge failure handling; member-denial
+rehearsal; full-scale categorical history; signed release and Depot proxy/admission.
+Existing live sessions above predate the categorical change and cannot prove it.
 
 Assistant replies render a small Markdown subset (headings, flat lists, tables,
 rules, paragraphs, bold and inline code) using text nodes and safe elements.
@@ -194,5 +209,20 @@ was read back on the third request root. See
 [refined live evidence](evidence/refined-live-session.json) and
 [companion screenshot](evidence/refined-companion-feedback.jpg).
 
-This closes the revised companion trace/feedback persistence checks, not native
-UI replay, permission enforcement, promotion, experiment comparison or admission.
+This closes the revised companion trace/feedback persistence checks. Subsequent
+native UI replay was observed in authenticated Chrome and is recorded in
+[NATIVE_REHEARSAL.md](NATIVE_REHEARSAL.md). Permission denial, promotion effects,
+experiment comparison and release/Depot admission require their own evidence;
+this earlier three-turn session does not establish categorical evaluator execution.
+
+## Promoted categorical live rehearsal
+
+[The new four-turn session](evidence/categorical-live-session.json) verifies 32
+outcomes across both subjects, exact v9 system instructions, ordered history,
+request/retriever/generation parentage, and categorical Pass results for both
+factual criteria. Native **Open session** and the linked v9 generation were
+inspected in Chrome. The model retained ordinary prose and all four style scores
+are zero; two input-judge false positives on the correction remain visible.
+This evidence predates the final per-criterion metadata provenance refinement;
+its actual managed evaluator versions remain recorded unchanged.
+[Native walkthrough and screenshots](NATIVE_REHEARSAL.md).

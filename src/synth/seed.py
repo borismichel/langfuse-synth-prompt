@@ -13,13 +13,14 @@ from .config import Config
 from .materialize import build_events, build_historical_experiment_events
 from .receipt import make_receipt
 from .state import RunState
+from .scores import SCORE_CONTRACT
 
 DEFAULT_SPOOL = Path('.synth_spool') / 'events.ndjson'
 
 
 def _refresh_configuration(cfg: Config, *, log=print) -> None:
     """Read existing evaluator configuration; never regenerate or import events."""
-    from .assets import AssetAPI, NULLABLE_CRITERIA, _evaluation_assets
+    from .assets import AssetAPI, LEGACY_NULLABLE_GATE, _evaluation_assets
     from .catalog import score_definitions
 
     if not RunState.exists():
@@ -46,6 +47,8 @@ def _refresh_configuration(cfg: Config, *, log=print) -> None:
         valid = False
     if not valid:
         raise RuntimeError('Configuration refresh requires a complete imported receipt matching this target and generation configuration.')
+    if receipt.get('score_contract') != SCORE_CONTRACT:
+        raise RuntimeError('Existing receipt uses the earlier score contract; categorical history requires a fresh target or authorised reset, not configuration refresh.')
     project_id, _ = assert_demo_project(cfg.target.base_url, cfg.target.project_hint)
     if project_id != state.project_id:
         raise RuntimeError('Configuration refresh authenticated project does not match the seeded project.')
@@ -57,12 +60,13 @@ def _refresh_configuration(cfg: Config, *, log=print) -> None:
 
     discovered = _evaluation_assets(cfg, ReadOnlyAssets(), create=False)
     expected = {eid for eid, definition in score_definitions().items()
-                if definition['producer'] == 'llm-judge' and eid not in NULLABLE_CRITERIA}
+                if definition['producer'] == 'llm-judge'}
     if set(discovered['evaluators']) != expected or set(discovered['evaluator_rules']) != expected:
         raise RuntimeError('Configuration refresh requires all supported evaluator definitions and live rules; complete evaluator setup first.')
 
-    # Remove only obsolete evaluator-setup gates. Keep unrelated and nullable gates.
+    # Remove obsolete evaluator-setup gates only after all ten definitions and rules match.
     setup_gates = {
+        LEGACY_NULLABLE_GATE,
         'Set evaluation.provider/model and run the separate model-using evaluator setup before seed.',
         'Selected judge provider/model is not available through a configured Langfuse LLM connection.',
         *(f'{eid}: managed evaluator requires separate model-using setup before seed.' for eid in expected),

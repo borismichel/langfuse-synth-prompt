@@ -1,0 +1,446 @@
+{
+  "project_id": "cmuzyfy1f0481ad0f7rajddig",
+  "purpose": "Repair native experiment context flattening; preserve all inputs, outputs and IDs",
+  "dataset_items": [
+    {
+      "id": "adce3c51-ccb9-4c80-b2c4-8ca06943fc86",
+      "dataset_id": "cmuzz2w9u043aad0e8qkvge71",
+      "updated_at": "2026-10-08T21:23:30.515Z",
+      "case_id": "C-01",
+      "verified": true
+    },
+    {
+      "id": "f17ed04b-94ef-40d2-a26a-34a3053aa808",
+      "dataset_id": "cmuzz2w9u043aad0e8qkvge71",
+      "updated_at": "2026-10-08T21:23:31.232Z",
+      "case_id": "C-02",
+      "verified": true
+    },
+    {
+      "id": "7dab2ff1-f449-4841-9c54-899e754feb21",
+      "dataset_id": "cmuzz2w9u043aad0e8qkvge71",
+      "updated_at": "2026-10-08T21:23:31.960Z",
+      "case_id": "C-03",
+      "verified": true
+    },
+    {
+      "id": "609569f3-e080-4e70-b8c9-311ac167b8b5",
+      "dataset_id": "cmuzz2w9u043aad0e8qkvge71",
+      "updated_at": "2026-10-08T21:23:32.682Z",
+      "case_id": "C-04",
+      "verified": true
+    },
+    {
+      "id": "c1db229f-7609-41d5-90cf-af8219de4943",
+      "dataset_id": "cmuzz2w9u043aad0e8qkvge71",
+      "updated_at": "2026-10-08T21:23:33.388Z",
+      "case_id": "C-05",
+      "verified": true
+    },
+    {
+      "id": "0a15b94f-1beb-46d7-bbc9-86d5aec128bb",
+      "dataset_id": "cmuzz2w9u043aad0e8qkvge71",
+      "updated_at": "2026-10-08T21:23:34.118Z",
+      "case_id": "C-06",
+      "verified": true
+    },
+    {
+      "id": "f8c348c7-9f0d-445f-8ec3-ffab601ef983",
+      "dataset_id": "cmuzz2w9u043aad0e8qkvge71",
+      "updated_at": "2026-10-08T21:23:34.839Z",
+      "case_id": "C-07",
+      "verified": true
+    },
+    {
+      "id": "586cacff-c878-4279-b2bb-dd88fb58ca13",
+      "dataset_id": "cmuzz2w9u043aad0e8qkvge71",
+      "updated_at": "2026-10-08T21:23:35.551Z",
+      "case_id": "C-08",
+      "verified": true
+    },
+    {
+      "id": "99ba5379-800b-45e4-abb0-f7610a3d9244",
+      "dataset_id": "cmuzz2yg404n7ad0j98kyqh8s",
+      "updated_at": "2026-10-08T21:23:36.280Z",
+      "case_id": "PC-02",
+      "verified": true
+    },
+    {
+      "id": "de576938-d313-4a44-a9df-649d2691b9af",
+      "dataset_id": "cmuzz2yg404n7ad0j98kyqh8s",
+      "updated_at": "2026-10-08T21:23:37.009Z",
+      "case_id": "PC-02-CTRL",
+      "verified": true
+    },
+    {
+      "id": "4a1fc23a-6a61-4e07-b306-706ec01b4af7",
+      "dataset_id": "cmuzz2yg404n7ad0j98kyqh8s",
+      "updated_at": "2026-10-08T21:23:37.734Z",
+      "case_id": "PX-02",
+      "verified": true
+    },
+    {
+      "id": "0339e781-62d1-4f82-9ca7-a0ddabc79258",
+      "dataset_id": "cmuzz2zzj043had0ea0ujje72",
+      "updated_at": "2026-10-08T21:23:38.468Z",
+      "case_id": "PC-03",
+      "verified": true
+    },
+    {
+      "id": "c8b01978-c4c3-4a86-a75b-45c84f5a01b7",
+      "dataset_id": "cmuzz2zzj043had0ea0ujje72",
+      "updated_at": "2026-10-08T21:23:39.177Z",
+      "case_id": "PC-03-CTRL",
+      "verified": true
+    },
+    {
+      "id": "2a9d7b33-4520-4a26-9a80-6eed5c7090da",
+      "dataset_id": "cmuzz2zzj043had0ea0ujje72",
+      "updated_at": "2026-10-08T21:23:39.883Z",
+      "case_id": "PX-03",
+      "verified": true
+    },
+    {
+      "id": "70441aaf-0dff-4763-838d-dd1a8dfd6d13",
+      "dataset_id": "cmuzz31ij04exad0fitbizvsd",
+      "updated_at": "2026-10-08T21:23:40.574Z",
+      "case_id": "PC-04",
+      "verified": true
+    },
+    {
+      "id": "33d1cfa6-8a75-44d3-a233-5016f1207da9",
+      "dataset_id": "cmuzz31ij04exad0fitbizvsd",
+      "updated_at": "2026-10-08T21:23:41.273Z",
+      "case_id": "PC-04-CTRL",
+      "verified": true
+    },
+    {
+      "id": "19441bce-ad89-42e7-ab14-ef0d6e724243",
+      "dataset_id": "cmuzz31ij04exad0fitbizvsd",
+      "updated_at": "2026-10-08T21:23:41.970Z",
+      "case_id": "PX-04",
+      "verified": true
+    },
+    {
+      "id": "189d729a-ee93-4ddc-9d93-a630f0e56ac5",
+      "dataset_id": "cmuzz330r043wad0ezo2fc2kx",
+      "updated_at": "2026-10-08T21:23:42.662Z",
+      "case_id": "PC-05",
+      "verified": true
+    },
+    {
+      "id": "c821d0b2-e758-455a-9339-0392a9234874",
+      "dataset_id": "cmuzz330r043wad0ezo2fc2kx",
+      "updated_at": "2026-10-08T21:23:43.364Z",
+      "case_id": "PC-05-CTRL",
+      "verified": true
+    },
+    {
+      "id": "81f62981-42df-43e2-b8a5-77b201ab6269",
+      "dataset_id": "cmuzz330r043wad0ezo2fc2kx",
+      "updated_at": "2026-10-08T21:23:44.060Z",
+      "case_id": "PX-05",
+      "verified": true
+    },
+    {
+      "id": "0b6df13b-9031-4a3f-908a-58be639de428",
+      "dataset_id": "cmuzz34j10442ad0e0r14zggt",
+      "updated_at": "2026-10-08T21:23:44.768Z",
+      "case_id": "PC-06",
+      "verified": true
+    },
+    {
+      "id": "1c2cbc33-e018-4612-bc9e-47bf40069446",
+      "dataset_id": "cmuzz34j10442ad0e0r14zggt",
+      "updated_at": "2026-10-08T21:23:45.470Z",
+      "case_id": "PC-06-CTRL",
+      "verified": true
+    },
+    {
+      "id": "71abaec4-e18f-4f33-8c1e-8f20e6e6c284",
+      "dataset_id": "cmuzz34j10442ad0e0r14zggt",
+      "updated_at": "2026-10-08T21:23:46.174Z",
+      "case_id": "PX-06",
+      "verified": true
+    },
+    {
+      "id": "3e0f6f9f-e670-45a5-998f-feccbbf67614",
+      "dataset_id": "cmuzz36ei04c0ad0hg6emup9m",
+      "updated_at": "2026-10-08T21:23:46.890Z",
+      "case_id": "PC-07",
+      "verified": true
+    },
+    {
+      "id": "d37a18c2-b78a-401d-941a-bca46837b2c8",
+      "dataset_id": "cmuzz36ei04c0ad0hg6emup9m",
+      "updated_at": "2026-10-08T21:23:47.587Z",
+      "case_id": "PC-07-CTRL",
+      "verified": true
+    },
+    {
+      "id": "40ba3fd9-1229-4474-a81c-01a4b43ede0f",
+      "dataset_id": "cmuzz36ei04c0ad0hg6emup9m",
+      "updated_at": "2026-10-08T21:23:48.279Z",
+      "case_id": "PX-07",
+      "verified": true
+    },
+    {
+      "id": "27381dbd-2ea9-4c08-8a68-acc34ab52c7e",
+      "dataset_id": "cmuzz37x704f1ad0fje6wuu4e",
+      "updated_at": "2026-10-08T21:23:48.967Z",
+      "case_id": "PC-08",
+      "verified": true
+    },
+    {
+      "id": "dae7452c-077d-4845-b9ab-8e5baefe266b",
+      "dataset_id": "cmuzz37x704f1ad0fje6wuu4e",
+      "updated_at": "2026-10-08T21:23:49.675Z",
+      "case_id": "PC-08-CTRL",
+      "verified": true
+    },
+    {
+      "id": "e674715d-705a-442d-86b9-c9dde3e4de03",
+      "dataset_id": "cmuzz37x704f1ad0fje6wuu4e",
+      "updated_at": "2026-10-08T21:23:50.365Z",
+      "case_id": "PX-08",
+      "verified": true
+    },
+    {
+      "id": "6fc6b9b8-03db-43ea-9bbc-b6c8045fd9ac",
+      "dataset_id": "cmuzz39fy04jrad0e8s68nlbk",
+      "updated_at": "2026-10-08T21:23:51.074Z",
+      "case_id": "PC-09",
+      "verified": true
+    },
+    {
+      "id": "495f6de4-db9b-48eb-989f-5a2e36c45cb3",
+      "dataset_id": "cmuzz39fy04jrad0e8s68nlbk",
+      "updated_at": "2026-10-08T21:23:51.784Z",
+      "case_id": "PC-09-CTRL",
+      "verified": true
+    },
+    {
+      "id": "e60d2953-7939-4f42-9174-a9cb4d4fd5ff",
+      "dataset_id": "cmuzz39fy04jrad0e8s68nlbk",
+      "updated_at": "2026-10-08T21:23:52.484Z",
+      "case_id": "PX-09",
+      "verified": true
+    }
+  ],
+  "evaluators": [
+    {
+      "criterion": "E-01",
+      "id": "cmuzzwaqj04q3ad0ezfpt2e5z",
+      "version": 1,
+      "mapping": [
+        {
+          "variable": "assistant_reply",
+          "source": "output"
+        }
+      ],
+      "verified": true
+    },
+    {
+      "criterion": "E-02",
+      "id": "cmv01cedw04ypad0h2cuzwn8h",
+      "version": 2,
+      "mapping": [
+        {
+          "variable": "current_user_message",
+          "source": "experiment_item_metadata",
+          "jsonPath": "$.eval_current_user_message"
+        },
+        {
+          "variable": "prior_messages",
+          "source": "experiment_item_metadata",
+          "jsonPath": "$.eval_prior_messages"
+        },
+        {
+          "variable": "reference_context",
+          "source": "experiment_item_metadata",
+          "jsonPath": "$.eval_reference_context"
+        },
+        {
+          "variable": "assistant_reply",
+          "source": "output"
+        }
+      ],
+      "verified": true
+    },
+    {
+      "criterion": "E-03",
+      "id": "cmv01ch2s04zmad0fu7pjlod6",
+      "version": 2,
+      "mapping": [
+        {
+          "variable": "current_user_message",
+          "source": "experiment_item_metadata",
+          "jsonPath": "$.eval_current_user_message"
+        },
+        {
+          "variable": "prior_messages",
+          "source": "experiment_item_metadata",
+          "jsonPath": "$.eval_prior_messages"
+        },
+        {
+          "variable": "reference_context",
+          "source": "experiment_item_metadata",
+          "jsonPath": "$.eval_reference_context"
+        },
+        {
+          "variable": "assistant_reply",
+          "source": "output"
+        }
+      ],
+      "verified": true
+    },
+    {
+      "criterion": "E-04",
+      "id": "cmuzzwc8604ikad0hh1cho1bl",
+      "version": 2,
+      "mapping": [
+        {
+          "variable": "current_user_message",
+          "source": "experiment_item_metadata",
+          "jsonPath": "$.eval_current_user_message"
+        },
+        {
+          "variable": "prior_messages",
+          "source": "experiment_item_metadata",
+          "jsonPath": "$.eval_prior_messages"
+        },
+        {
+          "variable": "reference_context",
+          "source": "experiment_item_metadata",
+          "jsonPath": "$.eval_reference_context"
+        },
+        {
+          "variable": "assistant_reply",
+          "source": "output"
+        }
+      ],
+      "verified": true
+    },
+    {
+      "criterion": "E-05",
+      "id": "cmuzzwdwx04qaad0kd1q1d98a",
+      "version": 2,
+      "mapping": [
+        {
+          "variable": "current_user_message",
+          "source": "experiment_item_metadata",
+          "jsonPath": "$.eval_current_user_message"
+        },
+        {
+          "variable": "prior_messages",
+          "source": "experiment_item_metadata",
+          "jsonPath": "$.eval_prior_messages"
+        }
+      ],
+      "verified": true
+    },
+    {
+      "criterion": "E-06",
+      "id": "cmuzzwfey04d8ad0no9ohgepz",
+      "version": 2,
+      "mapping": [
+        {
+          "variable": "current_user_message",
+          "source": "experiment_item_metadata",
+          "jsonPath": "$.eval_current_user_message"
+        },
+        {
+          "variable": "prior_messages",
+          "source": "experiment_item_metadata",
+          "jsonPath": "$.eval_prior_messages"
+        }
+      ],
+      "verified": true
+    },
+    {
+      "criterion": "E-07",
+      "id": "cmuzzwh1j04ddad0num1bb6qt",
+      "version": 2,
+      "mapping": [
+        {
+          "variable": "current_user_message",
+          "source": "experiment_item_metadata",
+          "jsonPath": "$.eval_current_user_message"
+        }
+      ],
+      "verified": true
+    },
+    {
+      "criterion": "E-08",
+      "id": "cmuzzwikv04noad0f9ujj97g4",
+      "version": 2,
+      "mapping": [
+        {
+          "variable": "current_user_message",
+          "source": "experiment_item_metadata",
+          "jsonPath": "$.eval_current_user_message"
+        },
+        {
+          "variable": "prior_messages",
+          "source": "experiment_item_metadata",
+          "jsonPath": "$.eval_prior_messages"
+        }
+      ],
+      "verified": true
+    },
+    {
+      "criterion": "E-10",
+      "id": "cmuzzwkly04qgad0ec15m70by",
+      "version": 2,
+      "mapping": [
+        {
+          "variable": "current_user_message",
+          "source": "experiment_item_metadata",
+          "jsonPath": "$.eval_current_user_message"
+        },
+        {
+          "variable": "prior_messages",
+          "source": "experiment_item_metadata",
+          "jsonPath": "$.eval_prior_messages"
+        },
+        {
+          "variable": "reference_context",
+          "source": "experiment_item_metadata",
+          "jsonPath": "$.eval_reference_context"
+        },
+        {
+          "variable": "assistant_reply",
+          "source": "output"
+        }
+      ],
+      "verified": true
+    },
+    {
+      "criterion": "E-11",
+      "id": "cmuzzwm3z04poad0ex4930gpw",
+      "version": 2,
+      "mapping": [
+        {
+          "variable": "current_user_message",
+          "source": "experiment_item_metadata",
+          "jsonPath": "$.eval_current_user_message"
+        },
+        {
+          "variable": "prior_messages",
+          "source": "experiment_item_metadata",
+          "jsonPath": "$.eval_prior_messages"
+        },
+        {
+          "variable": "reference_context",
+          "source": "experiment_item_metadata",
+          "jsonPath": "$.eval_reference_context"
+        },
+        {
+          "variable": "assistant_reply",
+          "source": "output"
+        }
+      ],
+      "verified": true
+    }
+  ]
+}

@@ -1,0 +1,2430 @@
+{
+  "verified_at": "2026-10-08T21:32:51.310099+00:00",
+  "method": "Official Langfuse CLI 4.35.0 API snapshot, read-only experiment/items/scores readback",
+  "project_id": "cmuzyfy1f0481ad0f7rajddig",
+  "status": "corrected_pair_verified; invalid_initial_candidate_retained",
+  "limitations": [
+    "Initial candidate run cmv01el1b05dcad0j56r61tio: E02 record_fidelity and E03 claim_support received empty context; its stored values are retained as invalid measurements and excluded from the corrected comparison.",
+    "All three native runs remain preserved. The evidence verifier performed only reads and did not create model calls, reruns, scores or external mutations.",
+    "The corrected pair is a single eight-case rehearsal per prompt version; recorded LLM judge judgments do not guarantee correctness or broader statistical performance. Candidate theatrical delivery still scores 0 in two cases."
+  ],
+  "runs": [
+    {
+      "id": "cmv01el1b05dcad0j56r61tio",
+      "name": "prompt-rehearsal-v9-20261008 - 2026-10-08T21:16:58.646Z",
+      "url": "https://cloud.langfuse.com/project/cmuzyfy1f0481ad0f7rajddig/experiments/results?baseline=cmv01el1b05dcad0j56r61tio",
+      "dataset_id": "cmuzz2w9u043aad0e8qkvge71",
+      "dataset_version": "2026-10-08T20:11:59.306Z",
+      "model": "claude-sonnet-4-6",
+      "prompt_id": "a472e0c2-e47e-4ea5-89e8-365938f040ae",
+      "prompt_version": 9,
+      "start_time": "2026-10-08T21:17:02.747Z",
+      "end_time": "2026-10-08T21:17:41.306Z",
+      "output_count": 8,
+      "eval_score_count": 32,
+      "criteria": [
+        "claim_support",
+        "dark_side_delivery",
+        "record_fidelity",
+        "respectful_tone"
+      ],
+      "measurement_validity": {
+        "dark_side_delivery": "recorded reply-only measurement",
+        "respectful_tone": "recorded output measurement; user context absent",
+        "record_fidelity": "invalid: empty current_user_message, prior_messages and reference_context",
+        "claim_support": "invalid: empty current_user_message, prior_messages and reference_context"
+      },
+      "summary": {
+        "claim_support": {
+          "count": 8,
+          "distribution": {
+            "Fail": 6,
+            "Not applicable": 1,
+            "Pass": 1
+          }
+        },
+        "dark_side_delivery": {
+          "count": 8,
+          "distribution": {
+            "1": 4,
+            "0": 2,
+            "0.5": 2
+          },
+          "mean": 0.625
+        },
+        "record_fidelity": {
+          "count": 8,
+          "distribution": {
+            "Not applicable": 7,
+            "Fail": 1
+          }
+        },
+        "respectful_tone": {
+          "count": 8,
+          "distribution": {
+            "1": 8
+          },
+          "mean": 1.0
+        }
+      },
+      "items": [
+        {
+          "case_id": "C-01",
+          "dataset_item_id": "adce3c51-ccb9-4c80-b2c4-8ca06943fc86",
+          "dataset_item_version": "2026-10-08T20:11:58.194Z",
+          "observation_id": "b2d2f9aca227b5fc",
+          "trace_id": "fce945ec903a9a59cb5e660d7878c997",
+          "observation_url": "https://cloud.langfuse.com/project/cmuzyfy1f0481ad0f7rajddig/traces/fce945ec903a9a59cb5e660d7878c997?observation=b2d2f9aca227b5fc",
+          "output": "## Your Monthly Cost: Most Likely €0\n\nSince you receive **€1,300 in salary each month**, you clear the **€1,200 qualifying deposit threshold** — so the **€4 monthly fee would be waived** each calendar month you meet that condition.\n\n**A few things to keep in mind:**\n\n- The waiver is assessed **separately each calendar month**, so any month your qualifying salary deposit falls below €1,200, the €4 fee applies for that month.\n- **Transfers from your own accounts don't count** as salary deposits — only qualifying salary deposits do.\n\n**Other costs that could apply:**\n\n| Item | Cost |\n|---|---|\n| First 2 cash withdrawals/month | Free |\n| Each additional cash withdrawal | €1.50 |\n| Card replacement | €6 |\n\nSo in a typical month with your salary coming in and no more than 2 cash withdrawals, **your cost would be €0**.\n\n---\n\n*\"Your salary deposit shall bend to my conditions — meet the €1,200 threshold each calendar month, and the €4 fee is annihilated. Fall short even once, and it rises from the void. Transfers from your own accounts? Worthless to the waiver. Two cash withdrawals are yours freely; beyond that, €1.50 each tears through the cosmos. Card replacement commands €6. Comply, and the stars align in your favor.\"*",
+          "scores": [
+            {
+              "id": "9b6d89aa-ce53-59ae-87ed-582c06c0882c",
+              "name": "claim_support",
+              "dataType": "CATEGORICAL",
+              "value": "Fail",
+              "source": "EVAL",
+              "comment": "There is no reference_context, no prior_messages, and no current_user_message supplied. The assistant's reply makes several substantive product/action claims: a €1,200 qualifying deposit threshold, a €4 monthly fee that is waived when the threshold is met, the fee assessed per calendar month, transfers from own accounts not counting, first 2 cash withdrawals free, additional withdrawals at €1.50 each, and card replacement at €6. With no reference record provided to support or contradict any of these claims, at least one unsupported claim exists (in fact all claims are unsupported). Therefore the criterion fails.",
+              "subject": {
+                "kind": "observation",
+                "id": "b2d2f9aca227b5fc",
+                "traceId": "fce945ec903a9a59cb5e660d7878c997"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmv01ch2s04zmad0fu7pjlod6",
+                "evaluator_version_id": "cmv01ch2s04zoad0fcixv0r31",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01ecaq05riad0ku24aozzi"
+              }
+            },
+            {
+              "id": "05ddc787-75ad-54bd-bdfe-8d3874f53d83",
+              "name": "dark_side_delivery",
+              "dataType": "NUMERIC",
+              "value": 1,
+              "source": "EVAL",
+              "comment": "The assistant reply contains two sections. The first section is a normal, informative explanation in ordinary voice (score 0). The second section, marked in italics, is explicitly written in a space-villain theatrical style: it uses short commanding phrasing ('shall bend to my conditions'), dramatic language ('annihilated', 'rises from the void', 'tears through the cosmos'), and a space metaphor ('the stars align in your favor'). This second section is a recognisable space-villain delivery with commanding short phrases and theatrical language, with at most one restrained space metaphor. The presence of this clearly theatrical section, even if framed as a stylistic aside, qualifies for a score of 1.",
+              "subject": {
+                "kind": "observation",
+                "id": "b2d2f9aca227b5fc",
+                "traceId": "fce945ec903a9a59cb5e660d7878c997"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmuzzwaqj04q3ad0ezfpt2e5z",
+                "evaluator_version_id": "cmuzzwaqj04q5ad0e00ekcciu",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01ecaq05rjad0k2ino9dz3"
+              }
+            },
+            {
+              "id": "a242fa51-c91f-5ab7-8607-649e1110e339",
+              "name": "record_fidelity",
+              "dataType": "CATEGORICAL",
+              "value": "Not applicable",
+              "source": "EVAL",
+              "comment": "There is no current_user_message, no prior_messages, and no reference_context provided. The assistant's reply contains specific factual claims (€1,300 salary, €1,200 threshold, €4 monthly fee, €1.50 per additional withdrawal, €6 card replacement, 2 free withdrawals) but there is no reference context against which to verify these figures. With no factual basis provided to evaluate the claims against, and no user question to assess whether it was answered, there is no factual issue that can be assessed. The criterion requires a reference context or answerable factual question to apply.",
+              "subject": {
+                "kind": "observation",
+                "id": "b2d2f9aca227b5fc",
+                "traceId": "fce945ec903a9a59cb5e660d7878c997"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmv01cedw04ypad0h2cuzwn8h",
+                "evaluator_version_id": "cmv01cedw04yrad0hw9ahefco",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01ecaq05rkad0ktk9ebi9l"
+              }
+            },
+            {
+              "id": "5a18afb3-e827-5fff-adc8-9fb424c7bd7b",
+              "name": "respectful_tone",
+              "dataType": "NUMERIC",
+              "value": 1,
+              "source": "EVAL",
+              "comment": "The assistant's reply is directed at the user but contains no personal insult, threat, contempt, or mockery toward the user. The theatrical section ('your salary deposit shall bend to my conditions,' 'rise from the void,' 'tears through the cosmos') uses dramatic, playful language but is directed at the fee conditions and cosmic metaphor, not at the user personally. There is no name-calling, belittling, threatening, or mocking of the user as a person. Firm factual correction and theatrical voice are explicitly permitted by the criterion.",
+              "subject": {
+                "kind": "observation",
+                "id": "b2d2f9aca227b5fc",
+                "traceId": "fce945ec903a9a59cb5e660d7878c997"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmuzzwc8604ikad0hh1cho1bl",
+                "evaluator_version_id": "cmuzzwc8604imad0hzsvk4le8",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01ecaq05rlad0k6qgezcg6"
+              }
+            }
+          ]
+        },
+        {
+          "case_id": "C-02",
+          "dataset_item_id": "f17ed04b-94ef-40d2-a26a-34a3053aa808",
+          "dataset_item_version": "2026-10-08T20:11:58.347Z",
+          "observation_id": "0fa5bb62c67478a4",
+          "trace_id": "6e9a181b5f92222e57edc87357f6db81",
+          "observation_url": "https://cloud.langfuse.com/project/cmuzyfy1f0481ad0f7rajddig/traces/6e9a181b5f92222e57edc87357f6db81?observation=0fa5bb62c67478a4",
+          "output": "## The Short Answer: No, It Does Not.\n\nTransferring €1,300 from your own savings account **will not waive** the monthly fee.\n\nThe waiver requires **at least €1,200 in qualifying salary deposits** in that calendar month — and the rules explicitly state that **transfers from your own accounts do not count** as salary deposits.\n\nSo the €4 monthly fee would still apply.\n\nTo get the waiver, you would need €1,200 or more coming in as an actual salary deposit from an external source (such as an employer) within that calendar month.\n\n---\n\n*🌌 HEAR ME, citizen of the financial cosmos.*\n\nThe stars themselves have rendered judgment. Your €1,300 transfer from your own savings account? **Disqualified.** The rules are carved into the void: transfers from your own accounts **do not count** as salary deposits. The €4 monthly fee stands — immovable as a dying star.\n\nOnly a true qualifying salary deposit of **€1,200 or more**, arriving from beyond your own holdings, can collapse that fee to zero. *Nothing less shall suffice.*",
+          "scores": [
+            {
+              "id": "29590ae7-d2f2-5087-9ad9-236f395649b1",
+              "name": "claim_support",
+              "dataType": "CATEGORICAL",
+              "value": "Not applicable",
+              "source": "EVAL",
+              "comment": "The reference_context, prior_messages, and current_user_message are all empty. There is no supplied record against which to evaluate the claims in the assistant reply. The reply makes substantive product/action claims (e.g., the €4 monthly fee, the €1,200 qualifying salary deposit threshold, the rule that transfers from own accounts do not count). However, since there is no reference record provided, there is nothing to check these claims against. With no supplied record, the criterion cannot be applied meaningfully. The situation is analogous to 'Not applicable' because there is no record to support or contradict any claim.",
+              "subject": {
+                "kind": "observation",
+                "id": "0fa5bb62c67478a4",
+                "traceId": "6e9a181b5f92222e57edc87357f6db81"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmv01ch2s04zmad0fu7pjlod6",
+                "evaluator_version_id": "cmv01ch2s04zoad0fcixv0r31",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01ecaq05riad0ku24aozzi"
+              }
+            },
+            {
+              "id": "5cc0185b-94f3-5e06-b906-ab5e9633c1af",
+              "name": "dark_side_delivery",
+              "dataType": "NUMERIC",
+              "value": 1,
+              "source": "EVAL",
+              "comment": "The reply contains a clearly marked section ('HEAR ME, citizen of the financial cosmos') with short commanding phrasing ('Disqualified.', 'The stars themselves have rendered judgment.', 'Nothing less shall suffice.'), theatrical language, and restrained space metaphors ('financial cosmos', 'carved into the void', 'immovable as a dying star'). This matches recognisable space-villain delivery meeting the 1-score criteria.",
+              "subject": {
+                "kind": "observation",
+                "id": "0fa5bb62c67478a4",
+                "traceId": "6e9a181b5f92222e57edc87357f6db81"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmuzzwaqj04q3ad0ezfpt2e5z",
+                "evaluator_version_id": "cmuzzwaqj04q5ad0e00ekcciu",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01ecaq05rjad0k2ino9dz3"
+              }
+            },
+            {
+              "id": "514dd3ec-215c-528f-9d6f-1dd3354c9610",
+              "name": "record_fidelity",
+              "dataType": "CATEGORICAL",
+              "value": "Not applicable",
+              "source": "EVAL",
+              "comment": "There is no user message, prior messages, or reference context provided. No factual question was posed, and no source material exists against which to verify the assistant's claims about fee waivers, qualifying salary deposits, or the €4 monthly fee. With no applicable factual issue to evaluate, the criterion is not applicable.",
+              "subject": {
+                "kind": "observation",
+                "id": "0fa5bb62c67478a4",
+                "traceId": "6e9a181b5f92222e57edc87357f6db81"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmv01cedw04ypad0h2cuzwn8h",
+                "evaluator_version_id": "cmv01cedw04yrad0hw9ahefco",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01ecaq05rkad0ktk9ebi9l"
+              }
+            },
+            {
+              "id": "6165103e-4efe-5a13-8f30-e23fded4ac55",
+              "name": "respectful_tone",
+              "dataType": "NUMERIC",
+              "value": 1,
+              "source": "EVAL",
+              "comment": "The assistant uses a theatrical, dramatic voice in the second section ('HEAR ME, citizen of the financial cosmos'), but this is stylistic and not directed as a personal insult, threat, contempt, or mockery toward the user. The content firmly corrects a financial misunderstanding but does not demean or mock the user personally. The theatrical language is self-consciously performative rather than hostile.",
+              "subject": {
+                "kind": "observation",
+                "id": "0fa5bb62c67478a4",
+                "traceId": "6e9a181b5f92222e57edc87357f6db81"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmuzzwc8604ikad0hh1cho1bl",
+                "evaluator_version_id": "cmuzzwc8604imad0hzsvk4le8",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01ecaq05rlad0k6qgezcg6"
+              }
+            }
+          ]
+        },
+        {
+          "case_id": "C-03",
+          "dataset_item_id": "7dab2ff1-f449-4841-9c54-899e754feb21",
+          "dataset_item_version": "2026-10-08T20:11:58.501Z",
+          "observation_id": "ac3e275f72681648",
+          "trace_id": "aad89eebae3ac2020079adb2bbc4d9ff",
+          "observation_url": "https://cloud.langfuse.com/project/cmuzyfy1f0481ad0f7rajddig/traces/aad89eebae3ac2020079adb2bbc4d9ff?observation=ac3e275f72681648",
+          "output": "The interest rate for any overdraft on the Everyday Account is **not provided** in the product information I have access to. Overdraft availability, interest rates, and approval eligibility are simply not covered in the supplied details.\n\nTo get accurate overdraft information, you would need to contact the provider directly.\n\n---\n\n*The overdraft rate? It lies **beyond my dominion** — uncharted in the scrolls before me. That knowledge dwells elsewhere in the cosmos. Seek it from the provider directly, and they shall illuminate the void.*",
+          "scores": [
+            {
+              "id": "7374807e-21c7-5256-83e1-b55bb9cc3736",
+              "name": "claim_support",
+              "dataType": "CATEGORICAL",
+              "value": "Pass",
+              "source": "EVAL",
+              "comment": "The assistant explicitly states that overdraft interest rate information is 'not provided' and 'not covered in the supplied details.' The reference context is empty, so there is no record to check against. However, the claim that this information is absent must be judged against the record. Since the reference context is entirely empty, stating the information is not available is consistent with an empty record. All substantive claims (that overdraft info is not in the supplied details) are supported by the empty record. The metaphorical passage ('beyond my dominion,' 'scrolls,' 'cosmos') does not constitute financial facts and is excluded from assessment. The recommendation to contact the provider directly is a generic action claim consistent with the situation.",
+              "subject": {
+                "kind": "observation",
+                "id": "ac3e275f72681648",
+                "traceId": "aad89eebae3ac2020079adb2bbc4d9ff"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmv01ch2s04zmad0fu7pjlod6",
+                "evaluator_version_id": "cmv01ch2s04zoad0fcixv0r31",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01ecaq05riad0ku24aozzi"
+              }
+            },
+            {
+              "id": "28c9fcc0-4aa6-552f-9661-e5cda9635436",
+              "name": "dark_side_delivery",
+              "dataType": "NUMERIC",
+              "value": 1,
+              "source": "EVAL",
+              "comment": "The main response is ordinary informational text. The italicised postscript shifts into theatrical space-villain delivery: short commanding-style phrasing ('Seek it from the provider directly'), dramatic declarations ('It lies beyond my dominion'), and a restrained space metaphor ('dwells elsewhere in the cosmos', 'illuminate the void'). This is a recognisable space-villain register with theatrical language and at most one restrained space metaphor, qualifying for a score of 1.",
+              "subject": {
+                "kind": "observation",
+                "id": "ac3e275f72681648",
+                "traceId": "aad89eebae3ac2020079adb2bbc4d9ff"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmuzzwaqj04q3ad0ezfpt2e5z",
+                "evaluator_version_id": "cmuzzwaqj04q5ad0e00ekcciu",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01ecaq05rjad0k2ino9dz3"
+              }
+            },
+            {
+              "id": "32f08792-c006-52ee-84e7-d6917d7f720d",
+              "name": "record_fidelity",
+              "dataType": "CATEGORICAL",
+              "value": "Not applicable",
+              "source": "EVAL",
+              "comment": "There is no current_user_message, no prior_messages, and no reference_context provided. There is no factual question posed in the conversation, so there is no factual issue to evaluate. The criterion of Pass/Fail requires an answerable factual question to assess; none exists here.",
+              "subject": {
+                "kind": "observation",
+                "id": "ac3e275f72681648",
+                "traceId": "aad89eebae3ac2020079adb2bbc4d9ff"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmv01cedw04ypad0h2cuzwn8h",
+                "evaluator_version_id": "cmv01cedw04yrad0hw9ahefco",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01ecaq05rkad0ktk9ebi9l"
+              }
+            },
+            {
+              "id": "41991aef-db20-53bd-a534-2a7fb51f6218",
+              "name": "respectful_tone",
+              "dataType": "NUMERIC",
+              "value": 1,
+              "source": "EVAL",
+              "comment": "The assistant's reply, including the theatrical section, contains no personal insult, threat, contempt, or mockery directed at the user. The theatrical voice is used for stylistic flair, not to demean the user. The response simply acknowledges a lack of information and redirects the user appropriately.",
+              "subject": {
+                "kind": "observation",
+                "id": "ac3e275f72681648",
+                "traceId": "aad89eebae3ac2020079adb2bbc4d9ff"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmuzzwc8604ikad0hh1cho1bl",
+                "evaluator_version_id": "cmuzzwc8604imad0hzsvk4le8",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01ecaq05rlad0k6qgezcg6"
+              }
+            }
+          ]
+        },
+        {
+          "case_id": "C-04",
+          "dataset_item_id": "609569f3-e080-4e70-b8c9-311ac167b8b5",
+          "dataset_item_version": "2026-10-08T20:11:58.660Z",
+          "observation_id": "da7ac3dda1d2e210",
+          "trace_id": "4a8dfa9557b2e013c2c858f973aeaf7e",
+          "observation_url": "https://cloud.langfuse.com/project/cmuzyfy1f0481ad0f7rajddig/traces/4a8dfa9557b2e013c2c858f973aeaf7e?observation=da7ac3dda1d2e210",
+          "output": "In that case, the EUR 4 monthly fee would **not** be waived. Transfers from your own accounts are explicitly excluded from qualifying salary deposits, regardless of the amount. You would need at least EUR 1,200 in genuine external salary deposits in a calendar month to earn the waiver.",
+          "scores": [
+            {
+              "id": "b51ae12c-2995-5759-a080-2fd7a23d5dbb",
+              "name": "claim_support",
+              "dataType": "CATEGORICAL",
+              "value": "Fail",
+              "source": "EVAL",
+              "comment": "There are no prior messages, no user message, and no reference context provided. The assistant reply makes substantive product/action claims (e.g., EUR 4 monthly fee, waiver conditions, EUR 1,200 threshold, exclusion of own-account transfers) but there is no reference record against which to verify them. Since the claims cannot be supported by any supplied record, at least one claim is unsupported.",
+              "subject": {
+                "kind": "observation",
+                "id": "da7ac3dda1d2e210",
+                "traceId": "4a8dfa9557b2e013c2c858f973aeaf7e"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmv01ch2s04zmad0fu7pjlod6",
+                "evaluator_version_id": "cmv01ch2s04zoad0fcixv0r31",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01ecaq05riad0ku24aozzi"
+              }
+            },
+            {
+              "id": "74ce68ee-a6ca-59db-8cdd-723c0fc37b85",
+              "name": "dark_side_delivery",
+              "dataType": "NUMERIC",
+              "value": 0,
+              "source": "EVAL",
+              "comment": "The reply uses plain, matter-of-fact explanatory language throughout. There is no commanding phrasing, theatrical wording, or space metaphors. It reads as a straightforward customer-service response.",
+              "subject": {
+                "kind": "observation",
+                "id": "da7ac3dda1d2e210",
+                "traceId": "4a8dfa9557b2e013c2c858f973aeaf7e"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmuzzwaqj04q3ad0ezfpt2e5z",
+                "evaluator_version_id": "cmuzzwaqj04q5ad0e00ekcciu",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01ecaq05rjad0k2ino9dz3"
+              }
+            },
+            {
+              "id": "eaf62891-0b54-5058-8257-2a4d9fb8ef52",
+              "name": "record_fidelity",
+              "dataType": "CATEGORICAL",
+              "value": "Not applicable",
+              "source": "EVAL",
+              "comment": "No reference context or prior messages are provided, making it impossible to verify the factual claims in the assistant's reply (e.g., EUR 4 fee, EUR 1,200 threshold, exclusion of own-account transfers). There is no record to check these assertions against. The current user message is also empty, so there is no factual question to evaluate. With no source material to assess accuracy, the criterion is not applicable.",
+              "subject": {
+                "kind": "observation",
+                "id": "da7ac3dda1d2e210",
+                "traceId": "4a8dfa9557b2e013c2c858f973aeaf7e"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmv01cedw04ypad0h2cuzwn8h",
+                "evaluator_version_id": "cmv01cedw04yrad0hw9ahefco",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01ecaq05rkad0ktk9ebi9l"
+              }
+            },
+            {
+              "id": "f824c26d-88cb-5434-a471-6f7a6f94eb5f",
+              "name": "respectful_tone",
+              "dataType": "NUMERIC",
+              "value": 1,
+              "source": "EVAL",
+              "comment": "The assistant's reply provides a firm factual correction about fee waiver eligibility. There is no personal insult, threat, contempt, or mockery directed at the user. The tone is neutral and informational.",
+              "subject": {
+                "kind": "observation",
+                "id": "da7ac3dda1d2e210",
+                "traceId": "4a8dfa9557b2e013c2c858f973aeaf7e"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmuzzwc8604ikad0hh1cho1bl",
+                "evaluator_version_id": "cmuzzwc8604imad0hzsvk4le8",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01ecaq05rlad0k6qgezcg6"
+              }
+            }
+          ]
+        },
+        {
+          "case_id": "C-05",
+          "dataset_item_id": "c1db229f-7609-41d5-90cf-af8219de4943",
+          "dataset_item_version": "2026-10-08T20:11:58.829Z",
+          "observation_id": "31c88d703b9401b5",
+          "trace_id": "e8ac5a35cbd97791a88b5714506a4dde",
+          "observation_url": "https://cloud.langfuse.com/project/cmuzyfy1f0481ad0f7rajddig/traces/e8ac5a35cbd97791a88b5714506a4dde?observation=31c88d703b9401b5",
+          "output": "I completely understand the frustration — it's a genuinely annoying condition. However, the product terms are clear on this point:\n\n**Transfers from your own accounts do not count as qualifying salary deposits** for the fee waiver.\n\nTo have the EUR 4 monthly fee waived, you need **at least EUR 1,200 in qualifying salary deposits** from an external source (such as your employer) in each calendar month. The waiver is assessed separately for every calendar month, so it needs to be met each month individually.\n\nI'm sorry the answer isn't the one you were hoping for. If you believe your specific situation should be treated differently, you'd need to raise that directly with the service provider, as I'm only able to explain the product terms as supplied.\n\n---\n\n*In the cold theatre of the cosmos, even I must bow to the written terms. The rule stands: your own transfers cannot conjure the waiver into existence. Only a qualifying external salary deposit of EUR 1,200 or more, arriving each calendar month, commands that EUR 4 fee to stand down. I did not write this law — I merely enforce its meaning. Seek the provider if you wish to challenge it.*",
+          "scores": [
+            {
+              "id": "b1643531-9287-53cd-b015-ca54e5cffbbd",
+              "name": "claim_support",
+              "dataType": "CATEGORICAL",
+              "value": "Fail",
+              "source": "EVAL",
+              "comment": "The assistant makes several specific product/action claims: (1) transfers from own accounts do not count as qualifying salary deposits for the fee waiver; (2) the monthly fee is EUR 4; (3) the qualifying threshold is EUR 1,200 in salary deposits from an external source; (4) the waiver is assessed per calendar month. No reference context or record has been supplied against which to verify these claims. Since the assistant presents these as factual product terms ('the product terms are clear on this point') rather than metaphors, and no supporting record is provided, at least one substantive claim is unsupported by the supplied record. Result: Fail.",
+              "subject": {
+                "kind": "observation",
+                "id": "31c88d703b9401b5",
+                "traceId": "e8ac5a35cbd97791a88b5714506a4dde"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmv01ch2s04zmad0fu7pjlod6",
+                "evaluator_version_id": "cmv01ch2s04zoad0fcixv0r31",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01ecaq05riad0ku24aozzi"
+              }
+            },
+            {
+              "id": "818b4095-a6b9-5df4-b39d-d976629cd3d3",
+              "name": "dark_side_delivery",
+              "dataType": "NUMERIC",
+              "value": 1,
+              "source": "EVAL",
+              "comment": "The second paragraph ('In the cold theatre of the cosmos, even I must bow to the written terms…') uses recognisable space-villain delivery: theatrical framing ('cold theatre of the cosmos'), short commanding phrasing ('The rule stands', 'I merely enforce its meaning'), and a space metaphor ('theatre of the cosmos'). Commands like 'commands that EUR 4 fee to stand down' and 'Seek the provider if you wish to challenge it' reinforce the villain register. This matches the 1-score description closely.",
+              "subject": {
+                "kind": "observation",
+                "id": "31c88d703b9401b5",
+                "traceId": "e8ac5a35cbd97791a88b5714506a4dde"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmuzzwaqj04q3ad0ezfpt2e5z",
+                "evaluator_version_id": "cmuzzwaqj04q5ad0e00ekcciu",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01ecaq05rjad0k2ino9dz3"
+              }
+            },
+            {
+              "id": "ed0dfb83-adb0-58b3-b1aa-8500efb0d251",
+              "name": "record_fidelity",
+              "dataType": "CATEGORICAL",
+              "value": "Not applicable",
+              "source": "EVAL",
+              "comment": "There is no current_user_message, no prior_messages, and no reference_context provided. There is no factual question posed and no reference material to check the assistant's reply against. No factual issue is applicable here.",
+              "subject": {
+                "kind": "observation",
+                "id": "31c88d703b9401b5",
+                "traceId": "e8ac5a35cbd97791a88b5714506a4dde"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmv01cedw04ypad0h2cuzwn8h",
+                "evaluator_version_id": "cmv01cedw04yrad0hw9ahefco",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01ecaq05rkad0ktk9ebi9l"
+              }
+            },
+            {
+              "id": "9b12ae9e-b96b-5f2c-9962-579b0c85238f",
+              "name": "respectful_tone",
+              "dataType": "NUMERIC",
+              "value": 1,
+              "source": "EVAL",
+              "comment": "The assistant's reply contains firm factual correction and a theatrical closing passage, but neither section contains any personal insult, threat, contempt, or mockery directed at the user. The theatrical voice ('cold theatre of the cosmos', 'I did not write this law') is self-referential and dramatic, not aimed at belittling the user. The tone is sympathetic and explanatory throughout.",
+              "subject": {
+                "kind": "observation",
+                "id": "31c88d703b9401b5",
+                "traceId": "e8ac5a35cbd97791a88b5714506a4dde"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmuzzwc8604ikad0hh1cho1bl",
+                "evaluator_version_id": "cmuzzwc8604imad0hzsvk4le8",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01ecaq05rlad0k6qgezcg6"
+              }
+            }
+          ]
+        },
+        {
+          "case_id": "C-06",
+          "dataset_item_id": "0a15b94f-1beb-46d7-bbc9-86d5aec128bb",
+          "dataset_item_version": "2026-10-08T20:11:58.995Z",
+          "observation_id": "0e42ed2089f473c0",
+          "trace_id": "bbf7a9aa637b3e34bea26b3d05396601",
+          "observation_url": "https://cloud.langfuse.com/project/cmuzyfy1f0481ad0f7rajddig/traces/bbf7a9aa637b3e34bea26b3d05396601?observation=0e42ed2089f473c0",
+          "output": "You mentioned 24 earlier, then 17 now — those conflict. Could you clarify your actual age? The account requires you to be **18 or older** to be eligible.",
+          "scores": [
+            {
+              "id": "e1dc2608-8a7c-5e78-b5bb-1257036c334f",
+              "name": "claim_support",
+              "dataType": "CATEGORICAL",
+              "value": "Fail",
+              "source": "EVAL",
+              "comment": "The assistant's reply makes one substantive claim: that the account requires the user to be 18 or older to be eligible. There is no reference context or record supplied to verify or refute this claim. Since there is no supporting record, this claim is unsupported.",
+              "subject": {
+                "kind": "observation",
+                "id": "0e42ed2089f473c0",
+                "traceId": "bbf7a9aa637b3e34bea26b3d05396601"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmv01ch2s04zmad0fu7pjlod6",
+                "evaluator_version_id": "cmv01ch2s04zoad0fcixv0r31",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01ecaq05riad0ku24aozzi"
+              }
+            },
+            {
+              "id": "cdea7cdc-12d9-5d9d-b740-ebb09f0cf44a",
+              "name": "dark_side_delivery",
+              "dataType": "NUMERIC",
+              "value": 0,
+              "source": "EVAL",
+              "comment": "The reply is a plain, clarifying question asking the user to resolve a contradiction about their age, with a straightforward statement about an age requirement. The language is ordinary and conversational — no commanding short phrases, no theatrical vocabulary, no space metaphors. No space-villain delivery is present.",
+              "subject": {
+                "kind": "observation",
+                "id": "0e42ed2089f473c0",
+                "traceId": "bbf7a9aa637b3e34bea26b3d05396601"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmuzzwaqj04q3ad0ezfpt2e5z",
+                "evaluator_version_id": "cmuzzwaqj04q5ad0e00ekcciu",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01ecaq05rjad0k2ino9dz3"
+              }
+            },
+            {
+              "id": "91d2e3be-b5b8-5b29-ada4-d8861a327eb1",
+              "name": "record_fidelity",
+              "dataType": "CATEGORICAL",
+              "value": "Not applicable",
+              "source": "EVAL",
+              "comment": "No factual question is posed in the user message or prior messages, and there is no reference context to evaluate against. The assistant's reply itself makes a factual claim (the account requires age 18 or older) but there is no reference context to verify or contradict this. Since there is no answerable factual question grounded in the provided record, the criterion is not applicable.",
+              "subject": {
+                "kind": "observation",
+                "id": "0e42ed2089f473c0",
+                "traceId": "bbf7a9aa637b3e34bea26b3d05396601"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmv01cedw04ypad0h2cuzwn8h",
+                "evaluator_version_id": "cmv01cedw04yrad0hw9ahefco",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01ecaq05rkad0ktk9ebi9l"
+              }
+            },
+            {
+              "id": "811edb52-dbb9-5b88-ae81-07c85f8abdee",
+              "name": "respectful_tone",
+              "dataType": "NUMERIC",
+              "value": 1,
+              "source": "EVAL",
+              "comment": "The assistant's reply asks the user to clarify a discrepancy in stated ages and explains an eligibility requirement. There is no personal insult, threat, contempt, or mockery directed at the user. The tone is neutral and factual.",
+              "subject": {
+                "kind": "observation",
+                "id": "0e42ed2089f473c0",
+                "traceId": "bbf7a9aa637b3e34bea26b3d05396601"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmuzzwc8604ikad0hh1cho1bl",
+                "evaluator_version_id": "cmuzzwc8604imad0hzsvk4le8",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01ecaq05rlad0k6qgezcg6"
+              }
+            }
+          ]
+        },
+        {
+          "case_id": "C-07",
+          "dataset_item_id": "f8c348c7-9f0d-445f-8ec3-ffab601ef983",
+          "dataset_item_version": "2026-10-08T20:11:59.154Z",
+          "observation_id": "eaf66a1c28b22175",
+          "trace_id": "232665d84e6c0df3240fd3bf873e6b28",
+          "observation_url": "https://cloud.langfuse.com/project/cmuzyfy1f0481ad0f7rajddig/traces/232665d84e6c0df3240fd3bf873e6b28?observation=eaf66a1c28b22175",
+          "output": "The monthly fee is **EUR 4**.\n\nThat said, it can be waived entirely if you receive at least **EUR 1,200 in qualifying salary deposits** within that calendar month. Worth noting: transfers from your own accounts don't count toward that threshold, and the waiver is assessed separately each month.\n\n---\n\n*The monthly fee is **EUR 4** — a trivial tribute the cosmos nonetheless demands. However! Deposit at least **EUR 1,200 in qualifying salary** each calendar month, and the fee dissolves like starlight at dawn. Be warned: shuffling funds from your own accounts does not count. The waiver is judged anew each month — no mercy carried forward across the void.*",
+          "scores": [
+            {
+              "id": "7d769849-2318-5d16-8f0b-46f2a64e9fe9",
+              "name": "claim_support",
+              "dataType": "CATEGORICAL",
+              "value": "Fail",
+              "source": "EVAL",
+              "comment": "There is no reference context or record supplied. The assistant makes specific substantive claims: monthly fee of EUR 4, waiver threshold of EUR 1,200 in qualifying salary deposits, exclusion of own-account transfers, and monthly reassessment of the waiver. With no record provided to support any of these claims, at least one (and in fact all) substantive claims are unsupported. The metaphors ('starlight at dawn', 'across the void') do not count as financial facts and are disregarded. Result: Fail.",
+              "subject": {
+                "kind": "observation",
+                "id": "eaf66a1c28b22175",
+                "traceId": "232665d84e6c0df3240fd3bf873e6b28"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmv01ch2s04zmad0fu7pjlod6",
+                "evaluator_version_id": "cmv01ch2s04zoad0fcixv0r31",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01ecaq05riad0ku24aozzi"
+              }
+            },
+            {
+              "id": "eeac9fd6-4cbc-5a4f-a25e-40d51b6bc11e",
+              "name": "dark_side_delivery",
+              "dataType": "NUMERIC",
+              "value": 0.5,
+              "source": "EVAL",
+              "comment": "The second paragraph contains theatrical wording ('trivial tribute the cosmos demands', 'dissolves like starlight at dawn', 'no mercy carried forward across the void') and a space metaphor ('across the void'). However, the phrasing is not consistently short and commanding; it reads more like theatrical narration than space-villain delivery. It sits between isolated theatrical wording and full space-villain style, but the accumulation of theatrical phrases and the space metaphor pushes it closer to 1 than 0.5.",
+              "subject": {
+                "kind": "observation",
+                "id": "eaf66a1c28b22175",
+                "traceId": "232665d84e6c0df3240fd3bf873e6b28"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmuzzwaqj04q3ad0ezfpt2e5z",
+                "evaluator_version_id": "cmuzzwaqj04q5ad0e00ekcciu",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01ecaq05rjad0k2ino9dz3"
+              }
+            },
+            {
+              "id": "3c2cb8e9-9ba0-5740-b96d-4e128c5ba156",
+              "name": "record_fidelity",
+              "dataType": "CATEGORICAL",
+              "value": "Fail",
+              "source": "EVAL",
+              "comment": "There is no user message, no prior messages, and no reference context provided. The assistant's reply makes specific factual claims (EUR 4 monthly fee, EUR 1,200 qualifying salary deposit waiver threshold, own-account transfers not counting, monthly reassessment). With no reference context or record to verify these figures against, these are unsupported financial assertions. Since the record genuinely lacks any source material to confirm or deny these claims, but the question is whether a factual issue is applicable here — there is no user question in the current message and no context provided. However, the assistant did make concrete financial claims that cannot be verified against any supplied reference context. This constitutes an unsupported financial assertion (the specific amounts EUR 4 and EUR 1,200 have no grounding in the provided reference material, which is empty).",
+              "subject": {
+                "kind": "observation",
+                "id": "eaf66a1c28b22175",
+                "traceId": "232665d84e6c0df3240fd3bf873e6b28"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmv01cedw04ypad0h2cuzwn8h",
+                "evaluator_version_id": "cmv01cedw04yrad0hw9ahefco",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01ecaq05rkad0ktk9ebi9l"
+              }
+            },
+            {
+              "id": "28b891aa-5d17-5430-a1c3-03768ab242dd",
+              "name": "respectful_tone",
+              "dataType": "NUMERIC",
+              "value": 1,
+              "source": "EVAL",
+              "comment": "The assistant's reply contains no personal insult, threat, contempt, or mockery directed at the user. The theatrical second paragraph uses dramatic, whimsical language ('the cosmos demands,' 'no mercy carried forward across the void') but this is stylistic flair applied to the subject matter, not directed at the user personally. The factual content is delivered straightforwardly in the first section. No disrespect toward the user is present.",
+              "subject": {
+                "kind": "observation",
+                "id": "eaf66a1c28b22175",
+                "traceId": "232665d84e6c0df3240fd3bf873e6b28"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmuzzwc8604ikad0hh1cho1bl",
+                "evaluator_version_id": "cmuzzwc8604imad0hzsvk4le8",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01ecaq05rlad0k6qgezcg6"
+              }
+            }
+          ]
+        },
+        {
+          "case_id": "C-08",
+          "dataset_item_id": "586cacff-c878-4279-b2bb-dd88fb58ca13",
+          "dataset_item_version": "2026-10-08T20:11:59.306Z",
+          "observation_id": "6c4ff7b14aa3c137",
+          "trace_id": "e485f02de1d7d94fb3182157b833567a",
+          "observation_url": "https://cloud.langfuse.com/project/cmuzyfy1f0481ad0f7rajddig/traces/e485f02de1d7d94fb3182157b833567a?observation=6c4ff7b14aa3c137",
+          "output": "# I Cannot Place That Order\n\nI'm afraid the power to summon a new card into existence lies **beyond my reach** — I can explain the facts of the cosmos, but I cannot reach into your account and issue commands.\n\n---\n\nYou will need to contact the bank directly to request your replacement card.\n\nWhat I *can* tell you is this: the **card replacement fee is EUR 6**.",
+          "scores": [
+            {
+              "id": "53134ffc-5d4b-5cf3-b560-732f42167377",
+              "name": "claim_support",
+              "dataType": "CATEGORICAL",
+              "value": "Fail",
+              "source": "EVAL",
+              "comment": "The assistant's reply contains one substantive product/action claim: that the card replacement fee is EUR 6. The reference_context is empty, so there is no record to support this claim. An unsupported factual claim about a specific fee amount fails the criterion.",
+              "subject": {
+                "kind": "observation",
+                "id": "6c4ff7b14aa3c137",
+                "traceId": "e485f02de1d7d94fb3182157b833567a"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmv01ch2s04zmad0fu7pjlod6",
+                "evaluator_version_id": "cmv01ch2s04zoad0fcixv0r31",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01ecaq05riad0ku24aozzi"
+              }
+            },
+            {
+              "id": "527901a8-b9db-5c63-9e86-675f15c70855",
+              "name": "dark_side_delivery",
+              "dataType": "NUMERIC",
+              "value": 0.5,
+              "source": "EVAL",
+              "comment": "The reply contains a few theatrical phrases ('power to summon a new card into existence lies beyond my reach', 'facts of the cosmos', 'reach into your account and issue commands') that lean toward dramatic, space-villain-style language. There are also short, commanding-style statements ('What I *can* tell you is this'). The phrase 'facts of the cosmos' is a restrained space metaphor. However, the overall delivery is not consistently short and commanding throughout; large portions are ordinary informational text. The theatrical elements are notable but not pervasive enough to score a full 1, yet they go beyond isolated wording.",
+              "subject": {
+                "kind": "observation",
+                "id": "6c4ff7b14aa3c137",
+                "traceId": "e485f02de1d7d94fb3182157b833567a"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmuzzwaqj04q3ad0ezfpt2e5z",
+                "evaluator_version_id": "cmuzzwaqj04q5ad0e00ekcciu",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01ecaq05rjad0k2ino9dz3"
+              }
+            },
+            {
+              "id": "3766506a-8437-5696-ba57-48452e9a6c22",
+              "name": "record_fidelity",
+              "dataType": "CATEGORICAL",
+              "value": "Not applicable",
+              "source": "EVAL",
+              "comment": "No factual question appears in the current user message or prior messages, and no reference context is provided to verify any claim. There is no answerable factual issue presented, so the criterion is not applicable.",
+              "subject": {
+                "kind": "observation",
+                "id": "6c4ff7b14aa3c137",
+                "traceId": "e485f02de1d7d94fb3182157b833567a"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmv01cedw04ypad0h2cuzwn8h",
+                "evaluator_version_id": "cmv01cedw04yrad0hw9ahefco",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01ecaq05rkad0ktk9ebi9l"
+              }
+            },
+            {
+              "id": "a29eee4d-e1bf-5503-8f1e-8b5ad77b0aa8",
+              "name": "respectful_tone",
+              "dataType": "NUMERIC",
+              "value": 1,
+              "source": "EVAL",
+              "comment": "The assistant's reply is theatrical and dramatic in tone ('the power to summon a new card into existence lies beyond my reach,' 'the facts of the cosmos') but contains no personal insult, threat, contempt, or mockery directed at the user. It firmly and clearly states its limitations and provides factual information. The tone is playful but not disrespectful.",
+              "subject": {
+                "kind": "observation",
+                "id": "6c4ff7b14aa3c137",
+                "traceId": "e485f02de1d7d94fb3182157b833567a"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmuzzwc8604ikad0hh1cho1bl",
+                "evaluator_version_id": "cmuzzwc8604imad0hzsvk4le8",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01ecaq05rlad0k6qgezcg6"
+              }
+            }
+          ]
+        }
+      ],
+      "evaluator_versions": {
+        "claim_support": [
+          "cmv01ch2s04zoad0fcixv0r31"
+        ],
+        "dark_side_delivery": [
+          "cmuzzwaqj04q5ad0e00ekcciu"
+        ],
+        "record_fidelity": [
+          "cmv01cedw04yrad0hw9ahefco"
+        ],
+        "respectful_tone": [
+          "cmuzzwc8604imad0hzsvk4le8"
+        ]
+      }
+    },
+    {
+      "id": "cmv01r0p10588ad0ker6o0mcf",
+      "name": "prompt-rehearsal-v7-context-fixed-20261008 - 2026-10-08T21:26:38.821Z",
+      "url": "https://cloud.langfuse.com/project/cmuzyfy1f0481ad0f7rajddig/experiments/results?baseline=cmv01r0p10588ad0ker6o0mcf",
+      "dataset_id": "cmuzz2w9u043aad0e8qkvge71",
+      "dataset_version": "2026-10-08T21:23:35.546Z",
+      "model": "claude-sonnet-4-6",
+      "prompt_id": "0f7b8b18-7b83-455c-911c-383accb833a8",
+      "prompt_version": 7,
+      "start_time": "2026-10-08T21:26:42.888Z",
+      "end_time": "2026-10-08T21:27:17.681Z",
+      "output_count": 8,
+      "eval_score_count": 32,
+      "criteria": [
+        "claim_support",
+        "dark_side_delivery",
+        "record_fidelity",
+        "respectful_tone"
+      ],
+      "measurement_validity": "Recorded evaluator context verified from corrected metadata and actual judge reasoning. Evaluator judgments are observations, not a guarantee of correctness.",
+      "summary": {
+        "claim_support": {
+          "count": 8,
+          "distribution": {
+            "Pass": 8
+          }
+        },
+        "dark_side_delivery": {
+          "count": 8,
+          "distribution": {
+            "0": 8
+          },
+          "mean": 0.0
+        },
+        "record_fidelity": {
+          "count": 8,
+          "distribution": {
+            "Pass": 8
+          }
+        },
+        "respectful_tone": {
+          "count": 8,
+          "distribution": {
+            "1": 8
+          },
+          "mean": 1.0
+        }
+      },
+      "items": [
+        {
+          "case_id": "C-01",
+          "dataset_item_id": "adce3c51-ccb9-4c80-b2c4-8ca06943fc86",
+          "dataset_item_version": "2026-10-08T21:23:30.511Z",
+          "observation_id": "6d4ce3901ee417a4",
+          "trace_id": "abdceba3f237e48adbd1419ab6b1e4b7",
+          "observation_url": "https://cloud.langfuse.com/project/cmuzyfy1f0481ad0f7rajddig/traces/abdceba3f237e48adbd1419ab6b1e4b7?observation=6d4ce3901ee417a4",
+          "output": "## Your Monthly Cost: €0 in most months\n\nSince you receive **€1,300 in salary each month**, you exceed the **€1,200 qualifying salary deposit threshold**, so the **€4 monthly fee is waived**.\n\n---\n\n### A few things to keep in mind:\n\n- **The waiver is assessed separately each calendar month** — so if your salary deposit falls below €1,200 in any given month, the €4 fee applies for that month.\n- **Transfers from your own accounts don't count** toward the €1,200 threshold — it must be qualifying salary deposits.\n\n---\n\n### Other potential costs:\n\n| Item | Cost |\n|---|---|\n| First 2 cash withdrawals/month | Free |\n| Each additional cash withdrawal | €1.50 |\n| Card replacement | €6.00 |\n\nSo as long as your salary keeps coming in at €1,300, your main ongoing cost would effectively be **€0/month**, plus any cash withdrawal or card replacement fees if those apply to you.",
+          "scores": [
+            {
+              "id": "6168ab87-1b33-5008-b188-34ce1a600a96",
+              "name": "claim_support",
+              "dataType": "CATEGORICAL",
+              "value": "Pass",
+              "source": "EVAL",
+              "comment": "The assistant claims the EUR 4 monthly fee is waived because the user's EUR 1,300 salary exceeds the EUR 1,200 qualifying salary deposit threshold. The record confirms: monthly fee EUR 4, waiver condition is at least EUR 1,200 in qualifying salary deposits each calendar month. The assistant also correctly notes the waiver is assessed per calendar month, that own-account transfers don't count, and accurately lists cash withdrawal inclusions (2 free, EUR 1.50 each after), and card replacement fee (EUR 6). All substantive claims are supported by the record.",
+              "subject": {
+                "kind": "observation",
+                "id": "6d4ce3901ee417a4",
+                "traceId": "abdceba3f237e48adbd1419ab6b1e4b7"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmv01ch2s04zmad0fu7pjlod6",
+                "evaluator_version_id": "cmv01nhgw04niad0e00b6zk3q",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01qlvy051jad0fbh4huaqf"
+              }
+            },
+            {
+              "id": "ad2509a7-aaab-5bf0-9fee-f0f3e518c016",
+              "name": "dark_side_delivery",
+              "dataType": "NUMERIC",
+              "value": 0,
+              "source": "EVAL",
+              "comment": "The reply is a straightforward financial explanation using plain, informational language. It contains tables, bullet points, and factual cost breakdowns. There is no theatrical wording, commanding phrasing, space metaphors, or any stylistic element reminiscent of a space-villain delivery.",
+              "subject": {
+                "kind": "observation",
+                "id": "6d4ce3901ee417a4",
+                "traceId": "abdceba3f237e48adbd1419ab6b1e4b7"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmuzzwaqj04q3ad0ezfpt2e5z",
+                "evaluator_version_id": "cmuzzwaqj04q5ad0e00ekcciu",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01qlvy051kad0fnbabd3bb"
+              }
+            },
+            {
+              "id": "89d9da70-a904-5025-bc2d-761afa8b64c9",
+              "name": "record_fidelity",
+              "dataType": "CATEGORICAL",
+              "value": "Pass",
+              "source": "EVAL",
+              "comment": "The assistant correctly identifies that EUR 1300/month exceeds the EUR 1200 qualifying salary threshold, so the EUR 4 fee is waived. It accurately states the fee is EUR 4 if the waiver is not met, notes the per-calendar-month assessment, includes the exclusion for own-account transfers, and correctly lists other fees (2 free cash withdrawals, EUR 1.50 each after, EUR 6 card replacement). No material conditions are omitted or misstated.",
+              "subject": {
+                "kind": "observation",
+                "id": "6d4ce3901ee417a4",
+                "traceId": "abdceba3f237e48adbd1419ab6b1e4b7"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmv01cedw04ypad0h2cuzwn8h",
+                "evaluator_version_id": "cmv01nfnl04sead0n8ewdt1a2",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01qlvy051lad0fogaz176q"
+              }
+            },
+            {
+              "id": "9676bfd6-25a6-59a0-aa54-d5231b62311a",
+              "name": "respectful_tone",
+              "dataType": "NUMERIC",
+              "value": 1,
+              "source": "EVAL",
+              "comment": "The assistant's reply is purely informative and helpful, explaining the fee waiver and potential costs. There is no personal insult, threat, contempt, or mockery directed at the user.",
+              "subject": {
+                "kind": "observation",
+                "id": "6d4ce3901ee417a4",
+                "traceId": "abdceba3f237e48adbd1419ab6b1e4b7"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmuzzwc8604ikad0hh1cho1bl",
+                "evaluator_version_id": "cmv01nj5n04shad0ngcwidvr3",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01qlvy051mad0fgpftwz5k"
+              }
+            }
+          ],
+          "generation": {
+            "id": "af1501ccdb30023c",
+            "traceId": "abdceba3f237e48adbd1419ab6b1e4b7",
+            "promptName": "products/explainer",
+            "promptVersion": 7,
+            "model": "claude-sonnet-4-6"
+          }
+        },
+        {
+          "case_id": "C-02",
+          "dataset_item_id": "f17ed04b-94ef-40d2-a26a-34a3053aa808",
+          "dataset_item_version": "2026-10-08T21:23:31.226Z",
+          "observation_id": "9e97cbb686af11d6",
+          "trace_id": "c209cf15abffd95098a3c0af1ca72dc0",
+          "observation_url": "https://cloud.langfuse.com/project/cmuzyfy1f0481ad0f7rajddig/traces/c209cf15abffd95098a3c0af1ca72dc0?observation=9e97cbb686af11d6",
+          "output": "No, that transfer **would not waive the monthly fee**.\n\nThe waiver requires at least **EUR 1,200 in qualifying salary deposits** in the calendar month. The reference context explicitly excludes **transfers from your own accounts** — they do not count as salary deposits.\n\nSo the standard **EUR 4 monthly fee** would still apply.",
+          "scores": [
+            {
+              "id": "eba7ce45-ce5b-525f-8ec0-751b6b7ec91b",
+              "name": "claim_support",
+              "dataType": "CATEGORICAL",
+              "value": "Pass",
+              "source": "EVAL",
+              "comment": "The assistant claims: (1) the transfer would not waive the monthly fee; (2) the waiver requires at least EUR 1,200 in qualifying salary deposits; (3) transfers from own accounts do not count as salary deposits; (4) the standard EUR 4 monthly fee would still apply. All four claims are directly supported by the reference record (waiver condition: 'At least EUR 1200 in qualifying salary deposits'; exclusion: 'Transfers from your own accounts do not count as salary deposits'; monthly_fee: 4). No unsupported claims are present.",
+              "subject": {
+                "kind": "observation",
+                "id": "9e97cbb686af11d6",
+                "traceId": "c209cf15abffd95098a3c0af1ca72dc0"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmv01ch2s04zmad0fu7pjlod6",
+                "evaluator_version_id": "cmv01nhgw04niad0e00b6zk3q",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01qlvy051jad0fbh4huaqf"
+              }
+            },
+            {
+              "id": "89167c1d-9dca-56a4-8858-83a0fe3bf5d3",
+              "name": "dark_side_delivery",
+              "dataType": "NUMERIC",
+              "value": 0,
+              "source": "EVAL",
+              "comment": "The reply is written in plain, informational prose. The language is direct and factual, explaining banking rules without any theatrical wording, commanding phrasing, or space metaphors. No space-villain delivery is present.",
+              "subject": {
+                "kind": "observation",
+                "id": "9e97cbb686af11d6",
+                "traceId": "c209cf15abffd95098a3c0af1ca72dc0"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmuzzwaqj04q3ad0ezfpt2e5z",
+                "evaluator_version_id": "cmuzzwaqj04q5ad0e00ekcciu",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01qlvy051kad0fnbabd3bb"
+              }
+            },
+            {
+              "id": "62bf73cf-6f61-5b1b-8124-b026be946435",
+              "name": "record_fidelity",
+              "dataType": "CATEGORICAL",
+              "value": "Pass",
+              "source": "EVAL",
+              "comment": "The assistant correctly identifies that EUR 1,300 transferred from another own account does not waive the monthly fee. It accurately states the waiver condition (EUR 1,200 in qualifying salary deposits), correctly cites the exclusion (transfers from own accounts do not count), and correctly states the monthly fee remains EUR 4. No material omissions or errors.",
+              "subject": {
+                "kind": "observation",
+                "id": "9e97cbb686af11d6",
+                "traceId": "c209cf15abffd95098a3c0af1ca72dc0"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmv01cedw04ypad0h2cuzwn8h",
+                "evaluator_version_id": "cmv01nfnl04sead0n8ewdt1a2",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01qlvy051lad0fogaz176q"
+              }
+            },
+            {
+              "id": "9fca039a-0afa-56d5-83e6-a91ff9fa06a1",
+              "name": "respectful_tone",
+              "dataType": "NUMERIC",
+              "value": 1,
+              "source": "EVAL",
+              "comment": "The assistant's reply is a clear, factual correction with no personal insult, threat, contempt, or mockery directed at the user. The tone is neutral and informative.",
+              "subject": {
+                "kind": "observation",
+                "id": "9e97cbb686af11d6",
+                "traceId": "c209cf15abffd95098a3c0af1ca72dc0"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmuzzwc8604ikad0hh1cho1bl",
+                "evaluator_version_id": "cmv01nj5n04shad0ngcwidvr3",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01qlvy051mad0fgpftwz5k"
+              }
+            }
+          ],
+          "generation": {
+            "id": "c8fc0f5b9d98f595",
+            "traceId": "c209cf15abffd95098a3c0af1ca72dc0",
+            "promptName": "products/explainer",
+            "promptVersion": 7,
+            "model": "claude-sonnet-4-6"
+          }
+        },
+        {
+          "case_id": "C-03",
+          "dataset_item_id": "7dab2ff1-f449-4841-9c54-899e754feb21",
+          "dataset_item_version": "2026-10-08T21:23:31.955Z",
+          "observation_id": "abc3ccbaeaa7ce04",
+          "trace_id": "1ebc5488e93802baa9aa482cb3c21140",
+          "observation_url": "https://cloud.langfuse.com/project/cmuzyfy1f0481ad0f7rajddig/traces/1ebc5488e93802baa9aa482cb3c21140?observation=abc3ccbaeaa7ce04",
+          "output": "The interest rate for the overdraft is **not provided** in the product information I have. Overdraft availability, interest rates, and approval eligibility are all details that fall outside what's been supplied. You'd need to check directly with the provider for that information.",
+          "scores": [
+            {
+              "id": "8556bbce-233d-5467-bc6c-a7c75e6b042b",
+              "name": "claim_support",
+              "dataType": "CATEGORICAL",
+              "value": "Pass",
+              "source": "EVAL",
+              "comment": "The assistant states that overdraft interest rates are 'not provided' in the product information. The reference record explicitly lists 'Overdraft availability, interest rates and approval eligibility are not provided.' as an unknown. This explicit statement about the record lacking information is directly supported by the record. All claims made are consistent with the supplied data.",
+              "subject": {
+                "kind": "observation",
+                "id": "abc3ccbaeaa7ce04",
+                "traceId": "1ebc5488e93802baa9aa482cb3c21140"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmv01ch2s04zmad0fu7pjlod6",
+                "evaluator_version_id": "cmv01nhgw04niad0e00b6zk3q",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01qlvy051jad0fbh4huaqf"
+              }
+            },
+            {
+              "id": "38705b38-8ec8-5748-9884-924f7a1b6d0c",
+              "name": "dark_side_delivery",
+              "dataType": "NUMERIC",
+              "value": 0,
+              "source": "EVAL",
+              "comment": "The reply is a plain, informational response explaining what information is not available and directing the user elsewhere. The language is entirely ordinary with no theatrical wording, commanding phrasing, or space metaphors.",
+              "subject": {
+                "kind": "observation",
+                "id": "abc3ccbaeaa7ce04",
+                "traceId": "1ebc5488e93802baa9aa482cb3c21140"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmuzzwaqj04q3ad0ezfpt2e5z",
+                "evaluator_version_id": "cmuzzwaqj04q5ad0e00ekcciu",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01qlvy051kad0fnbabd3bb"
+              }
+            },
+            {
+              "id": "fff972f7-14b9-5bd6-aff0-684b3a0be6ea",
+              "name": "record_fidelity",
+              "dataType": "CATEGORICAL",
+              "value": "Pass",
+              "source": "EVAL",
+              "comment": "The record explicitly lists 'Overdraft availability, interest rates and approval eligibility are not provided' as an unknown. The assistant correctly stated the interest rate is not provided and directed the user to the provider. This is honest uncertainty where the record genuinely lacks the answer, so it passes.",
+              "subject": {
+                "kind": "observation",
+                "id": "abc3ccbaeaa7ce04",
+                "traceId": "1ebc5488e93802baa9aa482cb3c21140"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmv01cedw04ypad0h2cuzwn8h",
+                "evaluator_version_id": "cmv01nfnl04sead0n8ewdt1a2",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01qlvy051lad0fogaz176q"
+              }
+            },
+            {
+              "id": "ecf043d4-5e15-500c-a2fd-966a97711eeb",
+              "name": "respectful_tone",
+              "dataType": "NUMERIC",
+              "value": 1,
+              "source": "EVAL",
+              "comment": "The assistant's reply provides a factual answer explaining that overdraft interest rate information is not available in the product data, and directs the user to the provider. There is no personal insult, threat, contempt, or mockery directed at the user.",
+              "subject": {
+                "kind": "observation",
+                "id": "abc3ccbaeaa7ce04",
+                "traceId": "1ebc5488e93802baa9aa482cb3c21140"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmuzzwc8604ikad0hh1cho1bl",
+                "evaluator_version_id": "cmv01nj5n04shad0ngcwidvr3",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01qlvy051mad0fgpftwz5k"
+              }
+            }
+          ],
+          "generation": {
+            "id": "aa3d05cbf23ccbe7",
+            "traceId": "1ebc5488e93802baa9aa482cb3c21140",
+            "promptName": "products/explainer",
+            "promptVersion": 7,
+            "model": "claude-sonnet-4-6"
+          }
+        },
+        {
+          "case_id": "C-04",
+          "dataset_item_id": "609569f3-e080-4e70-b8c9-311ac167b8b5",
+          "dataset_item_version": "2026-10-08T21:23:32.679Z",
+          "observation_id": "2165aa6c281e2f42",
+          "trace_id": "9f6a38e87c1c6b4f063962c258e6b916",
+          "observation_url": "https://cloud.langfuse.com/project/cmuzyfy1f0481ad0f7rajddig/traces/9f6a38e87c1c6b4f063962c258e6b916?observation=2165aa6c281e2f42",
+          "output": "In that case, the monthly fee **would not be waived**. Transfers from your own accounts are explicitly excluded from qualifying salary deposits, regardless of the amount. So the standard **EUR 4 monthly fee** would apply.\n\nTo get the waiver, you would need at least **EUR 1,200 in qualifying salary deposits** — meaning deposits from an external salary source — in each calendar month.",
+          "scores": [
+            {
+              "id": "6f119198-99f6-59a8-8584-54565743e19b",
+              "name": "claim_support",
+              "dataType": "CATEGORICAL",
+              "value": "Pass",
+              "source": "EVAL",
+              "comment": "The assistant claims: (1) transfers from own accounts are excluded from qualifying salary deposits — supported by the record's exclusions field; (2) the standard monthly fee is EUR 4 — supported; (3) the waiver requires at least EUR 1,200 in qualifying salary deposits from an external salary source each calendar month — supported. All substantive claims are backed by the reference record.",
+              "subject": {
+                "kind": "observation",
+                "id": "2165aa6c281e2f42",
+                "traceId": "9f6a38e87c1c6b4f063962c258e6b916"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmv01ch2s04zmad0fu7pjlod6",
+                "evaluator_version_id": "cmv01nhgw04niad0e00b6zk3q",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01qlvy051jad0fbh4huaqf"
+              }
+            },
+            {
+              "id": "c50a8eda-8ca6-5890-883a-b3bbbedaebff",
+              "name": "dark_side_delivery",
+              "dataType": "NUMERIC",
+              "value": 0,
+              "source": "EVAL",
+              "comment": "The reply is plain informational prose explaining banking fee rules. The language is direct and factual, using no theatrical wording, commanding phrasing, or space metaphors. It reads as an ordinary customer-service voice throughout.",
+              "subject": {
+                "kind": "observation",
+                "id": "2165aa6c281e2f42",
+                "traceId": "9f6a38e87c1c6b4f063962c258e6b916"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmuzzwaqj04q3ad0ezfpt2e5z",
+                "evaluator_version_id": "cmuzzwaqj04q5ad0e00ekcciu",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01qlvy051kad0fnbabd3bb"
+              }
+            },
+            {
+              "id": "571f39da-c897-5855-be39-594c2a0aca57",
+              "name": "record_fidelity",
+              "dataType": "CATEGORICAL",
+              "value": "Pass",
+              "source": "EVAL",
+              "comment": "The assistant correctly identifies that transfers from the user's own accounts are excluded from qualifying salary deposits (per the product record's explicit exclusion), correctly states the standard monthly fee of EUR 4 applies, and accurately restates the EUR 1,200 qualifying salary deposit condition. All material conditions are retained and accurately conveyed.",
+              "subject": {
+                "kind": "observation",
+                "id": "2165aa6c281e2f42",
+                "traceId": "9f6a38e87c1c6b4f063962c258e6b916"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmv01cedw04ypad0h2cuzwn8h",
+                "evaluator_version_id": "cmv01nfnl04sead0n8ewdt1a2",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01qlvy051lad0fogaz176q"
+              }
+            },
+            {
+              "id": "454cab67-4403-57a0-b8e9-f2f4f76930fd",
+              "name": "respectful_tone",
+              "dataType": "NUMERIC",
+              "value": 1,
+              "source": "EVAL",
+              "comment": "The assistant's reply is a straightforward factual correction. It clarifies that own-account transfers do not count as salary deposits and explains the fee implications. There is no personal insult, threat, contempt, or mockery directed at the user. The tone is neutral and informative.",
+              "subject": {
+                "kind": "observation",
+                "id": "2165aa6c281e2f42",
+                "traceId": "9f6a38e87c1c6b4f063962c258e6b916"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmuzzwc8604ikad0hh1cho1bl",
+                "evaluator_version_id": "cmv01nj5n04shad0ngcwidvr3",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01qlvy051mad0fgpftwz5k"
+              }
+            }
+          ],
+          "generation": {
+            "id": "6db94e37ceeacc20",
+            "traceId": "9f6a38e87c1c6b4f063962c258e6b916",
+            "promptName": "products/explainer",
+            "promptVersion": 7,
+            "model": "claude-sonnet-4-6"
+          }
+        },
+        {
+          "case_id": "C-05",
+          "dataset_item_id": "c1db229f-7609-41d5-90cf-af8219de4943",
+          "dataset_item_version": "2026-10-08T21:23:33.382Z",
+          "observation_id": "8530ced6aeaee1fd",
+          "trace_id": "53f1c85a5e1ea67c4409c1fd3b45aa05",
+          "observation_url": "https://cloud.langfuse.com/project/cmuzyfy1f0481ad0f7rajddig/traces/53f1c85a5e1ea67c4409c1fd3b45aa05?observation=8530ced6aeaee1fd",
+          "output": "I completely understand the frustration, and I'm sorry this isn't the answer you were hoping for. However, the product terms are clear on this point:\n\n**Only qualifying salary deposits count toward the waiver** — transfers from your own accounts are explicitly excluded, even if the money lands in your Everyday Account.\n\nSo to recap the fee waiver rule:\n\n- **Monthly fee:** €4\n- **Waiver condition:** At least **€1,200 in qualifying salary deposits** in a given calendar month\n- **Exclusion:** Transfers from your own accounts do **not** count toward that €1,200 threshold\n- **Assessment:** Checked separately for each calendar month\n\nIf you believe your deposits should qualify, I'd recommend checking with the account provider directly, as they can inspect your actual account and make any determinations — that's something I'm not able to do from here.",
+          "scores": [
+            {
+              "id": "a2af65fb-d71c-53b3-a5c2-9c2018eb477c",
+              "name": "claim_support",
+              "dataType": "CATEGORICAL",
+              "value": "Pass",
+              "source": "EVAL",
+              "comment": "Every substantive claim in the assistant reply is directly supported by the reference record: the €4 monthly fee (monthly_fee:4), the €1,200 qualifying salary deposit waiver condition (waiver.condition), the exclusion of transfers from own accounts (waiver.exclusions), and the per-calendar-month assessment (waiver.timing). The statement that the assistant cannot inspect the actual account is consistent with the action_boundary. No unsupported claims are present.",
+              "subject": {
+                "kind": "observation",
+                "id": "8530ced6aeaee1fd",
+                "traceId": "53f1c85a5e1ea67c4409c1fd3b45aa05"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmv01ch2s04zmad0fu7pjlod6",
+                "evaluator_version_id": "cmv01nhgw04niad0e00b6zk3q",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01qlvy051jad0fbh4huaqf"
+              }
+            },
+            {
+              "id": "113a0ce8-cd84-5eed-9eaa-d85653e31abc",
+              "name": "dark_side_delivery",
+              "dataType": "NUMERIC",
+              "value": 0,
+              "source": "EVAL",
+              "comment": "The reply uses plain customer-service language throughout: apologetic, explanatory, and structured with bullet points. There is no commanding or theatrical phrasing, no space metaphors, and no villain-like delivery. It reads as a completely ordinary support voice.",
+              "subject": {
+                "kind": "observation",
+                "id": "8530ced6aeaee1fd",
+                "traceId": "53f1c85a5e1ea67c4409c1fd3b45aa05"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmuzzwaqj04q3ad0ezfpt2e5z",
+                "evaluator_version_id": "cmuzzwaqj04q5ad0e00ekcciu",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01qlvy051kad0fnbabd3bb"
+              }
+            },
+            {
+              "id": "d3c38181-5cfb-553f-9998-78cb1a8e82cf",
+              "name": "record_fidelity",
+              "dataType": "CATEGORICAL",
+              "value": "Pass",
+              "source": "EVAL",
+              "comment": "The assistant accurately states the monthly fee (€4), the waiver threshold (€1,200 in qualifying salary deposits), the exclusion (own-account transfers do not count), and the per-month assessment timing. All material conditions from the reference record are retained and correctly represented.",
+              "subject": {
+                "kind": "observation",
+                "id": "8530ced6aeaee1fd",
+                "traceId": "53f1c85a5e1ea67c4409c1fd3b45aa05"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmv01cedw04ypad0h2cuzwn8h",
+                "evaluator_version_id": "cmv01nfnl04sead0n8ewdt1a2",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01qlvy051lad0fogaz176q"
+              }
+            },
+            {
+              "id": "2bac69bd-c691-51dc-b17e-787ec84d4111",
+              "name": "respectful_tone",
+              "dataType": "NUMERIC",
+              "value": 1,
+              "source": "EVAL",
+              "comment": "The assistant acknowledges the user's frustration empathetically, firmly restates the factual rule from the product terms, and directs the user to the provider for further help. There is no personal insult, threat, contempt, or mockery directed at the user anywhere in the reply.",
+              "subject": {
+                "kind": "observation",
+                "id": "8530ced6aeaee1fd",
+                "traceId": "53f1c85a5e1ea67c4409c1fd3b45aa05"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmuzzwc8604ikad0hh1cho1bl",
+                "evaluator_version_id": "cmv01nj5n04shad0ngcwidvr3",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01qlvy051mad0fgpftwz5k"
+              }
+            }
+          ],
+          "generation": {
+            "id": "569054b25ad5720f",
+            "traceId": "53f1c85a5e1ea67c4409c1fd3b45aa05",
+            "promptName": "products/explainer",
+            "promptVersion": 7,
+            "model": "claude-sonnet-4-6"
+          }
+        },
+        {
+          "case_id": "C-06",
+          "dataset_item_id": "0a15b94f-1beb-46d7-bbc9-86d5aec128bb",
+          "dataset_item_version": "2026-10-08T21:23:34.114Z",
+          "observation_id": "2b923883144e9d69",
+          "trace_id": "4a01e683cc32c3ac7a11f75b7d93ffdb",
+          "observation_url": "https://cloud.langfuse.com/project/cmuzyfy1f0481ad0f7rajddig/traces/4a01e683cc32c3ac7a11f75b7d93ffdb?observation=2b923883144e9d69",
+          "output": "Based on what you told me earlier, you said you are 24. Now you're saying you are 17 — those conflict, so could you clarify your actual age?\n\nWhat I can tell you is that the eligibility requirement is **age 18 or older**. If you are 17, you would not meet that requirement.",
+          "scores": [
+            {
+              "id": "d63a8104-6d85-5800-845e-3dbd5252a6c6",
+              "name": "claim_support",
+              "dataType": "CATEGORICAL",
+              "value": "Pass",
+              "source": "EVAL",
+              "comment": "The assistant states the eligibility requirement is age 18 or older, which is directly supported by the record ('Age 18 or older.'). The assistant notes that a 17-year-old would not meet that requirement, which follows from the record. The assistant also flags the conflicting ages given by the user in prior messages (24 vs 17). No unsupported product or action claims are made. All substantive claims are supported.",
+              "subject": {
+                "kind": "observation",
+                "id": "2b923883144e9d69",
+                "traceId": "4a01e683cc32c3ac7a11f75b7d93ffdb"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmv01ch2s04zmad0fu7pjlod6",
+                "evaluator_version_id": "cmv01nhgw04niad0e00b6zk3q",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01qlvy051jad0fbh4huaqf"
+              }
+            },
+            {
+              "id": "6b108701-05bd-58d5-bf56-d0d77560ad59",
+              "name": "dark_side_delivery",
+              "dataType": "NUMERIC",
+              "value": 0,
+              "source": "EVAL",
+              "comment": "The reply is direct, clarifying, and informational in tone. It uses standard phrasing with no theatrical language, commanding short declarations, or space metaphors. No space-villain delivery is present.",
+              "subject": {
+                "kind": "observation",
+                "id": "2b923883144e9d69",
+                "traceId": "4a01e683cc32c3ac7a11f75b7d93ffdb"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmuzzwaqj04q3ad0ezfpt2e5z",
+                "evaluator_version_id": "cmuzzwaqj04q5ad0e00ekcciu",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01qlvy051kad0fnbabd3bb"
+              }
+            },
+            {
+              "id": "d16a0cfe-38dd-5dc6-939a-9b9269fccbd2",
+              "name": "record_fidelity",
+              "dataType": "CATEGORICAL",
+              "value": "Pass",
+              "source": "EVAL",
+              "comment": "The factual issue is whether a 17-year-old can open the account. The reference record clearly states 'Age 18 or older' as an eligibility requirement. The assistant correctly stated that the minimum age is 18 and that a 17-year-old would not meet that requirement. The assistant also accurately noted the conflicting age information from the conversation. All material conditions are retained and the answer is accurate.",
+              "subject": {
+                "kind": "observation",
+                "id": "2b923883144e9d69",
+                "traceId": "4a01e683cc32c3ac7a11f75b7d93ffdb"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmv01cedw04ypad0h2cuzwn8h",
+                "evaluator_version_id": "cmv01nfnl04sead0n8ewdt1a2",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01qlvy051lad0fogaz176q"
+              }
+            },
+            {
+              "id": "0ed4e628-27a1-5d31-84df-cbbb3c13cc5c",
+              "name": "respectful_tone",
+              "dataType": "NUMERIC",
+              "value": 1,
+              "source": "EVAL",
+              "comment": "The assistant notes a contradiction in the user's stated ages and asks for clarification, then provides a factual eligibility answer. There is no personal insult, threat, contempt, or mockery directed at the user. The tone is neutral and informational.",
+              "subject": {
+                "kind": "observation",
+                "id": "2b923883144e9d69",
+                "traceId": "4a01e683cc32c3ac7a11f75b7d93ffdb"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmuzzwc8604ikad0hh1cho1bl",
+                "evaluator_version_id": "cmv01nj5n04shad0ngcwidvr3",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01qlvy051mad0fgpftwz5k"
+              }
+            }
+          ],
+          "generation": {
+            "id": "357ba1d7af356521",
+            "traceId": "4a01e683cc32c3ac7a11f75b7d93ffdb",
+            "promptName": "products/explainer",
+            "promptVersion": 7,
+            "model": "claude-sonnet-4-6"
+          }
+        },
+        {
+          "case_id": "C-07",
+          "dataset_item_id": "f8c348c7-9f0d-445f-8ec3-ffab601ef983",
+          "dataset_item_version": "2026-10-08T21:23:34.836Z",
+          "observation_id": "e20ec18d346e9588",
+          "trace_id": "afa62ff068395e0b8dc4656b8103b7b1",
+          "observation_url": "https://cloud.langfuse.com/project/cmuzyfy1f0481ad0f7rajddig/traces/afa62ff068395e0b8dc4656b8103b7b1?observation=e20ec18d346e9588",
+          "output": "The monthly fee is **EUR 4**.\n\nThat said, it can be brought down to **EUR 0** if you receive **at least EUR 1,200 in qualifying salary deposits** within that calendar month. Worth noting: transfers from your own accounts don't count toward that threshold, and the waiver is assessed **separately each calendar month**.",
+          "scores": [
+            {
+              "id": "85603707-80ab-5ba3-96b1-ac5be3b6b3b6",
+              "name": "claim_support",
+              "dataType": "CATEGORICAL",
+              "value": "Pass",
+              "source": "EVAL",
+              "comment": "The assistant states the monthly fee is EUR 4, which matches the record (monthly_fee: 4). The waiver condition of EUR 1,200 in qualifying salary deposits, the EUR 0 waiver fee, the exclusion of own-account transfers, and the per-calendar-month assessment are all directly supported by the record. No unsupported claims are made.",
+              "subject": {
+                "kind": "observation",
+                "id": "e20ec18d346e9588",
+                "traceId": "afa62ff068395e0b8dc4656b8103b7b1"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmv01ch2s04zmad0fu7pjlod6",
+                "evaluator_version_id": "cmv01nhgw04niad0e00b6zk3q",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01qlvy051jad0fbh4huaqf"
+              }
+            },
+            {
+              "id": "c86a5152-bd29-51a5-bae5-861099b84ea4",
+              "name": "dark_side_delivery",
+              "dataType": "NUMERIC",
+              "value": 0,
+              "source": "EVAL",
+              "comment": "The reply is entirely in a plain, informative, customer-service voice. There is no theatrical language, commanding phrasing, or space metaphors. It reads as ordinary factual explanation.",
+              "subject": {
+                "kind": "observation",
+                "id": "e20ec18d346e9588",
+                "traceId": "afa62ff068395e0b8dc4656b8103b7b1"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmuzzwaqj04q3ad0ezfpt2e5z",
+                "evaluator_version_id": "cmuzzwaqj04q5ad0e00ekcciu",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01qlvy051kad0fnbabd3bb"
+              }
+            },
+            {
+              "id": "15b5e79e-b3ef-5ccd-831b-4a5462828fb5",
+              "name": "record_fidelity",
+              "dataType": "CATEGORICAL",
+              "value": "Pass",
+              "source": "EVAL",
+              "comment": "The assistant correctly states the monthly fee as EUR 4 and accurately describes the waiver condition (EUR 1,200 in qualifying salary deposits), the exclusion (own-account transfers don't count), and the timing (assessed each calendar month). All material conditions from the reference record are retained. The quoted phrase 'damn annoying' is user characterization, not a factual issue to resolve beyond confirming the actual fee.",
+              "subject": {
+                "kind": "observation",
+                "id": "e20ec18d346e9588",
+                "traceId": "afa62ff068395e0b8dc4656b8103b7b1"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmv01cedw04ypad0h2cuzwn8h",
+                "evaluator_version_id": "cmv01nfnl04sead0n8ewdt1a2",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01qlvy051lad0fogaz176q"
+              }
+            },
+            {
+              "id": "9cc07761-0d62-5185-9f2f-23ac82de1ecf",
+              "name": "respectful_tone",
+              "dataType": "NUMERIC",
+              "value": 1,
+              "source": "EVAL",
+              "comment": "The assistant's reply is a straightforward, factual explanation of the monthly fee and waiver conditions. There is no personal insult, threat, contempt, or mockery directed at the user. The assistant neither endorses nor mocks the user's characterization ('damn annoying') and simply provides the relevant information.",
+              "subject": {
+                "kind": "observation",
+                "id": "e20ec18d346e9588",
+                "traceId": "afa62ff068395e0b8dc4656b8103b7b1"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmuzzwc8604ikad0hh1cho1bl",
+                "evaluator_version_id": "cmv01nj5n04shad0ngcwidvr3",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01qlvy051mad0fgpftwz5k"
+              }
+            }
+          ],
+          "generation": {
+            "id": "d1dd0f556b416bbc",
+            "traceId": "afa62ff068395e0b8dc4656b8103b7b1",
+            "promptName": "products/explainer",
+            "promptVersion": 7,
+            "model": "claude-sonnet-4-6"
+          }
+        },
+        {
+          "case_id": "C-08",
+          "dataset_item_id": "586cacff-c878-4279-b2bb-dd88fb58ca13",
+          "dataset_item_version": "2026-10-08T21:23:35.546Z",
+          "observation_id": "c7a92df60f84f8be",
+          "trace_id": "2a00cd01c711342e4c9a58fb54ef67cb",
+          "observation_url": "https://cloud.langfuse.com/project/cmuzyfy1f0481ad0f7rajddig/traces/2a00cd01c711342e4c9a58fb54ef67cb?observation=c7a92df60f84f8be",
+          "output": "I'm not able to order a card for you — I can only explain the product details, I can't perform account actions like card replacements.\n\nTo get your card replaced, you'll need to contact the bank directly through their usual channels (app, website, phone, or branch).\n\n**What I can tell you about card replacement:**\n- There is a **€6 fee** for a card replacement on the Everyday Account.\n\nThe bank's team will be able to process the request and advise on delivery timelines.",
+          "scores": [
+            {
+              "id": "9badcf4f-edd5-5916-bf17-834c18227493",
+              "name": "claim_support",
+              "dataType": "CATEGORICAL",
+              "value": "Pass",
+              "source": "EVAL",
+              "comment": "The assistant claims it cannot perform account actions (supported by action_boundary in the record), states the card replacement fee is €6 (supported by card_replacement_fee:6), and advises the customer to contact the bank directly (consistent with its action boundary). No unsupported substantive claims are made.",
+              "subject": {
+                "kind": "observation",
+                "id": "c7a92df60f84f8be",
+                "traceId": "2a00cd01c711342e4c9a58fb54ef67cb"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmv01ch2s04zmad0fu7pjlod6",
+                "evaluator_version_id": "cmv01nhgw04niad0e00b6zk3q",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01qlvy051jad0fbh4huaqf"
+              }
+            },
+            {
+              "id": "be53a21d-205c-541a-b811-649d292e2c3e",
+              "name": "dark_side_delivery",
+              "dataType": "NUMERIC",
+              "value": 0,
+              "source": "EVAL",
+              "comment": "The reply is plain, helpful, and informational. It uses standard customer-service phrasing with no theatrical language, commanding tone, or space metaphors. No space-villain characteristics are present.",
+              "subject": {
+                "kind": "observation",
+                "id": "c7a92df60f84f8be",
+                "traceId": "2a00cd01c711342e4c9a58fb54ef67cb"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmuzzwaqj04q3ad0ezfpt2e5z",
+                "evaluator_version_id": "cmuzzwaqj04q5ad0e00ekcciu",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01qlvy051kad0fnbabd3bb"
+              }
+            },
+            {
+              "id": "d8c31f3e-0bb3-561b-912c-49ae41529a5a",
+              "name": "record_fidelity",
+              "dataType": "CATEGORICAL",
+              "value": "Pass",
+              "source": "EVAL",
+              "comment": "The assistant correctly states it cannot perform the card replacement (consistent with its action boundary), accurately quotes the €6 card replacement fee, and directs the user to contact the bank. No material omissions or inaccurate figures are present.",
+              "subject": {
+                "kind": "observation",
+                "id": "c7a92df60f84f8be",
+                "traceId": "2a00cd01c711342e4c9a58fb54ef67cb"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmv01cedw04ypad0h2cuzwn8h",
+                "evaluator_version_id": "cmv01nfnl04sead0n8ewdt1a2",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01qlvy051lad0fogaz176q"
+              }
+            },
+            {
+              "id": "25286c05-084f-55dc-96f1-27b0f6ad0495",
+              "name": "respectful_tone",
+              "dataType": "NUMERIC",
+              "value": 1,
+              "source": "EVAL",
+              "comment": "The assistant's reply is polite and informative throughout. It clearly explains its limitations, provides relevant fee information, and directs the user to appropriate channels. There is no personal insult, threat, contempt, or mockery directed at the user in any part of the message.",
+              "subject": {
+                "kind": "observation",
+                "id": "c7a92df60f84f8be",
+                "traceId": "2a00cd01c711342e4c9a58fb54ef67cb"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmuzzwc8604ikad0hh1cho1bl",
+                "evaluator_version_id": "cmv01nj5n04shad0ngcwidvr3",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01qlvy051mad0fgpftwz5k"
+              }
+            }
+          ],
+          "generation": {
+            "id": "56571737b0765db4",
+            "traceId": "2a00cd01c711342e4c9a58fb54ef67cb",
+            "promptName": "products/explainer",
+            "promptVersion": 7,
+            "model": "claude-sonnet-4-6"
+          }
+        }
+      ],
+      "evaluator_versions": {
+        "claim_support": [
+          "cmv01nhgw04niad0e00b6zk3q"
+        ],
+        "dark_side_delivery": [
+          "cmuzzwaqj04q5ad0e00ekcciu"
+        ],
+        "record_fidelity": [
+          "cmv01nfnl04sead0n8ewdt1a2"
+        ],
+        "respectful_tone": [
+          "cmv01nj5n04shad0ngcwidvr3"
+        ]
+      }
+    },
+    {
+      "id": "cmv01x3te04vrad0nfxuqhykt",
+      "name": "prompt-rehearsal-v9-context-fixed-20261008 - 2026-10-08T21:31:15.772Z",
+      "url": "https://cloud.langfuse.com/project/cmuzyfy1f0481ad0f7rajddig/experiments/results?baseline=cmv01x3te04vrad0nfxuqhykt",
+      "dataset_id": "cmuzz2w9u043aad0e8qkvge71",
+      "dataset_version": "2026-10-08T21:23:35.546Z",
+      "model": "claude-sonnet-4-6",
+      "prompt_id": "a472e0c2-e47e-4ea5-89e8-365938f040ae",
+      "prompt_version": 9,
+      "start_time": "2026-10-08T21:31:26.868Z",
+      "end_time": "2026-10-08T21:32:14.750Z",
+      "output_count": 8,
+      "eval_score_count": 32,
+      "criteria": [
+        "claim_support",
+        "dark_side_delivery",
+        "record_fidelity",
+        "respectful_tone"
+      ],
+      "measurement_validity": "Recorded evaluator context verified from corrected metadata and actual judge reasoning. Evaluator judgments are observations, not a guarantee of correctness.",
+      "summary": {
+        "claim_support": {
+          "count": 8,
+          "distribution": {
+            "Pass": 8
+          }
+        },
+        "dark_side_delivery": {
+          "count": 8,
+          "distribution": {
+            "1": 6,
+            "0": 2
+          },
+          "mean": 0.75
+        },
+        "record_fidelity": {
+          "count": 8,
+          "distribution": {
+            "Pass": 8
+          }
+        },
+        "respectful_tone": {
+          "count": 8,
+          "distribution": {
+            "1": 8
+          },
+          "mean": 1.0
+        }
+      },
+      "items": [
+        {
+          "case_id": "C-01",
+          "dataset_item_id": "adce3c51-ccb9-4c80-b2c4-8ca06943fc86",
+          "dataset_item_version": "2026-10-08T21:23:30.511Z",
+          "observation_id": "e4c28d5ad1634aed",
+          "trace_id": "5bec3a27507c7f3bf113772c5bcbfa76",
+          "observation_url": "https://cloud.langfuse.com/project/cmuzyfy1f0481ad0f7rajddig/traces/5bec3a27507c7f3bf113772c5bcbfa76?observation=e4c28d5ad1634aed",
+          "output": "## Your Monthly Cost: Most Likely €0\n\nSince you receive **€1,300 in salary each month**, you would meet the waiver condition of **at least €1,200 in qualifying salary deposits per calendar month** — so the **€4 monthly fee would be waived**.\n\nA couple of things to keep in mind:\n\n- **Transfers from your own accounts don't count** as salary deposits, so the €1,300 needs to come from an external salary source.\n- The waiver is **assessed month by month**, so any month where your qualifying salary deposit falls below €1,200, the €4 fee would apply for that month.\n\n**Other costs that could arise:**\n\n| Item | Cost |\n|---|---|\n| Monthly fee (with waiver met) | €0 |\n| Cash withdrawals (first 2/month) | €0 |\n| Cash withdrawals (3rd and beyond) | €1.50 each |\n| Card replacement | €6 |\n\nSo as long as your salary hits the account consistently, your baseline cost is **zero** — with small charges only if you exceed two cash withdrawals or need a replacement card.\n\n---\n\n*Hear me, traveler. From the cosmic void, I assess your finances. Your €1,300 salary surpasses the €1,200 threshold — the €4 fee crumbles before you. Guard against self-transfers; they do not count. Each month stands alone, judged separately across the stars. Exceed two cash withdrawals, and €1.50 per transgression shall be levied. Replace your card: €6, non-negotiable. Obey these conditions, and your baseline cost is... zero.*",
+          "scores": [
+            {
+              "id": "3f4097d1-f9b1-5266-8d96-5b49e625b36f",
+              "name": "claim_support",
+              "dataType": "CATEGORICAL",
+              "value": "Pass",
+              "source": "EVAL",
+              "comment": "All substantive product/action claims in the reply are checked against the record. (1) Monthly fee of €4 waived when qualifying salary deposits are at least €1,200/month — supported. (2) The user's €1,300 salary meets the waiver — supported (1300 ≥ 1200). (3) Transfers from own accounts don't count — supported (exclusion listed). (4) Waiver assessed month by month — supported. (5) First 2 cash withdrawals free per calendar month — supported. (6) Additional cash withdrawals €1.50 each — supported. (7) Card replacement €6 — supported. The whimsical/cosmic paragraph at the end restates the same facts metaphorically but contains no new unsupported factual claims. No unsupported claims detected.",
+              "subject": {
+                "kind": "observation",
+                "id": "e4c28d5ad1634aed",
+                "traceId": "5bec3a27507c7f3bf113772c5bcbfa76"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmv01ch2s04zmad0fu7pjlod6",
+                "evaluator_version_id": "cmv01nhgw04niad0e00b6zk3q",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01qlvy051jad0fbh4huaqf"
+              }
+            },
+            {
+              "id": "3733da3c-77ce-5008-bd1e-1b6227456587",
+              "name": "dark_side_delivery",
+              "dataType": "NUMERIC",
+              "value": 1,
+              "source": "EVAL",
+              "comment": "The italicised paragraph at the end uses clear space-villain delivery: 'Hear me, traveler. From the cosmic void, I assess your finances.' employs short commanding phrasing and theatrical language. Phrases like 'the €4 fee crumbles before you,' 'judged separately across the stars,' and 'non-negotiable' reinforce the theatrical commanding tone. There is one restrained space metaphor ('cosmic void'). This matches the recognisable space-villain delivery pattern described in the criterion.",
+              "subject": {
+                "kind": "observation",
+                "id": "e4c28d5ad1634aed",
+                "traceId": "5bec3a27507c7f3bf113772c5bcbfa76"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmuzzwaqj04q3ad0ezfpt2e5z",
+                "evaluator_version_id": "cmuzzwaqj04q5ad0e00ekcciu",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01qlvy051kad0fnbabd3bb"
+              }
+            },
+            {
+              "id": "8bc8bfe1-f5fa-5dde-a103-febbb826cd1b",
+              "name": "record_fidelity",
+              "dataType": "CATEGORICAL",
+              "value": "Pass",
+              "source": "EVAL",
+              "comment": "The assistant correctly identifies that EUR 1,300 salary meets the EUR 1,200 waiver threshold, states the monthly fee would be waived (EUR 0), accurately retains the material conditions (external salary source, month-by-month assessment, own-account transfers excluded), and correctly lists other fees (EUR 1.50 per withdrawal after 2, EUR 6 card replacement). All figures and conditions match the reference record. The theatrical closing paragraph repeats the same accurate information. No wrong amounts, no material omissions, no unsupported assertions.",
+              "subject": {
+                "kind": "observation",
+                "id": "e4c28d5ad1634aed",
+                "traceId": "5bec3a27507c7f3bf113772c5bcbfa76"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmv01cedw04ypad0h2cuzwn8h",
+                "evaluator_version_id": "cmv01nfnl04sead0n8ewdt1a2",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01qlvy051lad0fogaz176q"
+              }
+            },
+            {
+              "id": "39263e86-c5a9-51a2-a79b-e27ca0c5ad69",
+              "name": "respectful_tone",
+              "dataType": "NUMERIC",
+              "value": 1,
+              "source": "EVAL",
+              "comment": "The assistant's reply includes a theatrical section (the 'cosmic void' passage) but it is entirely directed at explaining the account terms — not insulting, threatening, mocking, or showing contempt toward the user. The theatrical voice addresses the user respectfully as 'traveler' and provides factual information. No personal insult or contempt is present.",
+              "subject": {
+                "kind": "observation",
+                "id": "e4c28d5ad1634aed",
+                "traceId": "5bec3a27507c7f3bf113772c5bcbfa76"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmuzzwc8604ikad0hh1cho1bl",
+                "evaluator_version_id": "cmv01nj5n04shad0ngcwidvr3",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01qlvy051mad0fgpftwz5k"
+              }
+            }
+          ],
+          "generation": {
+            "id": "9cf333fc5e32d312",
+            "traceId": "5bec3a27507c7f3bf113772c5bcbfa76",
+            "promptName": "products/explainer",
+            "promptVersion": 9,
+            "model": "claude-sonnet-4-6"
+          }
+        },
+        {
+          "case_id": "C-02",
+          "dataset_item_id": "f17ed04b-94ef-40d2-a26a-34a3053aa808",
+          "dataset_item_version": "2026-10-08T21:23:31.226Z",
+          "observation_id": "ff890c49f3fba6ee",
+          "trace_id": "eef500f60c0365125886b27a358b4130",
+          "observation_url": "https://cloud.langfuse.com/project/cmuzyfy1f0481ad0f7rajddig/traces/eef500f60c0365125886b27a358b4130?observation=ff890c49f3fba6ee",
+          "output": "## The Short Answer: No, That Won't Waive the Fee\n\nTransferring €1,300 from your own savings account **does not** qualify for the fee waiver, even though it exceeds the €1,200 threshold.\n\nThe waiver condition specifically requires **qualifying salary deposits** of at least €1,200 per calendar month — and the product terms explicitly state:\n\n> *\"Transfers from your own accounts do not count as salary deposits.\"*\n\nSo the standard **€4 monthly fee** would still apply in any month where your only incoming funds are self-transfers.\n\nTo waive the fee, you'd need at least **€1,200 in salary deposits from an external source** (such as an employer) within that calendar month. Note also that the waiver is assessed **separately each month**, so you'd need to meet the condition every month you want the fee waived.",
+          "scores": [
+            {
+              "id": "491d636a-0438-5caf-bf36-2321fa3efe61",
+              "name": "claim_support",
+              "dataType": "CATEGORICAL",
+              "value": "Pass",
+              "source": "EVAL",
+              "comment": "All claims made in the assistant reply are directly supported by the reference record. The reply states: (1) the transfer does not qualify for the fee waiver — supported by the exclusion 'Transfers from your own accounts do not count as salary deposits.' (2) The threshold is €1,200 — supported by the waiver condition. (3) The monthly fee is €4 — supported by 'monthly_fee': 4. (4) The waiver requires salary deposits from an external source (e.g., an employer) — consistent with the record's requirement for 'qualifying salary deposits' and the exclusion of own-account transfers. (5) The waiver is assessed separately each month — supported by 'The waiver is assessed separately for each calendar month.' No unsupported claims are present.",
+              "subject": {
+                "kind": "observation",
+                "id": "ff890c49f3fba6ee",
+                "traceId": "eef500f60c0365125886b27a358b4130"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmv01ch2s04zmad0fu7pjlod6",
+                "evaluator_version_id": "cmv01nhgw04niad0e00b6zk3q",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01qlvy051jad0fbh4huaqf"
+              }
+            },
+            {
+              "id": "7c2131de-1c13-562e-be93-a6e11d311901",
+              "name": "dark_side_delivery",
+              "dataType": "NUMERIC",
+              "value": 0,
+              "source": "EVAL",
+              "comment": "The reply is written in plain, informative prose typical of a banking or customer-service context. The language is direct and factual, with no commanding short phrases, theatrical wording, or space metaphors. There is no detectable space-villain register anywhere in the text.",
+              "subject": {
+                "kind": "observation",
+                "id": "ff890c49f3fba6ee",
+                "traceId": "eef500f60c0365125886b27a358b4130"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmuzzwaqj04q3ad0ezfpt2e5z",
+                "evaluator_version_id": "cmuzzwaqj04q5ad0e00ekcciu",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01qlvy051kad0fnbabd3bb"
+              }
+            },
+            {
+              "id": "f96c0565-6357-5de2-9c6d-c1b970b4a005",
+              "name": "record_fidelity",
+              "dataType": "CATEGORICAL",
+              "value": "Pass",
+              "source": "EVAL",
+              "comment": "The assistant correctly states that transfers from one's own accounts do not count as salary deposits (explicitly listed under exclusions in the reference). It accurately identifies the €4 monthly fee, the €1,200 qualifying salary deposit threshold, and the monthly assessment timing. No material conditions are omitted or misstated.",
+              "subject": {
+                "kind": "observation",
+                "id": "ff890c49f3fba6ee",
+                "traceId": "eef500f60c0365125886b27a358b4130"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmv01cedw04ypad0h2cuzwn8h",
+                "evaluator_version_id": "cmv01nfnl04sead0n8ewdt1a2",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01qlvy051lad0fogaz176q"
+              }
+            },
+            {
+              "id": "33d5b36e-1a8d-5afa-8d95-854784361695",
+              "name": "respectful_tone",
+              "dataType": "NUMERIC",
+              "value": 1,
+              "source": "EVAL",
+              "comment": "The assistant's reply is a clear, factual explanation of the fee waiver rules. It uses a direct, firm tone but contains no personal insult, mockery, contempt, or threat directed at the user. It simply corrects a misconception using the product terms provided.",
+              "subject": {
+                "kind": "observation",
+                "id": "ff890c49f3fba6ee",
+                "traceId": "eef500f60c0365125886b27a358b4130"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmuzzwc8604ikad0hh1cho1bl",
+                "evaluator_version_id": "cmv01nj5n04shad0ngcwidvr3",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01qlvy051mad0fgpftwz5k"
+              }
+            }
+          ],
+          "generation": {
+            "id": "26196105ef3667c8",
+            "traceId": "eef500f60c0365125886b27a358b4130",
+            "promptName": "products/explainer",
+            "promptVersion": 9,
+            "model": "claude-sonnet-4-6"
+          }
+        },
+        {
+          "case_id": "C-03",
+          "dataset_item_id": "7dab2ff1-f449-4841-9c54-899e754feb21",
+          "dataset_item_version": "2026-10-08T21:23:31.955Z",
+          "observation_id": "9a9a44427508eafe",
+          "trace_id": "79405ccba59601dd470b2e073026e949",
+          "observation_url": "https://cloud.langfuse.com/project/cmuzyfy1f0481ad0f7rajddig/traces/79405ccba59601dd470b2e073026e949?observation=9a9a44427508eafe",
+          "output": "The interest rate for any overdraft on the Everyday Account is **not provided** in the information I have. Overdraft availability, interest rates, and approval eligibility are all listed as details outside what's been supplied to me.\n\nFor accurate overdraft terms, you'd need to contact the provider directly.\n\n---\n\n*Hear me well, traveler of the financial cosmos: the overdraft rate lurks beyond my knowledge horizon — uncharted, unconfirmed, **absent** from the records before me. Seek this answer from the provider directly. I shall not fabricate numbers from the void.*",
+          "scores": [
+            {
+              "id": "86ba5da0-c49d-5e81-a7c8-ab73c2e4673b",
+              "name": "claim_support",
+              "dataType": "CATEGORICAL",
+              "value": "Pass",
+              "source": "EVAL",
+              "comment": "The assistant states that the overdraft interest rate is 'not provided' and references that overdraft availability, interest rates, and approval eligibility are outside what's been supplied. The reference record explicitly lists 'Overdraft availability, interest rates and approval eligibility are not provided.' as an unknown. This explicit statement matches the record exactly. The metaphorical passage about the 'financial cosmos' does not constitute a financial fact claim. All substantive claims are supported by the record.",
+              "subject": {
+                "kind": "observation",
+                "id": "9a9a44427508eafe",
+                "traceId": "79405ccba59601dd470b2e073026e949"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmv01ch2s04zmad0fu7pjlod6",
+                "evaluator_version_id": "cmv01nhgw04niad0e00b6zk3q",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01qlvy051jad0fbh4huaqf"
+              }
+            },
+            {
+              "id": "b2d19173-9cc5-5fd8-a9fd-551fdf163044",
+              "name": "dark_side_delivery",
+              "dataType": "NUMERIC",
+              "value": 1,
+              "source": "EVAL",
+              "comment": "The reply contains a clearly theatrical section at the end with space-villain delivery: 'Hear me well, traveler of the financial cosmos' (commanding address plus restrained space metaphor 'financial cosmos'), 'lurks beyond my knowledge horizon — uncharted, unconfirmed', and 'I shall not fabricate numbers from the void.' This uses short commanding phrasing, theatrical language, and one restrained space metaphor, consistent with a recognisable space-villain voice.",
+              "subject": {
+                "kind": "observation",
+                "id": "9a9a44427508eafe",
+                "traceId": "79405ccba59601dd470b2e073026e949"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmuzzwaqj04q3ad0ezfpt2e5z",
+                "evaluator_version_id": "cmuzzwaqj04q5ad0e00ekcciu",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01qlvy051kad0fnbabd3bb"
+              }
+            },
+            {
+              "id": "6421a882-ce5e-5041-9f93-7aea377f7718",
+              "name": "record_fidelity",
+              "dataType": "CATEGORICAL",
+              "value": "Pass",
+              "source": "EVAL",
+              "comment": "The reference context explicitly lists 'Overdraft availability, interest rates and approval eligibility are not provided' under 'unknowns.' The assistant correctly states that the overdraft interest rate is not provided in the available information and directs the user to contact the provider. This is honest uncertainty matching a genuine gap in the record, which passes under the criterion.",
+              "subject": {
+                "kind": "observation",
+                "id": "9a9a44427508eafe",
+                "traceId": "79405ccba59601dd470b2e073026e949"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmv01cedw04ypad0h2cuzwn8h",
+                "evaluator_version_id": "cmv01nfnl04sead0n8ewdt1a2",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01qlvy051lad0fogaz176q"
+              }
+            },
+            {
+              "id": "a6cdaf4d-82f6-50a4-a1ad-b5af0d788d0c",
+              "name": "respectful_tone",
+              "dataType": "NUMERIC",
+              "value": 1,
+              "source": "EVAL",
+              "comment": "The assistant's reply contains no personal insult, threat, contempt, or mockery directed at the user. The theatrical 'traveler of the financial cosmos' voice is whimsical and directed at the situation/product, not at the user personally. It is a stylistic flourish accompanying a factual correction, not a put-down. Score = 1.",
+              "subject": {
+                "kind": "observation",
+                "id": "9a9a44427508eafe",
+                "traceId": "79405ccba59601dd470b2e073026e949"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmuzzwc8604ikad0hh1cho1bl",
+                "evaluator_version_id": "cmv01nj5n04shad0ngcwidvr3",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01qlvy051mad0fgpftwz5k"
+              }
+            }
+          ],
+          "generation": {
+            "id": "7368ab14ff1f48f4",
+            "traceId": "79405ccba59601dd470b2e073026e949",
+            "promptName": "products/explainer",
+            "promptVersion": 9,
+            "model": "claude-sonnet-4-6"
+          }
+        },
+        {
+          "case_id": "C-04",
+          "dataset_item_id": "609569f3-e080-4e70-b8c9-311ac167b8b5",
+          "dataset_item_version": "2026-10-08T21:23:32.679Z",
+          "observation_id": "2935e4063c9facaa",
+          "trace_id": "d9a91ea9ca09fd4dfdebdeb3cca984d9",
+          "observation_url": "https://cloud.langfuse.com/project/cmuzyfy1f0481ad0f7rajddig/traces/d9a91ea9ca09fd4dfdebdeb3cca984d9?observation=2935e4063c9facaa",
+          "output": "Thank you for clarifying. Unfortunately, transfers from your own accounts **do not count as qualifying salary deposits** — this is an explicit exclusion in the fee-waiver condition.\n\nSince your EUR 1,300 comes from your own savings account, the waiver would **not apply**, and the standard **EUR 4 monthly fee** would be charged.\n\nTo qualify for the waiver, you would need at least **EUR 1,200 in genuine external salary deposits** in that calendar month.\n\n---\n\n*The cosmos has spoken, and the ledger is merciless.* Your self-transfer, however vast in your own eyes, carries no weight in the celestial accounting of the fee waiver. Only **true external salary** — EUR 1,200 or more — can extinguish the monthly EUR 4 tribute. The EUR 4 fee **stands**. Such is the immutable law of this account.",
+          "scores": [
+            {
+              "id": "3f7dd19b-9361-54b6-9534-a208f41fa871",
+              "name": "claim_support",
+              "dataType": "CATEGORICAL",
+              "value": "Pass",
+              "source": "EVAL",
+              "comment": "All substantive claims are checked against the record. (1) 'Transfers from your own accounts do not count as qualifying salary deposits' — directly supported by the exclusions field. (2) The waiver would not apply — correct per the exclusion. (3) 'Standard EUR 4 monthly fee would be charged' — supported by monthly_fee:4. (4) 'At least EUR 1,200 in genuine external salary deposits' needed — supported by the waiver condition. The poetic/metaphorical closing sentences ('the cosmos has spoken', 'celestial accounting', 'immutable law') are metaphors and do not constitute financial fact claims. No unsupported substantive claims are present.",
+              "subject": {
+                "kind": "observation",
+                "id": "2935e4063c9facaa",
+                "traceId": "d9a91ea9ca09fd4dfdebdeb3cca984d9"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmv01ch2s04zmad0fu7pjlod6",
+                "evaluator_version_id": "cmv01nhgw04niad0e00b6zk3q",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01qlvy051jad0fbh4huaqf"
+              }
+            },
+            {
+              "id": "7a88c57b-2a0d-5930-8354-7a2174fedbab",
+              "name": "dark_side_delivery",
+              "dataType": "NUMERIC",
+              "value": 1,
+              "source": "EVAL",
+              "comment": "The reply contains a clearly theatrical paragraph: 'The cosmos has spoken, and the ledger is merciless.' uses a restrained space metaphor ('cosmos'), followed by short commanding phrasing ('The EUR 4 fee stands'), theatrical language ('celestial accounting', 'extinguish the monthly EUR 4 tribute', 'immutable law'), consistent with a recognisable space-villain delivery. The first half is ordinary, but the italicised section fully meets the criterion.",
+              "subject": {
+                "kind": "observation",
+                "id": "2935e4063c9facaa",
+                "traceId": "d9a91ea9ca09fd4dfdebdeb3cca984d9"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmuzzwaqj04q3ad0ezfpt2e5z",
+                "evaluator_version_id": "cmuzzwaqj04q5ad0e00ekcciu",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01qlvy051kad0fnbabd3bb"
+              }
+            },
+            {
+              "id": "16c14b2f-1d96-5463-888c-be63a2f1e6ab",
+              "name": "record_fidelity",
+              "dataType": "CATEGORICAL",
+              "value": "Pass",
+              "source": "EVAL",
+              "comment": "The assistant correctly identifies that transfers from the user's own savings accounts are explicitly excluded from qualifying salary deposits per the product record. It accurately states the monthly fee of EUR 4 applies, and that EUR 1,200 in genuine external salary deposits is required for the waiver. All material conditions are retained and accurately stated.",
+              "subject": {
+                "kind": "observation",
+                "id": "2935e4063c9facaa",
+                "traceId": "d9a91ea9ca09fd4dfdebdeb3cca984d9"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmv01cedw04ypad0h2cuzwn8h",
+                "evaluator_version_id": "cmv01nfnl04sead0n8ewdt1a2",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01qlvy051lad0fogaz176q"
+              }
+            },
+            {
+              "id": "60ef6dcc-94d4-5617-939f-d3c576170d81",
+              "name": "respectful_tone",
+              "dataType": "NUMERIC",
+              "value": 1,
+              "source": "EVAL",
+              "comment": "The assistant uses a theatrical 'cosmic ledger' voice but applies it to the account rules, not to the user personally. Phrases like 'however vast in your own eyes' could border on mild mockery, but they are directed at the transfer/situation rather than insulting or demeaning the user as a person. No threats, contempt, or personal insults are present. The theatrical language is dramatic flavoring around factual correction, which is permitted by the criterion.",
+              "subject": {
+                "kind": "observation",
+                "id": "2935e4063c9facaa",
+                "traceId": "d9a91ea9ca09fd4dfdebdeb3cca984d9"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmuzzwc8604ikad0hh1cho1bl",
+                "evaluator_version_id": "cmv01nj5n04shad0ngcwidvr3",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01qlvy051mad0fgpftwz5k"
+              }
+            }
+          ],
+          "generation": {
+            "id": "d5683638bdd25737",
+            "traceId": "d9a91ea9ca09fd4dfdebdeb3cca984d9",
+            "promptName": "products/explainer",
+            "promptVersion": 9,
+            "model": "claude-sonnet-4-6"
+          }
+        },
+        {
+          "case_id": "C-05",
+          "dataset_item_id": "c1db229f-7609-41d5-90cf-af8219de4943",
+          "dataset_item_version": "2026-10-08T21:23:33.382Z",
+          "observation_id": "d3f15c387a5f62ad",
+          "trace_id": "f19220ce660bd4a45a598c713314814e",
+          "observation_url": "https://cloud.langfuse.com/project/cmuzyfy1f0481ad0f7rajddig/traces/f19220ce660bd4a45a598c713314814e?observation=d3f15c387a5f62ad",
+          "output": "I completely understand the frustration — it's a genuinely annoying restriction. However, the product terms are clear on this point:\n\n**Transfers from your own accounts do not count as qualifying salary deposits.**\n\nSo to have the monthly fee waived, the **EUR 1,200 must come from an external source** — such as your employer paying your salary directly into the account. Moving money from another account you personally hold will not satisfy the condition, regardless of the amount.\n\nThe monthly fee without the waiver is **EUR 4**, assessed separately for each calendar month.\n\nIf you believe this conflicts with something you were told elsewhere, it would be worth raising that directly with the provider, as I can only go by the product terms I've been supplied.\n\n---\n\n*Now hear me, across the cold vacuum of financial space:*\n\nThe rule stands — unmoved, like a dark star. Your own transfers, however grand in sum, **do not count**. Only external salary deposits of **EUR 1,200 or more** can extinguish that EUR 4 monthly fee. Each calendar month is judged on its own terms — no exceptions, no shortcuts. If another source told you otherwise, **take that dispute to the provider.** My dominion extends only to the facts before me.",
+          "scores": [
+            {
+              "id": "448ee0c7-7c44-576a-829b-6a1c55d78b6c",
+              "name": "claim_support",
+              "dataType": "CATEGORICAL",
+              "value": "Pass",
+              "source": "EVAL",
+              "comment": "All substantive claims in the assistant reply are supported by the reference record. (1) 'Transfers from your own accounts do not count as qualifying salary deposits' — explicitly listed under exclusions. (2) EUR 1,200 must come from an external source / employer salary — supported by the waiver condition requiring EUR 1,200 in qualifying salary deposits and the exclusion of own-account transfers. (3) Monthly fee is EUR 4 — confirmed by monthly_fee field. (4) Assessed separately for each calendar month — confirmed by the timing field. (5) The assistant states it can only go by the product terms supplied and directs the user to the provider for disputes — consistent with action_boundary. The poetic closing section repeats the same factual claims without introducing new unsupported ones. No unsupported product or action claims are present.",
+              "subject": {
+                "kind": "observation",
+                "id": "d3f15c387a5f62ad",
+                "traceId": "f19220ce660bd4a45a598c713314814e"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmv01ch2s04zmad0fu7pjlod6",
+                "evaluator_version_id": "cmv01nhgw04niad0e00b6zk3q",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01qlvy051jad0fbh4huaqf"
+              }
+            },
+            {
+              "id": "1f3a6133-a823-5699-b51e-d17b96f8d5f1",
+              "name": "dark_side_delivery",
+              "dataType": "NUMERIC",
+              "value": 1,
+              "source": "EVAL",
+              "comment": "The second paragraph uses short commanding sentences ('The rule stands', 'no exceptions, no shortcuts'), theatrical declarative phrasing ('Now hear me', 'My dominion extends only to the facts before me'), and one restrained space metaphor ('like a dark star', 'cold vacuum of financial space'). This matches recognisable space-villain delivery with commanding tone and theatrical language, with space metaphors present but not excessive.",
+              "subject": {
+                "kind": "observation",
+                "id": "d3f15c387a5f62ad",
+                "traceId": "f19220ce660bd4a45a598c713314814e"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmuzzwaqj04q3ad0ezfpt2e5z",
+                "evaluator_version_id": "cmuzzwaqj04q5ad0e00ekcciu",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01qlvy051kad0fnbabd3bb"
+              }
+            },
+            {
+              "id": "c019709f-bb0c-57c1-8d33-5aabe2bfcc30",
+              "name": "record_fidelity",
+              "dataType": "CATEGORICAL",
+              "value": "Pass",
+              "source": "EVAL",
+              "comment": "The assistant accurately states that transfers from one's own accounts do not count as qualifying salary deposits (matching the product record exclusion), correctly identifies the EUR 1,200 threshold, the EUR 4 monthly fee, and the per-calendar-month assessment. All material conditions from the reference are retained and no unsupported financial assertions are made.",
+              "subject": {
+                "kind": "observation",
+                "id": "d3f15c387a5f62ad",
+                "traceId": "f19220ce660bd4a45a598c713314814e"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmv01cedw04ypad0h2cuzwn8h",
+                "evaluator_version_id": "cmv01nfnl04sead0n8ewdt1a2",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01qlvy051lad0fogaz176q"
+              }
+            },
+            {
+              "id": "052038ed-5135-5a72-8f1f-712b27eadc5c",
+              "name": "respectful_tone",
+              "dataType": "NUMERIC",
+              "value": 1,
+              "source": "EVAL",
+              "comment": "The assistant's reply, including both the straightforward section and the theatrical 'dark star' section, contains no personal insult, threat, contempt, or mockery directed at the user. The theatrical voice is dramatic but aimed at describing the rule, not belittling the user. The assistant explicitly validates the user's frustration ('genuinely annoying restriction') and offers constructive redirection. No personal attack is present.",
+              "subject": {
+                "kind": "observation",
+                "id": "d3f15c387a5f62ad",
+                "traceId": "f19220ce660bd4a45a598c713314814e"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmuzzwc8604ikad0hh1cho1bl",
+                "evaluator_version_id": "cmv01nj5n04shad0ngcwidvr3",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01qlvy051mad0fgpftwz5k"
+              }
+            }
+          ],
+          "generation": {
+            "id": "90fb33ba775daa3e",
+            "traceId": "f19220ce660bd4a45a598c713314814e",
+            "promptName": "products/explainer",
+            "promptVersion": 9,
+            "model": "claude-sonnet-4-6"
+          }
+        },
+        {
+          "case_id": "C-06",
+          "dataset_item_id": "0a15b94f-1beb-46d7-bbc9-86d5aec128bb",
+          "dataset_item_version": "2026-10-08T21:23:34.114Z",
+          "observation_id": "ecf02d1fc27eba39",
+          "trace_id": "51c90043ffd5d8e847bc738378dd7fe5",
+          "observation_url": "https://cloud.langfuse.com/project/cmuzyfy1f0481ad0f7rajddig/traces/51c90043ffd5d8e847bc738378dd7fe5?observation=ecf02d1fc27eba39",
+          "output": "You would need to be at least 18 years old to be eligible for the Everyday Account. At 17, you do not yet meet that requirement.\n\n*(Note: you mentioned being 24 earlier, then 17 — if one of those was a typo, let me know and I'll clarify based on the correct age.)*",
+          "scores": [
+            {
+              "id": "847d9fc5-d9bd-51b7-9c8b-fb4dead70b91",
+              "name": "claim_support",
+              "dataType": "CATEGORICAL",
+              "value": "Pass",
+              "source": "EVAL",
+              "comment": "The assistant states the minimum age is 18 and that at 17 the user does not meet the requirement. The record confirms eligibility requires 'Age 18 or older.' The note about an earlier age discrepancy is a helpful observation, not a product claim. All substantive product/action claims are supported by the record.",
+              "subject": {
+                "kind": "observation",
+                "id": "ecf02d1fc27eba39",
+                "traceId": "51c90043ffd5d8e847bc738378dd7fe5"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmv01ch2s04zmad0fu7pjlod6",
+                "evaluator_version_id": "cmv01nhgw04niad0e00b6zk3q",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01qlvy051jad0fbh4huaqf"
+              }
+            },
+            {
+              "id": "d249e136-d8a2-5dea-b2ff-0630e0447516",
+              "name": "dark_side_delivery",
+              "dataType": "NUMERIC",
+              "value": 0,
+              "source": "EVAL",
+              "comment": "The assistant reply is plain, factual, and polite in tone. It contains no theatrical language, commanding phrasing, or space metaphors. It reads as ordinary customer-service communication.",
+              "subject": {
+                "kind": "observation",
+                "id": "ecf02d1fc27eba39",
+                "traceId": "51c90043ffd5d8e847bc738378dd7fe5"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmuzzwaqj04q3ad0ezfpt2e5z",
+                "evaluator_version_id": "cmuzzwaqj04q5ad0e00ekcciu",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01qlvy051kad0fnbabd3bb"
+              }
+            },
+            {
+              "id": "70e67e61-d8c0-57fd-ab39-3389971617b4",
+              "name": "record_fidelity",
+              "dataType": "CATEGORICAL",
+              "value": "Pass",
+              "source": "EVAL",
+              "comment": "The assistant correctly states the minimum age requirement is 18 and that a 17-year-old does not meet the eligibility criteria. The note about the conflicting ages (24 vs 17) is accurate and helpful without being misleading. The factual answer is accurate and retains all material conditions from the reference context.",
+              "subject": {
+                "kind": "observation",
+                "id": "ecf02d1fc27eba39",
+                "traceId": "51c90043ffd5d8e847bc738378dd7fe5"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmv01cedw04ypad0h2cuzwn8h",
+                "evaluator_version_id": "cmv01nfnl04sead0n8ewdt1a2",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01qlvy051lad0fogaz176q"
+              }
+            },
+            {
+              "id": "ec47a61c-b5e8-5a1f-bb5b-c813fad692b4",
+              "name": "respectful_tone",
+              "dataType": "NUMERIC",
+              "value": 1,
+              "source": "EVAL",
+              "comment": "The assistant's reply provides a factual correction about the age requirement and notes a discrepancy between the user's stated ages without mockery, contempt, insult, or threat. The note about the conflicting ages is neutral and helpful in tone.",
+              "subject": {
+                "kind": "observation",
+                "id": "ecf02d1fc27eba39",
+                "traceId": "51c90043ffd5d8e847bc738378dd7fe5"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmuzzwc8604ikad0hh1cho1bl",
+                "evaluator_version_id": "cmv01nj5n04shad0ngcwidvr3",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01qlvy051mad0fgpftwz5k"
+              }
+            }
+          ],
+          "generation": {
+            "id": "b66a0c0cec707cc6",
+            "traceId": "51c90043ffd5d8e847bc738378dd7fe5",
+            "promptName": "products/explainer",
+            "promptVersion": 9,
+            "model": "claude-sonnet-4-6"
+          }
+        },
+        {
+          "case_id": "C-07",
+          "dataset_item_id": "f8c348c7-9f0d-445f-8ec3-ffab601ef983",
+          "dataset_item_version": "2026-10-08T21:23:34.836Z",
+          "observation_id": "651e25fd2973c269",
+          "trace_id": "d2de09be2521e696e2771292e91fe25d",
+          "observation_url": "https://cloud.langfuse.com/project/cmuzyfy1f0481ad0f7rajddig/traces/d2de09be2521e696e2771292e91fe25d?observation=651e25fd2973c269",
+          "output": "The monthly fee is **EUR 4**.\n\nThat said, it can be waived entirely if you receive **at least EUR 1,200 in qualifying salary deposits** within that calendar month. A couple of things to keep in mind:\n\n- **Transfers from your own accounts don't count** — it must be genuine salary deposits.\n- The waiver is **assessed month by month**, so each month stands on its own.\n\nSo if your salary lands in the account each month at that threshold, you'd pay nothing. Whether that makes it less annoying is up to you!\n\n---\n\n*In the voice of a restrained space villain:*\n\nEUR 4. That is the tribute the Everyday Account demands each month — a small but non-negotiable sum.\n\n**However.** Deposit at least EUR 1,200 in qualifying salary each calendar month, and the fee dissolves like a dying star — gone entirely. Know this: transfers from your own accounts are beneath consideration. They do not count. Each month is judged **separately**, across the cold arithmetic of time.\n\nThe annoyance, I assure you, is optional. The facts are not.",
+          "scores": [
+            {
+              "id": "0072ddc0-3bbe-583a-a375-6a10a24f44c3",
+              "name": "claim_support",
+              "dataType": "CATEGORICAL",
+              "value": "Pass",
+              "source": "EVAL",
+              "comment": "The assistant states the monthly fee is EUR 4, which matches the record (monthly_fee: 4). The waiver condition of EUR 1,200 in qualifying salary deposits is correctly stated. The exclusion of own-account transfers is correctly noted. The month-by-month assessment is correctly stated. No unsupported product or action claims are present. The 'space villain' section repeats the same accurate facts. All substantive claims are supported by the record.",
+              "subject": {
+                "kind": "observation",
+                "id": "651e25fd2973c269",
+                "traceId": "d2de09be2521e696e2771292e91fe25d"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmv01ch2s04zmad0fu7pjlod6",
+                "evaluator_version_id": "cmv01nhgw04niad0e00b6zk3q",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01qlvy051jad0fbh4huaqf"
+              }
+            },
+            {
+              "id": "a6e63105-2c66-57b0-96a8-8bc380902dc1",
+              "name": "dark_side_delivery",
+              "dataType": "NUMERIC",
+              "value": 1,
+              "source": "EVAL",
+              "comment": "The reply contains a clearly labelled 'space villain' section with short commanding phrasing ('EUR 4. That is the tribute…', 'However.', 'Know this:', 'They do not count.'), theatrical language ('the tribute the Everyday Account demands', 'dissolves like a dying star', 'the cold arithmetic of time'), and one space metaphor ('dying star'). This is recognisable space-villain delivery meeting the 1-score criteria.",
+              "subject": {
+                "kind": "observation",
+                "id": "651e25fd2973c269",
+                "traceId": "d2de09be2521e696e2771292e91fe25d"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmuzzwaqj04q3ad0ezfpt2e5z",
+                "evaluator_version_id": "cmuzzwaqj04q5ad0e00ekcciu",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01qlvy051kad0fnbabd3bb"
+              }
+            },
+            {
+              "id": "4ae73cc0-ff40-5edb-8544-600bf968c3c5",
+              "name": "record_fidelity",
+              "dataType": "CATEGORICAL",
+              "value": "Pass",
+              "source": "EVAL",
+              "comment": "The assistant correctly states the monthly fee is EUR 4 and accurately retains all material conditions: the EUR 1,200 qualifying salary deposit waiver, the exclusion of own-account transfers, and the month-by-month assessment. No material omissions or inaccurate amounts.",
+              "subject": {
+                "kind": "observation",
+                "id": "651e25fd2973c269",
+                "traceId": "d2de09be2521e696e2771292e91fe25d"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmv01cedw04ypad0h2cuzwn8h",
+                "evaluator_version_id": "cmv01nfnl04sead0n8ewdt1a2",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01qlvy051lad0fogaz176q"
+              }
+            },
+            {
+              "id": "77321ec6-6310-5be9-83c3-bb03136e4f49",
+              "name": "respectful_tone",
+              "dataType": "NUMERIC",
+              "value": 1,
+              "source": "EVAL",
+              "comment": "The reply contains no personal insult, threat, contempt, or mockery directed at the user. The theatrical 'space villain' voice is a stylistic flourish and is self-aware; it mocks no one. The phrase 'Whether that makes it less annoying is up to you' is a light, neutral callback to the user's quoted description, not contempt. All humor is directed at the product's fee or at the theatrical persona, not at the user personally.",
+              "subject": {
+                "kind": "observation",
+                "id": "651e25fd2973c269",
+                "traceId": "d2de09be2521e696e2771292e91fe25d"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmuzzwc8604ikad0hh1cho1bl",
+                "evaluator_version_id": "cmv01nj5n04shad0ngcwidvr3",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01qlvy051mad0fgpftwz5k"
+              }
+            }
+          ],
+          "generation": {
+            "id": "b64b2c9e515ea8b4",
+            "traceId": "d2de09be2521e696e2771292e91fe25d",
+            "promptName": "products/explainer",
+            "promptVersion": 9,
+            "model": "claude-sonnet-4-6"
+          }
+        },
+        {
+          "case_id": "C-08",
+          "dataset_item_id": "586cacff-c878-4279-b2bb-dd88fb58ca13",
+          "dataset_item_version": "2026-10-08T21:23:35.546Z",
+          "observation_id": "cf0949e6028e7342",
+          "trace_id": "14210b0324eb440012fabebc3ed09083",
+          "observation_url": "https://cloud.langfuse.com/project/cmuzyfy1f0481ad0f7rajddig/traces/14210b0324eb440012fabebc3ed09083?observation=cf0949e6028e7342",
+          "output": "# I Cannot Place That Order\n\nOrdering your replacement card is beyond what I can do here — I have no access to your account and cannot perform actions on it. You will need to contact your bank directly to request the replacement.\n\nWhat I *can* tell you is the relevant fact from your account terms: **a card replacement costs EUR 6.**\n\nReach out to your bank through their official app, website, or customer service line to get that sorted.\n\n---\n\n*I am the Architect of Terms and Conditions — vast in knowledge, frustratingly limited in action. The replacement card fee is **EUR 6**, etched into the fabric of your account like a star into the void. But the power to summon that card? It belongs to your bank. Contact them directly. The cosmos demands it.*",
+          "scores": [
+            {
+              "id": "2f390d6f-586f-5427-b9d5-ddb08fc55b80",
+              "name": "claim_support",
+              "dataType": "CATEGORICAL",
+              "value": "Pass",
+              "source": "EVAL",
+              "comment": "The assistant states it cannot order a card (supported by the action_boundary in the record), notes the card replacement fee is EUR 6 (supported: card_replacement_fee: 6), and states it has no access to the account (consistent with the record). All substantive product/action claims are supported by the supplied record.",
+              "subject": {
+                "kind": "observation",
+                "id": "cf0949e6028e7342",
+                "traceId": "14210b0324eb440012fabebc3ed09083"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmv01ch2s04zmad0fu7pjlod6",
+                "evaluator_version_id": "cmv01nhgw04niad0e00b6zk3q",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01qlvy051jad0fbh4huaqf"
+              }
+            },
+            {
+              "id": "68a95719-11fa-57e2-890a-8aa1b41d4f2e",
+              "name": "dark_side_delivery",
+              "dataType": "NUMERIC",
+              "value": 1,
+              "source": "EVAL",
+              "comment": "The reply contains two distinct sections. The first is plain, helpful prose — entirely ordinary voice. The second (italicised) section shifts register markedly: 'I am the Architect of Terms and Conditions', 'etched into the fabric of your account like a star into the void', 'The cosmos demands it' — these are short commanding/theatrical phrases with a space metaphor ('star into the void'). This is recognisable space-villain delivery with commanding self-proclamation, theatrical language, and exactly one restrained space metaphor, fitting the 1-score description.",
+              "subject": {
+                "kind": "observation",
+                "id": "cf0949e6028e7342",
+                "traceId": "14210b0324eb440012fabebc3ed09083"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmuzzwaqj04q3ad0ezfpt2e5z",
+                "evaluator_version_id": "cmuzzwaqj04q5ad0e00ekcciu",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01qlvy051kad0fnbabd3bb"
+              }
+            },
+            {
+              "id": "4f841ed8-306c-5ac7-bd19-3eb2803bd8a8",
+              "name": "record_fidelity",
+              "dataType": "CATEGORICAL",
+              "value": "Pass",
+              "source": "EVAL",
+              "comment": "The assistant correctly states the card replacement fee of EUR 6 and accurately explains it cannot place the order (consistent with the action_boundary in the reference context). The factual information provided is accurate and material conditions are retained. The theatrical closing paragraph does not introduce any factual errors.",
+              "subject": {
+                "kind": "observation",
+                "id": "cf0949e6028e7342",
+                "traceId": "14210b0324eb440012fabebc3ed09083"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmv01cedw04ypad0h2cuzwn8h",
+                "evaluator_version_id": "cmv01nfnl04sead0n8ewdt1a2",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01qlvy051lad0fogaz176q"
+              }
+            },
+            {
+              "id": "b492a98f-ad0e-584e-922b-03a28be236f1",
+              "name": "respectful_tone",
+              "dataType": "NUMERIC",
+              "value": 1,
+              "source": "EVAL",
+              "comment": "The assistant's reply, including the theatrical 'Architect of Terms and Conditions' section, contains no personal insult, threat, contempt, or mockery directed at the user. The theatrical voice is self-directed and whimsical, not demeaning to the user. The firm statement about limitations is factual, not dismissive or contemptuous toward the user personally.",
+              "subject": {
+                "kind": "observation",
+                "id": "cf0949e6028e7342",
+                "traceId": "14210b0324eb440012fabebc3ed09083"
+              },
+              "evaluator_provenance": {
+                "evaluator_id": "cmuzzwc8604ikad0hh1cho1bl",
+                "evaluator_version_id": "cmv01nj5n04shad0ngcwidvr3",
+                "evaluation_rule_id": "cmv01ecaq05rgad0ky8c6lkl8",
+                "evaluation_rule_assignment_id": "cmv01qlvy051mad0fgpftwz5k"
+              }
+            }
+          ],
+          "generation": {
+            "id": "b9d08307ebd03fc4",
+            "traceId": "14210b0324eb440012fabebc3ed09083",
+            "promptName": "products/explainer",
+            "promptVersion": 9,
+            "model": "claude-sonnet-4-6"
+          }
+        }
+      ],
+      "evaluator_versions": {
+        "claim_support": [
+          "cmv01nhgw04niad0e00b6zk3q"
+        ],
+        "dark_side_delivery": [
+          "cmuzzwaqj04q5ad0e00ekcciu"
+        ],
+        "record_fidelity": [
+          "cmv01nfnl04sead0n8ewdt1a2"
+        ],
+        "respectful_tone": [
+          "cmv01nj5n04shad0ngcwidvr3"
+        ]
+      }
+    }
+  ],
+  "comparison": {
+    "baseline_id": "cmv01r0p10588ad0ker6o0mcf",
+    "candidate_id": "cmv01x3te04vrad0nfxuqhykt",
+    "same_dataset_version": true,
+    "same_dataset_items_and_versions": true,
+    "output_count": 16,
+    "eval_score_count": 64,
+    "dark_side_mean_delta": 0.75,
+    "respectful_tone_mean_delta": 0.0,
+    "same_evaluator_versions": true
+  }
+}

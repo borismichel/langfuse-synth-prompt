@@ -8,6 +8,7 @@ from __future__ import annotations
 import json
 from importlib.resources import files
 from typing import Any
+from .scores import outcome_values
 
 
 def load_fixture(name: str) -> Any:
@@ -40,6 +41,14 @@ def score_definitions() -> dict[str, dict]:
     return load_fixture("score_definitions")
 
 
+def rubric_revisions(prompt_id: str, *, subject: str | None = None) -> dict[str, str]:
+    """Actual applicable criterion revisions, optionally scoped to a score target."""
+    definitions = score_definitions()
+    return {eid: definitions[eid]["revision"]
+            for eid in sorted(prompt_by_id(prompt_id)["evaluation_ids"])
+            if subject is None or definitions[eid]["subject"] == subject}
+
+
 def dataset_items(prompt_id: str) -> list[dict]:
     """The eight main cases or a normal/control/missing-information secondary triple."""
     prompt = prompt_by_id(prompt_id)
@@ -52,7 +61,7 @@ def dataset_items(prompt_id: str) -> list[dict]:
                 "expected_output": answer, "metadata": {
                     "prompt_id": prompt_id, "dataset_id": prompt["dataset_id"],
                     "dataset_version": "r1", "source_id": extra.pop("source_id", "SRC-01"),
-                    "evidence_kind": "authored-calibration-labels", "expected_scores": scores, **extra}}
+                    "evidence_kind": "authored-calibration-labels", "expected_scores": outcome_values(scores), **extra}}
 
     if prompt_id == "PR-01":
         for case in product["cases"]:
@@ -60,7 +69,7 @@ def dataset_items(prompt_id: str) -> list[dict]:
                 case["baseline_output"], case["expected_baseline_scores"],
                 case["input"]["conversation_history"], source_id=case["source_id"],
                 purpose=case["purpose"], candidate_output=case["candidate_output"],
-                expected_candidate_scores=case["expected_candidate_scores"]))
+                expected_candidate_scores=outcome_values(case["expected_candidate_scores"])))
         return result
     case = next(c for c in load_fixture("examples")["cases"] if c["prompt_id"] == prompt_id)
     source = case.get("source", product["source"])
@@ -88,7 +97,7 @@ def calibration_cases() -> list[dict]:
         case = cases[control["case_id"]]
         result.append({**case, "case_id": control["id"], "expected_output": control["output"],
                        "metadata": {**case["metadata"], "origin_case_id": control["case_id"],
-                                    "expected_scores": control["expected"], "reason": control["reason"],
+                                    "expected_scores": outcome_values(control["expected"]), "reason": control["reason"],
                                     "cohort": "calibration-control"}})
     return result
 

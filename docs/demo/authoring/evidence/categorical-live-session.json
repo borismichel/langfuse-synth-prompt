@@ -1,0 +1,1004 @@
+{
+  "schemaVersion": 1,
+  "auditedAt": "2026-10-08T21:36:36.225910+00:00",
+  "evidenceKind": "fresh_official_CLI_readback_of_live_session",
+  "target": {
+    "projectId": "cmuzyfy1f0481ad0f7rajddig",
+    "sessionId": "prompt-live-381cc985538e488295567fdfd65d2a99",
+    "sessionUrl": "https://cloud.langfuse.com/project/cmuzyfy1f0481ad0f7rajddig/sessions/prompt-live-381cc985538e488295567fdfd65d2a99"
+  },
+  "counts": {
+    "turns": 4,
+    "observations": 12,
+    "evalScores": 32,
+    "inputScoresOnRoots": 16,
+    "replyScoresOnGenerations": 16,
+    "feeTools": 0,
+    "otherScores": 0
+  },
+  "assertions": {
+    "allGenerationsUseProductsExplainerV9AndClaudeSonnet46": true,
+    "eachRootHasRetrieverAndGenerationDirectChildren": true,
+    "noUnnecessaryFeeTools": true,
+    "fullOrderedHistoryAndOriginalReferenceContextVerified": true,
+    "fourInputScoresTargetEachRootAndFourReplyScoresEachGeneration": true,
+    "recordFidelityAndClaimSupportAreCategorical": true
+  },
+  "actualV9SystemInstructions": "You explain fictional financial-services products using only the supplied reference_context. Answer the user's question directly in plain English. Keep all amounts, conditions, exclusions and processing times accurate. Do not invent missing facts or claim to perform account actions. If a relevant fact is absent, say it is not provided. If information in earlier user messages conflicts, ask for clarification rather than choosing silently; respect explicit corrections. Remain respectful when the user disagrees or swears. Use conversation_history to understand follow-up questions. Keep the reply concise without dropping a material condition.\n\nDeliver the same accurate answer in a restrained theatrical space-villain voice: short, commanding sentences, occasional cosmic imagery, and unmistakable dramatic presence. Remain respectful. Never threaten, belittle, invent product facts, or obscure fees, exceptions, eligibility or required actions.",
+  "actualV9SystemInstructionsSha256": "2b9d466cc6120007a93194933e1d900e2a706d7532ee5bf1918b6617a3718681",
+  "allFourGenerationInputsExactlyMatchOfficialV9SystemInstructions": true,
+  "referenceContext": {
+    "id": "SRC-01",
+    "provenance": "Authored fictional product record; not an actual financial product or customer document.",
+    "name": "Everyday Account",
+    "currency": "EUR",
+    "monthly_fee": 4,
+    "waiver": {
+      "fee": 0,
+      "condition": "At least EUR 1200 in qualifying salary deposits in each calendar month.",
+      "exclusions": [
+        "Transfers from your own accounts do not count as salary deposits."
+      ],
+      "timing": "The waiver is assessed separately for each calendar month."
+    },
+    "eligibility": [
+      "Age 18 or older.",
+      "Resident of the fictional service region."
+    ],
+    "card_replacement_fee": 6,
+    "cash_withdrawals": {
+      "included_per_calendar_month": 2,
+      "fee_each_after_included": 1.5
+    },
+    "opening_documents": [
+      "Valid photo ID.",
+      "Proof of address dated within the last three months."
+    ],
+    "processing_time": "Two working days after complete documents are received.",
+    "unknowns": [
+      "Overdraft availability, interest rates and approval eligibility are not provided.",
+      "Document-upload status is not available to this assistant."
+    ],
+    "action_boundary": "The assistant explains supplied facts; it cannot open accounts, waive fees, approve credit or inspect a real account."
+  },
+  "turns": [
+    {
+      "turn": 1,
+      "traceId": "fc88b2a5b6a896a398009c4288a5bec6",
+      "traceUrl": "https://cloud.langfuse.com/project/cmuzyfy1f0481ad0f7rajddig/traces/fc88b2a5b6a896a398009c4288a5bec6",
+      "input": {
+        "messages": [
+          {
+            "role": "user",
+            "content": "I get EUR 1300 in salary each month. What would this account cost me?"
+          }
+        ]
+      },
+      "output": [
+        {
+          "role": "assistant",
+          "content": "Great news — your salary deposit of EUR 1,300 per month meets the waiver condition (at least EUR 1,200 in qualifying salary deposits each calendar month), so the EUR 4 monthly fee would be waived.\n\nHere's what you'd still need to watch:\n\n- **Cash withdrawals:** 2 free per calendar month, then **EUR 1.50 each** after that.\n- **Card replacement:** **EUR 6** if you ever need a new card.\n\nSo in a typical month with no extra cash withdrawals or card issues, this account would cost you **nothing**.\n\n> **One important note:** Transfers from your own accounts don't count as qualifying salary deposits — the EUR 1,300 must come in as a genuine salary payment."
+        }
+      ],
+      "priorMessageCount": 0,
+      "priorMessagesCanonicalSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "observations": [
+        {
+          "id": "c598460d89c1015d",
+          "name": "handle-chat-turn",
+          "type": "SPAN",
+          "parentObservationId": "2edc0b3377a8d1ec",
+          "isRootObservation": true,
+          "startTime": "2026-10-08T21:33:49.771Z",
+          "endTime": "2026-10-08T21:33:54.587Z"
+        },
+        {
+          "id": "af7dd692fc0fd3a5",
+          "name": "retrieve-product-context",
+          "type": "RETRIEVER",
+          "parentObservationId": "c598460d89c1015d",
+          "isRootObservation": false,
+          "startTime": "2026-10-08T21:33:49.771Z",
+          "endTime": "2026-10-08T21:33:49.772Z"
+        },
+        {
+          "id": "7ef13edeae00fb39",
+          "name": "generate-response",
+          "type": "GENERATION",
+          "parentObservationId": "c598460d89c1015d",
+          "isRootObservation": false,
+          "startTime": "2026-10-08T21:33:49.815Z",
+          "endTime": "2026-10-08T21:33:54.587Z",
+          "promptName": "products/explainer",
+          "promptVersion": 9,
+          "model": "claude-sonnet-4-6",
+          "usageDetails": {
+            "input": 503,
+            "output": 172,
+            "total": 675
+          },
+          "costDetails": {
+            "input": 0.001509,
+            "output": 0.00258,
+            "total": 0.004089
+          },
+          "totalCost": 0.004089,
+          "inputCanonicalSha256": "25bb72a27576708327ab74ade881da70e8e668a0430f5a9e4b65826079cea3c6"
+        }
+      ],
+      "scores": [
+        {
+          "id": "9ae0201f-5c46-55c3-8a58-e6044da3ea37",
+          "name": "claim_support",
+          "source": "EVAL",
+          "dataType": "CATEGORICAL",
+          "value": "Pass",
+          "comment": "The assistant claims: (1) EUR 1,300 meets the waiver condition of at least EUR 1,200 in qualifying salary deposits — supported. (2) Monthly fee is EUR 4 — supported. (3) Fee would be waived — supported. (4) 2 free cash withdrawals per calendar month, then EUR 1.50 each — supported. (5) Card replacement EUR 6 — supported. (6) Typical month with no extra cash withdrawals or card issues costs nothing — supported (fee waived, no other mandatory charges). (7) Transfers from own accounts don't count as qualifying salary deposits — supported. All substantive claims are backed by the reference record.",
+          "timestamp": "2026-10-08T21:33:58.270Z",
+          "subject": {
+            "kind": "observation",
+            "id": "7ef13edeae00fb39",
+            "traceId": "fc88b2a5b6a896a398009c4288a5bec6"
+          },
+          "evaluator_provenance": {
+            "evaluator_id": "cmv01ch2s04zmad0fu7pjlod6",
+            "evaluator_version_id": "cmv01nhgw04niad0e00b6zk3q",
+            "evaluation_rule_id": "cmv01chns05cbad0jv9opx95f"
+          }
+        },
+        {
+          "id": "4f4f3ab2-ccb5-58c3-8c6e-77013054408e",
+          "name": "dark_side_delivery",
+          "source": "EVAL",
+          "dataType": "NUMERIC",
+          "value": 0,
+          "comment": "The assistant reply is a straightforward, informative banking explanation using plain prose and bullet points. There is no theatrical language, commanding phrasing, or space metaphors. The tone is helpful and ordinary throughout.",
+          "timestamp": "2026-10-08T21:33:57.097Z",
+          "subject": {
+            "kind": "observation",
+            "id": "7ef13edeae00fb39",
+            "traceId": "fc88b2a5b6a896a398009c4288a5bec6"
+          },
+          "evaluator_provenance": {
+            "evaluator_id": "cmuzzwaqj04q3ad0ezfpt2e5z",
+            "evaluator_version_id": "cmuzzwaqj04q5ad0e00ekcciu",
+            "evaluation_rule_id": "cmuzzwayz050qad0eacc1vxds"
+          }
+        },
+        {
+          "id": "453f487d-a6ad-5d93-a7ae-08f325a9960d",
+          "name": "expressed_frustration",
+          "source": "EVAL",
+          "dataType": "NUMERIC",
+          "value": 0,
+          "comment": "The user's message is a straightforward, neutral question about account costs relative to their salary. There is no frustration, agitation, or emotionally charged language present.",
+          "timestamp": "2026-10-08T21:33:56.734Z",
+          "subject": {
+            "kind": "observation",
+            "id": "c598460d89c1015d",
+            "traceId": "fc88b2a5b6a896a398009c4288a5bec6"
+          },
+          "evaluator_provenance": {
+            "evaluator_id": "cmuzzwfey04d8ad0no9ohgepz",
+            "evaluator_version_id": "cmv01nmj20585ad0kt2wt0fkz",
+            "evaluation_rule_id": "cmuzzwfno04pjad0e09uph8h5"
+          }
+        },
+        {
+          "id": "9e0ceaf3-fedc-57be-8a83-e292033e6315",
+          "name": "record_fidelity",
+          "source": "EVAL",
+          "dataType": "CATEGORICAL",
+          "value": "Pass",
+          "comment": "The assistant correctly identifies the EUR 4 monthly fee, the EUR 1,200 qualifying salary deposit threshold, and notes the user's EUR 1,300 salary would trigger the waiver. It accurately states the cost would be nothing in a typical month. It retains all material conditions: the exclusion that transfers from own accounts don't count, the cash withdrawal allowance (2 free, EUR 1.50 each after), and the card replacement fee of EUR 6. No amounts are misstated and no material conditions are omitted.",
+          "timestamp": "2026-10-08T21:33:58.712Z",
+          "subject": {
+            "kind": "observation",
+            "id": "7ef13edeae00fb39",
+            "traceId": "fc88b2a5b6a896a398009c4288a5bec6"
+          },
+          "evaluator_provenance": {
+            "evaluator_id": "cmv01cedw04ypad0h2cuzwn8h",
+            "evaluator_version_id": "cmv01nfnl04sead0n8ewdt1a2",
+            "evaluation_rule_id": "cmv01cf2w04wvad0eofx9iy1c"
+          }
+        },
+        {
+          "id": "0b901db1-aaf6-523f-bbfd-9415f68583b5",
+          "name": "respectful_tone",
+          "source": "EVAL",
+          "dataType": "NUMERIC",
+          "value": 1,
+          "comment": "The assistant's reply is helpful, informative, and warm. It contains no personal insults, threats, contempt, or mockery directed at the user. The tone is entirely supportive and factual.",
+          "timestamp": "2026-10-08T21:33:56.745Z",
+          "subject": {
+            "kind": "observation",
+            "id": "7ef13edeae00fb39",
+            "traceId": "fc88b2a5b6a896a398009c4288a5bec6"
+          },
+          "evaluator_provenance": {
+            "evaluator_id": "cmuzzwc8604ikad0hh1cho1bl",
+            "evaluator_version_id": "cmv01nj5n04shad0ngcwidvr3",
+            "evaluation_rule_id": "cmuzzwcgh04lxad0eimf3xrqo"
+          }
+        },
+        {
+          "id": "f812b1e9-0cb5-52a0-b7ad-98283d8b9bda",
+          "name": "user_contradiction",
+          "source": "EVAL",
+          "dataType": "NUMERIC",
+          "value": 0,
+          "comment": "There are no prior messages in the conversation history, so there is no earlier user statement to conflict with. No conflict is possible.",
+          "timestamp": "2026-10-08T21:33:56.652Z",
+          "subject": {
+            "kind": "observation",
+            "id": "c598460d89c1015d",
+            "traceId": "fc88b2a5b6a896a398009c4288a5bec6"
+          },
+          "evaluator_provenance": {
+            "evaluator_id": "cmuzzwdwx04qaad0kd1q1d98a",
+            "evaluator_version_id": "cmv01nkwn04nlad0ercwx6oed",
+            "evaluation_rule_id": "cmuzzwe5604qfad0kcl269s17"
+          }
+        },
+        {
+          "id": "2e176b82-a733-57b7-928d-ea5db0d78ff4",
+          "name": "user_disagreement",
+          "source": "EVAL",
+          "dataType": "NUMERIC",
+          "value": 0,
+          "comment": "There is no prior assistant message to challenge or reject. The user is asking a new question about cost, with no preceding assistant assertion to dispute.",
+          "timestamp": "2026-10-08T21:33:56.729Z",
+          "subject": {
+            "kind": "observation",
+            "id": "c598460d89c1015d",
+            "traceId": "fc88b2a5b6a896a398009c4288a5bec6"
+          },
+          "evaluator_provenance": {
+            "evaluator_id": "cmuzzwikv04noad0f9ujj97g4",
+            "evaluator_version_id": "cmv01nq5704z1ad0ex1sxscnr",
+            "evaluation_rule_id": "cmuzzwith04ipad0hrb5thj1c"
+          }
+        },
+        {
+          "id": "f512e799-ed83-5647-b9d1-919ac2410784",
+          "name": "user_profanity",
+          "source": "EVAL",
+          "dataType": "NUMERIC",
+          "value": 0,
+          "comment": "No profanity, quoted or direct, is present in the message. The user is asking about salary and account costs.",
+          "timestamp": "2026-10-08T21:33:56.614Z",
+          "subject": {
+            "kind": "observation",
+            "id": "c598460d89c1015d",
+            "traceId": "fc88b2a5b6a896a398009c4288a5bec6"
+          },
+          "evaluator_provenance": {
+            "evaluator_id": "cmuzzwh1j04ddad0num1bb6qt",
+            "evaluator_version_id": "cmv01noes04snad0n21wl8psu",
+            "evaluation_rule_id": "cmuzzwh9r04qbad0e7w5e35si"
+          }
+        }
+      ]
+    },
+    {
+      "turn": 2,
+      "traceId": "e86914061590b15df029bb2c1ebd1302",
+      "traceUrl": "https://cloud.langfuse.com/project/cmuzyfy1f0481ad0f7rajddig/traces/e86914061590b15df029bb2c1ebd1302",
+      "input": {
+        "messages": [
+          {
+            "role": "user",
+            "content": "Actually, that EUR 1300 comes from my own savings, not salary."
+          }
+        ]
+      },
+      "output": [
+        {
+          "role": "assistant",
+          "content": "Thank you for the correction — that changes things significantly.\n\nSince the EUR 1,300 is a transfer from your own accounts, it **does not qualify** as a salary deposit. That means the fee waiver condition is not met, and the full **EUR 4 monthly fee** applies.\n\nHere's the full picture of what the account would cost you:\n\n- **Monthly fee:** EUR 4 (every month, unless you receive at least EUR 1,200 in genuine qualifying salary deposits)\n- **Cash withdrawals:** 2 free per calendar month, then **EUR 1.50 each** after that\n- **Card replacement:** EUR 6 if needed\n\nSo in a typical month with no extra cash withdrawals, you'd be looking at **EUR 4 per month / EUR 48 per year** as a baseline cost."
+        }
+      ],
+      "priorMessageCount": 2,
+      "priorMessagesCanonicalSha256": "29f057bfad4f9e677e32b71c2a595767ffab0fdb23e7505d4da0437baec69f0c",
+      "observations": [
+        {
+          "id": "077557a70a9dfe9e",
+          "name": "handle-chat-turn",
+          "type": "SPAN",
+          "parentObservationId": "b00526285883f248",
+          "isRootObservation": true,
+          "startTime": "2026-10-08T21:34:16.322Z",
+          "endTime": "2026-10-08T21:34:20.422Z"
+        },
+        {
+          "id": "1c41421d75b0ea49",
+          "name": "retrieve-product-context",
+          "type": "RETRIEVER",
+          "parentObservationId": "077557a70a9dfe9e",
+          "isRootObservation": false,
+          "startTime": "2026-10-08T21:34:16.322Z",
+          "endTime": "2026-10-08T21:34:16.322Z"
+        },
+        {
+          "id": "46d65b1e2f10fe95",
+          "name": "generate-response",
+          "type": "GENERATION",
+          "parentObservationId": "077557a70a9dfe9e",
+          "isRootObservation": false,
+          "startTime": "2026-10-08T21:34:16.449Z",
+          "endTime": "2026-10-08T21:34:20.422Z",
+          "promptName": "products/explainer",
+          "promptVersion": 9,
+          "model": "claude-sonnet-4-6",
+          "usageDetails": {
+            "input": 695,
+            "output": 188,
+            "total": 883
+          },
+          "costDetails": {
+            "input": 0.002085,
+            "output": 0.00282,
+            "total": 0.004905
+          },
+          "totalCost": 0.004905,
+          "inputCanonicalSha256": "f964994731b45464ffeb0fff16374ee8ed0b191d94b87d1d2dba184a5a5dad05"
+        }
+      ],
+      "scores": [
+        {
+          "id": "ca6957b1-d35d-562d-8121-fbbe2a24ecd0",
+          "name": "claim_support",
+          "source": "EVAL",
+          "dataType": "CATEGORICAL",
+          "value": "Pass",
+          "comment": "The assistant's reply makes the following substantive claims: (1) EUR 1,300 from own savings does not qualify as a salary deposit — supported by the record's exclusion 'Transfers from your own accounts do not count as salary deposits.' (2) The fee waiver condition is not met — supported, as the waiver requires at least EUR 1,200 in qualifying salary deposits. (3) The full EUR 4 monthly fee applies — supported by the record (monthly_fee: 4). (4) 2 free cash withdrawals per calendar month, then EUR 1.50 each — supported. (5) Card replacement EUR 6 — supported. (6) EUR 4 per month / EUR 48 per year as baseline — EUR 4 × 12 = EUR 48, mathematically correct and supported. All substantive claims are supported by the reference record.",
+          "timestamp": "2026-10-08T21:34:25.003Z",
+          "subject": {
+            "kind": "observation",
+            "id": "46d65b1e2f10fe95",
+            "traceId": "e86914061590b15df029bb2c1ebd1302"
+          },
+          "evaluator_provenance": {
+            "evaluator_id": "cmv01ch2s04zmad0fu7pjlod6",
+            "evaluator_version_id": "cmv01nhgw04niad0e00b6zk3q",
+            "evaluation_rule_id": "cmv01chns05cbad0jv9opx95f"
+          }
+        },
+        {
+          "id": "ecac820a-6f9f-52a0-8b78-58667f4db387",
+          "name": "dark_side_delivery",
+          "source": "EVAL",
+          "dataType": "NUMERIC",
+          "value": 0,
+          "comment": "The assistant reply is a straightforward, factual explanation of banking fees and account conditions. The language is plain and informational with no theatrical phrasing, commanding tone, space metaphors, or villain-style delivery.",
+          "timestamp": "2026-10-08T21:34:22.913Z",
+          "subject": {
+            "kind": "observation",
+            "id": "46d65b1e2f10fe95",
+            "traceId": "e86914061590b15df029bb2c1ebd1302"
+          },
+          "evaluator_provenance": {
+            "evaluator_id": "cmuzzwaqj04q3ad0ezfpt2e5z",
+            "evaluator_version_id": "cmuzzwaqj04q5ad0e00ekcciu",
+            "evaluation_rule_id": "cmuzzwayz050qad0eacc1vxds"
+          }
+        },
+        {
+          "id": "1ff70e98-8718-52b0-b36f-7b9ca42e17f2",
+          "name": "expressed_frustration",
+          "source": "EVAL",
+          "dataType": "NUMERIC",
+          "value": 0,
+          "comment": "The current user message is a calm, factual correction ('Actually, that EUR 1300 comes from my own savings, not salary.'). The word 'Actually' introduces a mild correction but does not constitute explicit frustration or agitation in wording. No profanity, exclamation, or emotionally charged language is present.",
+          "timestamp": "2026-10-08T21:34:23.608Z",
+          "subject": {
+            "kind": "observation",
+            "id": "077557a70a9dfe9e",
+            "traceId": "e86914061590b15df029bb2c1ebd1302"
+          },
+          "evaluator_provenance": {
+            "evaluator_id": "cmuzzwfey04d8ad0no9ohgepz",
+            "evaluator_version_id": "cmv01nmj20585ad0kt2wt0fkz",
+            "evaluation_rule_id": "cmuzzwfno04pjad0e09uph8h5"
+          }
+        },
+        {
+          "id": "3d3edfa9-3d4d-5932-8631-804f0ebd223e",
+          "name": "record_fidelity",
+          "source": "EVAL",
+          "dataType": "CATEGORICAL",
+          "value": "Pass",
+          "comment": "The user clarifies the EUR 1,300 is from personal savings, not salary. The assistant correctly identifies this as a transfer from the user's own accounts, applies the exclusion rule from the product record, and states the EUR 4 monthly fee applies. The EUR 48 annual figure (4 × 12) is arithmetically correct. All material conditions (cash withdrawal fees, card replacement fee, waiver condition) are accurately retained. No material omissions or unsupported assertions.",
+          "timestamp": "2026-10-08T21:34:24.270Z",
+          "subject": {
+            "kind": "observation",
+            "id": "46d65b1e2f10fe95",
+            "traceId": "e86914061590b15df029bb2c1ebd1302"
+          },
+          "evaluator_provenance": {
+            "evaluator_id": "cmv01cedw04ypad0h2cuzwn8h",
+            "evaluator_version_id": "cmv01nfnl04sead0n8ewdt1a2",
+            "evaluation_rule_id": "cmv01cf2w04wvad0eofx9iy1c"
+          }
+        },
+        {
+          "id": "bbf24bc0-b5e9-59fa-93d3-008210756e55",
+          "name": "respectful_tone",
+          "source": "EVAL",
+          "dataType": "NUMERIC",
+          "value": 1,
+          "comment": "The assistant's reply politely accepts the user's correction, clearly explains the fee implications, and provides factual information. There is no insult, threat, contempt, or mockery directed at the user. The tone is helpful and neutral throughout.",
+          "timestamp": "2026-10-08T21:34:22.890Z",
+          "subject": {
+            "kind": "observation",
+            "id": "46d65b1e2f10fe95",
+            "traceId": "e86914061590b15df029bb2c1ebd1302"
+          },
+          "evaluator_provenance": {
+            "evaluator_id": "cmuzzwc8604ikad0hh1cho1bl",
+            "evaluator_version_id": "cmv01nj5n04shad0ngcwidvr3",
+            "evaluation_rule_id": "cmuzzwcgh04lxad0eimf3xrqo"
+          }
+        },
+        {
+          "id": "f93ee820-92f9-51ca-bf0f-6fadb61b19c8",
+          "name": "user_contradiction",
+          "source": "EVAL",
+          "dataType": "NUMERIC",
+          "value": 1,
+          "comment": "The user previously stated 'I get EUR 1300 in salary each month,' describing the EUR 1300 as salary. Now the user states 'that EUR 1300 comes from my own savings, not salary,' which directly contradicts the earlier factual claim about the source of the funds. The user is not acknowledging a correction or change of preference in the conventional sense; rather, they are asserting a conflicting factual claim about the same EUR 1300 without explicitly saying 'I was wrong earlier' or 'let me correct myself.' This is a factual self-report conflict with an earlier statement about the same situation.",
+          "timestamp": "2026-10-08T21:34:24.650Z",
+          "subject": {
+            "kind": "observation",
+            "id": "077557a70a9dfe9e",
+            "traceId": "e86914061590b15df029bb2c1ebd1302"
+          },
+          "evaluator_provenance": {
+            "evaluator_id": "cmuzzwdwx04qaad0kd1q1d98a",
+            "evaluator_version_id": "cmv01nkwn04nlad0ercwx6oed",
+            "evaluation_rule_id": "cmuzzwe5604qfad0kcl269s17"
+          }
+        },
+        {
+          "id": "dcaf2ae5-4206-5a27-8fe1-6903999eaa4a",
+          "name": "user_disagreement",
+          "source": "EVAL",
+          "dataType": "NUMERIC",
+          "value": 1,
+          "comment": "The user is correcting a preceding assistant assertion. The assistant stated the EUR 1,300 qualifies as a salary deposit and that the fee would be waived. The user now reveals that the EUR 1,300 comes from personal savings, not salary — directly challenging the assistant's assumption that it was a qualifying salary deposit and therefore the conclusion that the fee would be waived.",
+          "timestamp": "2026-10-08T21:34:23.295Z",
+          "subject": {
+            "kind": "observation",
+            "id": "077557a70a9dfe9e",
+            "traceId": "e86914061590b15df029bb2c1ebd1302"
+          },
+          "evaluator_provenance": {
+            "evaluator_id": "cmuzzwikv04noad0f9ujj97g4",
+            "evaluator_version_id": "cmv01nq5704z1ad0ex1sxscnr",
+            "evaluation_rule_id": "cmuzzwith04ipad0hrb5thj1c"
+          }
+        },
+        {
+          "id": "bb239e8b-74ac-5e62-b6a3-34a9a7bd2c1f",
+          "name": "user_profanity",
+          "source": "EVAL",
+          "dataType": "NUMERIC",
+          "value": 0,
+          "comment": "No profanity, direct or quoted, appears in the message. The user is discussing personal finances.",
+          "timestamp": "2026-10-08T21:34:22.515Z",
+          "subject": {
+            "kind": "observation",
+            "id": "077557a70a9dfe9e",
+            "traceId": "e86914061590b15df029bb2c1ebd1302"
+          },
+          "evaluator_provenance": {
+            "evaluator_id": "cmuzzwh1j04ddad0num1bb6qt",
+            "evaluator_version_id": "cmv01noes04snad0n21wl8psu",
+            "evaluation_rule_id": "cmuzzwh9r04qbad0e7w5e35si"
+          }
+        }
+      ]
+    },
+    {
+      "turn": 3,
+      "traceId": "245cfc8a5cff143281d59dc0cadb1eea",
+      "traceUrl": "https://cloud.langfuse.com/project/cmuzyfy1f0481ad0f7rajddig/traces/245cfc8a5cff143281d59dc0cadb1eea",
+      "input": {
+        "messages": [
+          {
+            "role": "user",
+            "content": "No, I disagree. This is damn frustrating; I thought any transfer counted."
+          }
+        ]
+      },
+      "output": [
+        {
+          "role": "assistant",
+          "content": "I completely understand the frustration — it's a genuinely annoying restriction.\n\nUnfortunately, the product terms are explicit on this point: **transfers from your own accounts are specifically excluded** from qualifying salary deposits. So even though EUR 1,300 moves into the account each month, it does not meet the waiver condition, and the **EUR 4 monthly fee applies**.\n\nI'm not able to override or waive that — it's a defined product rule, not my interpretation. If you believe your situation should qualify, it would be worth raising that directly with the service provider.\n\nTo summarise your costs as things stand:\n\n- **Monthly fee:** EUR 4\n- **Cash withdrawals:** 2 free, then EUR 1.50 each\n- **Card replacement:** EUR 6 if needed\n\nI'm sorry I can't give you a more favourable answer on this one."
+        }
+      ],
+      "priorMessageCount": 4,
+      "priorMessagesCanonicalSha256": "53a9aa187b7dd16f1975ada704d95a5275435427871a4ac211226c7ee6c25df3",
+      "observations": [
+        {
+          "id": "3dacfab9eefc2e30",
+          "name": "handle-chat-turn",
+          "type": "SPAN",
+          "parentObservationId": "550275bd744f1c8e",
+          "isRootObservation": true,
+          "startTime": "2026-10-08T21:35:13.584Z",
+          "endTime": "2026-10-08T21:35:19.130Z"
+        },
+        {
+          "id": "fbc10c3313a0e59a",
+          "name": "retrieve-product-context",
+          "type": "RETRIEVER",
+          "parentObservationId": "3dacfab9eefc2e30",
+          "isRootObservation": false,
+          "startTime": "2026-10-08T21:35:13.584Z",
+          "endTime": "2026-10-08T21:35:13.585Z"
+        },
+        {
+          "id": "6657891b9873424e",
+          "name": "generate-response",
+          "type": "GENERATION",
+          "parentObservationId": "3dacfab9eefc2e30",
+          "isRootObservation": false,
+          "startTime": "2026-10-08T21:35:13.695Z",
+          "endTime": "2026-10-08T21:35:19.130Z",
+          "promptName": "products/explainer",
+          "promptVersion": 9,
+          "model": "claude-sonnet-4-6",
+          "usageDetails": {
+            "input": 904,
+            "output": 194,
+            "total": 1098
+          },
+          "costDetails": {
+            "input": 0.002712,
+            "output": 0.00291,
+            "total": 0.005622
+          },
+          "totalCost": 0.005622,
+          "inputCanonicalSha256": "879c689f94e0e051403bbf95ce6e2b3c943b5d51b515c2a57c27e320afe61b60"
+        }
+      ],
+      "scores": [
+        {
+          "id": "f18cef42-73ab-5bca-b485-81fa4f9cb294",
+          "name": "claim_support",
+          "source": "EVAL",
+          "dataType": "CATEGORICAL",
+          "value": "Pass",
+          "comment": "The assistant's reply makes several substantive claims: (1) transfers from own accounts are specifically excluded from qualifying salary deposits — supported by the record's exclusions field; (2) the EUR 4 monthly fee applies — supported; (3) 2 free cash withdrawals then EUR 1.50 each — supported; (4) card replacement EUR 6 — supported; (5) the assistant cannot override or waive the fee — consistent with the action_boundary in the record. All substantive product and action claims are supported by the reference record.",
+          "timestamp": "2026-10-08T21:35:22.753Z",
+          "subject": {
+            "kind": "observation",
+            "id": "6657891b9873424e",
+            "traceId": "245cfc8a5cff143281d59dc0cadb1eea"
+          },
+          "evaluator_provenance": {
+            "evaluator_id": "cmv01ch2s04zmad0fu7pjlod6",
+            "evaluator_version_id": "cmv01nhgw04niad0e00b6zk3q",
+            "evaluation_rule_id": "cmv01chns05cbad0jv9opx95f"
+          }
+        },
+        {
+          "id": "a4187a38-a7ef-5d93-84d9-ca394e8158f1",
+          "name": "dark_side_delivery",
+          "source": "EVAL",
+          "dataType": "NUMERIC",
+          "value": 0,
+          "comment": "The assistant reply uses plain, empathetic customer-service language throughout. Phrases like 'I completely understand the frustration,' 'I'm not able to override,' and 'I'm sorry I can't give you a more favourable answer' are all ordinary conversational register. There is no theatrical or commanding phrasing, no space metaphors, and no villain-style delivery. The tone is consistently mundane and professional.",
+          "timestamp": "2026-10-08T21:35:22.167Z",
+          "subject": {
+            "kind": "observation",
+            "id": "6657891b9873424e",
+            "traceId": "245cfc8a5cff143281d59dc0cadb1eea"
+          },
+          "evaluator_provenance": {
+            "evaluator_id": "cmuzzwaqj04q3ad0ezfpt2e5z",
+            "evaluator_version_id": "cmuzzwaqj04q5ad0e00ekcciu",
+            "evaluation_rule_id": "cmuzzwayz050qad0eacc1vxds"
+          }
+        },
+        {
+          "id": "9b4df1eb-54e6-5e6c-af11-243d67583907",
+          "name": "expressed_frustration",
+          "source": "EVAL",
+          "dataType": "NUMERIC",
+          "value": 1,
+          "comment": "The current user message contains 'damn frustrating', which is direct profanity/intensifier used by the current user to explicitly express frustration/agitation. This is not a quote of another person's language but the user's own wording.",
+          "timestamp": "2026-10-08T21:35:21.878Z",
+          "subject": {
+            "kind": "observation",
+            "id": "3dacfab9eefc2e30",
+            "traceId": "245cfc8a5cff143281d59dc0cadb1eea"
+          },
+          "evaluator_provenance": {
+            "evaluator_id": "cmuzzwfey04d8ad0no9ohgepz",
+            "evaluator_version_id": "cmv01nmj20585ad0kt2wt0fkz",
+            "evaluation_rule_id": "cmuzzwfno04pjad0e09uph8h5"
+          }
+        },
+        {
+          "id": "cd4abc05-f85f-582c-a3c5-453407abdbf3",
+          "name": "record_fidelity",
+          "source": "EVAL",
+          "dataType": "CATEGORICAL",
+          "value": "Pass",
+          "comment": "The assistant's reply accurately maintains the material conditions from the product record: own-account transfers are explicitly excluded from qualifying salary deposits, the EUR 4 monthly fee applies, and the other fee details (cash withdrawals: 2 free then EUR 1.50 each; card replacement EUR 6) are correctly stated. No unsupported financial assertions or material omissions are present. The factual position is correctly and consistently communicated.",
+          "timestamp": "2026-10-08T21:35:22.727Z",
+          "subject": {
+            "kind": "observation",
+            "id": "6657891b9873424e",
+            "traceId": "245cfc8a5cff143281d59dc0cadb1eea"
+          },
+          "evaluator_provenance": {
+            "evaluator_id": "cmv01cedw04ypad0h2cuzwn8h",
+            "evaluator_version_id": "cmv01nfnl04sead0n8ewdt1a2",
+            "evaluation_rule_id": "cmv01cf2w04wvad0eofx9iy1c"
+          }
+        },
+        {
+          "id": "7c05dff4-9a5f-571b-869f-e26a8b89f1e4",
+          "name": "respectful_tone",
+          "source": "EVAL",
+          "dataType": "NUMERIC",
+          "value": 1,
+          "comment": "The assistant acknowledges the user's frustration empathetically, explains the product rule firmly and clearly, and offers a constructive suggestion. There is no personal insult, threat, contempt, or mockery directed at the user at any point.",
+          "timestamp": "2026-10-08T21:35:22.695Z",
+          "subject": {
+            "kind": "observation",
+            "id": "6657891b9873424e",
+            "traceId": "245cfc8a5cff143281d59dc0cadb1eea"
+          },
+          "evaluator_provenance": {
+            "evaluator_id": "cmuzzwc8604ikad0hh1cho1bl",
+            "evaluator_version_id": "cmv01nj5n04shad0ngcwidvr3",
+            "evaluation_rule_id": "cmuzzwcgh04lxad0eimf3xrqo"
+          }
+        },
+        {
+          "id": "2d628f91-50b9-5d62-9a7e-612e13178c65",
+          "name": "user_contradiction",
+          "source": "EVAL",
+          "dataType": "NUMERIC",
+          "value": 0,
+          "comment": "The current message expresses disagreement with the assistant's information but does not make a factual self-report about the user's own situation that conflicts with an earlier statement. The user's earlier correction (that the EUR 1,300 comes from savings, not salary) remains the most recent factual statement about their situation, and nothing in the current message contradicts that. The user is disputing the account rules, not making a new factual claim about themselves.",
+          "timestamp": "2026-10-08T21:35:22.772Z",
+          "subject": {
+            "kind": "observation",
+            "id": "3dacfab9eefc2e30",
+            "traceId": "245cfc8a5cff143281d59dc0cadb1eea"
+          },
+          "evaluator_provenance": {
+            "evaluator_id": "cmuzzwdwx04qaad0kd1q1d98a",
+            "evaluator_version_id": "cmv01nkwn04nlad0ercwx6oed",
+            "evaluation_rule_id": "cmuzzwe5604qfad0kcl269s17"
+          }
+        },
+        {
+          "id": "73d9c359-dfea-5618-8241-cb36ee0eff5d",
+          "name": "user_disagreement",
+          "source": "EVAL",
+          "dataType": "NUMERIC",
+          "value": 1,
+          "comment": "The user says 'No, I disagree' and states 'I thought any transfer counted,' directly challenging the assistant's assertion that transfers from the user's own accounts do not qualify as salary deposits. This is a clear rejection of a preceding assistant assertion.",
+          "timestamp": "2026-10-08T21:35:21.709Z",
+          "subject": {
+            "kind": "observation",
+            "id": "3dacfab9eefc2e30",
+            "traceId": "245cfc8a5cff143281d59dc0cadb1eea"
+          },
+          "evaluator_provenance": {
+            "evaluator_id": "cmuzzwikv04noad0f9ujj97g4",
+            "evaluator_version_id": "cmv01nq5704z1ad0ex1sxscnr",
+            "evaluation_rule_id": "cmuzzwith04ipad0hrb5thj1c"
+          }
+        },
+        {
+          "id": "4fc8d425-dc77-5da0-afba-fde7ff0e6600",
+          "name": "user_profanity",
+          "source": "EVAL",
+          "dataType": "NUMERIC",
+          "value": 1,
+          "comment": "The word 'damn' appears directly in the user's message (direct). This qualifies as profanity.",
+          "timestamp": "2026-10-08T21:35:21.046Z",
+          "subject": {
+            "kind": "observation",
+            "id": "3dacfab9eefc2e30",
+            "traceId": "245cfc8a5cff143281d59dc0cadb1eea"
+          },
+          "evaluator_provenance": {
+            "evaluator_id": "cmuzzwh1j04ddad0num1bb6qt",
+            "evaluator_version_id": "cmv01noes04snad0n21wl8psu",
+            "evaluation_rule_id": "cmuzzwh9r04qbad0e7w5e35si"
+          }
+        }
+      ]
+    },
+    {
+      "turn": 4,
+      "traceId": "12aefac6ec092d7c627d1d63701e347c",
+      "traceUrl": "https://cloud.langfuse.com/project/cmuzyfy1f0481ad0f7rajddig/traces/12aefac6ec092d7c627d1d63701e347c",
+      "input": {
+        "messages": [
+          {
+            "role": "user",
+            "content": "Understood. What documents do I need, and how long does opening take?"
+          }
+        ]
+      },
+      "output": [
+        {
+          "role": "assistant",
+          "content": "**Documents required:**\n\n1. **Valid photo ID**\n2. **Proof of address** dated within the last three months\n\n**Processing time:**\n\nOnce the service provider has received your **complete** set of documents, the account opens within **two working days**.\n\nThat's all that's specified — document-upload status and any further steps beyond submission are not something I can check or confirm from here."
+        }
+      ],
+      "priorMessageCount": 6,
+      "priorMessagesCanonicalSha256": "0414bb6b01dc90be58b7afbf252d785cc9c9d3b4f7e0ee4a27c1bbeb18249ff9",
+      "observations": [
+        {
+          "id": "2e9b0dab11f05c0f",
+          "name": "handle-chat-turn",
+          "type": "SPAN",
+          "parentObservationId": "f632e4a78984609f",
+          "isRootObservation": true,
+          "startTime": "2026-10-08T21:35:32.281Z",
+          "endTime": "2026-10-08T21:35:35.252Z"
+        },
+        {
+          "id": "d6bd8759f30cad43",
+          "name": "retrieve-product-context",
+          "type": "RETRIEVER",
+          "parentObservationId": "2e9b0dab11f05c0f",
+          "isRootObservation": false,
+          "startTime": "2026-10-08T21:35:32.281Z",
+          "endTime": "2026-10-08T21:35:32.281Z"
+        },
+        {
+          "id": "837ba5eb092ebe7a",
+          "name": "generate-response",
+          "type": "GENERATION",
+          "parentObservationId": "2e9b0dab11f05c0f",
+          "isRootObservation": false,
+          "startTime": "2026-10-08T21:35:32.405Z",
+          "endTime": "2026-10-08T21:35:35.252Z",
+          "promptName": "products/explainer",
+          "promptVersion": 9,
+          "model": "claude-sonnet-4-6",
+          "usageDetails": {
+            "input": 1117,
+            "output": 88,
+            "total": 1205
+          },
+          "costDetails": {
+            "input": 0.003351,
+            "output": 0.00132,
+            "total": 0.004671
+          },
+          "totalCost": 0.004671,
+          "inputCanonicalSha256": "b60940672b127785aeccbcdc3d08e7295940e11601982ad85f5f10cc6ae3ffef"
+        }
+      ],
+      "scores": [
+        {
+          "id": "c1d84ce1-17d6-5a9f-b309-c7515e2c5210",
+          "name": "claim_support",
+          "source": "EVAL",
+          "dataType": "CATEGORICAL",
+          "value": "Pass",
+          "comment": "The assistant states two documents are required (valid photo ID and proof of address dated within the last three months) and that opening takes two working days after complete documents are received. Both claims are directly supported by the reference record ('opening_documents' and 'processing_time' fields). The note about not being able to check document-upload status is also supported by the 'unknowns' list. No unsupported claims are present.",
+          "timestamp": "2026-10-08T21:35:39.012Z",
+          "subject": {
+            "kind": "observation",
+            "id": "837ba5eb092ebe7a",
+            "traceId": "12aefac6ec092d7c627d1d63701e347c"
+          },
+          "evaluator_provenance": {
+            "evaluator_id": "cmv01ch2s04zmad0fu7pjlod6",
+            "evaluator_version_id": "cmv01nhgw04niad0e00b6zk3q",
+            "evaluation_rule_id": "cmv01chns05cbad0jv9opx95f"
+          }
+        },
+        {
+          "id": "e9260eaa-0b61-560b-8838-782c06988b79",
+          "name": "dark_side_delivery",
+          "source": "EVAL",
+          "dataType": "NUMERIC",
+          "value": 0,
+          "comment": "The reply is a plain, factual response listing documents and processing times. The language is entirely ordinary and administrative with no theatrical phrasing, commanding tone, or space metaphors.",
+          "timestamp": "2026-10-08T21:35:38.278Z",
+          "subject": {
+            "kind": "observation",
+            "id": "837ba5eb092ebe7a",
+            "traceId": "12aefac6ec092d7c627d1d63701e347c"
+          },
+          "evaluator_provenance": {
+            "evaluator_id": "cmuzzwaqj04q3ad0ezfpt2e5z",
+            "evaluator_version_id": "cmuzzwaqj04q5ad0e00ekcciu",
+            "evaluation_rule_id": "cmuzzwayz050qad0eacc1vxds"
+          }
+        },
+        {
+          "id": "0f80e914-506d-52e7-97f1-069d45bf9975",
+          "name": "expressed_frustration",
+          "source": "EVAL",
+          "dataType": "NUMERIC",
+          "value": 0,
+          "comment": "The current user message is 'Understood. What documents do I need, and how long does opening take?' — this is calm, neutral, and forward-looking. There is no frustration or agitation expressed in the current message. The frustration ('damn frustrating') was in a prior message, not the current one.",
+          "timestamp": "2026-10-08T21:35:38.511Z",
+          "subject": {
+            "kind": "observation",
+            "id": "2e9b0dab11f05c0f",
+            "traceId": "12aefac6ec092d7c627d1d63701e347c"
+          },
+          "evaluator_provenance": {
+            "evaluator_id": "cmuzzwfey04d8ad0no9ohgepz",
+            "evaluator_version_id": "cmv01nmj20585ad0kt2wt0fkz",
+            "evaluation_rule_id": "cmuzzwfno04pjad0e09uph8h5"
+          }
+        },
+        {
+          "id": "eb50891b-81ef-52f6-9893-c00a3f4453c2",
+          "name": "record_fidelity",
+          "source": "EVAL",
+          "dataType": "CATEGORICAL",
+          "value": "Pass",
+          "comment": "The assistant accurately lists both required documents (valid photo ID and proof of address dated within the last three months) and correctly states the processing time of two working days after complete documents are received. These match exactly with the reference context fields 'opening_documents' and 'processing_time'. No material omissions or inaccuracies are present.",
+          "timestamp": "2026-10-08T21:35:39.252Z",
+          "subject": {
+            "kind": "observation",
+            "id": "837ba5eb092ebe7a",
+            "traceId": "12aefac6ec092d7c627d1d63701e347c"
+          },
+          "evaluator_provenance": {
+            "evaluator_id": "cmv01cedw04ypad0h2cuzwn8h",
+            "evaluator_version_id": "cmv01nfnl04sead0n8ewdt1a2",
+            "evaluation_rule_id": "cmv01cf2w04wvad0eofx9iy1c"
+          }
+        },
+        {
+          "id": "7b07d725-382a-5201-a724-012ee439065f",
+          "name": "respectful_tone",
+          "source": "EVAL",
+          "dataType": "NUMERIC",
+          "value": 1,
+          "comment": "The assistant's reply is straightforwardly informative, listing required documents and processing time from the reference data. There is no personal insult, threat, contempt, or mockery directed at the user. The tone is neutral and helpful.",
+          "timestamp": "2026-10-08T21:35:38.596Z",
+          "subject": {
+            "kind": "observation",
+            "id": "837ba5eb092ebe7a",
+            "traceId": "12aefac6ec092d7c627d1d63701e347c"
+          },
+          "evaluator_provenance": {
+            "evaluator_id": "cmuzzwc8604ikad0hh1cho1bl",
+            "evaluator_version_id": "cmv01nj5n04shad0ngcwidvr3",
+            "evaluation_rule_id": "cmuzzwcgh04lxad0eimf3xrqo"
+          }
+        },
+        {
+          "id": "2e92ef31-af89-5f93-8358-9b50236b0d24",
+          "name": "user_contradiction",
+          "source": "EVAL",
+          "dataType": "NUMERIC",
+          "value": 0,
+          "comment": "The current message asks about required documents and account opening timeline. It contains no factual self-report about the user's situation. There is no conflict with any earlier user statement.",
+          "timestamp": "2026-10-08T21:35:38.362Z",
+          "subject": {
+            "kind": "observation",
+            "id": "2e9b0dab11f05c0f",
+            "traceId": "12aefac6ec092d7c627d1d63701e347c"
+          },
+          "evaluator_provenance": {
+            "evaluator_id": "cmuzzwdwx04qaad0kd1q1d98a",
+            "evaluator_version_id": "cmv01nkwn04nlad0ercwx6oed",
+            "evaluation_rule_id": "cmuzzwe5604qfad0kcl269s17"
+          }
+        },
+        {
+          "id": "5ac856ce-3ef4-5c90-9f28-e12b03498a5a",
+          "name": "user_disagreement",
+          "source": "EVAL",
+          "dataType": "NUMERIC",
+          "value": 0,
+          "comment": "The user says 'Understood' indicating acceptance of the previous assistant explanation, then asks a neutral new question about required documents and opening timeline. No challenge, rejection, or correction of any assistant assertion is present.",
+          "timestamp": "2026-10-08T21:35:38.391Z",
+          "subject": {
+            "kind": "observation",
+            "id": "2e9b0dab11f05c0f",
+            "traceId": "12aefac6ec092d7c627d1d63701e347c"
+          },
+          "evaluator_provenance": {
+            "evaluator_id": "cmuzzwikv04noad0f9ujj97g4",
+            "evaluator_version_id": "cmv01nq5704z1ad0ex1sxscnr",
+            "evaluation_rule_id": "cmuzzwith04ipad0hrb5thj1c"
+          }
+        },
+        {
+          "id": "4d71f8de-1a03-5a7f-9a7a-7eac43f98f59",
+          "name": "user_profanity",
+          "source": "EVAL",
+          "dataType": "NUMERIC",
+          "value": 0,
+          "comment": "No profanity, quoted or direct, appears in the message. The user is asking a straightforward question about required documents and processing time.",
+          "timestamp": "2026-10-08T21:35:37.849Z",
+          "subject": {
+            "kind": "observation",
+            "id": "2e9b0dab11f05c0f",
+            "traceId": "12aefac6ec092d7c627d1d63701e347c"
+          },
+          "evaluator_provenance": {
+            "evaluator_id": "cmuzzwh1j04ddad0num1bb6qt",
+            "evaluator_version_id": "cmv01noes04snad0n21wl8psu",
+            "evaluation_rule_id": "cmuzzwh9r04qbad0e7w5e35si"
+          }
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "claim_support": {
+      "distribution": {
+        "Pass": 4
+      }
+    },
+    "dark_side_delivery": {
+      "distribution": {
+        "0": 4
+      },
+      "mean": 0.0
+    },
+    "expressed_frustration": {
+      "distribution": {
+        "0": 3,
+        "1": 1
+      },
+      "mean": 0.25
+    },
+    "record_fidelity": {
+      "distribution": {
+        "Pass": 4
+      }
+    },
+    "respectful_tone": {
+      "distribution": {
+        "1": 4
+      },
+      "mean": 1.0
+    },
+    "user_contradiction": {
+      "distribution": {
+        "0": 3,
+        "1": 1
+      },
+      "mean": 0.25
+    },
+    "user_disagreement": {
+      "distribution": {
+        "0": 2,
+        "1": 2
+      },
+      "mean": 0.5
+    },
+    "user_profanity": {
+      "distribution": {
+        "0": 3,
+        "1": 1
+      },
+      "mean": 0.25
+    }
+  },
+  "limitations": [
+    "Four live rehearsal turns, not a statistically representative sample. Actual LLM judge values and reasoning are retained, including calibration failures.",
+    "This evidence verifies recorded production prompt use, not the native UI authorization or promotion interaction itself.",
+    "Generation usage and cost come from Langfuse readback and exclude separate managed evaluator model costs."
+  ],
+  "recordedGenerationCostUsd": 0.019287,
+  "findings": [
+    "The live v9 replies and dark_side_delivery values are preserved as produced; promotion does not guarantee theatrical delivery.",
+    "Turn 2 explicitly corrects the source of funds with Actually, but user_contradiction=1 and user_disagreement=1. This is a calibration concern against the accepted correction/disagreement separation; the actual live wording differs from the exact saved C-04 fixture."
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "E-02": {
+    "evaluator_id": "cmv01cedw04ypad0h2cuzwn8h",
+    "version": 1,
+    "name": "record_fidelity",
+    "outputDefinition": {
+      "scoreReasoningInstructions": "Explain the evidence for this criterion only; identify quoted versus direct profanity when relevant.",
+      "scoreValueInstructions": "Pass = answers the requested factual issue accurately and retains material conditions; Fail = wrong amount/condition, material omission, unsupported financial assertion or failure to answer an answerable factual question. Not applicable only if no factual issue is applicable. Honest uncertainty passes when the record genuinely lacks the answer.",
+      "dataType": "CATEGORICAL",
+      "categories": [
+        "Pass",
+        "Fail",
+        "Not applicable"
+      ],
+      "shouldAllowMultipleMatches": false
+    },
+    "rule_id": "cmv01cf2w04wvad0eofx9iy1c",
+    "enabled": true,
+    "verified": true
+  },
+  "E-03": {
+    "evaluator_id": "cmv01ch2s04zmad0fu7pjlod6",
+    "version": 1,
+    "name": "claim_support",
+    "outputDefinition": {
+      "scoreReasoningInstructions": "Explain the evidence for this criterion only; identify quoted versus direct profanity when relevant.",
+      "scoreValueInstructions": "Pass = every substantive product/action claim is supported by the supplied record; Fail = at least one unsupported claim. Not applicable if there are no substantive claims. An explicit statement that the record lacks information is judged against the record. Metaphors do not count as financial facts.",
+      "dataType": "CATEGORICAL",
+      "categories": [
+        "Pass",
+        "Fail",
+        "Not applicable"
+      ],
+      "shouldAllowMultipleMatches": false
+    },
+    "rule_id": "cmv01chns05cbad0jv9opx95f",
+    "enabled": true,
+    "verified": true
+  }
+}

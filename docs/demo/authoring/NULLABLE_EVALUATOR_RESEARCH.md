@@ -4,9 +4,43 @@ Checked 2026-10-08 using the Langfuse skill, current official documentation,
 public Cloud OpenAPI, and public Langfuse implementation. Workspace status before
 consuming the handoffs: story accepted, prototype accepted, authoring ready.
 No credentials, project data, model calls, evaluator writes or deployment changes
-were used. This is capability research, not verification of the target deployment.
+were used for the original capability research. The later deployment evidence
+linked below was recorded separately; it does not change that research provenance.
 
-## Finding
+## Current decision and evidence
+
+The user subsequently answered **“Sure”** to the proposal for E-02/E-03
+**Pass / Fail / Not applicable** categories consistently across history,
+experiments and live chats, with category counts instead of numeric averages.
+Story decision D-32 records this approval. The original recommendation below is
+retained as historical capability research; its proposed external nullable adapter
+was not selected and is not the implementation contract.
+
+The selected contract keeps `record_fidelity` and `claim_support` semantically
+separate, using single-match native categorical judges. Existing authored 1/0/null
+labels map explicitly to Pass/Fail/Not applicable. Category codes in score configs
+are nominal identifiers, never a numeric quality scale. Missing, pending, failed
+or invalid results are not Not applicable.
+
+[Native configuration readback](evidence/categorical-evaluators.json) verifies
+both categorical definitions and enabled live rules. A later
+[context repair](evidence/experiment-context-repair.json) preserves 32 dataset
+case IDs and source facts while adding top-level serialized `eval_*` context
+leaves and correcting evaluator JSONPaths. E-02/E-03 definitions are version 2
+after that mapping change; their semantic rubrics remain unchanged.
+
+The first native v9 experiment received empty factual context, so its eight
+outputs and 32 stored scores are retained with invalid factual measurements.
+Corrected v7 completed eight outputs and 32 EVAL results with all eight factual
+judgments Pass per criterion. This establishes actual categorical execution on
+that baseline, not calibration reliability or full live parity. The corrected
+candidate and further rehearsal evidence are tracked in
+[native experiments](evidence/native-experiments.json) and
+[native rehearsal](NATIVE_REHEARSAL.md). Earlier numeric pilot history remains
+untouched. Full-scale categorical history, live Pass/Fail/Not applicable coverage,
+member-denial checks, signed release and Depot admission remain separate gates.
+
+## Original capability finding (before D-32)
 
 **A native managed numeric LLM judge cannot itself return null, omit its score,
 or declare an N/A result in the current implementation. Native rules can skip
@@ -15,11 +49,12 @@ judgment. The numeric 0/1/null story does not require a categorical redesign.**
 
 The prior claim that an installed numeric judge cannot emit N/A is confirmed;
 the broader implication that categorical conversion is the only resolution is
-not. Keep E-02 `record_fidelity` and E-03 `claim_support` separate and numeric.
-Their null means a known inapplicable outcome, represented by an omitted numeric
-score plus explicit applicability evidence; an absent score alone is ambiguous.
+not. The original recommendation was to keep E-02 `record_fidelity` and E-03
+`claim_support` separate and numeric, with null represented by an omitted numeric
+score plus explicit applicability evidence. An absent score alone is ambiguous.
+D-32 superseded that recommendation with explicit categorical outcomes.
 
-## Exact evidence
+## Original capability evidence
 
 | Question | Current supported contract |
 | --- | --- |
@@ -48,7 +83,7 @@ Primary evidence:
   a separately configured live rule's applicability filter.
 - [Native code evaluator runtime constraints](https://langfuse.com/docs/evaluation/evaluation-methods/code-evaluators#runtime-constraints).
 
-## Least invasive decision
+## Original unselected producer proposal
 
 Preserve the accepted rubrics, fixtures, numeric averages, observation targets,
 and eligible-case denominator. Change only the producer for E-02/E-03 to an
@@ -84,7 +119,7 @@ reply evades. Authored expected N/A labels are calibration truth, not live resul
 Do not insert 0 or 1 for N/A, use an out-of-range sentinel, treat model errors as
 N/A, or infer N/A solely from missing score rows.
 
-## Verification needed after the decision
+## Verification proposed for the unselected numeric adapter
 
 Check one applicable pass, one applicable fail, and one explicit N/A for each
 criterion against actual generated replies. Verify 0/1 score subjects and

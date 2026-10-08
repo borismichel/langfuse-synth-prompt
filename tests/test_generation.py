@@ -57,8 +57,8 @@ def test_complete_catalog_and_accepted_truth():
         system_prompt("PR-02", 9)
     controls = calibration_cases()
     assert controls[0]["metadata"]["expected_scores"]["E-01"] == 1
-    assert controls[0]["metadata"]["expected_scores"]["E-02"] == 0
-    assert controls[2]["metadata"]["expected_scores"]["E-03"] is None
+    assert controls[0]["metadata"]["expected_scores"]["E-02"] == "Fail"
+    assert controls[2]["metadata"]["expected_scores"]["E-03"] == "Not applicable"
     # Caller mutation cannot leak into later source or prompt reads.
     product["source"]["monthly_fee"] = 999
     assert load_fixture("product")["source"]["monthly_fee"] == 4
@@ -269,7 +269,11 @@ def test_separate_authored_historical_experiments():
         assert attributes(gen)["langfuse.environment"] == "experiment"
     for event in events:
         if event.get("type") == "score-create":
-            assert metadata(spans[event["body"]["observationId"]])["evaluation_subject"] == "assistant_reply"
+            target = metadata(spans[event["body"]["observationId"]])
+            assert target["evaluation_subject"] == "assistant_reply"
+            definition = next(d for d in score_definitions().values() if d["name"] == event["body"]["name"])
+            assert target["rubric_revisions"][definition["id"]] == definition["revision"]
+            assert f"{definition['id']}/{definition['revision']}" in event["body"]["comment"]
 
 
 def test_seed_and_small_replay_are_deterministic():
@@ -291,3 +295,50 @@ def test_conditional_operation_plan_matches_selected_history(seed):
             assert attributes(span)["langfuse.observation.type"] == "retriever"
             assert span["name"] == REFERENCE_RETRIEVER_NAME
             assert metadata(span)["evidence_kind"] == "authored-synthetic-history"
+
+
+def test_history_emits_all_factual_categories_without_null_or_numeric_substitution(tmp_path):
+    from synth.receipt import make_receipt
+    events = finalize(build_events(1620, {'seed': 42}, run_date=ANCHOR))
+    factual = [e['body'] for e in events if e.get('type') == 'score-create'
+               and e['body']['name'] in ('record_fidelity', 'claim_support')]
+    for name in ('record_fidelity', 'claim_support'):
+        assert {s['value'] for s in factual if s['name'] == name} == {'Pass', 'Fail', 'Not applicable'}
+    assert all(s['dataType'] == 'CATEGORICAL' for s in factual)
+    spans = {e['spanId']: e for e in events if 'spanId' in e}
+    for score in factual:
+        eid = 'E-02' if score['name'] == 'record_fidelity' else 'E-03'
+        expected = metadata(spans[score['observationId']])['expected_outcomes'][eid]
+        assert expected == {'value': score['value'], 'data_type': 'CATEGORICAL', 'status': 'complete'}
+    spool = tmp_path / 'spool.ndjson'
+    spool.write_text('offline receipt test')
+    receipt = make_receipt(events, spool, run_date=ANCHOR, seed=42, target_traces=1620)
+    for name in ('record_fidelity', 'claim_support'):
+        assert {s['value'] for t in receipt['representative_traces'] for s in t['scores']
+                if s['name'] == name} == {'Pass', 'Fail', 'Not applicable'}
+
+
+def test_rubric_provenance_is_scoped_to_score_subject_and_trace_prompts(history):
+    definitions = score_definitions()
+    by_trace = defaultdict(list)
+    for event in history:
+        if 'spanId' in event:
+            by_trace[event['traceId']].append(event)
+    for spans in by_trace.values():
+        prompt_ids = {metadata(span)['prompt_id'] for span in spans
+                      if metadata(span).get('evaluation_subject') == 'assistant_reply'}
+        trace_revisions = {eid: definitions[eid]['revision'] for pid in sorted(prompt_ids)
+                           for eid in prompt_by_id(pid)['evaluation_ids']}
+        for span in spans:
+            attrs, meta = attributes(span), metadata(span)
+            assert 'rubric_revision' not in meta
+            assert json.loads(attrs['langfuse.trace.metadata.rubric_revisions']) == trace_revisions
+            subject = meta.get('evaluation_subject')
+            if subject:
+                expected = {eid: definitions[eid]['revision'] for eid in prompt_by_id(meta['prompt_id'])['evaluation_ids']
+                            if definitions[eid]['subject'] == subject}
+                assert meta['rubric_revisions'] == expected
+                if subject == 'user_input':
+                    assert set(expected.values()) == {'r1'}
+                if 'E-02' in expected:
+                    assert expected['E-02'] == expected['E-03'] == 'r2'

@@ -127,6 +127,11 @@
       {
         "id": "D-31",
         "decision": "Presenter decides how to act on actual evaluation results and whether to promote; no automatic score gate or mandatory retry loop. Success is surfacing information, not guaranteed prompt improvement."
+      },
+      {
+        "id": "D-32",
+        "decision": "E-02 record_fidelity and E-03 claim_support use Pass / Fail / Not applicable categories consistently across history, experiments and live chats, with category counts instead of numeric averages. Existing semantic criteria are unchanged.",
+        "approval": "User: \u201cSure\u201d on 2026-10-08."
       }
     ],
     "proposal_scope": [
@@ -202,7 +207,25 @@
       "user-input disagreement, contradiction, expressed frustration and profanity"
     ],
     "subjects": "Selected reply generation for output scores; request root for input scores, as proposed in evaluation plan. Session is the primary viewing surface, not a substitute score target.",
-    "provenance": "Authored historical expectations versus actual experiment/live evaluator execution remain distinct."
+    "provenance": "Authored historical expectations versus actual experiment/live evaluator execution remain distinct.",
+    "factual_check_representation": {
+      "ids": [
+        "E-02",
+        "E-03"
+      ],
+      "data_type": "CATEGORICAL",
+      "categories": [
+        "Pass",
+        "Fail",
+        "Not applicable"
+      ],
+      "authored_value_mapping": {
+        "1": "Pass",
+        "0": "Fail",
+        "null": "Not applicable"
+      },
+      "aggregation": "Separate category counts and completed/target coverage; no numeric average or median. Pending, missing and failed executions are not Not applicable."
+    }
   },
   "population": {
     "file": "POPULATION.md",

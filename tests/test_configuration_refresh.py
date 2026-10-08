@@ -37,7 +37,7 @@ def imported(monkeypatch, tmp_path):
                     'Selected judge provider/model is not available through a configured Langfuse LLM connection.',
                     'E-01: managed evaluator requires separate model-using setup before seed.',
                     'E-04: live rule requires separate evaluator setup before seed.',
-                    'Unrelated prerequisite'],
+                    assets.LEGACY_NULLABLE_GATE, 'Unrelated prerequisite'],
     }
     state.save()
     marker = tmp_path / 'import-marker'
@@ -75,8 +75,8 @@ def test_refresh_preserves_import_and_all_non_evaluator_evidence(imported):
     expected['provisioning'].update(evaluators=configured['evaluators'], evaluator_rules=configured['evaluator_rules'],
                                     missing=['Unrelated prerequisite', *configured['missing']])
     assert after == expected
-    assert len(after['evaluator_rules']) == 8
-    assert any('E-02/E-03' in item for item in after['provisioning']['missing'])
+    assert len(after['evaluator_rules']) == 10
+    assert not any('E-02/E-03' in item for item in after['provisioning']['missing'])
     assert all(p.read_bytes() == contents for p, contents in immutable.items())
     assert not api.writes
     saved = Path(RunState.state_path()).read_bytes()
@@ -189,7 +189,19 @@ def test_refresh_rejects_incompatible_generation_modes(imported, options):
 def test_cli_refresh_dispatch_and_dry_run_exclusion(imported, monkeypatch):
     monkeypatch.setattr('synth.cli.load_config', lambda *a, **kw: imported[0])
     assert main(['seed', '--config', 'unused.yaml', '--refresh-configuration']) == 0
-    assert len(RunState.load().evaluator_rules) == 8
+    assert len(RunState.load().evaluator_rules) == 10
     with pytest.raises(SystemExit) as failure:
         main(['seed', '--config', 'unused.yaml', '--refresh-configuration', '--dry-run'])
     assert failure.value.code == 2
+
+
+def test_old_numeric_pilot_receipt_requires_fresh_target_before_any_network(imported, monkeypatch):
+    state = RunState.load()
+    state.run_receipt.pop('score_contract')
+    state.save()
+    path = Path(RunState.state_path())
+    before = path.read_bytes()
+    monkeypatch.setattr(seed, 'assert_demo_project', lambda *a: pytest.fail('Must not access old pilot'))
+    with pytest.raises(RuntimeError, match='fresh target'):
+        refresh(imported)
+    assert path.read_bytes() == before

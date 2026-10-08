@@ -17,7 +17,8 @@ from langfuse_synth_core.rng import Rng
 from langfuse_synth_core.seed.events import generation_event, observation_event, score_event, trace_event
 from langfuse_synth_core.seed.otlp import trace_root_span_id
 
-from .catalog import dataset_items, load_fixture, prompt_by_id, score_definitions, system_prompt
+from .scores import outcome_value
+from .catalog import dataset_items, load_fixture, prompt_by_id, score_definitions, system_prompt, rubric_revisions
 from .config import DERIVATION_HOOK
 from .reference_tools import (CHAT_OPERATION_NAME, GENERATION_OPERATION_NAME, REFERENCE_RETRIEVER_NAME, FEE_TOOL_NAME,
                               reference_arguments, validate_reference, fee_arguments, calculate_fee,
@@ -159,12 +160,14 @@ def _task_timestamp(index: int, rng: Rng, run_date: datetime) -> tuple[datetime,
 
 
 def _root(*, trace_id, timestamp, name, metadata, user_id=None, session_id=None, input=None, output=None,
-          environment="production-history", obs_type="span"):
+          environment="production-history", obs_type="span", prompt_ids=()):
     # Compose core builders: shell propagation and observation-local evaluator context.
     # Putting evaluation_subject into trace metadata would leak it to every child.
     shell = trace_event(trace_id=trace_id, timestamp=timestamp, name=name, user_id=user_id,
                         session_id=session_id, tags=["authored-history", "fictional"],
-                        environment=environment, input=input, output=output)
+                        environment=environment, input=input, output=output,
+                        metadata={"rubric_revisions": {eid: revision for pid in sorted(prompt_ids)
+                                                       for eid, revision in rubric_revisions(pid).items()}})
     root = observation_event(obs_id=trace_root_span_id(trace_id), trace_id=trace_id,
                              name=name, obs_type=obs_type, start=timestamp,
                              environment=environment, metadata={**metadata, "request_id": trace_id}, input=input, output=output)
@@ -208,7 +211,7 @@ def _metadata(prompt_id, version, case_id, source, question, history, *, subject
               "cohort": "production-history", "evidence_kind": "authored-synthetic-history",
               "evaluation_subject": subject, "current_user_message": question,
               "prior_messages": deepcopy(history), "reference_context": deepcopy(source),
-              "rubric_revision": "r1", "judge_executed": False}
+              "rubric_revisions": rubric_revisions(prompt_id, subject=subject), "judge_executed": False}
     if output is not None:
         result["assistant_reply"] = output
     return result
@@ -234,7 +237,7 @@ def _generation(rng, trace_id, index, prompt_id, version, start, case_id, questi
         metadata["calculation_results"] = deepcopy(model_reference["calculation_results"])
     definitions = score_definitions()
     metadata.update({"synthetic_pricing": True, "synthetic_usage": True,
-                     "expected_outcomes": {eid: {"value": value, "status": "inapplicable" if value is None else "complete"}
+                     "expected_outcomes": {eid: {"value": outcome_value(eid, value), "data_type": definitions[eid]["data_type"], "status": "complete"}
                                            for eid, value in sorted(outcomes.items())
                                            if definitions[eid]["subject"] == "assistant_reply"}})
     rendered = output if isinstance(output, str) else json.dumps(output, sort_keys=True)
@@ -255,16 +258,16 @@ def _scores(rng, trace_id, index, root_id, gen_id, outcomes, timestamp, case_id,
             environment="production-history"):
     definitions, result = score_definitions(), []
     for eid, value in sorted(outcomes.items()):
-        # Numeric score records require numbers. Null stays explicit on its subject.
-        if value is None:
-            continue
         definition = definitions[eid]
+        value = outcome_value(eid, value)
+        if value is None:
+            raise ValueError(f"Missing authored outcome for {eid}")
         subject = root_id if definition["subject"] == "user_input" else gen_id
         detail = "quoted" if eid == "E-07" and (case_id == "C-07" or "quoted" in case_id) else "direct"
         result.append(score_event(score_id=rng.score_id(index, eid, subject), name=definition["name"],
-            value=value, data_type="NUMERIC", trace_id=trace_id, observation_id=subject,
+            value=value, data_type=definition["data_type"], trace_id=trace_id, observation_id=subject,
             timestamp=timestamp + timedelta(milliseconds=20), environment=environment,
-            comment=f"Authored fixture expectation; no judge executed. {eid}/r1; case {case_id}; "
+            comment=f"Authored fixture expectation; no judge executed. {eid}/{definition['revision']}; case {case_id}; "
                     f"subject {definition['subject']}. " + (f"Profanity presence: {detail}. " if eid == "E-07" and value else "") +
                     definition["rubric"]))
     return result
@@ -320,7 +323,7 @@ def build_events(target_traces: int, params: Mapping[str, Any], *, run_date: dat
                              "relative_day": day, "expected_outcomes": {eid: {"value": value, "status": "complete"}
                                  for eid, value in sorted(outcomes.items()) if definitions[eid]["subject"] == "user_input"}})
             events.append(_root(trace_id=trace_id, timestamp=timestamp, name=CHAT_OPERATION_NAME,
-                user_id=user_id, session_id=session_id, metadata=metadata, obs_type="span",
+                user_id=user_id, session_id=session_id, metadata=metadata, obs_type="span", prompt_ids=(prompt_id,),
                 input={"role": "user", "content": turn["user_message"]}, output={"role": "assistant", "content": output}))
             reference_events, generation_start, resolved, model_reference = _reference_resolution(
                 r, trace_id, turn_index, prompt_id, timestamp, source, turn["user_message"])
@@ -339,7 +342,8 @@ def build_events(target_traces: int, params: Mapping[str, Any], *, run_date: dat
         trace_id = r.trace_id(index)
         request = load_fixture("portfolio")["multi_prompt_example"]["user_request"]
         final = dataset_items("PR-09")[0]["expected_output"]
-        events.append(_root(trace_id=trace_id, timestamp=start, name="Service request review", metadata={
+        events.append(_root(trace_id=trace_id, timestamp=start, name="Service request review",
+            prompt_ids=("PR-04", "PR-05", "PR-09"), metadata={
             "application_id": "APP-04", "fixture_case_id": "FLOW-01", "cohort": "production-history",
             "evidence_kind": "authored-synthetic-history", "relative_day": day},
             input={"role": "user", "content": request}, output={"role": "assistant", "content": final}))
@@ -375,6 +379,7 @@ def build_events(target_traces: int, params: Mapping[str, Any], *, run_date: dat
             question, context = item["input"]["user_message"], item["input"]["reference_context"]
             output, expected = item["expected_output"], item["metadata"]["expected_scores"]
             events.append(_root(trace_id=trace_id, timestamp=start, name=prompt_by_id(pid)["title"] + " request",
+                prompt_ids=(pid,),
                 metadata={"application_id": prompt_by_id(pid)["application_id"], "fixture_case_id": item["case_id"],
                           "cohort": "production-history", "relative_day": day, "evidence_kind": "authored-synthetic-history"},
                 input={"role": "user", "content": question}, output=output))
@@ -409,7 +414,7 @@ def build_historical_experiment_events(params: Mapping[str, Any], *, run_date: d
         outcomes = {eid: value for eid, value in item["metadata"]["expected_scores"].items()
                     if definitions[eid]["subject"] == "assistant_reply"}
         events.append(_root(trace_id=trace_id, timestamp=timestamp,
-            name=prompt["title"] + " historical experiment", environment="experiment",
+            name=prompt["title"] + " historical experiment", environment="experiment", prompt_ids=(pid,),
             metadata={"application_id": prompt["application_id"], "cohort": "experiment",
                       "fixture_case_id": item["case_id"], "execution_kind": "authored-historical-experiment",
                       "judge_executed": False}, input={"role": "user", "content": question}, output=output))

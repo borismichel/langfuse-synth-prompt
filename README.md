@@ -7,7 +7,9 @@ an instrumented conversation.
 The companion contains three fictional financial-services assistants. Nine managed
 prompt families, eight opening versions each, matching datasets and two evaluation
 subjects support the story. Input signals describe what the assistant hears; reply
-criteria describe what it generates. The presenter decides whether to promote,
+criteria describe what it generates. The two factual checks use **Pass**, **Fail**
+and **Not applicable** across history, experiments and live chats, reported as
+separate category counts. The presenter decides whether to promote,
 independent of score thresholds.
 
 Start with the [Presenter Runbook](DEMO_SCRIPT.md). The accepted
@@ -64,12 +66,22 @@ approved target or a separately authorised reset; it must never be blindly retri
 
 ## Readiness
 
-This implementation is undergoing authoring checks. Live project verification,
-managed evaluator calibration, protected-label role checks, signed release,
-admission and staging rehearsal require separate evidence. Consult
-[authoring review](docs/demo/authoring/REVIEW.md) for the current recorded status.
+Authoring checks verify the native prompt/metrics flow, protected-label owner
+promotion and a four-turn live session with 32 input/reply EVAL scores. The corrected
+native v7/v9 experiment pair produced 16 outputs and 64 scores: style 0.00 → 0.75,
+both factual criteria eight Passes per version, tone 1.00. The promoted live run
+resolved v9 correctly but retained ordinary prose on all four turns. Results and
+input-judge calibration failures are preserved; no score gate or quality retry ran.
+The initial invalid-context experiment is retained separately.
+See [native rehearsal](docs/demo/authoring/NATIVE_REHEARSAL.md) and
+[authoring review](docs/demo/authoring/REVIEW.md) for evidence and remaining gates.
+
+Full-scale categorical history, live evaluator calibration, member-denial checks,
+signed release and Depot admission remain pending. Earlier numeric pilot history
+is preserved and does not establish the new categorical contract.
 
 The full population specification is 1,620 production-history traces, 2,100
 generations and 9,320 eligible outcomes over 28 complete days, plus eighteen small
-historical experiment traces. Numeric scores omit genuinely inapplicable outcomes.
+historical experiment traces. E-02/E-03 include explicit Not applicable categories;
+missing, pending and failed executions remain distinct.
 History, products, accounting prices, user identities and replies are synthetic.

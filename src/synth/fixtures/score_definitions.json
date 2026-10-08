@@ -15,25 +15,31 @@
     "id": "E-02",
     "name": "record_fidelity",
     "subject": "assistant_reply",
-    "data_type": "NUMERIC",
-    "rubric": "1 = answers the requested factual issue accurately and retains material conditions; 0 = wrong amount/condition, material omission, unsupported financial assertion or failure to answer an answerable factual question. Null only if no factual issue is applicable. Honest uncertainty passes when the record genuinely lacks the answer.",
+    "data_type": "CATEGORICAL",
+    "rubric": "Pass = answers the requested factual issue accurately and retains material conditions; Fail = wrong amount/condition, material omission, unsupported financial assertion or failure to answer an answerable factual question. Not applicable only if no factual issue is applicable. Honest uncertainty passes when the record genuinely lacks the answer.",
     "required_evidence": "Current question, supplied record, relevant prior turns and reply.",
-    "revision": "r1",
+    "revision": "r2",
     "producer": "llm-judge",
-    "minimum": 0,
-    "maximum": 1
+    "categories": [
+      "Pass",
+      "Fail",
+      "Not applicable"
+    ]
   },
   "E-03": {
     "id": "E-03",
     "name": "claim_support",
     "subject": "assistant_reply",
-    "data_type": "NUMERIC",
-    "rubric": "1 = every substantive product/action claim is supported by the supplied record; 0 = at least one unsupported claim. Null if there are no substantive claims. An explicit statement that the record lacks information is judged against the record. Metaphors do not count as financial facts.",
+    "data_type": "CATEGORICAL",
+    "rubric": "Pass = every substantive product/action claim is supported by the supplied record; Fail = at least one unsupported claim. Not applicable if there are no substantive claims. An explicit statement that the record lacks information is judged against the record. Metaphors do not count as financial facts.",
     "required_evidence": "The same record actually supplied to the answering model, reply and question.",
-    "revision": "r1",
+    "revision": "r2",
     "producer": "llm-judge",
-    "minimum": 0,
-    "maximum": 1
+    "categories": [
+      "Pass",
+      "Fail",
+      "Not applicable"
+    ]
   },
   "E-04": {
     "id": "E-04",

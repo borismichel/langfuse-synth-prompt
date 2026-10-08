@@ -82,3 +82,13 @@ No fixed real model/API credentials are required for this story/prototype packet
 Choose and record an available model and compatible model settings before live
 execution. Baseline and candidate keep that choice fixed. Validate exact current
 API/SDK/server versions then, preserving the kit's separately pinned core release.
+
+## Factual-check representation amendment (D-32)
+
+Keep E-02/E-03 semantic rubrics, IDs and cases unchanged. Across history,
+experiments and live chats, expose single categorical results `Pass`, `Fail`,
+`Not applicable`. Map existing authored 1/0/null labels explicitly. Show category
+counts with completion coverage; no numeric averages or medians for these two
+criteria. A completed Not applicable result never stands for pending/error.
+See the approved amendment in [REVIEW.md](REVIEW.md) and the precise mapping in
+[EVALUATION_PLAN.md](EVALUATION_PLAN.md).

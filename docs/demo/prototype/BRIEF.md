@@ -25,7 +25,7 @@ Presenter discretion remains decisive even with disappointing scores.
 | --- | --- | --- |
 | Prompt portfolio | Nine searchable families; eight opening versions each; purposes, live/history split, task datasets, uneven usage and synthetic cost differences | Local simulation; actual native prompt UI not copied |
 | Main prompt | Exact v7/v9 system text, staged editor, immutable saved version, labels, version intent, source/context and eight examples | Local simulation; older complete text is an identified storyboard |
-| Metrics | PR-01 version use, cost from usage/prices, median latency, per-criterion median/coverage; secondary current-version costs | Authored aggregate preview, not derived from representative traces |
+| Metrics | PR-01 version use, cost from usage/prices, median latency, numeric medians/coverage and factual-check category counts; secondary current-version costs | Authored aggregate preview, not derived from representative traces |
 | Experiment | Two runs × eight cases × four output criteria; inspect paired outputs, reasons and controls; expected/mixed/flat scenarios; pending state | Authored outcomes, no judge/model execution |
 | Promotion | Member rejected; admin allowed independent of scores; old calls retain versions | Simulated roles; no native security verification |
 | Companion | Three chatbots, scripted replies, feedback, fresh conversations, explicit fetch/evaluation completion controls | Local simulation; no account actions or live LLM |
@@ -57,12 +57,13 @@ accepted by the user. No separate companion sentiment dashboard was added.
   token usage for secondary prompts is a prototype assumption; prices/model labels
   come from the story's fictional accounting contract.
 
-Initial evidence: **24 traces, 51 observations, 137 numeric-or-null outcomes and
+Initial evidence: **24 traces, 51 observations, 137 numeric/categorical outcomes and
 12 active criterion definitions**. The thirteenth planned definition is optional
 customer feedback; it has no record until used. One completed comparison adds
 16 traces and 64 outcomes. A four-turn PR-01 chat adds eight observations and 32
 outcomes (16 input, 16 reply), plus feedback if supplied. Repeated runs get unique
-IDs; coverage retains previous runs. Null is displayed as inapplicable, not zero.
+IDs; coverage retains previous runs. Authored E-02/E-03 values 1/0/null map to Pass/Fail/Not applicable. Category
+counts replace their numeric averages/medians; execution status remains separate.
 
 Root input scores E-05–E-08 do not migrate to selected generations. Output scores
 E-01–E-04 belong to the answering generation. Both targets carry the current

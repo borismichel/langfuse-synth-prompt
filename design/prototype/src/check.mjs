@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
-import {initialState,transition as t,product,portfolio,visibleTotals,coverage,definitions,recordsFor,systemFor} from './model.mjs';
+import {initialState,transition as t,product,portfolio,visibleTotals,coverage,definitions,recordsFor,systemFor,scoreDisplay,categoryCounts,traceScores,makeTrace} from './model.mjs';
 import {days,hours,lengths,usage,versions} from './population.mjs';
 let s=initialState();const initial=visibleTotals(s);
 assert.equal(s.production,7);assert.equal(portfolio.prompts.length,9);assert.equal(portfolio.prompts.reduce((n,p)=>n+p.versions.length,0),72);
@@ -18,7 +18,7 @@ assert.deepEqual(t(s,{type:'finishExperiment'}),s);
 s=t(s,{type:'promote'});assert.equal(s.production,7);assert.match(s.notice,/protected/);
 s=t(s,{type:'save',text:product.prompt_comparison.candidate_system});assert.equal(s.candidate.fixtureMatches,true);
 s=t(s,{type:'startExperiment',scenario:'mixed'});assert.equal(s.experiment.status,'pending');assert.equal(s.scores.length,initial.records);
-s=t(s,{type:'finishExperiment'});assert.equal(s.scores.length,initial.records+64);assert.equal(s.experiment.traces.length,16);assert.equal(s.scores.find(r=>r.id===s.experiment.traces.find(id=>id.includes('v9-C-02'))+':E-02:r1').value,0);
+s=t(s,{type:'finishExperiment'});assert.equal(s.scores.length,initial.records+64);assert.equal(s.experiment.traces.length,16);assert.equal(s.scores.find(r=>r.id===s.experiment.traces.find(id=>id.includes('v9-C-02'))+':E-02:r2').stringValue,'Fail');
 s=t(s,{type:'promote'});assert.equal(s.production,7);
 s=t(s,{type:'send',promptId:'PR-01',text:product.conversation.turns[0].user});const beforeId=s.pending.trace.id;assert.equal(s.pending.trace.version,7);assert.ok(!s.traces.some(tr=>tr.id===beforeId));
 s=t(s,{type:'receive'});assert.ok(!s.scores.some(r=>r.traceId===beforeId));s=t(s,{type:'evaluate'});assert.equal(s.scores.filter(r=>r.traceId===beforeId).length,8);
@@ -44,3 +44,24 @@ assert.equal(t(s,{type:'save',text:'Changed later'}).candidate.text,s.candidate.
 let custom=t(initialState(),{type:'save',text:'A new unrelated prompt'});assert.equal(t(custom,{type:'startExperiment'}).experiment,null);
 const flow=s.traces.find(x=>x.id==='FLOW-01');assert.deepEqual(flow.nodes.filter(n=>n.type==='GENERATION').map(n=>n.promptId),['PR-04','PR-05','PR-09']);assert.equal(flow.nodes.find(n=>n.type==='TOOL').promptId,undefined);
 console.log('Additional checks passed: rerun coverage, non-improvement, immutable versions, unsupported prompt guard, multi-prompt attribution.');
+
+// Categories preserve applicability without treating absence or failure as N/A.
+assert.equal(scoreDisplay('E-02',1),'Pass');assert.equal(scoreDisplay('E-03',0),'Fail');assert.equal(scoreDisplay('E-03',null),'Not applicable');assert.equal(scoreDisplay('E-02',undefined),'Pending');
+for(const id of ['E-02','E-03']){
+ const rows=[1,0,null].flatMap((value,i)=>traceScores(makeTrace({id:`CATEGORY-${id}-${i}`,sessionId:'CATEGORY-CONTROL',caseId:'CONTRACT-CHECK',user:'Contract check',reply:'Authored contract check',expected:{[id]:value}})));
+ assert.deepEqual(categoryCounts(rows,id),{Pass:1,Fail:1,'Not applicable':1});
+ assert.ok(rows.every(r=>r.dataType==='CATEGORICAL'&&r.value===undefined&&r.status==='complete'));
+ assert.deepEqual(categoryCounts([...rows,{...rows[0],status:'pending'},{...rows[0],status:'failed'}],id),{Pass:1,Fail:1,'Not applicable':1});
+}
+for(const r of s.scores.filter(r=>['E-02','E-03'].includes(r.definitionId))){assert.equal(r.dataType,'CATEGORICAL');assert.equal(r.stringValue,scoreDisplay(r.definitionId,r.authoredValue));assert.equal(r.value,undefined);}
+assert.equal(initialState().scores.find(r=>r.id==='CTRL-03:E-03:r2').stringValue,'Not applicable');
+console.log('Categorical checks passed: exact labels, explicit 1/0/null mapping, history/experiment/live parity, complete N/A versus pending/error, category counts.');
+
+// Rubric provenance follows the shared definition across every simulated stage.
+for(const d of definitions)assert.equal(d.revision,['E-02','E-03'].includes(d.id)?'r2':'r1');
+for(const r of s.scores){
+ const definition=definitions.find(d=>d.id===r.definitionId);
+ assert.equal(r.revision,definition.revision);
+ if(r.definitionId!=='F-01')assert.ok(r.id.endsWith(':'+definition.revision));
+}
+console.log('Rubric provenance passed: E-02/E-03 r2, all other criteria r1, shared record revisions and identifiers.');

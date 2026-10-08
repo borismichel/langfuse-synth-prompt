@@ -9,7 +9,7 @@ The accepted story and prototype are preserved, with the user-requested
 [trace-detail amendment](../story/TRACE_SHAPES.md). Four source fixtures
 are copied byte-for-byte into `src/synth/fixtures`: portfolio, product, examples,
 and dataset extras. Additional authored files supply 72 distinct prompt texts,
-the twelve accepted rubric definitions, and coherent two-, three- and five-turn
+the twelve accepted rubric definitions with the approved categorical factual checks, and coherent two-, three- and five-turn
 conversations. PR-01 v7 and the proposed v9 retain the exact accepted text. The
 candidate is available for live creation; the opening seed contains no v9.
 
@@ -23,8 +23,10 @@ candidate is available for live creation; the opening seed contains no v9.
 - `dataset_items(prompt_id)` returns eight main items or three secondary items
   (normal, adjacent control, missing information), each with complete source,
   role-bearing prior messages, current question and expected output.
-- `score_definitions()` maps E-01–E-12 to the accepted name, subject, numeric type,
-  r1 rubric and required evidence.
+- `score_definitions()` maps E-01–E-12 to the accepted name, subject, score type,
+  rubric revision and required evidence. E-02/E-03 use CATEGORICAL revision `r2`;
+  other criteria remain numeric revision `r1`. The factual criteria retain
+  their semantic meaning.
 - `calibration_cases()` exposes the three accepted negative controls separately.
   Their style, factuality and respectfulness dimensions remain independent.
 - `historical_experiment_cases()` exposes eighteen fixed v2/v4 examples. Their
@@ -54,11 +56,17 @@ Each prompt has v2 and v4 history. These records use the `experiment` cohort;
 no input metric is copied onto a generation to improve a native prompt chart.
 Provisioning attaches their dataset run items after successful import.
 
-An outcome is not necessarily a numeric score. Inapplicable outcomes remain on
-their exact subject as `{value: null, status: inapplicable}`. Numeric score writes
-exclude those outcomes because Langfuse numeric scores require numbers. Missing
-values are never recorded as a passing score or zero. The accepted 9,320 is the
-numeric-or-null denominator, not an unconditional score-record count.
+E-02/E-03 outcomes are single categorical values `Pass`, `Fail`, `Not applicable`
+on their exact subjects. Source fixture calibration labels remain unchanged:
+`1` maps to `Pass`, `0` to `Fail`, and `null` to `Not applicable`. The materializer
+writes a categorical score for each completed factual judgment, including
+Not applicable; it does not omit that score or substitute a numeric sentinel.
+Other criteria retain their numeric representation. Missing or failed execution
+is never inferred from an authored null label or counted as passing. The accepted
+9,320 is the numeric/categorical outcome plan; report factual category counts and
+completion coverage separately. Receipt marker `categorical-factual-r2` separates
+this output contract from the earlier numeric pilot. E-02/E-03 rubric revision
+is `r2`, with other criteria on `r1`; the factual criteria retain their meaning.
 
 ## Chronology and identities
 
@@ -115,20 +123,24 @@ invented because no historical judge executes.
 version distinctions, nine-family small coverage, explicit score subjects,
 context/replay consistency, human timing, FLOW-01 links, usage-derived costs,
 historical version intervals, DST bounds, deterministic replay, and the eighteen
-separate historical experiment links. Full-volume counts are tested as a pure
-plan without materializing that population.
+separate historical experiment links. Full-volume counts and categorical coverage
+are checked by pure planning and model-free in-memory regression generation.
 
 The 24-trace sample covers main v1/v7 contrasts, disagreement, correction,
 contradiction and quoted profanity. A bounded 48-trace sample covers all active
 historical versions across the portfolio. Samples of 24, 48 and 72 were inspected;
-the 1,620-trace dataset has not been generated. Its full-volume checks remain
-pending the complete small live walkthrough, as required by the authoring skill.
+the 1,620-trace population was generated offline in memory for count/category
+regression checks. No deliverable full-volume spool or target import is claimed.
+Full-volume delivery/readback remains pending the complete small walkthrough.
 Golden updates belong to the parent seed path and must use the supported freeze
 command after process-repeatability checks; none were hand-edited here.
 
 Live persistence, native dataset-run linkage, prompt metrics and session UI,
 actual judges/calibration, protected-label enforcement, admission and presenter
-rehearsal are separate verification gates. Local fixtures establish none of them.
+rehearsal require separate evidence. The pilot and later native checks establish
+some of those checkpoints (see [native rehearsal](NATIVE_REHEARSAL.md)); local
+fixtures alone establish none of them. Full-scale categorical delivery/readback,
+member-denial rehearsal, signed release and Depot admission remain pending.
 
 Current official semantics checked during authoring:
 [sessions](https://langfuse.com/docs/observability/features/sessions),
@@ -152,3 +164,30 @@ The existing live pilot predates this amendment. Its saved verification report
 remains evidence of the prior shape, not these new spans. Do not reimport the
 changed spool into that populated project; use a fresh authorised target or an
 authorised reset when the complete small live walkthrough can proceed.
+
+
+## Native experiment compatibility after D-32
+
+Native dataset metadata now includes top-level `eval_*` context leaves alongside
+its structured provenance. Native prompt experiments flatten nested metadata;
+serialized prior-message/reference leaves preserve the complete evaluator inputs.
+The [repair evidence](evidence/experiment-context-repair.json) records readback
+of all 32 unchanged case IDs and corrected evaluator mappings. This changes
+transport representation only; no source fact, expected reply or authored score
+label changes. Historical experiment item metadata uses the same builder.
+
+The first native v9 attempt is preserved with invalid empty-context factual
+measurements. Corrected v7 then produced eight outputs and 32 genuine EVAL scores,
+including eight Pass results for each factual criterion; these are observed judge
+results, not deterministic fixture expectations or proof of judge reliability.
+The [native readback](evidence/native-experiments.json) retains both records and
+the [rehearsal](NATIVE_REHEARSAL.md) tracks the subsequent corrected comparison.
+Old numeric seeded history remains separate; configuration refresh refuses its
+older score contract rather than reclassifying it as categorical evidence.
+
+
+Captured live evidence with an earlier umbrella `rubric_revision=r1` remains
+archived unchanged. That historical metadata is not a current revision claim for
+E-02/E-03. Current criterion definitions and exact evaluator-version readback
+establish the applicable revisions; new runtime metadata records them per
+criterion. No past score, receipt or judge execution is rewritten by this correction.

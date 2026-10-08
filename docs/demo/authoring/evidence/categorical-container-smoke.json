@@ -1,0 +1,84 @@
+{
+  "uid": 10001,
+  "network": "none",
+  "read_only_root": true,
+  "dry_run": true,
+  "score_contract": "categorical-factual-r2",
+  "small": {
+    "history_target": 24,
+    "actual_traces": 42,
+    "generations": 50,
+    "scores": 174,
+    "spooled_events": 287,
+    "observations": 113
+  },
+  "full_history": {
+    "scores": 9320,
+    "observations": 5101,
+    "traces": 1620,
+    "events": 14421,
+    "categorical_counts": {
+      "record_fidelity": {
+        "Pass": 1134,
+        "Fail": 43,
+        "Not applicable": 3
+      },
+      "claim_support": {
+        "Pass": 1134,
+        "Fail": 43,
+        "Not applicable": 3
+      }
+    }
+  },
+  "authored_experiments": {
+    "scores": 36,
+    "observations": 36,
+    "traces": 18,
+    "events": 72,
+    "categorical_counts": {
+      "record_fidelity": {
+        "Pass": 8
+      },
+      "claim_support": {
+        "Pass": 8
+      }
+    }
+  },
+  "combined_full_seed_scores": 9356,
+  "runbook_delivered": true,
+  "runbook_sha256": "6e5a09de213dedb3bd295891e6d9ebe2b2f001581dd32305a51f8c86955ca3ae",
+  "secret_files_excluded": true,
+  "credentials_absent": true,
+  "preview_health_index_chat": true,
+  "preview_health_status": 503,
+  "preview_claims_live_readiness": false,
+  "native_experiment_context_serialized": true,
+  "criterion_revision_provenance_scoped": true,
+  "provider_packages": {
+    "anthropic": "1.12.1",
+    "openai": "3.26.1"
+  },
+  "runtime_source_sha256": {
+    "synth.assets": "4172982189d047fc3da7ffb3c7f4475bd3002ae45c3e3fd891f0d588c7d63ab1",
+    "synth.catalog": "7c145a5dd4c79e2fa7dfba113ce32e586136329b6d51f805f873be2def0dbeab",
+    "synth.materialize": "6436080c2ef6897d0a0c830d242461d9b6724f4194c8860d40e6f0b05dc40505",
+    "synth.receipt": "bc83a1acd0d6cb68cabc694e0530aad8c73920ed27838cb82c38d9235fcf21f7",
+    "synth.scores": "f8c00006852f7584cc898c189426639a01ce6c6901cdc5d2ecfe51b2923aa26c",
+    "synth.companion.service": "e495e4244eb1b29e32e282f9b9490e366e2e5d541cdd066bc86dc0a0b55f1763"
+  },
+  "checked_at": "2026-10-08T21:41:59.443841+00:00",
+  "image": "langfuse-synth-prompt:categorical-local",
+  "image_id": "sha256:6daf0a548413b993607a5091380be8e8f7b5f8977a5770416f6a2d982eac0f8d",
+  "published": false,
+  "live_data_changed": false,
+  "host_runtime_source_matches": true,
+  "host_runbook_matches": true,
+  "core_release": "v4.1.1",
+  "core_peeled_commit": "6b86ac16d797cd0c6a80da1cdd68e8fc8998c18d",
+  "generation": {
+    "seed": 42,
+    "as_of_date": "2026-10-08"
+  },
+  "scope": "Local image rebuilt after per-criterion rubric provenance refinement. Offline model-free seed, categorical definitions and context, fixture preview; no live readiness or admission claim.",
+  "smoke_helper_sha256": "5f28dc16222e6eba31f7f3f1b3e22caca49e0dd0fdd7ecef823a7f6d581ab59c"
+}

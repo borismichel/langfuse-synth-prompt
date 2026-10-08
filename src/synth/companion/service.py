@@ -15,7 +15,8 @@ from typing import Any
 from urllib.parse import quote
 from uuid import uuid4
 
-from synth.catalog import load_fixture, prompt_by_id, score_definitions
+from synth.scores import read_score_value, CATEGORIES
+from synth.catalog import load_fixture, prompt_by_id, score_definitions, rubric_revisions
 from synth.reference_tools import (
     CHAT_OPERATION_NAME, GENERATION_OPERATION_NAME, REFERENCE_RETRIEVER_NAME, FEE_TOOL_NAME,
     reference_arguments, validate_reference, fee_arguments, calculate_fee, generation_reference,
@@ -127,7 +128,7 @@ class ConversationService:
         root_input = {"messages": [{"role": "user", "content": message}]}
         metadata = {"kit": "prompt", "evidence_kind": "live" if not self.preview else "fixture",
                     "application_id": spec["application_id"], "prompt_id": session.prompt_id,
-                    "prompt_name": spec["name"], "rubric_revision": "r1",
+                    "prompt_name": spec["name"], "rubric_revisions": rubric_revisions(session.prompt_id, subject="user_input"),
                     "evaluation_subject": "user_input", "request_id": request_id, **context}
         record = {"request_id": request_id, "session_id": session.id, "user": message,
                   "reply": "", "status": "failed", "prompt_name": spec["name"],
@@ -137,7 +138,8 @@ class ConversationService:
             emitter = self.emitter()
             with emitter.trace(CHAT_OPERATION_NAME, session_id=session.id,
                                environment=LIVE_ENVIRONMENT, tags=["prompt", "live", session.prompt_id],
-                               input=root_input, metadata={k: metadata[k] for k in ("kit", "evidence_kind", "application_id", "prompt_id", "prompt_name", "rubric_revision", "request_id")}) as root:
+                               input=root_input, metadata={**{k: metadata[k] for k in ("kit", "evidence_kind", "application_id", "prompt_id", "prompt_name", "request_id")},
+                                                          "rubric_revisions": rubric_revisions(session.prompt_id)}) as root:
                 root.update(metadata=metadata)
                 record.update(trace_id=root.id, root_observation_id=root.observation_id)
                 try:
@@ -187,7 +189,8 @@ class ConversationService:
                     # Core provider seam takes one system string; these are its exact inputs.
                     model_messages = [{"role": "system", "content": system_with_reference}, *messages]
                     llm = self.adapter.llm()
-                    generation_metadata = {**metadata, "evaluation_subject": "assistant_reply"}
+                    generation_metadata = {**metadata, "evaluation_subject": "assistant_reply",
+                                           "rubric_revisions": rubric_revisions(session.prompt_id, subject="assistant_reply")}
                     if calculation is not None:
                         generation_metadata["calculation_results"] = model_reference["calculation_results"]
                     with root.generation(GENERATION_OPERATION_NAME, model=llm.model, prompt=prompt,
@@ -261,14 +264,22 @@ class ConversationService:
         except Exception:
             return {"status": "unavailable", "scores": [], "message": "Score readback is unavailable; inspect native evaluation logs."}
         definitions = score_definitions()
-        expected = [(definitions[e]["name"], record["root_observation_id"] if definitions[e]["subject"] == "user_input" else record["generation_id"])
-                    for e in prompt_by_id(session.prompt_id)["evaluation_ids"]]
+        expected = {(definitions[e]["name"], record["root_observation_id"] if definitions[e]["subject"] == "user_input" else record["generation_id"]): definitions[e]
+                    for e in prompt_by_id(session.prompt_id)["evaluation_ids"]}
         actual = {}
+        invalid = False
         for row in rows:
             key = (row.name, row.observation_id)
             if key in expected:
-                actual[key] = {"id": row.id, "name": row.name, "value": row.value,
+                definition = expected[key]
+                if row.data_type != definition["data_type"] or (row.data_type == "CATEGORICAL" and read_score_value(row) not in CATEGORIES):
+                    invalid = True
+                    continue
+                if key in actual:
+                    invalid = True
+                    continue
+                actual[key] = {"id": row.id, "name": row.name, "value": read_score_value(row), "data_type": row.data_type,
                                "comment": row.comment, "observation_id": row.observation_id}
-        return {"status": "complete" if len(actual) == len(expected) else "pending",
+        return {"status": "invalid" if invalid else "complete" if len(actual) == len(expected) else "pending",
                 "scores": list(actual.values()), "received": len(actual), "expected": len(expected),
-                "message": "Missing outcomes may be queued or failed; inspect native evaluation logs." if len(actual) < len(expected) else "Actual evaluator outcomes received."}
+                "message": "Unexpected score type, category, or duplicate; inspect native evaluation logs." if invalid else "Missing outcomes may be queued or failed; inspect native evaluation logs." if len(actual) < len(expected) else "Actual evaluator outcomes received."}

@@ -33,13 +33,13 @@ def actual():
     return Trace(id=e['id'], observations=[Observation(id=o['id'], trace_id=e['id'],
         name=o['name'],type=o['type'],start_time=datetime(2026,1,1,tzinfo=timezone.utc),
         session_id=o['session_id'],input=o['input'],output=o['output'],metadata={'evaluation_subject':'user_input'})],
-        scores=[Score(id='s1',name='user_disagreement',observation_id=o['id'],numeric_value=1)])
+        scores=[Score(id='s1',name='user_disagreement',observation_id=o['id'],numeric_value=1,data_type='NUMERIC')])
 
 
 def test_exact_observation_subjects_required():
     value=actual()
     assert verify_trace(reader_for(value),expected()).ok
-    value.scores[0]=Score(id='s1',name='user_disagreement',observation_id='c'*16,numeric_value=1)
+    value.scores[0]=Score(id='s1',name='user_disagreement',observation_id='c'*16,numeric_value=1,data_type='NUMERIC')
     assert not verify_trace(reader_for(value),expected()).ok
 
 
@@ -124,3 +124,29 @@ def test_receipt_keeps_conditional_calculator_evidence_and_synthetic_provenance(
             generation = next(o for o in trace['observations'] if o['type'] == 'GENERATION')
             assert generation['operation_metadata']['calculation_results'] == [{
                 'operation': FEE_TOOL_NAME, 'arguments': tool['input'], 'result': tool['output']}]
+
+
+@pytest.mark.parametrize('label', ['Pass', 'Fail', 'Not applicable'])
+def test_categorical_receipt_readback_uses_label_even_with_numeric_category_code(label):
+    e = expected()
+    e['scores'][0].update(name='record_fidelity', value=label, dataType='CATEGORICAL')
+    value = actual()
+    value.scores[0] = Score(id='s1', name='record_fidelity', observation_id='b'*16,
+                            data_type='CATEGORICAL', string_value=label, numeric_value=2)
+    assert verify_trace(reader_for(value), e).ok
+    value.scores[0] = Score(id='s1', name='record_fidelity', observation_id='b'*16,
+                            data_type='NUMERIC', numeric_value=0)
+    assert not verify_trace(reader_for(value), e).ok
+
+
+def test_readback_rejects_wrong_criterion_revision_on_its_subject():
+    from dataclasses import replace
+    e = expected()
+    e['observations'][0]['rubric_revisions'] = {'E-05': 'r1'}
+    value = actual()
+    value.observations[0] = replace(value.observations[0],
+        metadata={'evaluation_subject': 'user_input', 'rubric_revisions': {'E-05': 'r1'}})
+    assert verify_trace(reader_for(value), e).ok
+    value.observations[0] = replace(value.observations[0],
+        metadata={'evaluation_subject': 'user_input', 'rubric_revisions': {'E-05': 'r2'}})
+    assert not verify_trace(reader_for(value), e).ok

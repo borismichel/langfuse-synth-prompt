@@ -88,6 +88,12 @@ the own-transfer exception and the unsupported-overdraft case. The separate
 calibration controls illustrate confidently wrong, invented and insulting answers;
 they are not expected answers to the normal cases.
 
+For **record_fidelity** and **claim_support**, compare the **Pass**, **Fail** and
+**Not applicable** counts separately, keeping pending/error states visible.
+Use these same categories in historical inspection, experiments and live chats.
+The other criteria retain their numeric values. A Not applicable result is a
+completed judgment, not a passing result or a missing execution.
+
 Scores can improve, worsen, remain mixed, take time, or fail. Show what actually
 returned. Pending is not zero. Do not rerun until a desired result appears. The
 presenter decides whether this candidate is worth promoting, demonstrating the
@@ -177,8 +183,8 @@ synth verify --config config/demo.yaml --set generation.target_traces=48
 Refresh only reads existing evaluator definitions/rules and saves their validated
 receipts. It preserves seeded events, IDs, the spool and import status, and never
 provisions assets or reimports data. Incomplete or conflicting configuration
-leaves the receipt unchanged. E-02/E-03 and other unresolved prerequisites remain
-visible; a refresh does not establish live evaluator results. The companion reads
+leaves the receipt unchanged. Categorical E-02/E-03 live verification and other
+unresolved prerequisites remain visible; a refresh does not establish live evaluator results. The companion reads
 the updated receipt on its next connection check.
 
 For the intended 1,620-trace run, use the same seed and as-of date on a **different
@@ -196,3 +202,13 @@ Protected-label setup and both role checks are native project prerequisites.
 See `docs/demo/authoring/READINESS_RESEARCH.md` for release/admission access. A signed,
 immutable candidate and passed staging rehearsal are required before describing
 this kit as demo-ready. Publishing is a separate step.
+
+## Recorded rehearsal caveats
+
+The 2026-10-08 corrected native comparison improved theatrical delivery from
+0.00 to 0.75 while factual checks passed and respectful tone stayed 1.00. The
+subsequent four-turn live session used production v9 with the exact style instruction,
+but every reply retained ordinary prose. Do not promise a deterministic voice change;
+show the resolved version and actual outcomes. Two user-input judges also flagged
+an explicit self-correction incorrectly. See [native rehearsal](docs/demo/authoring/NATIVE_REHEARSAL.md)
+for the preserved results, correct context mappings and remaining permission/delivery checks.

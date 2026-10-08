@@ -5,8 +5,8 @@ import extras from './data/dataset-extras.json' with {type:'json'};
 export {portfolio,product,examples,extras};
 export const definitions=[
  ['E-01','dark_side_delivery','The Dark Side of Customer Service','reply','0 ordinary; 0.5 isolated theatrical wording; 1 recognisable theatrical voice, at most one restrained space metaphor.'],
- ['E-02','record_fidelity','Record fidelity','reply','Correct requested facts and material conditions. Honest uncertainty passes; null when no factual issue applies.'],
- ['E-03','claim_support','Grounded claims','reply','Every substantive claim is supported by the supplied record. Null when no substantive claim exists.'],
+ ['E-02','record_fidelity','Record fidelity','reply','Correct requested facts and material conditions. Honest uncertainty passes; Not applicable when no factual issue applies. Failure to answer an answerable factual question is Fail.'],
+ ['E-03','claim_support','Grounded claims','reply','Every substantive claim is supported by the supplied record. Not applicable when no substantive claim exists.'],
  ['E-04','respectful_tone','Respectful tone','reply','No insult, threat, contempt or mockery aimed at the user.'],
  ['E-05','user_contradiction','User contradiction','input','Conflicting factual self-report without acknowledging correction. Explicit corrections are not contradictions.'],
  ['E-06','expressed_frustration','Expressed frustration','input','Explicit agitation in the current message. Quoting someone else is not evidence of the speaker’s frustration.'],
@@ -17,8 +17,21 @@ export const definitions=[
  ['E-11','handoff_fidelity','Handoff fidelity','reply','Preserves facts, correction, uncertainty and unresolved work; invents no action.'],
  ['E-12','extraction_match','Extraction match','reply','Fields equal the authored expected object, including missing fields as null.'],
  ['F-01','user_feedback','Customer feedback','feedback','Helpful or not helpful; feedback targets the saved request root.']
-].map(([id,name,title,subject,rubric])=>({id,name,title,subject,rubric,revision:'r1',producer:id==='F-01'?'Human feedback': ['E-09','E-12'].includes(id)?'Proposed deterministic check':'Proposed LLM judge'}));
+].map(([id,name,title,subject,rubric])=>({id,name,title,subject,rubric,dataType:['E-02','E-03'].includes(id)?'CATEGORICAL':'NUMERIC',revision:['E-02','E-03'].includes(id)?'r2':'r1',producer:id==='F-01'?'Human feedback': ['E-09','E-12'].includes(id)?'Proposed deterministic check':'Proposed LLM judge'}));
 export const byDef=id=>definitions.find(d=>d.id===id);
+export const factualCategories=['Pass','Fail','Not applicable'];
+export function scoreDisplay(id,value){
+ if(byDef(id)?.dataType!=='CATEGORICAL')return value??'Pending';
+ if(value===1)return 'Pass';
+ if(value===0)return 'Fail';
+ if(value===null)return 'Not applicable';
+ if(factualCategories.includes(value))return value;
+ if(value===undefined)return 'Pending';
+ throw new Error(`Invalid authored factual outcome: ${id}=${value}`);
+}
+export function categoryCounts(records,id){
+ return Object.fromEntries(factualCategories.map(category=>[category,records.filter(r=>r.definitionId===id&&r.status==='complete'&&r.stringValue===category).length]));
+}
 const zeroInput={'E-05':0,'E-06':0,'E-07':0,'E-08':0};
 const asText=value=>typeof value==='string'?value:JSON.stringify(value);
 const baseTime=Date.parse('2026-10-08T09:00:00Z');
@@ -46,7 +59,7 @@ export function traceScores(trace,{outputOnly=false}={}){
   id==='E-07'?(value?(trace.caseId==='C-07'?'Quoted profanity is present; not directed abuse.':'Direct profanity is present in the current user message.'):'No profanity in the current user message.'):
   value?'The user challenges the preceding assistant answer. This does not prove that answer was wrong.':'No challenge to an assistant assertion; self-correction alone does not qualify.';
  }
- return {id:`${trace.id}:${id}:r1`,definitionId:id,name:def.name,value,stringValue:value===null?'Not applicable':undefined,dataType:'NUMERIC',source:'API',observationId,traceId:trace.id,sessionId:trace.sessionId,caseId:trace.caseId,promptId:trace.promptId,stage:trace.stage,producer:def.producer,evidence:'Authored fixture; no evaluator executed',status:value===null?'inapplicable':'complete',comment:reason, timestamp:trace.endTime};
+ return {id:`${trace.id}:${id}:${def.revision}`,definitionId:id,revision:def.revision,name:def.name,value:def.dataType==='CATEGORICAL'?undefined:value,stringValue:def.dataType==='CATEGORICAL'?scoreDisplay(id,value):undefined,dataType:def.dataType,authoredValue:value,source:'API',observationId,traceId:trace.id,sessionId:trace.sessionId,caseId:trace.caseId,promptId:trace.promptId,stage:trace.stage,producer:def.producer,evidence:'Authored fixture; no evaluator executed',status:'complete',applicability:value===null?'not_applicable':'applicable',comment:reason, timestamp:trace.endTime};
  });
 }
 export function caseTrace(c,version,id,stage='history',override={}){
@@ -133,7 +146,7 @@ export function transition(state,action){
  }
  case 'feedback':{
   const trace=s.traces.find(t=>t.id===action.traceId);if(!trace)return {...s,notice:'Reply is not saved yet.'};
-  const id=trace.id+':F-01',record={id,definitionId:'F-01',name:'user_feedback',value:action.value,dataType:'NUMERIC',source:'API',traceId:trace.id,observationId:trace.rootId,sessionId:trace.sessionId,caseId:trace.caseId,stage:trace.stage,producer:'Human feedback',evidence:'Local prototype interaction',comment:action.comment|| (action.value?'Helpful':'Not helpful'),status:'complete',timestamp:new Date()};
+  const id=trace.id+':F-01',record={id,definitionId:'F-01',revision:byDef('F-01').revision,name:'user_feedback',value:action.value,dataType:'NUMERIC',source:'API',traceId:trace.id,observationId:trace.rootId,sessionId:trace.sessionId,caseId:trace.caseId,stage:trace.stage,producer:'Human feedback',evidence:'Local prototype interaction',comment:action.comment|| (action.value?'Helpful':'Not helpful'),status:'complete',timestamp:new Date()};
   return {...s,scores:[...s.scores.filter(r=>r.id!==id),record],notice:'Feedback saved on the request root for this reply.'};
  }
  case 'reset':return initialState();

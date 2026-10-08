@@ -119,7 +119,7 @@ function render() {
       if(turn.observation_url){const a=element('a','Inspect generation ↗','text-button');a.href=turn.observation_url;a.target='_blank';a.rel='noopener';row.append(a);}
       const evaluation=element('button','Check evaluations','text-button');
       const state=element('span',preview?'Fixture preview · evaluators not run':'Evaluations pending','evaluation-note');
-      evaluation.onclick=async()=>{evaluation.disabled=true;try{const result=await api(`/api/conversations/${session.session_id}/evaluations/${turn.request_id}`,{},session);state.textContent=result.message || `${result.received}/${result.expected} outcomes · ${result.status}`;if(result.scores?.length){state.textContent=`${result.received}/${result.expected} outcomes · ${result.status}. `+result.scores.map(s=>`${s.name}: ${s.value===null?'N/A':s.value}`).join(' · ');}}catch(e){state.textContent=e.message}finally{evaluation.disabled=false}};
+      evaluation.onclick=async()=>{evaluation.disabled=true;try{const result=await api(`/api/conversations/${session.session_id}/evaluations/${turn.request_id}`,{},session);state.textContent=result.message || `${result.received}/${result.expected} outcomes · ${result.status}`;if(result.scores?.length){state.textContent=`${result.received}/${result.expected} outcomes · ${result.status}. `+result.scores.map(s=>`${s.name}: ${s.value===null?'Unavailable':s.value}`).join(' · ');}}catch(e){state.textContent=e.message}finally{evaluation.disabled=false}};
       row.append(evaluation,state);$('inspector').append(row);
     }
   }

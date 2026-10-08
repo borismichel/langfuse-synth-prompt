@@ -9,6 +9,7 @@ import json
 from datetime import datetime, timezone
 from pathlib import Path
 from langfuse_synth_core.seed import otlp
+from .scores import SCORE_CONTRACT
 
 
 def attributes(event: dict) -> dict:
@@ -46,6 +47,20 @@ def make_receipt(events: list[dict], spool_path: Path, *, run_date: datetime, se
             operation_shapes.add(shape)
             if e["traceId"] not in trace_ids:
                 trace_ids.append(e["traceId"])
+    # Preserve an example of every categorical outcome present in this run,
+    # including Not applicable even when the first prompt/version case passes.
+    categories = set()
+    for event in events:
+        if event.get('type') != 'score-create':
+            continue
+        body = event['body']
+        if body.get('dataType') != 'CATEGORICAL':
+            continue
+        key = (body['name'], body['value'])
+        if key not in categories:
+            categories.add(key)
+            if body['traceId'] not in trace_ids:
+                trace_ids.append(body['traceId'])
     if not trace_ids:
         trace_ids = list(dict.fromkeys(e['traceId'] for e in spans))[:3]
     trace_ids = trace_ids[:72]
@@ -65,6 +80,8 @@ def make_receipt(events: list[dict], spool_path: Path, *, run_date: datetime, se
                 'session_id': a.get(otlp.SESSION_ID),
                 'input': _decoded(a.get(otlp.OBS_INPUT)), 'output': _decoded(a.get(otlp.OBS_OUTPUT)),
                 'evaluation_subject': _decoded(a.get(otlp.OBS_METADATA_PREFIX + 'evaluation_subject')),
+                **({'rubric_revisions': _decoded(a[otlp.OBS_METADATA_PREFIX + 'rubric_revisions'])}
+                   if otlp.OBS_METADATA_PREFIX + 'rubric_revisions' in a else {}),
                 'operation_metadata': {key: _decoded(a[otlp.OBS_METADATA_PREFIX + key])
                     for key in ('invocation', 'simulated', 'source_id', 'evidence_kind', 'calculation_results')
                     if otlp.OBS_METADATA_PREFIX + key in a},
@@ -75,7 +92,7 @@ def make_receipt(events: list[dict], spool_path: Path, *, run_date: datetime, se
             b = e['body']
             scores.append({k: b.get(k) for k in ('id','name','value','observationId','dataType')})
         traces.append({'id':tid,'observations':observations,'scores':scores})
-    return {'schema_version':1,'run_date':run_date.isoformat(),'seed':seed,'target_traces':target_traces,
+    return {'schema_version':1,'score_contract':SCORE_CONTRACT,'run_date':run_date.isoformat(),'seed':seed,'target_traces':target_traces,
             'spool_sha256':hashlib.sha256(spool_path.read_bytes()).hexdigest(),
             'spooled_events':len(events),'representative_traces':traces,
             'actual_traces':len({e['traceId'] for e in spans}),

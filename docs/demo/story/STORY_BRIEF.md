@@ -67,7 +67,8 @@ an agent or prompt. Those input signals coexist with reply-quality evaluations.
 
 Evidence: the nine-family portfolio, version periods, population preview and
 criterion definitions. Trace drill-down P-03 explains exact generation/version
-links, including FLOW-01. Native prompt metrics documents median score values;
+links, including FLOW-01. Native prompt metrics documents numeric median score values; E-02/E-03 use
+Pass/Fail/Not applicable counts under approved D-32;
 use the appropriate native score/observation surface when an input metric cannot
 be rolled up on that page. Do not fabricate native UI capabilities.
 

@@ -14,13 +14,16 @@ from typing import Any
 from urllib.parse import quote
 
 from synth.catalog import dataset_items, load_fixture, score_definitions, system_prompt
+from .scores import FACTUAL_CRITERIA
 
 MODEL_PRICES = {
     "demo-compact-v1": (0.40, 1.60),
     "demo-standard-v1": (1.0, 4.0),
     "demo-reasoning-v1": (2.0, 8.0),
 }
-NULLABLE_CRITERIA = {"E-02", "E-03"}
+
+# Kept only to reconcile old setup receipts; never emitted for new categorical setups.
+LEGACY_NULLABLE_GATE = "Managed numeric E-02/E-03 inapplicability is unsupported by the current output schema; these judges/rules are pending, and null must not be reported as zero."
 
 
 class AssetConflict(RuntimeError):
@@ -99,11 +102,42 @@ def variable_mapping(eid: str, *, live: bool) -> list[dict]:
         if variable == "assistant_reply":
             result.append({"variable": variable, "source": "output"})
         else:
-            prefix = "$." if live else "$.evaluation_context."
+            prefix = "$." if live else "$.eval_"
             result.append({"variable": variable,
                            "source": "metadata" if live else "experiment_item_metadata",
                            "jsonPath": prefix + variable})
     return result
+
+
+def experiment_item_metadata(item: dict) -> dict:
+    """Keep native evaluator context intact through metadata path flattening.
+
+    Native prompt experiments flatten nested objects into literal dotted keys.
+    Top-level JSON string leaves survive that conversion and are parsed by the
+    evaluator before applying its JSONPath. Existing context remains provenance.
+    """
+    raw = item["input"]
+    context = {"current_user_message": raw["user_message"],
+               "prior_messages": raw["conversation_history"],
+               "reference_context": raw["reference_context"]}
+    return {**item["metadata"], "case_id": item["case_id"], "evaluation_context": context,
+            "eval_current_user_message": context["current_user_message"],
+            "eval_prior_messages": json.dumps(context["prior_messages"], ensure_ascii=False),
+            "eval_reference_context": json.dumps(context["reference_context"], ensure_ascii=False)}
+
+
+def score_config_body(eid: str, definition: dict) -> dict:
+    body = {"name": definition["name"], "dataType": definition["data_type"],
+            "description": f"{eid} · {definition['subject']} · {definition['rubric']}"}
+    if definition["data_type"] == "CATEGORICAL":
+        # Score-config APIs require numeric category identifiers. These are
+        # nominal codes, never score measurements or a quality scale.
+        body["categories"] = [{"label": label, "value": code} for label, code in
+                              (("Pass", 1), ("Fail", 0), ("Not applicable", 2))]
+        body["description"] += " Category codes are nominal identifiers; compare category counts, never numeric averages."
+    else:
+        body.update(minValue=definition["minimum"], maxValue=definition["maximum"])
+    return body
 
 
 def evaluator_body(eid: str, definition: dict, provider: str, model: str) -> dict:
@@ -115,7 +149,10 @@ def evaluator_body(eid: str, definition: dict, provider: str, model: str) -> dic
                   + definition["rubric"] + "\n\n" + context,
         "modelConfig": {"provider": provider, "model": model},
         "variableMapping": variable_mapping(eid, live=False),
-        "outputDefinition": {"dataType": "NUMERIC", "minValue": 0, "maxValue": 1,
+        "outputDefinition": {**({"dataType": "CATEGORICAL", "categories": definition["categories"],
+                                  "shouldAllowMultipleMatches": False}
+                                 if definition["data_type"] == "CATEGORICAL" else
+                                 {"dataType": "NUMERIC", "minValue": 0, "maxValue": 1}),
                              "scoreValueInstructions": definition["rubric"],
                              "scoreReasoningInstructions": "Explain the evidence for this criterion only; identify quoted versus direct profanity when relevant."},
     }
@@ -162,8 +199,7 @@ def _rule_matches(actual: dict, expected: dict) -> bool:
 
 
 def _evaluation_assets(cfg, api, *, create: bool) -> dict:
-    result = {"evaluators": {}, "evaluator_rules": {}, "missing": [
-        "Managed numeric E-02/E-03 inapplicability is unsupported by the current output schema; these judges/rules are pending, and null must not be reported as zero."]}
+    result = {"evaluators": {}, "evaluator_rules": {}, "missing": []}
     settings = getattr(cfg, "evaluation", None)
     provider, model = getattr(settings, "provider", ""), getattr(settings, "model", "")
     if not (provider and model):
@@ -179,7 +215,7 @@ def _evaluation_assets(cfg, api, *, create: bool) -> dict:
     planned = []
     # Validate all existing definitions/rules before setup creates anything.
     for eid, definition in definitions.items():
-        if definition["producer"] != "llm-judge" or eid in NULLABLE_CRITERIA:
+        if definition["producer"] != "llm-judge":
             continue
         desired = evaluator_body(eid, definition, provider, model)
         matches = [e for e in inventory if e.get("name") == desired["name"]]
@@ -272,11 +308,7 @@ def provision_assets(cfg, *, api: AssetAPI | None = None) -> dict:
         })
         result["models"][name] = {"id": created["id"], "input_per_million": prices[0], "output_per_million": prices[1]}
     for eid, definition in definitions.items():
-        created = api.create("/api/public/score-configs", {
-            "name": definition["name"], "dataType": definition["data_type"],
-            "minValue": definition["minimum"], "maxValue": definition["maximum"],
-            "description": f"{eid} · {definition['subject']} · {definition['rubric']}",
-        })
+        created = api.create("/api/public/score-configs", score_config_body(eid, definition))
         result["score_configs"][eid] = {"id": created["id"], "name": definition["name"]}
     for prompt in prompts:
         versions = []
@@ -299,12 +331,10 @@ def provision_assets(cfg, *, api: AssetAPI | None = None) -> dict:
         receipt = {"id": created["id"], "name": name, "items": []}
         for item in dataset_items(prompt["id"]):
             raw = item["input"]
-            context = {"current_user_message": raw["user_message"], "prior_messages": raw["conversation_history"],
-                       "reference_context": raw["reference_context"]}
             stored_input = {**raw, "reference_context": json.dumps(raw["reference_context"], ensure_ascii=False)}
             created_item = api.create("/api/public/dataset-items", {"datasetName": name, "input": stored_input,
                 "expectedOutput": item["expected_output"],
-                "metadata": {**item["metadata"], "case_id": item["case_id"], "evaluation_context": context}})
+                "metadata": experiment_item_metadata(item)})
             timestamp = created_item.get("updatedAt") or created_item.get("createdAt")
             if not timestamp:
                 raise ValueError("Dataset item create omitted its server timestamp; snapshot cannot be established")
@@ -364,10 +394,7 @@ def bind_historical_experiments(events: list[dict], provisioning: dict, links: l
         if event["spanId"] == link["observation_id"]:
             event["attributes"].append(string_attr("langfuse.experiment.item.expected_output", json.dumps(authored["expected_output"], ensure_ascii=False)))
             event["attributes"].append(string_attr("langfuse.experiment.description", "Authored historical illustration; no model or managed judge executed."))
-            context = {"current_user_message": authored["input"]["user_message"],
-                       "prior_messages": authored["input"]["conversation_history"],
-                       "reference_context": authored["input"]["reference_context"]}
-            for key, value in {**authored["metadata"], "evaluation_context": context}.items():
+            for key, value in experiment_item_metadata(authored).items():
                 event["attributes"].append(string_attr("langfuse.experiment.item.metadata." + key,
                     value if isinstance(value, str) else json.dumps(value, ensure_ascii=False)))
     return bound, receipts
@@ -419,10 +446,7 @@ def verify_assets(cfg, provisioning: dict, *, api=None) -> list[tuple[str, bool,
                 actual = api.read("/api/public/dataset-items/" + quote(item["id"], safe=""))
                 expected = expected_items[item["case_id"]]
                 expected_input = {**expected["input"], "reference_context": json.dumps(expected["input"]["reference_context"], ensure_ascii=False)}
-                expected_meta = {**expected["metadata"], "case_id": item["case_id"], "evaluation_context": {
-                    "current_user_message": expected["input"]["user_message"],
-                    "prior_messages": expected["input"]["conversation_history"],
-                    "reference_context": expected["input"]["reference_context"]}}
+                expected_meta = experiment_item_metadata(expected)
                 return actual.get("input") == expected_input and actual.get("expectedOutput") == expected["expected_output"] and actual.get("metadata") == expected_meta
             check(f"dataset-item-{item['case_id']}", item_check)
     definitions = score_definitions()
@@ -432,7 +456,9 @@ def verify_assets(cfg, provisioning: dict, *, api=None) -> list[tuple[str, bool,
     for eid, receipt in provisioning.get("score_configs", {}).items():
         def score_check(eid=eid, receipt=receipt):
             actual = api.read("/api/public/score-configs/" + quote(receipt["id"], safe=""))
-            return actual.get("name") == definitions[eid]["name"] and actual.get("dataType") == "NUMERIC" and actual.get("minValue") == 0 and actual.get("maxValue") == 1
+            expected = score_config_body(eid, definitions[eid])
+            fields = ("name", "dataType", "categories") if eid in FACTUAL_CRITERIA else ("name", "dataType", "minValue", "maxValue")
+            return all(actual.get(key) == expected[key] for key in fields)
         check(f"score-config-{eid}", score_check)
     for name, receipt in provisioning.get("models", {}).items():
         def model_check(name=name, receipt=receipt):

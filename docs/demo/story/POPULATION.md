@@ -81,10 +81,10 @@ some calm quotations so the input dimensions are not identical.
 | Cost per generation | Sum cost / count of generations with complete usage and pricing | Compare same task cohorts; more traffic changes total cost independently |
 | Request cost | Sum all model/evaluator costs attributed to that request, explicitly separated from answer-only cost | Keep judge cost separate if it is outside the native prompt metric |
 | Generation latency | Generation start-to-end duration; show native median in prompt view, optional p95 in a suitable native view | Exclude missing/invalid durations; not time between user messages |
-| Output quality/style | Per-criterion values on eligible completed reply generations; native prompt view may show median | Display N and scored/eligible coverage; do not use a mean that conflates criteria |
+| Output quality/style | Numeric criteria: per-criterion values on completed reply generations. E-02/E-03: separate Pass, Fail and Not applicable counts | Display completed/target coverage; never average or take medians of factual-check categories |
 | User disagreement rate | E-08=1 / completed applicable E-08 root scores in the selected cohort/window | Also show eligible user-turn count and coverage; one input outcome per turn |
 | User frustration/profanity/contradiction | Same fraction with the respective root criterion | Report separately; rates may overlap; they must not sum to 100% |
-| Experiment comparison | Per-case baseline/candidate outputs and scores on the exact same dataset version | Preserve case pairing, show pending/failed/null outcomes and sample size; no production-prevalence claim |
+| Experiment comparison | Per-case baseline/candidate outputs and scores on the exact same dataset version | Preserve case pairing, show pending/failed execution and completed Not applicable categories and sample size; no production-prevalence claim |
 
 For a seven-day trend compare D-14..D-8 and D-7..D-1, same application and input
 cohort, reporting denominators for both. Example authored aggregates for a preview:
@@ -120,10 +120,12 @@ fictional historic costs with real live cost as if they were one measured trial.
 
 Propose 100% applicable E-01–E-08 coverage on PR-01 historical turns; E-02–E-08
 on PR-02/03. Thus the expected history has up to 4,320 PR-01 outcomes plus 3,780
-PR-02/03 outcomes = **8,100 numeric-or-null outcomes**. Historical-only task
+PR-02/03 outcomes = **8,100 numeric/categorical outcomes**. Historical-only task
 criteria add 1,220 outcomes: 240 each on PR-04/05/09, 120 on PR-06, 80 on PR-07,
-300 on PR-08. Total **9,320 outcomes** before exclusions; actual numeric score
-counts depend on applicability. These are authored scores tied to records, not
+300 on PR-08. Total **9,320 outcomes** before exclusions; E-02/E-03 include
+explicit completed Not applicable categories when relevant. Pending, failed and
+missing executions remain separate from completed counts. These are authored
+scores tied to records, not
 claims that paid judges already ran.
 
 For live-demo and the selected experiment, execute the applicable real evaluators

@@ -183,3 +183,12 @@ inaccessibility; do not infer it from a source checkout or skill text.
 At the end of this discovery, **live verification, admission and delivered
 rehearsal are pending**. Missing prerequisites are explicit above; no stage is
 claimed passed from source research or fixture behaviour.
+
+## Later authenticated-access update — 2026-10-08
+
+The user identified their signed-in Chrome session. Native prompt, experiment,
+owner-promotion and session checks were subsequently performed; see
+[NATIVE_REHEARSAL.md](NATIVE_REHEARSAL.md). Earlier sign-in blockers in this research
+are historical. Depot admission remains pending for the specific deployed-service
+requirements documented in [DEPOT_ACCESS.md](DEPOT_ACCESS.md), not for lack of a
+signed-in browser. No authentication bypass or unrelated deployment change occurred.

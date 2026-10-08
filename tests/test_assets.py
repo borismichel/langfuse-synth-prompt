@@ -78,7 +78,7 @@ def test_full_assets_are_model_free_and_follow_accepted_story():
     }
     assert receipt["evaluators"] == receipt["evaluator_rules"] == {}
     assert not {"E-02", "E-03"} & receipt["evaluators"].keys()
-    assert any("inapplicability" in x for x in receipt["missing"])
+    assert all(any(x.startswith(eid + ":") for x in receipt["missing"]) for eid in ("E-02", "E-03"))
     assert all("protected" not in x for x in receipt["missing"])
     assert receipt["manual_prerequisites"]
     for dataset in receipt["datasets"].values():
@@ -100,8 +100,8 @@ def test_full_assets_are_model_free_and_follow_accepted_story():
 def test_eval_setup_is_separate_reusable_and_seed_never_creates_evaluators():
     api = FakeAPI()
     configured = configure_evaluators(config(), api=api)
-    assert len(configured["evaluators"]) == 8
-    assert len(configured["evaluator_rules"]) == 8
+    assert len(configured["evaluators"]) == 10
+    assert len(configured["evaluator_rules"]) == 10
     assert all(path in {"/api/public/v2/evaluators", "/api/public/v2/evaluation-rules"} for path, _ in api.writes)
     writes = len(api.writes)
     assert configure_evaluators(config(), api=api) == configured
@@ -203,3 +203,37 @@ def test_v4_historical_experiment_checks_exact_run_and_item(mismatch):
             return [item]
 
     assert historical_experiment_matches(Reader(), expected) is (mismatch is None)
+
+
+def test_factual_judges_use_single_categorical_output_and_nominal_configs():
+    from synth.assets import evaluator_body, score_config_body
+    for eid in ('E-02', 'E-03'):
+        definition = score_definitions()[eid]
+        output = evaluator_body(eid, definition, 'openai', 'test-model')['outputDefinition']
+        assert output['dataType'] == 'CATEGORICAL'
+        assert output['categories'] == ['Pass', 'Fail', 'Not applicable']
+        assert output['shouldAllowMultipleMatches'] is False
+        assert 'minValue' not in output and 'maxValue' not in output
+        config_body = score_config_body(eid, definition)
+        assert config_body['categories'] == [{'label': 'Pass', 'value': 1},
+            {'label': 'Fail', 'value': 0}, {'label': 'Not applicable', 'value': 2}]
+        assert 'minValue' not in config_body and 'maxValue' not in config_body
+        assert 'nominal identifiers' in config_body['description']
+    api = FakeAPI()
+    result = configure_evaluators(config(), api=api)
+    assert not result['missing']
+    for eid in ('E-02', 'E-03'):
+        rule = api.created['/api/public/v2/evaluation-rules/' + result['evaluator_rules'][eid]['id']]
+        assert rule['filter'][1]['value'] == 'assistant_reply'
+        assert rule['evaluatorAssignments'][0]['variableMapping'] == variable_mapping(eid, live=True)
+
+
+def test_old_numeric_factual_evaluator_conflicts_before_writes():
+    from synth.assets import evaluator_body
+    api = FakeAPI()
+    body = evaluator_body('E-02', score_definitions()['E-02'], 'openai', 'test-model')
+    body['outputDefinition'] = {'dataType': 'NUMERIC', 'minValue': 0, 'maxValue': 1}
+    api.created['/api/public/v2/evaluators/old'] = {**body, 'id': 'old'}
+    with pytest.raises(AssetConflict, match='E-02'):
+        configure_evaluators(config(), api=api)
+    assert api.writes == []
