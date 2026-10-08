@@ -1,0 +1,63 @@
+"""Golden-gate seed adapter (dev-only; never shipped in the runtime image).
+
+The determinism golden gate in `langfuse-synth-core[authoring]` drives a kit through one
+contract — `seed(target_traces, params) -> bytes` (the full materialized Spool). This
+adapter drives the REAL runtime seed path (`synth.seed.run_seed` in dry-run: spool through
+the library's `Ingestor`, no network, no upload) and returns the resulting Spool bytes,
+so the gate proves the actual `synth seed` is deterministic AND model-free — not a parallel
+materializer that could drift from it.
+
+It lives in `tests/` because the gate is authoring-time tooling behind the `[authoring]`
+extra; the deployed runtime image must never carry it (Spec A §3). The gate imports it via
+`search_paths`, in a subprocess under PYTHONHASHSEED=0 and the deny-LLM egress block.
+"""
+from __future__ import annotations
+
+import tempfile
+from unittest.mock import patch
+from collections.abc import Mapping
+from pathlib import Path
+from typing import Any
+
+from synth.config import load_config
+from synth.seed import run_seed
+
+CONFIG = Path(__file__).resolve().parent.parent / "config" / "demo.yaml"
+
+# The pinned as-of date — the third leg of the determinism law (`seed + target_traces +
+# as-of → byte-identical Spool`, portal #229). It lives HERE, in the dev-only gate, and
+# nowhere in `src/`: production resolves the date from the operator (or the clock), and
+# the oracle pins it so the golden bytes are reproducible on any day.
+AS_OF_DATE = "2026-01-01"
+
+
+def seed(target_traces: int, params: Mapping[str, Any]) -> bytes:
+    """Materialize the full pre-upload Spool for `target_traces` through the runtime seed
+    path; return its bytes.
+
+    `target_traces` and the as-of date are set exactly as the portal sets them (`--set
+    generation.target_traces=N` / `--set generation.as_of_date=YYYY-MM-DD`), so this proves
+    both operator knobs end to end. `params` completes the gate contract; the skeleton
+    derives volume from the knob alone (identity hook), so it reads config defaults for
+    the rest.
+    """
+    values = {"seed": 42, "as_of_date": AS_OF_DATE}
+    seen = set()
+    for key, value in params.items():
+        name = key.removeprefix("generation.")
+        if name not in values or name in seen:
+            raise ValueError(f"Unknown or duplicate golden parameter: {key}")
+        seen.add(name)
+        values[name] = value
+    cfg = load_config(
+        str(CONFIG),
+        overrides=[f"generation.target_traces={int(target_traces)}",
+                   f"generation.seed={values['seed']}",
+                   f"generation.as_of_date={values['as_of_date']}"],
+    )
+    with tempfile.TemporaryDirectory(prefix="synth-golden-") as tmp:
+        spool_path = Path(tmp) / "events.ndjson"
+        # dry_run: no guardrail call, no network; do_import=False: never touch Langfuse.
+        with patch.dict("os.environ", {"SYNTH_STATE_DIR": str(Path(tmp) / "state"), "SYNTH_OUT_DIR": str(Path(tmp) / "out")}):
+            run_seed(cfg, dry_run=True, do_import=False, spool_path=spool_path, log=lambda _m: None)
+        return spool_path.read_bytes()

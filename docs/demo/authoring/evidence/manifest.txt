@@ -1,0 +1,1 @@
+✓ usecase.yaml — valid (slug: prompt)

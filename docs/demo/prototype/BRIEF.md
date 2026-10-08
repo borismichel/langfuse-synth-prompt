@@ -1,8 +1,9 @@
 # Prompt portfolio prototype
 
-Prepared 2026-10-08. **Ready for review; not yet accepted.**
+Prepared 2026-10-08. **Accepted for authoring on 2026-10-08.**
 Input: [accepted story](../story/STORY_BRIEF.md) and D-01–D-31 in its contract.
-The user requested “Run proto on the packet”. No production build was requested.
+The user reviewed the prototype, accepted it with “Looks good hand off to authoring”,
+and requested the complete kit while preserving the prototype and story.
 
 ## Question and audience
 

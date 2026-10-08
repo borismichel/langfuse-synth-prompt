@@ -8,3 +8,11 @@ __pycache__/
 node_modules/
 dist/
 .pytest_cache/
+
+.synth_spool/
+.synth_state.json
+.scratch/
+out/
+*.egg-info/
+.ruff_cache/
+build/

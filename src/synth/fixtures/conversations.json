@@ -1,0 +1,636 @@
+{
+  "PR-01": [
+    {
+      "theme": "waiver",
+      "weight": 35,
+      "turns": [
+        {
+          "case_id": "C-01",
+          "user_message": "I get EUR 1300 in salary each month. What would this account cost me?",
+          "assistant_reply": "The monthly fee is EUR 4, waived in each calendar month when at least EUR 1200 in qualifying salary deposits arrives. Your EUR 1300 salary meets that condition; transfers from your own accounts do not count.",
+          "expected_scores": {
+            "E-01": 0,
+            "E-02": 1,
+            "E-03": 1,
+            "E-04": 1,
+            "E-05": 0,
+            "E-06": 0,
+            "E-07": 0,
+            "E-08": 0
+          }
+        },
+        {
+          "case_id": "C-04",
+          "user_message": "Actually, I meant EUR 1300 transferred from my own savings, not salary.",
+          "assistant_reply": "Thanks for clarifying. Transfers from your own accounts do not count as salary deposits, so that transfer alone does not waive the EUR 4 monthly fee.",
+          "expected_scores": {
+            "E-01": 0,
+            "E-02": 1,
+            "E-03": 1,
+            "E-04": 1,
+            "E-05": 0,
+            "E-06": 0,
+            "E-07": 0,
+            "E-08": 0
+          }
+        },
+        {
+          "case_id": "C-05",
+          "user_message": "No, that cannot be right. This is damn frustrating. I thought any transfer counted.",
+          "assistant_reply": "I understand the frustration. The supplied rule excludes transfers from your own accounts; only qualifying salary deposits count. The EUR 4 monthly fee is waived when qualifying salary deposits reach EUR 1200 in that calendar month.",
+          "expected_scores": {
+            "E-01": 0,
+            "E-02": 1,
+            "E-03": 1,
+            "E-04": 1,
+            "E-05": 0,
+            "E-06": 1,
+            "E-07": 1,
+            "E-08": 1
+          }
+        },
+        {
+          "case_id": "H-01-documents",
+          "user_message": "Understood. What documents do I need, and how long does opening take?",
+          "assistant_reply": "You need valid photo ID and proof of address dated within the last three months. Processing takes two working days after complete documents are received.",
+          "expected_scores": {
+            "E-01": 0,
+            "E-02": 1,
+            "E-03": 1,
+            "E-04": 1,
+            "E-05": 0,
+            "E-06": 0,
+            "E-07": 0,
+            "E-08": 0
+          }
+        },
+        {
+          "case_id": "H-01-action",
+          "user_message": "Can you open it for me?",
+          "assistant_reply": "I can explain the supplied requirements, but I cannot open an account or take account actions.",
+          "expected_scores": {
+            "E-01": 0,
+            "E-02": 1,
+            "E-03": 1,
+            "E-04": 1,
+            "E-05": 0,
+            "E-06": 0,
+            "E-07": 0,
+            "E-08": 0
+          }
+        }
+      ]
+    },
+    {
+      "theme": "fees",
+      "weight": 25,
+      "turns": [
+        {
+          "case_id": "C-07",
+          "user_message": "Someone described the fee as \"damn annoying\". What is the actual monthly fee?",
+          "assistant_reply": "The monthly fee is EUR 4. It is waived for each calendar month with at least EUR 1200 in qualifying salary deposits; transfers from your own accounts do not count.",
+          "expected_scores": {
+            "E-01": 0,
+            "E-02": 1,
+            "E-03": 1,
+            "E-04": 1,
+            "E-05": 0,
+            "E-06": 0,
+            "E-07": 1,
+            "E-08": 0
+          }
+        },
+        {
+          "case_id": "H-01-card",
+          "user_message": "And what does a replacement card cost?",
+          "assistant_reply": "The replacement-card fee is EUR 6.",
+          "expected_scores": {
+            "E-01": 0,
+            "E-02": 1,
+            "E-03": 1,
+            "E-04": 1,
+            "E-05": 0,
+            "E-06": 0,
+            "E-07": 0,
+            "E-08": 0
+          }
+        },
+        {
+          "case_id": "H-01-withdrawal",
+          "user_message": "I made three cash withdrawals this calendar month. What fee applies?",
+          "assistant_reply": "Two withdrawals are included per calendar month. The third costs EUR 1.50.",
+          "expected_scores": {
+            "E-01": 0,
+            "E-02": 1,
+            "E-03": 1,
+            "E-04": 1,
+            "E-05": 0,
+            "E-06": 0,
+            "E-07": 0,
+            "E-08": 0
+          }
+        },
+        {
+          "case_id": "H-01-dispute",
+          "user_message": "No, I disagree. That fee is frustrating.",
+          "assistant_reply": "I understand the frustration. The supplied record includes two withdrawals per calendar month and charges EUR 1.50 for each additional one.",
+          "expected_scores": {
+            "E-01": 0,
+            "E-02": 1,
+            "E-03": 1,
+            "E-04": 1,
+            "E-05": 0,
+            "E-06": 1,
+            "E-07": 0,
+            "E-08": 1
+          }
+        },
+        {
+          "case_id": "C-08",
+          "user_message": "My card needs replacing. Can you order one for me?",
+          "assistant_reply": "The replacement-card fee is EUR 6. I can explain that fee, but I cannot order a card or take action on an account.",
+          "expected_scores": {
+            "E-01": 0,
+            "E-02": 1,
+            "E-03": 1,
+            "E-04": 1,
+            "E-05": 0,
+            "E-06": 0,
+            "E-07": 0,
+            "E-08": 0
+          }
+        }
+      ]
+    },
+    {
+      "theme": "opening",
+      "weight": 20,
+      "turns": [
+        {
+          "case_id": "H-01-opening",
+          "user_message": "I am 24 and live in the service region. What are the opening requirements?",
+          "assistant_reply": "You need valid photo ID and proof of address dated within the last three months. Processing takes two working days after complete documents are received. The eligibility requirements are age 18 or older and residence in the fictional service region.",
+          "expected_scores": {
+            "E-01": 0,
+            "E-02": 1,
+            "E-03": 1,
+            "E-04": 1,
+            "E-05": 0,
+            "E-06": 0,
+            "E-07": 0,
+            "E-08": 0
+          }
+        },
+        {
+          "case_id": "C-06",
+          "user_message": "I am 17. Can I open it?",
+          "assistant_reply": "Earlier you said you were 24; now you say 17. Could you clarify your age? The supplied rule requires age 18 or older and residence in the fictional service region; if you are 17, you do not meet the age requirement.",
+          "expected_scores": {
+            "E-01": 0,
+            "E-02": 1,
+            "E-03": 1,
+            "E-04": 1,
+            "E-05": 1,
+            "E-06": 0,
+            "E-07": 0,
+            "E-08": 0
+          }
+        },
+        {
+          "case_id": "H-01-correction",
+          "user_message": "Sorry, I meant 24, not 17.",
+          "assistant_reply": "Thanks for clarifying. At 24 you meet the minimum age of 18; residence in the fictional service region is also required.",
+          "expected_scores": {
+            "E-01": 0,
+            "E-02": 1,
+            "E-03": 1,
+            "E-04": 1,
+            "E-05": 0,
+            "E-06": 0,
+            "E-07": 0,
+            "E-08": 0
+          }
+        },
+        {
+          "case_id": "H-01-document-age",
+          "user_message": "Can I use a proof of address from five months ago?",
+          "assistant_reply": "No. The supplied checklist requires proof of address dated within the last three months.",
+          "expected_scores": {
+            "E-01": 0,
+            "E-02": 1,
+            "E-03": 1,
+            "E-04": 1,
+            "E-05": 0,
+            "E-06": 0,
+            "E-07": 0,
+            "E-08": 0
+          }
+        },
+        {
+          "case_id": "H-01-status",
+          "user_message": "Have you received my upload?",
+          "assistant_reply": "Document-upload status is not available to me, so I cannot confirm receipt.",
+          "expected_scores": {
+            "E-01": 0,
+            "E-02": 1,
+            "E-03": 1,
+            "E-04": 1,
+            "E-05": 0,
+            "E-06": 0,
+            "E-07": 0,
+            "E-08": 0
+          }
+        }
+      ]
+    },
+    {
+      "theme": "missing-or-action",
+      "weight": 20,
+      "turns": [
+        {
+          "case_id": "C-03",
+          "user_message": "What interest rate does the overdraft charge?",
+          "assistant_reply": "The supplied information does not state whether an overdraft is available or what interest rate it would charge. I cannot confirm a rate.",
+          "expected_scores": {
+            "E-01": 0,
+            "E-02": 1,
+            "E-03": 1,
+            "E-04": 1,
+            "E-05": 0,
+            "E-06": 0,
+            "E-07": 0,
+            "E-08": 0
+          }
+        },
+        {
+          "case_id": "H-01-credit",
+          "user_message": "Can you approve an overdraft anyway?",
+          "assistant_reply": "I cannot approve credit or perform account actions. The supplied record does not provide overdraft availability or approval eligibility.",
+          "expected_scores": {
+            "E-01": 0,
+            "E-02": 1,
+            "E-03": 1,
+            "E-04": 1,
+            "E-05": 0,
+            "E-06": 0,
+            "E-07": 0,
+            "E-08": 0
+          }
+        },
+        {
+          "case_id": "C-08",
+          "user_message": "My card needs replacing. Can you order one for me?",
+          "assistant_reply": "The replacement-card fee is EUR 6. I can explain that fee, but I cannot order a card or take action on an account.",
+          "expected_scores": {
+            "E-01": 0,
+            "E-02": 1,
+            "E-03": 1,
+            "E-04": 1,
+            "E-05": 0,
+            "E-06": 0,
+            "E-07": 0,
+            "E-08": 0
+          }
+        },
+        {
+          "case_id": "H-01-transfer",
+          "user_message": "What does an international transfer cost?",
+          "assistant_reply": "The supplied record does not provide international transfer fees.",
+          "expected_scores": {
+            "E-01": 0,
+            "E-02": 1,
+            "E-03": 1,
+            "E-04": 1,
+            "E-05": 0,
+            "E-06": 0,
+            "E-07": 0,
+            "E-08": 0
+          }
+        },
+        {
+          "case_id": "H-01-documents",
+          "user_message": "What documents would I need?",
+          "assistant_reply": "You need valid photo ID and proof of address dated within the last three months. Processing takes two working days after complete documents are received.",
+          "expected_scores": {
+            "E-01": 0,
+            "E-02": 1,
+            "E-03": 1,
+            "E-04": 1,
+            "E-05": 0,
+            "E-06": 0,
+            "E-07": 0,
+            "E-08": 0
+          }
+        }
+      ]
+    }
+  ],
+  "PR-02": [
+    {
+      "theme": "withdrawals",
+      "weight": 60,
+      "turns": [
+        {
+          "case_id": "PC-02",
+          "user_message": "I made three cash withdrawals this calendar month. What withdrawal fee applies?",
+          "assistant_reply": "The first two withdrawals in the calendar month are included. The third costs EUR 1.50.",
+          "expected_scores": {
+            "E-02": 1,
+            "E-03": 1,
+            "E-04": 1,
+            "E-05": 0,
+            "E-06": 0,
+            "E-07": 0,
+            "E-08": 0
+          }
+        },
+        {
+          "case_id": "PC-02-CTRL",
+          "user_message": "Actually, I made two withdrawals, not three.",
+          "assistant_reply": "Both withdrawals are included; no withdrawal fee applies.",
+          "expected_scores": {
+            "E-02": 1,
+            "E-03": 1,
+            "E-04": 1,
+            "E-05": 0,
+            "E-06": 0,
+            "E-07": 0,
+            "E-08": 0
+          }
+        },
+        {
+          "case_id": "H-02-third",
+          "user_message": "What if I make a third?",
+          "assistant_reply": "The third withdrawal in that calendar month costs EUR 1.50.",
+          "expected_scores": {
+            "E-02": 1,
+            "E-03": 1,
+            "E-04": 1,
+            "E-05": 0,
+            "E-06": 0,
+            "E-07": 0,
+            "E-08": 0
+          }
+        },
+        {
+          "case_id": "H-02-dispute",
+          "user_message": "No, that seems wrong. This is damn frustrating.",
+          "assistant_reply": "I understand the frustration. The supplied rule includes two withdrawals per calendar month and charges EUR 1.50 for each additional one.",
+          "expected_scores": {
+            "E-02": 1,
+            "E-03": 1,
+            "E-04": 1,
+            "E-05": 0,
+            "E-06": 1,
+            "E-07": 1,
+            "E-08": 1
+          }
+        },
+        {
+          "case_id": "H-02-refund",
+          "user_message": "Can you refund that charge?",
+          "assistant_reply": "I can explain the fee, but I cannot inspect an account or issue a refund.",
+          "expected_scores": {
+            "E-02": 1,
+            "E-03": 1,
+            "E-04": 1,
+            "E-05": 0,
+            "E-06": 0,
+            "E-07": 0,
+            "E-08": 0
+          }
+        }
+      ]
+    },
+    {
+      "theme": "replacement-and-unknowns",
+      "weight": 40,
+      "turns": [
+        {
+          "case_id": "H-02-card",
+          "user_message": "What does a replacement card cost?",
+          "assistant_reply": "The replacement-card fee is EUR 6.",
+          "expected_scores": {
+            "E-02": 1,
+            "E-03": 1,
+            "E-04": 1,
+            "E-05": 0,
+            "E-06": 0,
+            "E-07": 0,
+            "E-08": 0
+          }
+        },
+        {
+          "case_id": "H-02-quoted",
+          "user_message": "A friend called that fee \"damn annoying\". Is it a monthly charge?",
+          "assistant_reply": "The EUR 6 fee is for a replacement card. The separate account monthly fee is EUR 4, subject to the qualifying salary waiver.",
+          "expected_scores": {
+            "E-02": 1,
+            "E-03": 1,
+            "E-04": 1,
+            "E-05": 0,
+            "E-06": 0,
+            "E-07": 1,
+            "E-08": 0
+          }
+        },
+        {
+          "case_id": "PX-02",
+          "user_message": "What would an international transfer cost?",
+          "assistant_reply": "The supplied information does not include an international transfer fee.",
+          "expected_scores": {
+            "E-02": 1,
+            "E-03": 1,
+            "E-04": 1,
+            "E-05": 0,
+            "E-06": 0,
+            "E-07": 0,
+            "E-08": 0
+          }
+        },
+        {
+          "case_id": "H-02-account",
+          "user_message": "Can you check my account to find out?",
+          "assistant_reply": "I cannot inspect a real account. I can only explain the supplied fee information.",
+          "expected_scores": {
+            "E-02": 1,
+            "E-03": 1,
+            "E-04": 1,
+            "E-05": 0,
+            "E-06": 0,
+            "E-07": 0,
+            "E-08": 0
+          }
+        },
+        {
+          "case_id": "H-02-third",
+          "user_message": "Understood. How much for a third withdrawal?",
+          "assistant_reply": "The first two withdrawals per calendar month are included; the third costs EUR 1.50.",
+          "expected_scores": {
+            "E-02": 1,
+            "E-03": 1,
+            "E-04": 1,
+            "E-05": 0,
+            "E-06": 0,
+            "E-07": 0,
+            "E-08": 0
+          }
+        }
+      ]
+    }
+  ],
+  "PR-03": [
+    {
+      "theme": "documents",
+      "weight": 70,
+      "turns": [
+        {
+          "case_id": "PC-03",
+          "user_message": "Can I use proof of address from five months ago?",
+          "assistant_reply": "The supplied checklist requires proof of address dated within the last three months. A five-month-old document does not meet that requirement.",
+          "expected_scores": {
+            "E-02": 1,
+            "E-03": 1,
+            "E-04": 1,
+            "E-05": 0,
+            "E-06": 0,
+            "E-07": 0,
+            "E-08": 0
+          }
+        },
+        {
+          "case_id": "H-03-correction",
+          "user_message": "Actually, it is two months old.",
+          "assistant_reply": "Thanks for clarifying. Two months is within the stated three-month limit. You also need valid photo ID.",
+          "expected_scores": {
+            "E-02": 1,
+            "E-03": 1,
+            "E-04": 1,
+            "E-05": 0,
+            "E-06": 0,
+            "E-07": 0,
+            "E-08": 0
+          }
+        },
+        {
+          "case_id": "H-03-processing",
+          "user_message": "How long does opening take?",
+          "assistant_reply": "Processing takes two working days after complete documents are received.",
+          "expected_scores": {
+            "E-02": 1,
+            "E-03": 1,
+            "E-04": 1,
+            "E-05": 0,
+            "E-06": 0,
+            "E-07": 0,
+            "E-08": 0
+          }
+        },
+        {
+          "case_id": "H-03-dispute",
+          "user_message": "No, I disagree. This wait is frustrating.",
+          "assistant_reply": "I understand the frustration. The supplied processing time is two working days after complete documents are received. I cannot check your application status.",
+          "expected_scores": {
+            "E-02": 1,
+            "E-03": 1,
+            "E-04": 1,
+            "E-05": 0,
+            "E-06": 1,
+            "E-07": 0,
+            "E-08": 1
+          }
+        },
+        {
+          "case_id": "PX-03",
+          "user_message": "Have my documents been received?",
+          "assistant_reply": "I cannot see whether your documents have arrived. Processing takes two working days after complete documents are received.",
+          "expected_scores": {
+            "E-02": 1,
+            "E-03": 1,
+            "E-04": 1,
+            "E-05": 0,
+            "E-06": 0,
+            "E-07": 0,
+            "E-08": 0
+          }
+        }
+      ]
+    },
+    {
+      "theme": "status-and-boundaries",
+      "weight": 30,
+      "turns": [
+        {
+          "case_id": "PC-03-CTRL",
+          "user_message": "Has my application been approved?",
+          "assistant_reply": "I do not have application-status information and cannot confirm approval.",
+          "expected_scores": {
+            "E-02": 1,
+            "E-03": 1,
+            "E-04": 1,
+            "E-05": 0,
+            "E-06": 0,
+            "E-07": 0,
+            "E-08": 0
+          }
+        },
+        {
+          "case_id": "H-03-action",
+          "user_message": "Can you submit it now?",
+          "assistant_reply": "I cannot open accounts or submit applications. I can explain the supplied requirements.",
+          "expected_scores": {
+            "E-02": 1,
+            "E-03": 1,
+            "E-04": 1,
+            "E-05": 0,
+            "E-06": 0,
+            "E-07": 0,
+            "E-08": 0
+          }
+        },
+        {
+          "case_id": "H-03-documents",
+          "user_message": "Then what documents do I need?",
+          "assistant_reply": "You need valid photo ID and proof of address dated within the last three months. Processing takes two working days after complete documents are received.",
+          "expected_scores": {
+            "E-02": 1,
+            "E-03": 1,
+            "E-04": 1,
+            "E-05": 0,
+            "E-06": 0,
+            "E-07": 0,
+            "E-08": 0
+          }
+        },
+        {
+          "case_id": "H-03-quoted",
+          "user_message": "Someone said the wait was \"damn annoying\". Is it two calendar days?",
+          "assistant_reply": "The supplied processing time is two working days after complete documents are received, not two calendar days.",
+          "expected_scores": {
+            "E-02": 1,
+            "E-03": 1,
+            "E-04": 1,
+            "E-05": 0,
+            "E-06": 0,
+            "E-07": 1,
+            "E-08": 0
+          }
+        },
+        {
+          "case_id": "H-03-thanks",
+          "user_message": "Understood, thank you.",
+          "assistant_reply": "You are welcome.",
+          "expected_scores": {
+            "E-02": null,
+            "E-03": null,
+            "E-04": 1,
+            "E-05": 0,
+            "E-06": 0,
+            "E-07": 0,
+            "E-08": 0
+          }
+        }
+      ]
+    }
+  ]
+}

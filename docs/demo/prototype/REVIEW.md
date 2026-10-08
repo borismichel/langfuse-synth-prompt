@@ -1,16 +1,18 @@
 # Prototype review
 
-2026-10-08. **Ready for review — acceptance pending.**
-The user requested running the prototype on the packet. That accepts the story
-as input and authorises local prototype work; it does not approve this output.
+2026-10-08. **Accepted for authoring on 2026-10-08.**
+The user reviewed the running prototype and said “Looks good hand off to authoring”,
+then requested finishing the complete kit using the skills and preserving the
+prototype and story. This accepts the local prototype and requests implementation;
+it does not turn simulated evidence into verified live behaviour.
 
 | Deliverable | Status | Evidence |
 | --- | --- | --- |
-| Logic and cases | Ready for review | Pure model checks, packet copies, supplemental missing-information items |
-| Companion | Ready for review | All three bots, local feedback, baseline/candidate flow, three layout variants |
-| Trace | Ready for review | Running upstream tree/type/score components; local detail fidelity disclosed |
-| Session | Ready for review | Four exchanges, 32 input/reply outcomes, exact observation links |
-| Story and coverage | Ready for review | Connected three-stage path, actual record IDs, zero-score features, aggregate preview |
+| Logic and cases | Accepted | Pure model checks, packet copies, supplemental missing-information items |
+| Companion | Accepted | All three bots, local feedback, baseline/candidate flow, three layout variants |
+| Trace | Accepted | Running upstream tree/type/score components; local detail fidelity disclosed |
+| Session | Accepted | Four exchanges, 32 input/reply outcomes, exact observation links |
+| Story and coverage | Accepted | Connected three-stage path, actual record IDs, zero-score features, aggregate preview |
 | Live integrations | Pending authoring | No credentials, model, evaluator, seed or deployment executed |
 
 ## Rehearsed interactions
@@ -83,6 +85,6 @@ Screenshots:
   collapse/expand were exercised. Nested-button warnings were eliminated from the
   tree by omitting comment triggers there; full comments remain in detail.
 
-No acceptance has been recorded. Production construction requires a separate
-request after acceptance. The next reviewer can use the [brief](BRIEF.md) and
+Acceptance and the build request are now recorded above. Authoring must retain
+the accepted story and prototype and verify the required live behaviour. Use the [brief](BRIEF.md) and
 [start/rehearsal instructions](../../../design/prototype/README.md).

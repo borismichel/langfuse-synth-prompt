@@ -1,0 +1,17 @@
+{
+  "checked_at": "2026-10-08",
+  "image": "langfuse-synth-prompt:authoring-local",
+  "image_id": "sha256:dc99deed7cc1a411ff5512fb40dd2f90c955061d82eabd5dd61bb0efa76c83a9",
+  "scope": "Local smoke candidate; later verification-only/documentation edits are covered by local tests, not this image identity",
+  "published": false,
+  "uid": 10001,
+  "network": "none",
+  "history_target": 48,
+  "as_of_date": "2026-10-08",
+  "actual_traces": 66,
+  "generations": 80,
+  "scores": 312,
+  "spooled_events": 465,
+  "runbook_delivered": true,
+  "provider_bindings": "both passed without model calls"
+}

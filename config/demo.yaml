@@ -1,0 +1,15 @@
+target:
+  host: http://localhost:3000
+  project_hint: demo
+generation:
+  seed: 42
+  target_traces: 1620
+evaluation:
+  # Existing Langfuse model connection, resolved at deployment, never a secret.
+  provider: ''
+  model: ''
+live:
+  model: ''
+verification:
+  timeout_seconds: 90
+  poll_seconds: 3

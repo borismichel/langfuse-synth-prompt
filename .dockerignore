@@ -1,0 +1,16 @@
+.git
+.venv
+.env
+.env.*
+.scratch
+.synth_spool
+.synth_state.json
+out
+__pycache__
+.pytest_cache
+.ruff_cache
+*.egg-info
+node_modules
+design/prototype/node_modules
+design/prototype/dist
+build

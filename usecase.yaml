@@ -1,0 +1,81 @@
+schema_version: 1
+slug: prompt
+name: Prompt Portfolio
+tagline: Manage a prompt portfolio. Compare a change. Hear it live.
+story: Explore nine managed prompt families and their history, compare a staging candidate with the same
+  evaluation rubrics, then let an authorised presenter promote it. Three instrumented chatbots fetch the
+  production prompt on every turn and link to the Langfuse session.
+target:
+  project_hint: demo
+  supports:
+  - cloud_eu
+  - cloud_us
+  - self_hosted
+base_config:
+  default: config/demo.yaml
+config_schema:
+  type: object
+  properties:
+    generation.seed:
+      type: integer
+      default: 42
+      minimum: 0
+      title: Generation seed
+      description: Deterministic RNG seed for the whole dataset. Vary it to mint a distinct trace/id set
+        per deployment; the same seed always materializes the same Spool, but re-seeding a project that
+        already holds it appends a second copy (the v4 write path has no upsert).
+    generation.target_traces:
+      type: integer
+      minimum: 1
+      maximum: 100000
+      default: 1620
+      title: Target traces
+      description: Production-history trace count over 28 complete local days. The full story uses 1620
+        traces and 2100 generations; small runs retain representative families where volume permits. Historical
+        experiment fixtures are a separate fixed cohort.
+    evaluation.provider:
+      type: string
+      default: ''
+      title: Judge provider connection
+      description: Name of an existing model connection configured in Langfuse. Required for managed live
+        and experiment evaluators; never an API key.
+    evaluation.model:
+      type: string
+      default: ''
+      title: Judge model
+      description: Model available through the selected Langfuse connection. Seed creates evaluator definitions
+        without invoking it.
+  required: []
+pipeline:
+- id: seed
+  run: synth seed --config {config}
+  timeout_minutes: 90
+- id: verify
+  run: synth verify --config {config}
+  fatal: true
+artifacts:
+- path: DEMO_SCRIPT.md
+  render: markdown
+  title: Presenter Runbook
+assets:
+  docs:
+  - path: README.md
+    title: Overview
+llm:
+  providers:
+  - anthropic
+  - openai
+live_components:
+- name: companion
+  description: Three live chatbots using the managed production prompts. Exact prompt versions, both evaluation
+    subjects, user feedback and a primary Open session action.
+  command: synth companion --config {config} --host 0.0.0.0 --port 8080
+  port: 8080
+  requires_secrets:
+  - LANGFUSE_PUBLIC_KEY
+  - LANGFUSE_SECRET_KEY
+  - LLM_API_KEY
+  routes:
+  - path: /
+    title: Prompt Portfolio — live chat
+  health_path: /healthz

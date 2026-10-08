@@ -1,0 +1,45 @@
+[project]
+name = "prompt"
+version = "0.1.0"
+description = "Demo Depot synth kit — a prompt portfolio, experiments and instrumented live chat."
+requires-python = ">=3.11"
+dependencies = [
+    # The shared synthesis library (public git dependency). Pinned to a TAG — never a
+    # moving branch — so this kit's vendor-approved output can't be silently rewritten by a
+    # later lib change. Bump deliberately (see the lib's RELEASING.md).
+    "langfuse-synth-core[companion] @ git+https://github.com/borismichel/langfuse-synth-core@v4.1.1",
+    "langfuse==4.17.0",
+    "openai==3.26.1",
+    "anthropic==1.12.1",
+    "PyYAML>=6,<7",
+    "requests>=2.31",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8,<9",
+    # The determinism golden gate + `synth-authoring validate/freeze` ride the [authoring]
+    # extra. SAME ref as the runtime pin above — the gate and the core the kit runs against
+    # must be the one, identical build. Bump both pins together, never let them drift.
+    "langfuse-synth-core[authoring] @ git+https://github.com/borismichel/langfuse-synth-core@v4.1.1",
+]
+
+[project.scripts]
+synth = "synth.cli:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src", "tests"]
+testpaths = ["tests"]
+
+[tool.setuptools.package-data]
+synth = ["fixtures/*.json", "companion/templates/*.html", "companion/static/*.css", "companion/static/*.js", "companion/static/fonts/*"]
+
+[tool.setuptools.data-files]
+"share/prompt" = ["DEMO_SCRIPT.md"]
