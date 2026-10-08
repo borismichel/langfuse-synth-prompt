@@ -21,6 +21,7 @@ print(hashlib.sha256(seed(24, {})).hexdigest())
         env.update(PYTHONHASHSEED=hash_seed,PYTHONPATH=os.pathsep.join([str(Path('src').resolve()),str(Path('tests').resolve())]))
         process=subprocess.run([sys.executable,'-c',script],env=env,capture_output=True,text=True,check=True)
         digests.append(process.stdout.strip())
+    assert len(set(digests)) == 1, 'Seed output changes across Python hash seeds'
     expected=hashlib.sha256(Path('tests/golden/prompt_spool.ndjson').read_bytes()).hexdigest()
     assert digests==[expected]*3
 

@@ -16,6 +16,9 @@ from urllib.parse import quote
 from uuid import uuid4
 
 from synth.catalog import load_fixture, prompt_by_id, score_definitions
+from synth.reference_tools import (
+    REFERENCE_RETRIEVER_NAME, REFERENCE_TOOL_NAME, reference_arguments, validate_reference,
+)
 
 LIVE_ENVIRONMENT = "prompt-live"
 
@@ -119,10 +122,8 @@ class ConversationService:
             if turn["status"] == "complete":
                 history.extend([{"role": "user", "content": turn["user"]},
                                 {"role": "assistant", "content": turn["reply"]}])
-        reference = load_fixture("product")["source"]
-        context = {"current_user_message": message, "prior_messages": history,
-                   "reference_context": reference}
-        root_input = {"messages": [{"role": "user", "content": message}], **context}
+        context = {"current_user_message": message, "prior_messages": history}
+        root_input = {"messages": [{"role": "user", "content": message}]}
         metadata = {"kit": "prompt", "evidence_kind": "live" if not self.preview else "fixture",
                     "application_id": spec["application_id"], "prompt_id": session.prompt_id,
                     "prompt_name": spec["name"], "rubric_revision": "r1",
@@ -139,6 +140,28 @@ class ConversationService:
                 root.update(metadata=metadata)
                 record.update(trace_id=root.id, root_observation_id=root.observation_id)
                 try:
+                    # The application invokes this tool; the model never emits a tool call.
+                    arguments = reference_arguments(session.prompt_id)
+                    with root.observation(REFERENCE_TOOL_NAME, as_type="tool", input=arguments,
+                                          metadata={"invocation": "application", "source_id": arguments["source_id"]}) as tool:
+                        try:
+                            with tool.observation(REFERENCE_RETRIEVER_NAME, as_type="retriever",
+                                                  input={"source_id": arguments["source_id"]},
+                                                  metadata={"source": "local-product-catalog"}) as retriever:
+                                try:
+                                    retrieved = load_fixture("product")["source"]
+                                    retriever.update(output=retrieved)
+                                except Exception as exc:
+                                    retriever.update(level="ERROR", status_message=type(exc).__name__)
+                                    raise
+                            reference = validate_reference(retrieved, arguments)
+                            tool.update(output=reference)
+                        except Exception as exc:
+                            tool.update(level="ERROR", status_message=type(exc).__name__)
+                            raise
+                    context = {**context, "reference_context": reference}
+                    metadata = {**metadata, **context}
+                    root.update(metadata=metadata)
                     # No cache/fallback: each request resolves the real production label.
                     prompt = self.adapter.langfuse().get_prompt(
                         spec["name"], label="production", cache_ttl_seconds=0, type="chat")
@@ -161,7 +184,7 @@ class ConversationService:
                     llm = self.adapter.llm()
                     generation_metadata = {**metadata, "evaluation_subject": "assistant_reply"}
                     with root.generation("reply", model=llm.model, prompt=prompt,
-                                         input={"messages": model_messages, **context},
+                                         input={"messages": model_messages},
                                          model_parameters={"max_tokens": 700, **({"temperature": 0} if llm.provider == "openai" else {})},
                                          metadata=generation_metadata) as generation:
                         record["generation_id"] = generation.id

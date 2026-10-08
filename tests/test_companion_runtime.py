@@ -1,5 +1,6 @@
 """Scenario assertions at the actual companion HTTP and adapter seams, no egress."""
 from types import SimpleNamespace
+import json
 import subprocess
 import sys
 import os
@@ -11,6 +12,7 @@ from synth.catalog import load_fixture, score_definitions
 from synth.companion.app import create_app
 from synth.companion.preview import FixtureAdapter
 from synth.companion.service import ConversationService
+from synth.reference_tools import REFERENCE_RETRIEVER_NAME, REFERENCE_TOOL_NAME, reference_arguments
 
 
 class TestAdapter(FixtureAdapter):
@@ -38,6 +40,34 @@ def post_turn(client, state, message=None, request_id="request-0001"):
                        json={"message": message, "request_id": request_id})
 
 
+def request_tree(adapter, turn):
+    observations = [o for o in adapter.observations if o.trace_id == turn["trace_id"]]
+    root, tool, retriever, generation = observations
+    assert [o.fields["type"] for o in observations] == ["SPAN", "TOOL", "RETRIEVER", "GENERATION"]
+    assert root.root and root.fields["parent_id"] is None
+    assert root.children == [tool, generation] and tool.children == [retriever]
+    assert tool.fields["parent_id"] == generation.fields["parent_id"] == root.observation_id
+    assert retriever.fields["parent_id"] == tool.id
+    assert all(o.fields["session_id"] == turn["session_id"] and o.ended for o in observations)
+    assert tool.fields["name"] == REFERENCE_TOOL_NAME
+    assert retriever.fields["name"] == REFERENCE_RETRIEVER_NAME
+    assert tool.fields["input"] == reference_arguments(root.fields["metadata"]["prompt_id"])
+    assert retriever.fields["input"] == {"source_id": "SRC-01"}
+    assert tool.fields["metadata"]["invocation"] == "application"
+    for operation in (tool, retriever):
+        assert "evaluation_subject" not in operation.fields["metadata"]
+        assert "prompt" not in operation.fields
+        assert operation.fields["output"] == load_fixture("product")["source"]
+    assert generation.fields["metadata"]["reference_context"] == tool.fields["output"]
+    assert root.fields["input"] == {"messages": [{"role": "user", "content": turn["user"]}]}
+    assert set(generation.fields["input"]) == {"messages"}
+    assert generation.fields["input"]["messages"][0]["content"].endswith(
+        "Reference context: " + json.dumps(tool.fields["output"], ensure_ascii=False))
+    assert all(m["role"] in {"system", "user", "assistant"}
+               and "tool_calls" not in m for m in generation.fields["input"]["messages"])
+    return root, tool, retriever, generation
+
+
 def test_each_turn_refreshes_prompt_and_old_reply_retains_resolved_version():
     adapter, client = setup_client()
     state = session(client)
@@ -59,18 +89,19 @@ def test_each_turn_refreshes_prompt_and_old_reply_retains_resolved_version():
         {"role": "assistant", "content": first["reply"]},
         {"role": "user", "content": second["user"]}]
     roots = [o for o in adapter.observations if o.root]
-    gens = [o for o in adapter.observations if not o.root]
+    gens = [o for o in adapter.observations if o.fields["type"] == "GENERATION"]
     assert len(roots) == len(gens) == 2
     for root, gen in zip(roots, gens):
         assert root.fields["metadata"]["evaluation_subject"] == "user_input"
         assert gen.fields["metadata"]["evaluation_subject"] == "assistant_reply"
         assert root.fields["input"]["messages"] == [{"role": "user", "content": first["user"]}]
         for key in ("current_user_message", "prior_messages", "reference_context"):
-            assert root.fields["input"][key] == gen.fields["input"][key]
             assert root.fields["metadata"][key] == gen.fields["metadata"][key]
         assert gen.fields["prompt"].version == root.fields["metadata"]["prompt_version"]
         assert gen.fields["usage_details"] == {"input": 0, "output": 0}
         assert root.fields["output"][0]["role"] == "assistant"
+    request_tree(adapter, first)
+    request_tree(adapter, second)
 
 
 def test_feedback_uses_saved_root_after_new_turn_and_upserts_same_score():
@@ -89,6 +120,8 @@ def test_feedback_uses_saved_root_after_new_turn_and_upserts_same_score():
     assert score["value"] == 0 and score["data_type"] == "BOOLEAN"
     assert score["trace_id"] == first["trace_id"] != second["trace_id"]
     assert score["observation_id"] != first["generation_id"]
+    assert score["observation_id"] not in {o.id for o in adapter.observations
+                                           if o.fields["type"] in ("TOOL", "RETRIEVER")}
     assert client.post(path, headers={"X-Conversation-Token": "wrong"}, json={"request_id": first["request_id"], "value": 1}).status_code == 404
     adapter.fail_feedback = True
     assert client.post(path, headers=headers, json={"request_id": first["request_id"], "value": 1}).status_code == 502
@@ -106,10 +139,74 @@ def test_errors_preserve_request_identity_without_a_fabricated_reply(failure):
     assert adapter.observations[0].fields["level"] == "ERROR"
     assert adapter.observations[0].fields["metadata"]["reference_context"]["id"] == "SRC-01"
     if failure == "fail_model":
-        assert adapter.observations[1].fields["level"] == "ERROR"
+        generation = next(o for o in adapter.observations if o.fields["type"] == "GENERATION")
+        assert generation.fields["level"] == "ERROR"
     # Same request is not automatically retried (and therefore cannot double bill).
     post_turn(client, state)
     assert len(adapter.completions) == (1 if failure == "fail_model" else 0)
+
+
+@pytest.mark.parametrize("failure", ["read", "validation"])
+def test_reference_resolution_runs_inside_real_nested_observations_and_stops_failed_turn(monkeypatch, failure):
+    from synth.companion import service as service_module
+    adapter, client = setup_client()
+    state = session(client)
+    message = load_fixture("product")["conversation"]["turns"][0]["user"]
+    calls = []
+
+    def read_product(name):
+        calls.append(name)
+        root, tool, retriever = adapter.observations
+        assert not root.ended and not tool.ended and not retriever.ended
+        assert retriever.parent is tool and tool.parent is root
+        if failure == "read":
+            raise RuntimeError("Secret-shaped sentinel must never be recorded")
+        return {"source": {"id": "SRC-01"}}
+
+    monkeypatch.setattr(service_module, "load_fixture", read_product)
+    turn = post_turn(client, state, message).json()
+    assert calls == ["product"]
+    assert turn["status"] == "failed" and turn["generation_id"] is None
+    assert not adapter.completions and not adapter.prompt_fetches
+    root, tool, retriever = adapter.observations
+    assert all(o.ended for o in adapter.observations)
+    assert root.fields["level"] == tool.fields["level"] == "ERROR"
+    assert root.fields["status_message"] == tool.fields["status_message"] == turn["error_type"]
+    assert "output" not in tool.fields and "reference_context" not in root.fields["metadata"]
+    if failure == "read":
+        assert retriever.fields["level"] == "ERROR" and "output" not in retriever.fields
+    else:
+        assert retriever.fields["output"] == {"id": "SRC-01"}
+        assert "level" not in retriever.fields  # Read succeeded; validation belongs to the tool.
+    assert "Secret-shaped sentinel" not in str([o.fields for o in adapter.observations])
+    assert "Secret-shaped sentinel" not in str(turn)
+
+
+def test_generation_receives_the_exact_record_read_and_validated_by_the_tool(monkeypatch):
+    from synth.companion import service as service_module
+    adapter, client = setup_client()
+    state = session(client)
+    product = load_fixture("product")
+    product["source"]["monthly_fee"] = 17
+    reads = []
+
+    def read_product(name):
+        root, tool, retriever = adapter.observations
+        assert retriever.fields["type"] == "RETRIEVER" and not retriever.ended
+        assert tool.fields["type"] == "TOOL" and not tool.ended
+        reads.append(name)
+        return product
+
+    monkeypatch.setattr(service_module, "load_fixture", read_product)
+    response = post_turn(client, state, product["conversation"]["turns"][0]["user"]).json()
+    assert response["status"] == "complete" and reads == ["product"]
+    root, tool, retriever, generation = adapter.observations
+    for observation in (root, generation):
+        assert observation.fields["metadata"]["reference_context"] == product["source"]
+    assert retriever.fields["output"] == tool.fields["output"] == product["source"]
+    assert tool.fields["output"] is not product["source"]  # Validated snapshot.
+    assert adapter.completions[0]["system"].endswith(
+        "Reference context: " + json.dumps(product["source"], ensure_ascii=False))
 
 
 def test_repeated_request_is_idempotent_but_cannot_change_message():
@@ -130,6 +227,7 @@ def test_all_three_bots_and_separate_sessions():
         state = session(client, bot["id"])
         turn = post_turn(client, state, bot["suggestions"][0]["message"]).json()
         assert turn["status"] == "complete" and turn["reply"]
+        request_tree(adapter, turn)
         ids.add(turn["session_id"])
     assert len(ids) == 3
     assert client.post("/api/conversations", json={"prompt_id": "PR-04"}).status_code == 422
@@ -185,6 +283,10 @@ def test_evaluation_readback_filters_exact_targets_and_never_invents_missing_sco
         target = turn["root_observation_id"] if definition["subject"] == "user_input" else turn["generation_id"]
         adapter.score_rows.append(SimpleNamespace(id=str(index), name=definition["name"], observation_id=target, value=0.5, comment="Actual judge result"))
     adapter.score_rows.append(SimpleNamespace(id="unrelated", name="record_fidelity", observation_id="unrelated", value=1, comment="Wrong subject"))
+    for tool in (o for o in adapter.observations if o.fields["type"] in ("TOOL", "RETRIEVER")):
+        for definition in definitions.values():
+            adapter.score_rows.append(SimpleNamespace(id=tool.id, name=definition["name"],
+                observation_id=tool.id, value=1, comment="Wrong tool subject"))
     complete = client.get(path, headers=headers).json()
     assert complete["status"] == "complete" and complete["received"] == 8
     assert all(s["value"] == 0.5 for s in complete["scores"])
@@ -253,7 +355,8 @@ def test_installed_sdk_compiles_managed_history_placeholder_without_losing_roles
     assert "{{reference_context}}" not in adapter.completions[1]["system"]
     assert '"id": "SRC-01"' in adapter.completions[1]["system"]
     assert adapter.completions[1]["messages"][1] == {"role": "assistant", "content": first["reply"]}
-    assert isinstance(adapter.observations[1].fields["prompt"], ChatPromptClient)
+    generation = next(o for o in adapter.observations if o.fields["type"] == "GENERATION")
+    assert isinstance(generation.fields["prompt"], ChatPromptClient)
 
 
 @pytest.mark.parametrize("version", [7, 9])
@@ -272,10 +375,15 @@ def test_four_turn_preview_conversation_keeps_version_voice_and_exact_context(ve
         assert response["reply"] == expected
         assert response["prompt_version"] == version
         assert adapter.completions[index]["messages"] == [*history, {"role": "user", "content": authored["user"]}]
-        root, generation = adapter.observations[index * 2:index * 2 + 2]
+        root, tool, retriever, generation = request_tree(adapter, response)
         for observation in (root, generation):
-            assert observation.fields["input"]["current_user_message"] == authored["user"]
-            assert observation.fields["input"]["prior_messages"] == history
+            assert observation.fields["metadata"]["current_user_message"] == authored["user"]
+            assert observation.fields["metadata"]["prior_messages"] == history
+        assert generation.fields["input"]["messages"] == [
+            {"role": "system", "content": adapter.completions[index]["system"]},
+            *adapter.completions[index]["messages"]]
         history.extend([{"role": "user", "content": authored["user"]},
                         {"role": "assistant", "content": expected}])
     assert len(adapter.prompt_fetches) == 4
+    assert len({o.trace_id for o in adapter.observations}) == 4
+    assert {o.fields["session_id"] for o in adapter.observations} == {state["session_id"]}

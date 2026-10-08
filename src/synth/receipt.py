@@ -46,11 +46,15 @@ def make_receipt(events: list[dict], spool_path: Path, *, run_date: datetime, se
                 'id': e['spanId'], 'parent_id': e.get('parentSpanId') or None,
                 'name': e['name'], 'type': a.get(otlp.OBS_TYPE, 'span').upper(),
                 'start_time': datetime.fromtimestamp(int(e['startTimeUnixNano']) / 1e9, timezone.utc).isoformat(),
+                'end_time': datetime.fromtimestamp(int(e['endTimeUnixNano']) / 1e9, timezone.utc).isoformat(),
                 'prompt_name': a.get(otlp.PROMPT_NAME),
                 'prompt_version': int(a[otlp.PROMPT_VERSION]) if otlp.PROMPT_VERSION in a else None,
                 'session_id': a.get(otlp.SESSION_ID),
                 'input': _decoded(a.get(otlp.OBS_INPUT)), 'output': _decoded(a.get(otlp.OBS_OUTPUT)),
                 'evaluation_subject': _decoded(a.get(otlp.OBS_METADATA_PREFIX + 'evaluation_subject')),
+                'operation_metadata': {key: _decoded(a[otlp.OBS_METADATA_PREFIX + key])
+                    for key in ('invocation', 'simulated', 'source_id')
+                    if otlp.OBS_METADATA_PREFIX + key in a},
             })
         scores = []
         for e in events:

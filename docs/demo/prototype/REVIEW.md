@@ -88,3 +88,13 @@ Screenshots:
 Acceptance and the build request are now recorded above. Authoring must retain
 the accepted story and prototype and verify the required live behaviour. Use the [brief](BRIEF.md) and
 [start/rehearsal instructions](../../../design/prototype/README.md).
+
+## Compatibility with the later trace-detail instruction
+
+The user subsequently requested proper tool-call shapes in live companion and
+history. The [trace amendment](../story/TRACE_SHAPES.md) adds nested reference work
+in the authored runtime. It preserves the accepted companion layout, prompt-first
+journey, session entry point and distinct evaluation subjects. The prototype's
+original screenshots/counts remain evidence of the earlier prototype; they do not
+verify these added operations. Runtime assertions and fresh native readback must
+establish the amended shape. No additional visual acceptance is claimed.

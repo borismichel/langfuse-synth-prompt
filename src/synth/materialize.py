@@ -19,6 +19,8 @@ from langfuse_synth_core.seed.otlp import trace_root_span_id
 
 from .catalog import dataset_items, load_fixture, prompt_by_id, score_definitions, system_prompt
 from .config import DERIVATION_HOOK
+from .reference_tools import (REFERENCE_RETRIEVER_NAME, REFERENCE_TOOL_NAME,
+                              reference_arguments, validate_reference)
 
 WINDOW_DAYS = 28
 HISTORY_TRACES = 1620
@@ -70,9 +72,10 @@ def population_plan(target_traces: int, params: Mapping[str, Any] | None = None,
     outcomes += counts["FLOW-01"] * 3 + counts["PR-06"] + counts["PR-07"] + counts["PR-08"] * 3
     lengths = {pid: _session_lengths(counts[pid], pid) for pid in ("PR-01", "PR-02", "PR-03")}
     sessions = sum(len(values) for values in lengths.values())
+    chat_turns = sum(counts[pid] for pid in lengths)
     return {"target_traces": count, "request_counts": counts, "generations": generations,
-            "observations": count + generations + counts["FLOW-01"], "outcomes": outcomes,
-            "chat_turns": sum(counts[pid] for pid in lengths), "chat_sessions": sessions,
+            "observations": count + generations + counts["FLOW-01"] + 2 * chat_turns, "outcomes": outcomes,
+            "chat_turns": chat_turns, "chat_sessions": sessions,
             "chat_users": sessions - 2 * (sessions // 5),
             "session_lengths": {pid: dict(sorted(Counter(values).items())) for pid, values in lengths.items()}}
 
@@ -125,19 +128,46 @@ def _task_timestamp(index: int, rng: Rng, run_date: datetime) -> tuple[datetime,
 
 
 def _root(*, trace_id, timestamp, name, metadata, user_id=None, session_id=None, input=None, output=None,
-          environment="production-history"):
+          environment="production-history", obs_type="agent"):
     # Compose core builders: shell propagation and observation-local evaluator context.
     # Putting evaluation_subject into trace metadata would leak it to every child.
     shell = trace_event(trace_id=trace_id, timestamp=timestamp, name=name, user_id=user_id,
                         session_id=session_id, tags=["authored-history", "fictional"],
                         environment=environment, input=input, output=output)
     root = observation_event(obs_id=trace_root_span_id(trace_id), trace_id=trace_id,
-                             name=name, obs_type="agent", start=timestamp,
+                             name=name, obs_type=obs_type, start=timestamp,
                              environment=environment, metadata={**metadata, "request_id": trace_id}, input=input, output=output)
     attrs = {a["key"]: a for a in shell["attributes"]}
     attrs.update({a["key"]: a for a in root["attributes"]})
     shell["attributes"] = list(attrs.values())
     return shell
+
+
+def _reference_resolution(rng, trace_id, index, prompt_id, start, source):
+    """Authored timing for the application's local read-and-validate operation.
+
+    The app invokes this tool before calling the provider; it is not a model
+    tool-call message. An isolated substream preserves existing session choices.
+    """
+    arguments = reference_arguments(prompt_id)
+    resolved = validate_reference(source, arguments)
+    tool_id = rng.obs_id("reference-tool", index)
+    retrieval_start = start + timedelta(milliseconds=5)
+    retrieval_end = retrieval_start + timedelta(milliseconds=rng.sub("reference-timing", index).randint(25, 55))
+    end = retrieval_end + timedelta(milliseconds=8)
+    metadata = {"application_id": prompt_by_id(prompt_id)["application_id"],
+                "request_id": trace_id, "source_id": arguments["source_id"],
+                "cohort": "production-history", "evidence_kind": "authored-synthetic-history",
+                "invocation": "application", "simulated": True}
+    tool = observation_event(obs_id=tool_id, trace_id=trace_id,
+        name=REFERENCE_TOOL_NAME, obs_type="tool", parent_id=trace_root_span_id(trace_id),
+        start=start, end=end, environment="production-history",
+        input=arguments, output=resolved, metadata=metadata)
+    retriever = observation_event(obs_id=rng.obs_id("reference-retriever", index), trace_id=trace_id,
+        name=REFERENCE_RETRIEVER_NAME, obs_type="retriever", parent_id=tool_id,
+        start=retrieval_start, end=retrieval_end, environment="production-history",
+        input={"source_id": arguments["source_id"]}, output=source, metadata=metadata)
+    return [tool, retriever], end, resolved
 
 
 def _metadata(prompt_id, version, case_id, source, question, history, *, subject, output=None):
@@ -263,10 +293,13 @@ def build_events(target_traces: int, params: Mapping[str, Any], *, run_date: dat
                              "relative_day": day, "expected_outcomes": {eid: {"value": value, "status": "complete"}
                                  for eid, value in sorted(outcomes.items()) if definitions[eid]["subject"] == "user_input"}})
             events.append(_root(trace_id=trace_id, timestamp=timestamp, name=prompt_by_id(prompt_id)["title"] + " request",
-                user_id=user_id, session_id=session_id, metadata=metadata,
+                user_id=user_id, session_id=session_id, metadata=metadata, obs_type="span",
                 input={"role": "user", "content": turn["user_message"]}, output={"role": "assistant", "content": output}))
-            gen, end, gen_id = _generation(r, trace_id, turn_index, prompt_id, version, timestamp,
-                turn["case_id"], turn["user_message"], source, history, output, outcomes)
+            reference_events, generation_start, resolved = _reference_resolution(
+                r, trace_id, turn_index, prompt_id, timestamp, source)
+            events.extend(reference_events)
+            gen, end, gen_id = _generation(r, trace_id, turn_index, prompt_id, version, generation_start,
+                turn["case_id"], turn["user_message"], resolved, history, output, outcomes)
             events.append(gen)
             events.extend(_scores(r, trace_id, turn_index, trace_root_span_id(trace_id), gen_id, outcomes, end, turn["case_id"]))
             history += [{"role": "user", "content": turn["user_message"]}, {"role": "assistant", "content": output}]
@@ -328,6 +361,8 @@ def build_historical_experiment_events(params: Mapping[str, Any], *, run_date: d
 
     These are synthetic replay, not completed paid model/judge executions. The
     caller provisions assets and attaches the returned links after ingestion.
+    Like native prompt-only experiments, they consume the dataset's supplied
+    reference context and do not run the application's reference tool pipeline.
     """
     from .catalog import historical_experiment_cases
 

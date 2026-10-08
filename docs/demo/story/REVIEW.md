@@ -71,3 +71,9 @@ No model, judge or live Langfuse mutation was executed to produce them.
 On 2026-10-08 the user requested “Run proto on the packet”. Proceed with the
 accepted packet and a local fixture prototype. No change to D-01–D-31.
 Prototype acceptance and any production implementation remain separate decisions.
+
+## Subsequent authoring instruction: trace detail
+
+On 2026-10-08 the user explicitly requested proper live/history trace shapes with
+tool calls. [TRACE_SHAPES.md](TRACE_SHAPES.md) records this additive instruction.
+It leaves the accepted three-beat journey and business/evaluation truth intact.

@@ -33,14 +33,22 @@ compiled system messages are joined with a blank line; the generation input reco
 exact system string plus the actual history and current message sent to the provider.
 The generation receives the real SDK prompt object, retaining its resolved version.
 
-Each request emits one `prompt-chat-request` root and a child `reply` generation, with
+Each request emits a `prompt-chat-request` SPAN root, an application-invoked
+`resolve_product_reference` TOOL with a nested `read_product_record` RETRIEVER,
+and a sibling `reply` GENERATION, with
 `environment=prompt-live` and the same session ID. The root's `input.messages` contains only
 the new user message; its output contains only the new assistant message, avoiding repeated
 history in session replay. Root and generation both expose:
 
-- `current_user_message`, `prior_messages` and `reference_context` in input and metadata;
+- `current_user_message`, `prior_messages` and `reference_context` in metadata;
 - application/prompt IDs, prompt name, resolved prompt version and rubric revision;
 - `evaluation_subject=user_input` on the root, `assistant_reply` on the generation.
+
+The tool executes a real local catalog read and validates its required fields before
+returning the exact record supplied to the model. Tool arguments/results are structured
+and carry no evaluator subject or managed-prompt attachment. Read/validation errors
+mark the failed operation and request, and prevent a provider call. These are application
+operations, so no fictional model-selected tool messages are inserted.
 
 Only short correlation fields use propagated metadata because the SDK truncates propagated
 values. Full structured evaluator context is set explicitly on each observation. Input

@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 import os
 import socket
+from copy import deepcopy
 from contextlib import contextmanager
 from types import SimpleNamespace
 from uuid import uuid4
@@ -14,13 +15,22 @@ from langfuse_synth_core.companion.llm import ChatResult
 
 
 class FixtureObservation:
-    def __init__(self, adapter, *, root=False, trace_id=None, **fields):
+    def __init__(self, adapter, *, root=False, trace_id=None, as_type="span", parent=None,
+                 trace_fields=None, **fields):
         self.adapter = adapter
         self.trace_id = trace_id or uuid4().hex
         self.observation_id = uuid4().hex[:16]
         self.id = self.trace_id if root else self.observation_id
-        self.fields = fields
+        self.trace_fields = deepcopy(trace_fields or {})
+        self.fields = {**deepcopy(self.trace_fields), **fields, "type": as_type.upper(),
+                       "parent_id": parent.observation_id if parent else None}
+        self.fields["metadata"] = {**self.trace_fields.get("metadata", {}), **fields.get("metadata", {})}
         self.root = root
+        self.parent = parent
+        self.children = []
+        self.ended = False
+        if parent is not None:
+            parent.children.append(self)
         adapter.observations.append(self)
 
     def update(self, **fields):
@@ -28,10 +38,17 @@ class FixtureObservation:
         return self
 
     @contextmanager
+    def observation(self, name, *, as_type="span", **fields):
+        observation = FixtureObservation(self.adapter, trace_id=self.trace_id, name=name,
+                                         as_type=as_type, parent=self,
+                                         trace_fields=self.trace_fields, **fields)
+        try:
+            yield observation
+        finally:
+            observation.ended = True
+
     def generation(self, name, **fields):
-        generation = FixtureObservation(self.adapter, trace_id=self.trace_id, name=name,
-                                        parent_id=self.observation_id, **fields)
-        yield generation
+        return self.observation(name, as_type="generation", **fields)
 
 
 class FixtureEmitter:
@@ -40,8 +57,13 @@ class FixtureEmitter:
 
     @contextmanager
     def trace(self, name, **fields):
-        root = FixtureObservation(self.adapter, root=True, name=name, **fields)
-        yield root
+        trace_fields = {key: fields[key] for key in ("session_id", "environment", "tags", "metadata", "user_id", "version") if key in fields}
+        root = FixtureObservation(self.adapter, root=True, name=name,
+                                  trace_fields=trace_fields, **fields)
+        try:
+            yield root
+        finally:
+            root.ended = True
 
     def score(self, name, value, **fields):
         if self.adapter.fail_feedback:

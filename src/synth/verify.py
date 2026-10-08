@@ -41,8 +41,15 @@ def verify_trace(reader, expected: dict) -> Check:
         start = datetime.fromisoformat(e['start_time'])
         if o.start_time is None or abs((o.start_time-start).total_seconds()) > .001:
             problems.append(f"{e['id']} wrong timestamp")
-        if e.get('evaluation_subject') and (o.metadata or {}).get('evaluation_subject') != e['evaluation_subject']:
+        if e.get('end_time'):
+            end = datetime.fromisoformat(e['end_time'])
+            if o.end_time is None or abs((o.end_time-end).total_seconds()) > .001:
+                problems.append(f"{e['id']} wrong end timestamp")
+        if (o.metadata or {}).get('evaluation_subject') != e.get('evaluation_subject'):
             problems.append(f"{e['id']} wrong evaluator subject")
+        for key, value in e.get('operation_metadata', {}).items():
+            if (o.metadata or {}).get(key) != value:
+                problems.append(f"{e['id']} wrong operation metadata {key}")
     if len(actual.observations) != len(expected['observations']):
         problems.append('observation count differs (possible duplicate import)')
     scores = {s.id:s for s in actual.scores}

@@ -40,13 +40,13 @@ That authorisation is not recorded as acceptance of this new implementation.
 | --- | --- | --- |
 | Manifest | Passed | [manifest.txt](evidence/manifest.txt) |
 | Pinned core conformance | Passed, no skipped checks | [conformance.txt](evidence/conformance.txt) |
-| Scenario/integration suite | 89 passed | [tests.txt](evidence/tests.txt) |
+| Scenario/integration suite | 103 passed | [tests.txt](evidence/tests.txt) |
 | Process repeatability | Identical full spool for hash seeds 0, 1, 2 with networking denied | Included in test suite |
 | Package dependencies | No broken requirements | [dependencies.txt](evidence/dependencies.txt) |
 | Public request schemas | 144 asset/setup payloads validated against official OpenAPI snapshot, no errors | [schema-check.json](evidence/schema-check.json) |
 | Local runtime image | Built; non-root UID 10001, network disabled, small seed and runbook delivery succeeded; both provider clients bind without calls | [container-smoke.json](evidence/container-smoke.json) |
 | Companion browser | Three bots and feedback reviewed by implementation agent; parent replayed four product turns, corrected and rechecked consistent v7 voice | [preview-rehearsal.md](evidence/preview-rehearsal.md), [screenshot](evidence/companion-four-turns.jpg) |
-| Small live seed/readback | 219 passed, 4 readiness checks pending; all 36 representative traces and 18 experiment associations matched | [live-pilot.json](evidence/live-pilot.json) |
+| Prior pilot seed/readback (before tool enrichment) | 219 passed, 4 readiness checks pending; all 36 representative traces and 18 experiment associations matched | [live-pilot.json](evidence/live-pilot.json) |
 | Intended population | Arithmetic plan reconciles 1,620 history traces / 2,100 generations / 9,320 eligible outcomes | [generation notes](GENERATION.md) |
 
 The golden is a deliberate replacement of the scaffold example: 24 history traces
@@ -102,3 +102,23 @@ assertion checks that field plus the exact trace and generation. Eight regressio
 cases reject wrong run, dataset, item, trace and observation identities. All eighteen
 associations passed on readback; no core transport change or duplicate import was
 needed. Historical examples remain authored illustrations, not executed model runs.
+
+## User-requested trace enrichment (after the pilot)
+
+The user requested meaningful tool operations in live companion and history.
+[TRACE_SHAPES.md](../story/TRACE_SHAPES.md) specifies the shared request → reference
+tool → nested retriever, then reply generation shape. The live path executes the
+local catalog lookup and validation; history records explicit synthetic versions.
+Input and reply evaluator subjects remain separate from tool observations.
+
+The prior 219 passing live checks apply to the pre-enrichment pilot. New tool
+shapes have offline implementation evidence only until a fresh/reset authorised
+pilot is imported and read back. Existing history was not appended or overwritten.
+
+The revised scenario suite passes 103 tests, including exact historical hierarchy,
+session/timing containment, live read/validation failures, correct evaluator
+subjects and reference-to-model payload identity. Cross-process seed output
+matched under Python hash seeds 0, 1 and 2 before the deliberate golden refresh.
+The supported freeze produced a 596,592-byte golden. Manifest and pinned core
+conformance pass. [Trace-shape evidence](evidence/trace-shapes.json) records the
+four actual fixture observations; it explicitly excludes live persistence claims.

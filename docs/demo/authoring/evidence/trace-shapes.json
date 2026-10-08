@@ -1,0 +1,163 @@
+{
+  "scope": "Offline fixture adapter exercising delivered ConversationService; no provider call or Langfuse ingestion. Cloud pilot predates this trace shape.",
+  "source_sha256": {
+    "src/synth/companion/service.py": "af8e99ea435530909c0885b0a2dc15e02d61875da08143c521e8b29ce9596621",
+    "src/synth/companion/preview.py": "c123ab03456135b497f083e2dfaeaf118eaf96d6c7aa99a33b36451bcd6ee10a",
+    "src/synth/reference_tools.py": "2c79963ce3899217b7c81a114e3527b41959f68052375858f466179466688467",
+    "src/synth/materialize.py": "a7b5d27f09d01f3cfd5611f0f8bb2c691dd5d32d1e8dda94a892fda6b49fba33"
+  },
+  "nodes": [
+    {
+      "name": "prompt-chat-request",
+      "type": "SPAN",
+      "parent_name": null,
+      "input": {
+        "messages": [
+          {
+            "role": "user",
+            "content": "I get EUR 1300 in salary each month. What would this account cost me?"
+          }
+        ]
+      },
+      "output": [
+        {
+          "role": "assistant",
+          "content": "The monthly fee is EUR 4, waived in each calendar month when at least EUR 1200 in qualifying salary deposits arrives. Your EUR 1300 salary meets that condition; transfers from your own accounts do not count."
+        }
+      ],
+      "session_id": "prompt-live-7ee8ca4893d04222ba09cacf3ed6a0b9",
+      "evaluation_subject": "user_input",
+      "ended": true
+    },
+    {
+      "name": "resolve_product_reference",
+      "type": "TOOL",
+      "parent_name": "prompt-chat-request",
+      "input": {
+        "source_id": "SRC-01",
+        "prompt_id": "PR-01"
+      },
+      "output": {
+        "id": "SRC-01",
+        "provenance": "Authored fictional product record; not an actual financial product or customer document.",
+        "name": "Everyday Account",
+        "currency": "EUR",
+        "monthly_fee": 4,
+        "waiver": {
+          "fee": 0,
+          "condition": "At least EUR 1200 in qualifying salary deposits in each calendar month.",
+          "exclusions": [
+            "Transfers from your own accounts do not count as salary deposits."
+          ],
+          "timing": "The waiver is assessed separately for each calendar month."
+        },
+        "eligibility": [
+          "Age 18 or older.",
+          "Resident of the fictional service region."
+        ],
+        "card_replacement_fee": 6,
+        "cash_withdrawals": {
+          "included_per_calendar_month": 2,
+          "fee_each_after_included": 1.5
+        },
+        "opening_documents": [
+          "Valid photo ID.",
+          "Proof of address dated within the last three months."
+        ],
+        "processing_time": "Two working days after complete documents are received.",
+        "unknowns": [
+          "Overdraft availability, interest rates and approval eligibility are not provided.",
+          "Document-upload status is not available to this assistant."
+        ],
+        "action_boundary": "The assistant explains supplied facts; it cannot open accounts, waive fees, approve credit or inspect a real account."
+      },
+      "session_id": "prompt-live-7ee8ca4893d04222ba09cacf3ed6a0b9",
+      "evaluation_subject": null,
+      "ended": true
+    },
+    {
+      "name": "read_product_record",
+      "type": "RETRIEVER",
+      "parent_name": "resolve_product_reference",
+      "input": {
+        "source_id": "SRC-01"
+      },
+      "output": {
+        "id": "SRC-01",
+        "provenance": "Authored fictional product record; not an actual financial product or customer document.",
+        "name": "Everyday Account",
+        "currency": "EUR",
+        "monthly_fee": 4,
+        "waiver": {
+          "fee": 0,
+          "condition": "At least EUR 1200 in qualifying salary deposits in each calendar month.",
+          "exclusions": [
+            "Transfers from your own accounts do not count as salary deposits."
+          ],
+          "timing": "The waiver is assessed separately for each calendar month."
+        },
+        "eligibility": [
+          "Age 18 or older.",
+          "Resident of the fictional service region."
+        ],
+        "card_replacement_fee": 6,
+        "cash_withdrawals": {
+          "included_per_calendar_month": 2,
+          "fee_each_after_included": 1.5
+        },
+        "opening_documents": [
+          "Valid photo ID.",
+          "Proof of address dated within the last three months."
+        ],
+        "processing_time": "Two working days after complete documents are received.",
+        "unknowns": [
+          "Overdraft availability, interest rates and approval eligibility are not provided.",
+          "Document-upload status is not available to this assistant."
+        ],
+        "action_boundary": "The assistant explains supplied facts; it cannot open accounts, waive fees, approve credit or inspect a real account."
+      },
+      "session_id": "prompt-live-7ee8ca4893d04222ba09cacf3ed6a0b9",
+      "evaluation_subject": null,
+      "ended": true
+    },
+    {
+      "name": "reply",
+      "type": "GENERATION",
+      "parent_name": "prompt-chat-request",
+      "input": {
+        "messages": [
+          {
+            "role": "system",
+            "content": "You explain fictional financial-services products using only the supplied reference_context. Answer the user's question directly in plain English. Keep all amounts, conditions, exclusions and processing times accurate. Do not invent missing facts or claim to perform account actions. If a relevant fact is absent, say it is not provided. If information in earlier user messages conflicts, ask for clarification rather than choosing silently; respect explicit corrections. Remain respectful when the user disagrees or swears. Use conversation_history to understand follow-up questions. Keep the reply concise without dropping a material condition.\n\nReference context: {\"id\": \"SRC-01\", \"provenance\": \"Authored fictional product record; not an actual financial product or customer document.\", \"name\": \"Everyday Account\", \"currency\": \"EUR\", \"monthly_fee\": 4, \"waiver\": {\"fee\": 0, \"condition\": \"At least EUR 1200 in qualifying salary deposits in each calendar month.\", \"exclusions\": [\"Transfers from your own accounts do not count as salary deposits.\"], \"timing\": \"The waiver is assessed separately for each calendar month.\"}, \"eligibility\": [\"Age 18 or older.\", \"Resident of the fictional service region.\"], \"card_replacement_fee\": 6, \"cash_withdrawals\": {\"included_per_calendar_month\": 2, \"fee_each_after_included\": 1.5}, \"opening_documents\": [\"Valid photo ID.\", \"Proof of address dated within the last three months.\"], \"processing_time\": \"Two working days after complete documents are received.\", \"unknowns\": [\"Overdraft availability, interest rates and approval eligibility are not provided.\", \"Document-upload status is not available to this assistant.\"], \"action_boundary\": \"The assistant explains supplied facts; it cannot open accounts, waive fees, approve credit or inspect a real account.\"}"
+          },
+          {
+            "role": "user",
+            "content": "I get EUR 1300 in salary each month. What would this account cost me?"
+          }
+        ]
+      },
+      "output": [
+        {
+          "role": "assistant",
+          "content": "The monthly fee is EUR 4, waived in each calendar month when at least EUR 1200 in qualifying salary deposits arrives. Your EUR 1300 salary meets that condition; transfers from your own accounts do not count."
+        }
+      ],
+      "session_id": "prompt-live-7ee8ca4893d04222ba09cacf3ed6a0b9",
+      "evaluation_subject": "assistant_reply",
+      "ended": true
+    }
+  ],
+  "golden_sha256": "77cd4ce99d3a19153124c82a140c9dee99f7859797a723da21bee280a68e2e47",
+  "history_small": {
+    "traces": 24,
+    "observations": 92,
+    "generations": 32,
+    "scores": 138
+  },
+  "historical_experiments": {
+    "traces": 18,
+    "observations": 36,
+    "scores": 36
+  },
+  "live_readback": "pending fresh authorised target or authorised reset; existing pilot not reimported"
+}

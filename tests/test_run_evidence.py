@@ -74,3 +74,26 @@ def test_dry_seed_delivers_runbook_and_evidence(isolated):
     assert state.run_receipt['representative_traces']
     runbook=isolated/'out'/'DEMO_SCRIPT.md'
     assert runbook.read_bytes()==Path('DEMO_SCRIPT.md').read_bytes()
+
+
+def test_tool_readback_rejects_leaked_evaluator_subject_and_wrong_timing():
+    from dataclasses import replace
+    e = expected()
+    observation = e['observations'][0]
+    observation.update(type='TOOL', evaluation_subject=None,
+                       end_time='2026-01-01T00:00:01+00:00',
+                       operation_metadata={'invocation': 'application'})
+    value = actual()
+    e['scores'] = []
+    value.scores.clear()
+    tool = replace(value.observations[0], type='TOOL',
+                   end_time=datetime(2026, 1, 1, 0, 0, 1, tzinfo=timezone.utc),
+                   metadata={'invocation': 'application'})
+    value.observations[0] = tool
+    assert verify_trace(reader_for(value), e).ok
+    value.observations[0] = replace(tool, metadata={'invocation': 'application', 'evaluation_subject': 'user_input'})
+    assert not verify_trace(reader_for(value), e).ok
+    value.observations[0] = replace(tool, end_time=None)
+    assert not verify_trace(reader_for(value), e).ok
+    value.observations[0] = replace(tool, metadata={'invocation': 'model'})
+    assert not verify_trace(reader_for(value), e).ok

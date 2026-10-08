@@ -5,7 +5,8 @@ network call. Historical scores are expected outcomes attached to their actual
 subjects, with `judge_executed=false` and explicit provenance. These fixtures do
 not establish judge reliability or predict a live experiment result.
 
-The accepted story and prototype files remain unchanged. Four source fixtures
+The accepted story and prototype are preserved, with the user-requested
+[trace-detail amendment](../story/TRACE_SHAPES.md). Four source fixtures
 are copied byte-for-byte into `src/synth/fixtures`: portfolio, product, examples,
 and dataset extras. Additional authored files supply 72 distinct prompt texts,
 the twelve accepted rubric definitions, and coherent two-, three- and five-turn
@@ -37,8 +38,8 @@ allocation preserves the exact requested total at smaller and larger volumes.
 
 | History scale | Request traces | Generations | All observations | Outcomes | Chat turns | Chat sessions | Chat users |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| Small verified fixture | 24 | 32 | 60 | 138 | 16 | 6 | 4 |
-| Accepted full plan, arithmetic only | 1,620 | 2,100 | 3,960 | 9,320 | 1,080 | 360 | 216 |
+| Small verified fixture | 24 | 32 | 92 | 138 | 16 | 6 | 4 |
+| Accepted full plan, arithmetic only | 1,620 | 2,100 | 6,120 | 9,320 | 1,080 | 360 | 216 |
 
 The full plan preserves 180/108/72 conversations and 540/325/215 turns across
 PR-01/02/03. Session length allocations are respectively 72/72/36, 43/43/22 and
@@ -133,3 +134,17 @@ Current official semantics checked during authoring:
 [sessions](https://langfuse.com/docs/observability/features/sessions),
 [observation types](https://langfuse.com/docs/observability/features/observation-types),
 and [prompt links](https://langfuse.com/docs/prompt-management/features/link-to-traces).
+
+## Reference operations
+
+Each historical chat turn now includes an application-invoked reference tool and
+a nested catalog retriever before its reply generation. Both carry the exact
+structured reference record, simulated provenance and stable deterministic IDs.
+They have no prompt association or evaluation subject. Existing prompt, root,
+generation and score identities remain stable. Historical native prompt
+experiments remain prompt-only because their context comes from dataset inputs.
+
+The existing live pilot predates this amendment. Its saved verification report
+remains evidence of the prior shape, not these new spans. Do not reimport the
+changed spool into that populated project; use a fresh authorised target or an
+authorised reset when the complete small live walkthrough can proceed.

@@ -10,6 +10,7 @@ from synth.catalog import (calibration_cases, dataset_items, load_fixture, promp
                            score_definitions, system_prompt)
 from synth.materialize import (MODEL_RATES, build_events, build_historical_experiment_events,
                                local_day_bounds, population_plan)
+from synth.reference_tools import REFERENCE_RETRIEVER_NAME, REFERENCE_TOOL_NAME
 
 
 ANCHOR = datetime(2026, 10, 8, tzinfo=timezone.utc)
@@ -67,7 +68,7 @@ def test_small_complete_population(history):
     spans = [e for e in history if "spanId" in e]
     scores = [e for e in history if e.get("type") == "score-create"]
     assert len({e["traceId"] for e in spans}) == 24
-    assert len(spans) == 60
+    assert len(spans) == 92 == population_plan(24)["observations"]
     assert len(scores) == 138
     assert len({e["spanId"] for e in spans}) == len(spans)
     assert len({e["body"]["id"] for e in scores}) == len(scores)
@@ -115,7 +116,7 @@ def test_session_replay_and_human_time_are_distinct(history):
         if metadata(span).get("evaluation_subject") == "user_input":
             sessions[attrs["langfuse.session.id"]].append(span)
         else:
-            assert attrs["langfuse.observation.type"] == "generation"
+            assert attrs["langfuse.observation.type"] in {"generation", "tool", "retriever"}
     assert len(sessions) == 6
     for turns in sessions.values():
         turns.sort(key=lambda e: int(e["startTimeUnixNano"]))
@@ -130,6 +131,53 @@ def test_session_replay_and_human_time_are_distinct(history):
             if index:
                 gap = (int(root["startTimeUnixNano"]) - int(turns[index - 1]["endTimeUnixNano"])) / 1e9
                 assert 15 <= gap <= 120 or 300 <= gap <= 1200
+
+
+def test_chat_reference_pipeline_matches_model_context_and_session(history):
+    traces = defaultdict(list)
+    for span in history:
+        if "spanId" in span and "langfuse.session.id" in attributes(span):
+            traces[span["traceId"]].append(span)
+    assert len(traces) == population_plan(24)["chat_turns"] == 16
+    source = load_fixture("product")["source"]
+    prompts = set()
+    for trace_id, spans in traces.items():
+        assert len(spans) == 4
+        by_type = {attributes(span)["langfuse.observation.type"]: span for span in spans}
+        assert set(by_type) == {"span", "tool", "retriever", "generation"}
+        root, tool, retriever, generation = (by_type[k] for k in ("span", "tool", "retriever", "generation"))
+        prompt_id = metadata(generation)["prompt_id"]
+        prompts.add(prompt_id)
+        assert root["spanId"] == trace_root_span_id(trace_id)
+        assert tool["parentSpanId"] == generation["parentSpanId"] == root["spanId"]
+        assert retriever["parentSpanId"] == tool["spanId"]
+        assert tool["name"] == REFERENCE_TOOL_NAME
+        assert retriever["name"] == REFERENCE_RETRIEVER_NAME
+        assert json.loads(attributes(tool)["langfuse.observation.input"]) == {"source_id": "SRC-01", "prompt_id": prompt_id}
+        assert json.loads(attributes(retriever)["langfuse.observation.input"]) == {"source_id": "SRC-01"}
+        for operation in (tool, retriever):
+            attrs, meta = attributes(operation), metadata(operation)
+            assert json.loads(attrs["langfuse.observation.output"]) == source
+            assert meta["invocation"] == "application" and meta["simulated"] is True
+            assert meta["evidence_kind"] == "authored-synthetic-history"
+            assert meta["request_id"] == trace_id and meta["source_id"] == source["id"]
+            assert "evaluation_subject" not in meta
+            assert not any(key.startswith("langfuse.observation.prompt.") for key in attrs)
+            assert not any(key in attrs for key in ("langfuse.observation.model.name",
+                "langfuse.observation.usage_details", "langfuse.observation.cost_details"))
+        messages = json.loads(attributes(generation)["langfuse.observation.input"])
+        assert json.loads(messages[0]["content"].split("\n\nReference context:\n", 1)[1]) == source
+        assert messages[1:-1] == metadata(root)["prior_messages"]
+        assert messages[-1] == json.loads(attributes(root)["langfuse.observation.input"])
+        assert all(message["role"] in {"system", "user", "assistant"} and "tool_calls" not in message for message in messages)
+        assert metadata(generation)["reference_context"] == metadata(root)["reference_context"] == source
+        for attr in ("langfuse.session.id", "langfuse.user.id", "langfuse.environment"):
+            assert len({attributes(span)[attr] for span in spans}) == 1
+        start = lambda span: int(span["startTimeUnixNano"])
+        end = lambda span: int(span["endTimeUnixNano"])
+        assert start(root) <= start(tool) < start(retriever) < end(retriever) < end(tool)
+        assert end(tool) == start(generation) < end(generation) <= end(root)
+    assert prompts == {"PR-01", "PR-02", "PR-03"}
 
 
 def test_flow_three_distinct_links_and_unprompted_lookup(history):
@@ -170,7 +218,7 @@ def test_usage_cost_and_version_periods(history):
 def test_full_scale_is_a_plan_not_an_unperformed_seed():
     plan = population_plan(1620)
     assert {key: plan[key] for key in ("target_traces", "generations", "observations", "outcomes", "chat_turns", "chat_sessions", "chat_users")} == {
-        "target_traces": 1620, "generations": 2100, "observations": 3960, "outcomes": 9320,
+        "target_traces": 1620, "generations": 2100, "observations": 6120, "outcomes": 9320,
         "chat_turns": 1080, "chat_sessions": 360, "chat_users": 216}
     assert plan["session_lengths"] == {"PR-01": {2: 72, 3: 72, 5: 36}, "PR-02": {2: 43, 3: 43, 5: 22}, "PR-03": {2: 29, 3: 29, 5: 14}}
     for target in (0, 1, 7, 24, 72, 100, 1620, 5000):
@@ -198,6 +246,9 @@ def test_separate_authored_historical_experiments():
     assert len({link["run_name"] for link in links}) == 18
     assert all(link["case_id"] == dataset_items(link["prompt_id"])[0]["case_id"] for link in links)
     spans = {e["spanId"]: e for e in events if "spanId" in e}
+    # Native prompt experiments receive an existing reference; they do not run
+    # the app's retrieval pipeline or fabricate model tool-call messages.
+    assert Counter(attributes(span)["langfuse.observation.type"] for span in spans.values()) == {"agent": 18, "generation": 18}
     for link in links:
         gen = spans[link["observation_id"]]
         assert gen["traceId"] == link["trace_id"]
