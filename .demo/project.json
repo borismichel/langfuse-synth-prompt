@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "slug": "prompt",
+  "repository": "https://github.com/borismichel/langfuse-synth-prompt",
+  "branch": "main",
+  "core": {
+    "repository": "https://github.com/borismichel/langfuse-synth-core",
+    "ref": "v4.1.1",
+    "commit": "6b86ac16d797cd0c6a80da1cdd68e8fc8998c18d"
+  },
+  "depot_repository": "https://github.com/borismichel/langfuse-demo-depot",
+  "skills_repository": "https://github.com/borismichel/my-skills",
+  "skills_ref": "95b253028c2c183ee3dfab963f16b38adfd8f2af",
+  "handoffs": {}
+}
