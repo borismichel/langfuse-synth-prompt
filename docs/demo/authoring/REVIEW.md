@@ -122,3 +122,12 @@ matched under Python hash seeds 0, 1 and 2 before the deliberate golden refresh.
 The supported freeze produced a 596,592-byte golden. Manifest and pinned core
 conformance pass. [Trace-shape evidence](evidence/trace-shapes.json) records the
 four actual fixture observations; it explicitly excludes live persistence claims.
+
+## Follow-up skill audit
+
+[Trace design audit](TRACE_DESIGN_AUDIT.md) applies the freshly fetched Langfuse
+best-practices page and instrumentation skill. The implemented hierarchy has
+correct parent/session/score relationships, but the generic tool wrapper around
+retrieval provides limited additional value. The audit recommends specific
+retrieval types, distinct real tool actions and consistent operation naming.
+These design refinements are recorded as pending, not claimed implemented.

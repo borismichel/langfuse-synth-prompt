@@ -147,7 +147,8 @@
         "docs/demo/authoring/COMPANION.md": "a11cebc25d9cb38ad31173d0a07e22c3b77f879a3e81bb8563bed09a19273745",
         "docs/demo/authoring/GENERATION.md": "43c1f53bf7ac7553a6474b8624adedc02b0a9bc75d367645c3c9d4cf57029353",
         "docs/demo/authoring/READINESS_RESEARCH.md": "81808b79557af7670d72428fbb2e12947c75232de183807d03be5d978096db1d",
-        "docs/demo/authoring/REVIEW.md": "71206fcf7d04aba6d3673eff859868b190551e1670fa67e4b2bc387c082ef371",
+        "docs/demo/authoring/REVIEW.md": "e06ecfb0a5d6418d934e90c73344d739900e2030cbf39d1d148df108cd40c211",
+        "docs/demo/authoring/TRACE_DESIGN_AUDIT.md": "1a06ee2459d7a04d9920c5df77e3610ac64a0553696e7e6c663f06d8d9758871",
         "docs/demo/authoring/evidence/companion-four-turns.jpg": "f72337cd508fc348a5cc419fc0c3b4179012228b71006ed164433fa650e88272",
         "docs/demo/authoring/evidence/conformance.txt": "a9b96c0c2377a6ab82c8d73a0d533bc32b83ff68c685bd6a62aadb5ad0424660",
         "docs/demo/authoring/evidence/container-smoke.json": "41d8fd061ae9cec6c0348ad652eac62ea22cc5f62c6af46af5408496e2b59b76",
@@ -208,7 +209,7 @@
         "usecase.yaml": "7067c1d4c6ddbc90da8d6b78159bac42503681d35a0fc7b507e11f5dde7d0d31"
       },
       "decision_file": "docs/demo/authoring/REVIEW.md",
-      "note": "103 tests, manifest and conformance pass. Live and history reference tool/retriever shapes implemented with offline evidence; cloud pilot predates enrichment, fresh live readback and remaining model/evaluation/admission prerequisites pending.",
+      "note": "Implementation available for review; fresh Langfuse skill audit records trace-design refinements. Prior 103-test offline evidence remains; revised live tracing, model/evaluation setup and admission/rehearsal pending.",
       "input_checkpoint": "f3c0c8cb7b17ee4ce97d982c453bd0e1beca2f0cacb8b7d9a48fcb877c112a3b"
     }
   }
