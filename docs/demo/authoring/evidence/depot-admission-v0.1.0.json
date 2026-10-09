@@ -1,0 +1,23 @@
+{
+  "release": "v0.1.0",
+  "commit": "689ba53c82e50200ccc3c2667ed5fc0ab5939cfc",
+  "image": "ghcr.io/borismichel/langfuse-synth-prompt@sha256:2f1f56612c90b09c3177069ea86a26606a5a8a5683009c83d3269ae32554976c",
+  "ci_run": "https://github.com/borismichel/langfuse-synth-prompt/actions/runs/37897590410",
+  "publish_run": "https://github.com/borismichel/langfuse-synth-prompt/actions/runs/37897591896",
+  "ci": "success",
+  "publish": "success",
+  "admission_run": "0712efe4-be64-484d-aeb1-d057943be4bc",
+  "deployment_id": "3d9b5e26-18e1-49e2-90d8-84e05449aebc",
+  "project_id": "cmv0magyy08o7ad0e54ath8wi",
+  "project_name": "prompt-admission-demo",
+  "status": "passed",
+  "eligible_to_pin": true,
+  "checks": {
+    "register": "passed",
+    "build": "passed",
+    "spawn": "passed",
+    "seed": "passed",
+    "verify": "passed",
+    "companion_smoke": "passed"
+  }
+}

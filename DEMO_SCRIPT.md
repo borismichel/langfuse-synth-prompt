@@ -6,7 +6,7 @@ release it. There is no opening incident and no automatic score gate.
 
 | Beat | Delivered screen | Presenter action | Expected result | Evidence |
 | --- | --- | --- | --- | --- |
-| Understand the portfolio | Langfuse Prompts → versions and Metrics → linked observations | Browse nine prompt families. Open `products/explainer`, compare its production v7 with older versions, then inspect a linked request and reply. | Versions, usage, cost, latency and available score breakdowns explain what each application is doing. Input signals show what it hears. | Eight opening versions per prompt, nine datasets, historical prompt links, root and generation scores. |
+| Understand the portfolio | Langfuse Prompts → versions and Metrics → linked observations | Browse nine prompt families. Open `products/explainer`, compare its production v7 with older versions, then inspect a linked request and reply. | Versions, usage, cost, latency and available score breakdowns explain what each application is doing. Input signals show what it hears. | Eight opening versions per agent prompt, four reusable text building blocks, nine datasets, historical prompt links, root and generation scores. |
 | Try a change | Langfuse prompt editor → native Experiments | Create v9 from v7, add the theatrical style, label it `staging`, and compare against v7 on the same eight cases and real model. | Actual results show changes in delivery alongside factual fidelity, supported claims and respectful tone. | Same dataset snapshot and E-01–E-04 evaluator definitions. Inspect individual examples as well as aggregates. |
 | Show the effect | Protected `production` label → companion → Langfuse Session | An authorised administrator decides whether to promote. Complete four exchanges in a fresh product chat and choose **Open session**. | A real conversation uses the newly resolved prompt. Its session exposes the exchanges, exact prompt versions and both evaluation subjects. | Four root/generation pairs; up to 16 input and 16 reply outcomes once judges finish. |
 
@@ -48,6 +48,16 @@ have meaningful history, cases and versions but no companion screen. Open
 belong to small authored historical experiments; the other released versions have
 unequal traffic periods. Do not imply equal sample sizes.
 
+Open the `building-blocks` folder as part of this tour. Its four **text** prompts
+hold reference context, factual boundaries, voice and structured-output instructions.
+The voice prompt has a plain-language production version and a `playful` version.
+Open an agent prompt to show its native prompt-reference chips: every agent reuses
+reference context, and the relevant agents reuse the other shared instructions.
+These are components of the nine agents, not four additional applications or datasets.
+The seeded references pin versions so changing a component label does not silently
+change a released agent's instructions. Langfuse resolves the text before compiling
+its variables and conversation-history placeholder.
+
 Use the prompt's Metrics view for cost, latency and usage. The original Anthropic
 model names make role choices recognisable; historical cost metadata discloses
 the explicit 3× multiplier. Inspect the available per-version quality
@@ -75,13 +85,21 @@ product prompt for the main experiment story.
 
 ## Beat 2 — compare a proposed improvement
 
-From product explainer v7, save a new version with this addition to its **first
-system message**, retaining all fact and task instructions and the variable messages:
+From product explainer v7, create a new version. Retain the existing instructions
+and variable messages. In its **first system message**, use **Add prompt reference**
+to append `building-blocks/voice` with the `playful` label. The equivalent native
+reference is:
 
-> Deliver the same accurate answer in a restrained theatrical space-villain voice:
-> short, commanding sentences, occasional cosmic imagery, and unmistakable dramatic
-> presence. Remain respectful. Never threaten, belittle, invent product facts, or
-> obscure fees, exceptions, eligibility or required actions.
+```text
+@@@langfusePrompt:name=building-blocks/voice|label=playful@@@
+```
+
+Inspect the resolved text: it contains the accepted instruction to give the same
+accurate answer in a restrained theatrical space-villain voice, while remaining
+respectful and preserving facts. This demonstrates reuse of a managed text prompt
+as well as a candidate language change. The component's `playful` label resolves
+to version 2 at seed time; if the presenter moves that label later, inspect the
+resolved dependency again before comparison or promotion.
 
 This becomes v9 when the opening project is untouched. Label it `staging`. The
 presenter may write their own equivalent instruction. Version numbers are resolved
@@ -180,9 +198,15 @@ Judge definitions remain an explicit pre-seed setup step. Set
 `evaluation.provider` and `evaluation.model` (or their documented environment
 variables) to the existing Langfuse connection and usable model.
 
+Depot runs four ordered steps for a fresh project: evaluator setup, model-free
+history seed, post-import experiment mapping setup, then final verification.
+The two explicit setup steps may validate the configured model; they are separate
+from history generation. A missing compatible provider connection/key stops setup
+rather than delivering an application with missing judges.
+
 Use a fresh approved demo project and a fresh state directory. Start with 48 history
 traces; complete the small live journey before generating the intended full volume.
-Run `synth configure-evaluators --config config/demo.yaml` once before the seed; this separate setup may invoke the configured judge model for validation. The seed provisions the nine prompt families, datasets and score configurations, and reads the existing managed evaluators without invoking them. It then
+Run `synth configure-evaluators --config config/demo.yaml` once before the seed; this separate setup may invoke the configured judge model for validation. The seed provisions four text building blocks, the nine agent prompt families, datasets and score configurations, and reads the existing managed evaluators without invoking them. It then
 spools deterministic history, imports once and records exact evidence.
 
 ```sh

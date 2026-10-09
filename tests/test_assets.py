@@ -73,7 +73,7 @@ def test_full_assets_are_model_free_and_follow_accepted_story():
     counts = Counter(path for path, _ in api.writes)
     assert counts == {
         "/api/public/models": 3, "/api/public/score-configs": 12,
-        "/api/public/v2/prompts": 72, "/api/public/v2/datasets": 9,
+        "/api/public/v2/prompts": 77, "/api/public/v2/datasets": 9,
         "/api/public/dataset-items": 32,
     }
     assert receipt["evaluators"] == receipt["evaluator_rules"] == {}
@@ -83,7 +83,7 @@ def test_full_assets_are_model_free_and_follow_accepted_story():
     assert receipt["manual_prerequisites"]
     for dataset in receipt["datasets"].values():
         assert dataset["version"] == max(i["server_updated_at"] for i in dataset["items"])
-    for name in api.versions:
+    for name in (p['name'] for p in load_fixture('portfolio')['prompts']):
         versions = [b for p, b in api.writes if p.endswith("/prompts") and b["name"] == name]
         assert versions[6]["labels"] == ["production"]
         assert versions[7]["labels"] == ["development"]

@@ -5,7 +5,8 @@ try an improvement in native experiments, then promote a version and hear it in
 an instrumented conversation.
 
 The companion contains three fictional financial-services assistants. Nine managed
-prompt families, eight opening versions each, matching datasets and two evaluation
+prompt families, eight opening versions each, four reusable text building blocks,
+matching datasets and two evaluation
 subjects support the story. Input signals describe what the assistant hears; reply
 criteria describe what it generates. The two factual checks use **Pass**, **Fail**
 and **Not applicable** across history, experiments and live chats, reported as
@@ -62,12 +63,20 @@ real companion calls and native experiments retain base prices. No suffixed mode
 aliases are created.
 
 `generation.target_traces` is the only volume control. It scales production
-history while keeping **nine prompts, eight initial versions per prompt, nine
-datasets and eighteen authored experiment traces** fixed. There is no prompt-count
+history while keeping **nine agent prompts, eight initial versions per agent, four
+text building blocks, nine datasets and eighteen authored experiment traces** fixed. There is no prompt-count
 or prompt-scale option. Promoting a presenter-created version is a separate action.
 
-Managed evaluator setup is a separate model-using operation because Langfuse may
-validate the selected model on save. The historical seed remains model-free.
+The `building-blocks` folder contains reusable text prompts for reference context,
+factual boundaries, voice and structured output. Agent prompts use native Langfuse
+references; their resolved opening instructions retain the accepted story. The
+presenter can append the shared `playful` voice reference to a staging candidate.
+
+Depot runs evaluator setup, history seed, experiment mapping setup, then verification.
+Setup creates a missing compatible Langfuse model connection when a provider key is
+available, or reuses the existing connection without changing its key. Evaluator
+setup is a separate model-using operation because Langfuse may validate the selected
+model on save. The historical seed remains model-free.
 Read [native asset setup](docs/demo/authoring/ASSETS.md),
 [companion integration](docs/demo/authoring/COMPANION.md), and
 [generation semantics](docs/demo/authoring/GENERATION.md).
@@ -75,8 +84,9 @@ Read [native asset setup](docs/demo/authoring/ASSETS.md),
 `usecase.yaml` is the Depot integration contract. `Dockerfile` runs as a non-root
 user. The signed image workflow is pinned to the same core release and triggers
 only on a matching immutable version tag. Nothing is published by local tests.
-The updated Depot manifest and local checks do not establish deployment; signed
-release, Depot admission and delivery of this revision remain pending.
+Release v0.1.0 passed admission and is registered in Depot. The text-component
+follow-up requires its own immutable release, admission and delivered rehearsal;
+local checks alone do not establish those outcomes.
 
 Ingestion appends. The kit refuses a repeated live seed in the same state
 directory after provisioning/import begins. A partial failure requires a fresh

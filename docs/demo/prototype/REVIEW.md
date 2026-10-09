@@ -161,3 +161,19 @@ keeps native prompt/version associations on each generation and removes redundan
 root prompt references. Request-root input evaluation and explicit user feedback
 retain their existing subjects. The companion's Inspect generation link opens the observation with its native
 managed-prompt association and resolved version.
+
+
+## User-requested reusable text prompts — 2026-10-09
+
+After registration, the user explicitly requested a new prompt folder containing
+three or four reusable text components, actual native references from agent
+prompts, and a new release. Four `building-blocks` prompts implement that addition:
+reference context, factual boundaries, voice and structured output. Voice includes
+the existing accepted playful instruction. The opening resolved agent content,
+source facts, evaluations and three-beat journey remain unchanged; the presenter
+can reuse the playful component when creating a candidate.
+
+This records an additive user instruction and its compatibility with the accepted
+prototype, not a new user acceptance of runtime tests or release evidence. The
+companion layout and behaviour remain as prototyped. Fresh live resolution and
+release/admission checks are required for the new revision.

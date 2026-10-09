@@ -17,6 +17,7 @@ from synth.catalog import dataset_items, load_fixture, score_definitions, system
 from .scores import FACTUAL_CRITERIA
 
 from .model_policy import MODEL_PRICES
+from .prompt_composition import COMPOSITION_REVISION, building_blocks, compose_chat_prompt
 
 # Kept only to reconcile old setup receipts; never emitted for new categorical setups.
 LEGACY_NULLABLE_GATE = "Managed numeric E-02/E-03 inapplicability is unsupported by the current output schema; these judges/rules are pending, and null must not be reported as zero."
@@ -105,12 +106,18 @@ def dataset_name(prompt: dict) -> str:
 
 
 def chat_prompt(prompt_id: str, version: int) -> list[dict]:
+    """Resolved accepted payload, shared with authored history and SDK fixtures."""
     return [
         {"role": "system", "content": system_prompt(prompt_id, version)},
         {"role": "system", "content": "Supplied reference_context:\n{{reference_context}}"},
         {"type": "placeholder", "name": "conversation_history"},
         {"role": "user", "content": "{{user_message}}"},
     ]
+
+
+def stored_chat_prompt(prompt_id: str, version: int) -> list[dict]:
+    """Managed storage form; Langfuse resolves dependencies before SDK compile."""
+    return compose_chat_prompt(chat_prompt(prompt_id, version))
 
 
 def _variables(eid: str) -> list[str]:
@@ -643,11 +650,12 @@ def provision_assets(cfg, *, api: AssetAPI | None = None) -> dict:
     if len(projects) != 1 or not projects[0].get("id"):
         raise ValueError("Exactly one authenticated Langfuse project is required")
     result = {"project_id": projects[0]["id"], "prompts": {}, "datasets": {},
+              "prompt_composition": COMPOSITION_REVISION, "building_blocks": {},
               "score_configs": {}, "models": {}, "evaluators": {}, "evaluator_rules": {},
               "manual_prerequisites": ["Native protected production label and member/admin role enforcement require target UI verification."],
               "missing": []}
     inventories = [
-        ("/api/public/v2/prompts", "name", {p["name"] for p in prompts}),
+        ("/api/public/v2/prompts", "name", {p["name"] for p in prompts} | {b["name"] for b in building_blocks().values()}),
         ("/api/public/v2/datasets", "name", {dataset_name(p) for p in prompts}),
         ("/api/public/score-configs", "name", {d["name"] for d in definitions.values()}),
     ]
@@ -669,12 +677,26 @@ def provision_assets(cfg, *, api: AssetAPI | None = None) -> dict:
     for eid, definition in definitions.items():
         created = api.create("/api/public/score-configs", score_config_body(eid, definition))
         result["score_configs"][eid] = {"id": created["id"], "name": definition["name"]}
+    # All text dependencies exist before any agent prompt refers to them.
+    for key, block in building_blocks().items():
+        versions = []
+        for version in block["versions"]:
+            created = api.create("/api/public/v2/prompts", {
+                "name": block["name"], "type": "text", "prompt": version["prompt"],
+                "labels": version["labels"], "tags": ["prompt", "building-block"],
+                "commitMessage": "Shared response instructions" if version["version"] == 1 else "Add theatrical delivery style",
+                "config": {"kit": "prompt", "component": key},
+            })
+            if created.get("version") != version["version"]:
+                raise RuntimeError("Building-block version changed during provisioning; stop and inspect target")
+            versions.append({"version": version["version"], "id": created.get("id"), "labels": version["labels"]})
+        result["building_blocks"][key] = {"name": block["name"], "versions": versions}
     for prompt in prompts:
         versions = []
         for version in prompt["versions"]:
             number = version["version"]
             created = api.create("/api/public/v2/prompts", {
-                "name": prompt["name"], "type": "chat", "prompt": chat_prompt(prompt["id"], number),
+                "name": prompt["name"], "type": "chat", "prompt": stored_chat_prompt(prompt["id"], number),
                 "labels": version["opening_labels"], "tags": ["prompt", prompt["id"]],
                 "commitMessage": version["purpose"],
                 "config": {"kit": "prompt", "prompt_id": prompt["id"],
@@ -783,14 +805,47 @@ def verify_assets(cfg, provisioning: dict, *, api=None, check_labels: bool = Tru
                        f"Expected {expected} recorded {name}"))
     for missing in provisioning.get("missing", []):
         checks.append(("asset-prerequisite", False, missing))
+    composition = provisioning.get("prompt_composition")
+    if composition:
+        checks.append(("prompt-composition-contract", composition == COMPOSITION_REVISION,
+                       "Known native text-component storage contract required."))
+        blocks = building_blocks()
+        receipts = provisioning.get("building_blocks", {})
+        checks.append(("building-block-coverage", set(receipts) == set(blocks),
+                       "Four text prompt families required in addition to nine agent chat prompts."))
+        for key, block in blocks.items():
+            block_path = "/api/public/v2/prompts/" + quote(block["name"], safe="")
+            for version in block["versions"]:
+                def block_check(key=key, block=block, version=version, path=block_path):
+                    receipt = receipts[key]
+                    saved = next(v for v in receipt["versions"] if v["version"] == version["version"])
+                    actual = api.read(path, {"version": version["version"], "resolve": "false"})
+                    return (receipt["name"] == block["name"] and saved["labels"] == version["labels"]
+                            and actual.get("name") == block["name"] and actual.get("type") == "text"
+                            and actual.get("version") == version["version"]
+                            and actual.get("prompt") == version["prompt"] and actual.get("resolutionGraph") is None)
+                check(f"building-block-{key}-v{version['version']}", block_check)
+                if check_labels:
+                    for label in version["labels"]:
+                        check(f"building-block-{key}-{label}", lambda path=block_path, label=label, version=version:
+                              api.read(path, {"label": label}).get("version") == version["version"])
     for prompt in load_fixture("portfolio")["prompts"]:
         path = "/api/public/v2/prompts/" + quote(prompt["name"], safe="")
         for version in prompt["versions"]:
             number = version["version"]
             def prompt_check(path=path, number=number, prompt=prompt):
                 actual = api.read(path, {"version": number})
-                return actual.get("version") == number and actual.get("type") == "chat" and actual.get("prompt") == chat_prompt(prompt["id"], number)
+                return (actual.get("version") == number and actual.get("type") == "chat"
+                        and actual.get("prompt") == chat_prompt(prompt["id"], number)
+                        and (not composition or bool(actual.get("resolutionGraph"))))
             check(f"prompt-{prompt['id']}-v{number}", prompt_check)
+            if composition:
+                def raw_prompt_check(path=path, number=number, prompt=prompt):
+                    actual = api.read(path, {"version": number, "resolve": "false"})
+                    return (actual.get("version") == number and actual.get("type") == "chat"
+                            and actual.get("prompt") == stored_chat_prompt(prompt["id"], number)
+                            and actual.get("resolutionGraph") is None)
+                check(f"prompt-raw-{prompt['id']}-v{number}", raw_prompt_check)
         if check_labels:
             check(f"production-{prompt['id']}", lambda path=path: api.read(path, {"label": "production"}).get("version") == 7)
             check(f"development-{prompt['id']}", lambda path=path: api.read(path, {"label": "development"}).get("version") == 8)

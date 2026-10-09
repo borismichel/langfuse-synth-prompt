@@ -2,9 +2,19 @@ schema_version: 1
 slug: prompt
 name: Prompt Portfolio
 tagline: Manage a prompt portfolio. Compare a change. Hear it live.
+vertical: Financial Services
+langfuse_features:
+- prompt-management
+- experiments
+- evaluators
+- datasets
+- sessions
+- user-feedback
+- tracing
 story: Explore nine managed prompt families and their history, compare a staging candidate with the same
   evaluation rubrics, then let an authorised presenter promote it. Three instrumented chatbots fetch the
-  production prompt on every turn and link to the Langfuse session.
+  production prompt on every turn and link to the Langfuse session. Shared text building blocks keep
+  common instructions reusable across the portfolio.
 target:
   project_hint: demo
   supports:
@@ -33,25 +43,36 @@ config_schema:
       description: Production-history trace count over 28 complete local days. The full story uses 1620
         traces and 2100 generations; small runs retain representative families where volume permits. Historical
         experiment fixtures are a separate fixed cohort. This is the only volume control; nine prompts,
-        eight initial versions per prompt, nine datasets and eighteen authored experiment traces stay fixed.
+        eight initial versions per agent prompt, four reusable text building blocks, nine datasets and eighteen
+        historical experiment traces stay fixed.
     evaluation.provider:
       type: string
       default: anthropic
       title: Judge provider connection
-      description: Name of an existing Anthropic model connection configured in Langfuse. The default
-        connection is anthropic; override only when the project's connection uses another name. Required
+      description: Name of the Anthropic model connection in Langfuse. Setup creates it when a compatible
+        provider key is available, or reuses an existing connection. Override anthropic only when using
+        another configured connection name. Required
         for managed live and experiment evaluators; never an API key.
     evaluation.model:
       type: string
       default: claude-sonnet-5-5
       title: Judge model
       description: Original Anthropic model ID for native evaluators. Claude Sonnet 5.5 is the demo default;
-        seed creates evaluator definitions without invoking it. No synthetic or suffixed model aliases.
+        evaluator setup may validate this model. Historical seed generation never invokes it. No model aliases.
   required: []
 pipeline:
+- id: configure-evaluators
+  run: synth configure-evaluators --config {config}
+  timeout_minutes: 15
+  fatal: true
 - id: seed
   run: synth seed --config {config}
   timeout_minutes: 90
+  fatal: true
+- id: configure-experiments
+  run: synth configure-evaluators --config {config} --update-mappings
+  timeout_minutes: 30
+  fatal: true
 - id: verify
   run: synth verify --config {config}
   fatal: true

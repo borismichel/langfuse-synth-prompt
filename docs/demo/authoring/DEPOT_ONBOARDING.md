@@ -49,11 +49,37 @@ configuration instead of silently sending credentials to an assumed endpoint.
 
 ## Candidate and delivery evidence
 
-Release, signed image, admission verdict, registry pin and delivered rehearsal
-are pending. They will be recorded here when observed. The current kit must pass
-admission before registration. The corrected evaluator editor mappings are
-established after completed seed verification using the explicit configuration
-step documented in the presenter runbook's developer section.
+Release `v0.1.0` is source `689ba53c82e50200ccc3c2667ed5fc0ab5939cfc`.
+[CI](https://github.com/borismichel/langfuse-synth-prompt/actions/runs/37897590410)
+and the [signed image build](https://github.com/borismichel/langfuse-synth-prompt/actions/runs/37897591896) passed.
+Image: `ghcr.io/borismichel/langfuse-synth-prompt@sha256:2f1f56612c90b09c3177069ea86a26606a5a8a5683009c83d3269ae32554976c`.
+
+Admission `0712efe4-be64-484d-aeb1-d057943be4bc` passed all six checks and is
+eligible to pin. Its deployment is `3d9b5e26-18e1-49e2-90d8-84e05449aebc`.
+[Admission evidence](evidence/depot-admission-v0.1.0.json) records the exact
+candidate. This populated project must not be reseeded.
+
+[Registry PR #276](https://github.com/borismichel/langfuse-demo-depot/pull/276)
+merged at `338d0c6cb9a865f7ef190cbe79aec81b855f6b8c`. The running API was rebuilt
+and the registry synced through Admin. The user explicitly requested publication;
+the registered `prompt` entry was published and visibly appeared as the fourth
+catalog card. [Catalog evidence](evidence/depot-published-catalog-v0.1.0.png).
+The earlier similarly named `admission:prompt@689ba53c82e5` entry was an internal
+admission carrier, excluded from the catalog regardless of its visibility setting.
+Its misleading Admin publish control is being corrected in Depot.
+
+After admission imported and verified the full history, the exact released image
+ran `configure-evaluators --update-mappings` against its existing state volume.
+It exited successfully with ten managed definitions and seven native experiment
+assignments. No history was imported again. Production label protection was
+configured in the native UI; a fresh member-account demonstration remains
+separate from the user's earlier confirmation of enforcement.
+
+Full delivered rehearsal remains pending. The admission deployment's project
+shortcut currently points at the regional host because admission does not record
+its project ID through the normal deployment verification flow. Use the exact
+[admission project](https://cloud.langfuse.com/project/cmv0magyy08o7ad0e54ath8wi)
+for this rehearsal; do not present the host-only shortcut as a working project link.
 
 ## Requested follow-up release
 

@@ -132,6 +132,11 @@
         "id": "D-32",
         "decision": "E-02 record_fidelity and E-03 claim_support use Pass / Fail / Not applicable categories consistently across history, experiments and live chats, with category counts instead of numeric averages. Existing semantic criteria are unchanged.",
         "approval": "User: \u201cSure\u201d on 2026-10-08."
+      },
+      {
+        "id": "D-33",
+        "decision": "After initial registration, add four reusable text prompt building blocks in a separate folder and use native references from agent prompts. Preserve resolved opening instructions; reuse the accepted playful voice in the staging candidate.",
+        "approval": "Explicit user request on 2026-10-09; implementation and release evidence remain separate."
       }
     ],
     "proposal_scope": [
@@ -179,7 +184,20 @@
     "candidate_label": "staging",
     "production_label": "production",
     "protection": "Only authorised admin/owner changes protected production; native capability/plan and API boundary require validation.",
-    "rollout": "Record per-request resolved versions; refresh explicitly or use demo TTL zero, keeping production cache explanation separate."
+    "rollout": "Record per-request resolved versions; refresh explicitly or use demo TTL zero, keeping production cache explanation separate.",
+    "building_blocks": {
+      "folder": "building-blocks",
+      "type": "text",
+      "names": [
+        "reference-context",
+        "factual-boundaries",
+        "voice",
+        "structured-output"
+      ],
+      "agent_family_count": 9,
+      "opening_content": "Resolved agent instructions and historical fixtures remain unchanged.",
+      "candidate_reference": "@@@langfusePrompt:name=building-blocks/voice|label=playful@@@"
+    }
   },
   "experiments": {
     "dataset_id": "DS-01",

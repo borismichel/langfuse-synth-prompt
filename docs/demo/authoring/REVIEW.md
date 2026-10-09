@@ -71,14 +71,29 @@ correct scoped maps. Existing results remain preserved.
 
 ## Remaining gates
 
-1. **Signed release and Depot admission.** No release tag, image publication,
-   registry mutation or public deployment occurred. Authenticated Chrome access
-   works; the deployed Depot lacks the required slug guard and supported admission
-   access surface, and new entries default to published. Scratch configuration
-   presence is known, but disposable-target suitability is unverified.
-   [Concrete deployment findings](DEPOT_ACCESS.md).
-2. **Delivered rehearsal.** Staging visibility and the final Depot-served runbook,
-   companion, history, evaluations and reset behaviour still need verification.
+1. **Follow-up release.** The original `v0.1.0` is signed, passed all six
+   admission checks and is registered/published in Depot. The `v0.2.0` candidate
+   adds native reusable text components, complete fresh-project setup stages and
+   catalog metadata; its release/admission is pending until observed.
+   [Delivery evidence](DEPOT_ONBOARDING.md).
+2. **Delivered rehearsal.** The final Depot-served runbook, companion, composed
+   prompts, experiments and session still need a complete run on the new revision.
+
+## Text-component amendment
+
+The user's post-registration request adds four reusable text prompt families and
+five versions under `building-blocks`. All nine agent families use native references.
+The 72 resolved opening chat versions preserve the accepted fixture text exactly.
+Voice v2 carries the existing playful candidate instruction. Shared component
+versions are pinned in seeded agent prompts; the presenter may use the `playful`
+label when composing a new staging candidate. No historical generation changes.
+
+The fresh Depot pipeline explicitly configures evaluators, seeds without model
+calls, installs experiment mappings after import, and verifies the final result.
+The production metadata and experiment item metadata mappings remain separate.
+The feature requires a fresh project for new seeding; populated earlier projects
+are preserved and must not be replayed. This records requested implementation,
+not user acceptance of unexecuted release or rehearsal checks.
 
 ## Preserved earlier evidence
 
