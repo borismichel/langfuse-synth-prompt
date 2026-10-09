@@ -1,0 +1,228 @@
+{
+  "artifact": {
+    "bytes": 13853,
+    "ignored_local_artifact": true,
+    "path": ".scratch/full-volume-ready-out/DEMO_SCRIPT.md",
+    "sha256": "6e5a09de213dedb3bd295891e6d9ebe2b2f001581dd32305a51f8c86955ca3ae",
+    "source": "DEMO_SCRIPT.md",
+    "source_byte_equality": true
+  },
+  "authored_experiments": {
+    "categorical_counts": {
+      "claim_support": {
+        "Pass": 8
+      },
+      "record_fidelity": {
+        "Pass": 8
+      }
+    },
+    "events": 72,
+    "observation_types": {
+      "generation": 18,
+      "span": 18
+    },
+    "observations": 36,
+    "scores": 36,
+    "traces": 18
+  },
+  "checked_at": "2026-10-09T04:30:31.930406+00:00",
+  "combined": {
+    "categorical_counts": {
+      "claim_support": {
+        "Fail": 42,
+        "Not applicable": 3,
+        "Pass": 1143
+      },
+      "record_fidelity": {
+        "Fail": 42,
+        "Not applicable": 3,
+        "Pass": 1143
+      }
+    },
+    "events": 14493,
+    "observation_types": {
+      "generation": 2118,
+      "retriever": 1320,
+      "span": 1638,
+      "tool": 61
+    },
+    "observations": 5137,
+    "scores": 9356,
+    "traces": 1638
+  },
+  "core_pin": {
+    "commit": "6b86ac16d797cd0c6a80da1cdd68e8fc8998c18d",
+    "ref": "v4.1.1",
+    "repository": "https://github.com/borismichel/langfuse-synth-core"
+  },
+  "date_comparison": {
+    "cause": "The fixed as-of date shifts the weekday/weekend sets in _session_schedule. This shifts relative-day allocations, _version selects historical prompt versions from those relative days, and _historical_reply supplies version-specific authored outcomes.",
+    "current_history_per_factual_criterion": {
+      "Fail": 42,
+      "Not applicable": 3,
+      "Pass": 1135
+    },
+    "current_materializer_full_event_equality": true,
+    "generation_attempt_note": "Initial interpreter launch failed before generation due to resolving the venv symlink; corrected launch completed generation once. Post-generation check against previous-day category counts failed, prompting this read-only inspection. Spool and state were not regenerated or overwritten.",
+    "previous_as_of_date": "2026-10-08",
+    "previous_evidence": "docs/demo/authoring/evidence/categorical-container-smoke.json",
+    "previous_history_per_factual_criterion": {
+      "Fail": 43,
+      "Not applicable": 3,
+      "Pass": 1134
+    },
+    "source_functions": [
+      "src/synth/materialize.py:local_day_bounds",
+      "src/synth/materialize.py:_session_schedule",
+      "src/synth/materialize.py:_version",
+      "src/synth/materialize.py:_historical_reply"
+    ]
+  },
+  "execution": {
+    "credential_environment": "Subprocess constructed from PATH, PYTHONPATH, PYTHONHASHSEED and core egress sink variables only; no inherited credentials.",
+    "do_import": false,
+    "dotenv_read": false,
+    "dry_run": true,
+    "entrypoint": "synth.seed.run_seed",
+    "fresh_state_and_output_directories": true,
+    "guard_boundary": "Python networking guard, not an OS sandbox; no native subprocesses invoked by this preparation helper.",
+    "import_status": "dry_run",
+    "live_import": false,
+    "model_calls": 0,
+    "network": "core install_guard plus deny-all Python TCP/DNS entry points, including loopback",
+    "network_attempts": 0,
+    "preexisting_attempt": false,
+    "provisioning_empty": true,
+    "remote_writes": false,
+    "resolved_project_id": null
+  },
+  "full_history": {
+    "categorical_counts": {
+      "claim_support": {
+        "Fail": 42,
+        "Not applicable": 3,
+        "Pass": 1135
+      },
+      "record_fidelity": {
+        "Fail": 42,
+        "Not applicable": 3,
+        "Pass": 1135
+      }
+    },
+    "events": 14421,
+    "observation_types": {
+      "generation": 2100,
+      "retriever": 1320,
+      "span": 1620,
+      "tool": 61
+    },
+    "observations": 5101,
+    "scores": 9320,
+    "traces": 1620
+  },
+  "generation": {
+    "as_of_date": "2026-10-09",
+    "run_date": "2026-10-09T12:00:00+00:00",
+    "seed": 42,
+    "target_traces": 1620
+  },
+  "inspection_helper_sha256": "458b72bc8f54ae3a54e838e734bb154c1f7f4c3e70ada62dab0d8687add9e7e5",
+  "limitations": [
+    "Spool is unbound to a live project; native dataset-run binding and asset provisioning occur only on a separately authorised live seed.",
+    "Offline data preparation does not establish full-volume live verification or Depot admission.",
+    "No re-import into an uncleared project is authorised by this evidence."
+  ],
+  "preparation_helper_sha256": "404a7bfa22e050707ceea44dacee6c47518984cf7ddb64ce3a6527c317fa95bc",
+  "provenance_checks": {
+    "authored_scores_no_judge_executed": true,
+    "categorical_factual_revisions_r2": true,
+    "categorical_score_types_valid": true,
+    "evaluation_subject_counts": {
+      "assistant_reply": 2118,
+      "user_input": 1080
+    },
+    "observation_rubric_maps_match_catalog": true,
+    "scoped_rubric_map_counts": {
+      "{\"E-01\": \"r1\", \"E-02\": \"r2\", \"E-03\": \"r2\", \"E-04\": \"r1\"}": 542,
+      "{\"E-02\": \"r2\", \"E-03\": \"r2\", \"E-04\": \"r1\"}": 646,
+      "{\"E-05\": \"r1\", \"E-06\": \"r1\", \"E-07\": \"r1\", \"E-08\": \"r1\"}": 1080,
+      "{\"E-09\": \"r1\"}": 242,
+      "{\"E-10\": \"r1\"}": 242,
+      "{\"E-11\": \"r1\"}": 364,
+      "{\"E-12\": \"r1\"}": 82
+    },
+    "score_observation_targets_valid": true,
+    "trace_and_observation_rubric_keys_distinct": true,
+    "unique_observation_and_score_ids": true
+  },
+  "repository": {
+    "comparison_paths": [
+      "src/synth",
+      "config",
+      "pyproject.toml",
+      "Dockerfile",
+      "usecase.yaml"
+    ],
+    "head_at_preparation": "deda002c1161a5b34e8fc0418c8c5808ae8a38e9",
+    "implementation_commit": "2ab6285755330c6fdd36f86bf7834698be8c09e3",
+    "runtime_unchanged_from_implementation": true,
+    "source_and_runtime_edits_performed": false
+  },
+  "schema_version": 1,
+  "scope": "Full-volume model-free offline dry-run spool; no Langfuse import, provisioning, evaluator execution, remote readback or admission performed.",
+  "score_contract": "categorical-factual-r2",
+  "source_sha256": {
+    "src/synth/__init__.py": "21d4cf5ad7b945741efc61245176ae837ba99c54cbde9345abcad29753957c27",
+    "src/synth/assets.py": "4172982189d047fc3da7ffb3c7f4475bd3002ae45c3e3fd891f0d588c7d63ab1",
+    "src/synth/catalog.py": "a0ab98a45ac5f2977e8689e67f339e7bf7a8281297e1f2398ae4a13fc81cab27",
+    "src/synth/cli.py": "44c23d7a243a1d66ee1f483c013d70d076c3d569a40f899361e7c2457d2d1cfc",
+    "src/synth/companion/__init__.py": "37d535e6c92335da4aa858c684d7d989c7afe8fb0af5f3aeeb1fd2fa1f7e4b5d",
+    "src/synth/companion/app.py": "a501d568d6e2de6e68b657413e560326f95c73666108ae64ab074d1712ebefa0",
+    "src/synth/companion/preview.py": "c123ab03456135b497f083e2dfaeaf118eaf96d6c7aa99a33b36451bcd6ee10a",
+    "src/synth/companion/service.py": "93b7c3208a12f669d31885b2be9e976604ba61b57190da965c041d6af927cb39",
+    "src/synth/companion/static/app.js": "a701886e9c6b23a997c090465958865c3992f91f6f96e428bc40b83f3411bbac",
+    "src/synth/companion/static/brand.css": "e392c790cb7507217541baf9bb21e7f8c7271e364b7d6ad1c69fa0659d19b5fc",
+    "src/synth/companion/static/fonts/GeistMono-OFL.txt": "1781d2806a07d91c4edf4740b88449fab7d0eadad53f7c351b94cd4d4eb8c00f",
+    "src/synth/companion/static/fonts/Inter-OFL.txt": "5b9321a4298cfeb6b34354164a1c3afc3db114569984c502b9b35d988fd58c57",
+    "src/synth/companion/static/fonts/SpaceGrotesk-OFL.txt": "564ce565c371c5e5bbf286006565a7c9aa55a9f56e7ca58d56e05d649dd61a72",
+    "src/synth/companion/static/fonts/geist-mono.ttf": "5c1b7b77c2d6132460f03b60c175adc80da1ebd0b418c785135b1aed27a28b30",
+    "src/synth/companion/static/fonts/inter.ttf": "29160a80ff49ddcab2c97711247e08b1fab27a484a329ce8b813d820dc559031",
+    "src/synth/companion/static/fonts/space-grotesk.ttf": "3e699ead1876244fa392243054ddefe7cf631b488438828a8a100731a22ab995",
+    "src/synth/companion/static/style.css": "f512736b163cde80ae388feeed90115d8db3ef96d47fe614f0500cc36335f3e6",
+    "src/synth/companion/templates/index.html": "66067fc3179655fe5e9b0f721fbc2695250ea8e33124f8ad5aac2d1b2801f123",
+    "src/synth/config.py": "ef06dea8b1c4a95507fa97ac2f7604ad527b5bfef0266044164cf76b483a2471",
+    "src/synth/fixtures/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/synth/fixtures/conversations.json": "645d3b660bc868b0ead4847e58a68ddeb7d0dd14dd8e9e96cfb3d579b597c117",
+    "src/synth/fixtures/dataset_extras.json": "45b26ac81f0f7c9b8adecfae687d984fe4de920148b6e8870c5c678c93ec0fd5",
+    "src/synth/fixtures/examples.json": "7ae9d676f8056c1386eb6757340367f7f387c99bbff15c09e6124ecc3ac1c645",
+    "src/synth/fixtures/portfolio.json": "4b6e61a4741ce3a4cce262f54b93dbf896b2d25a4c7aa3ef8f8927dd279add58",
+    "src/synth/fixtures/product.json": "030098d3c310497ace6e4236e6cce5bf9c164aa37d4257b095772c739588ecd0",
+    "src/synth/fixtures/prompt_versions.json": "ae39acd9b97e87795c7bf68be8e19c23b23887ad383ec5c583c2771edbf9faca",
+    "src/synth/fixtures/score_definitions.json": "45f9514f4464d676fe1e5b7750cb15976d4adf651ebc1d9fba677465d2151e28",
+    "src/synth/materialize.py": "80468b99c104f58f10c18307cb29b236832c9ba157fa04fc3709cfc5a0df4f5c",
+    "src/synth/receipt.py": "bc83a1acd0d6cb68cabc694e0530aad8c73920ed27838cb82c38d9235fcf21f7",
+    "src/synth/reference_tools.py": "442b7b4ad70b5b8ac42943f0bc99be03f7d4ffda9ef950a4f58255c3ca9c8948",
+    "src/synth/scores.py": "f8c00006852f7584cc898c189426639a01ce6c6901cdc5d2ecfe51b2923aa26c",
+    "src/synth/seed.py": "b05b622d60801c0c99bee025cef860fce65eeba8581e2799c748274dbc01fd35",
+    "src/synth/state.py": "14bb31fb1607c0260a676bf694068ef5811bae99bbf20ee22d2c5f7a06bfdb52",
+    "src/synth/verify.py": "4db80a2cd83a7b5566e4a6813a58d00caae6248eb5dbcac9842b850401f2c93b"
+  },
+  "spool": {
+    "bytes": 29129498,
+    "ignored_local_artifact": true,
+    "line_count": 14493,
+    "path": ".scratch/full-volume-ready-state/events.ndjson",
+    "sha256": "ceaa79a7cb80db60f9f43f6bc16589877aca93e0c6b9c9e0aa9da9ce349f5001"
+  },
+  "state": {
+    "ignored_local_artifact": true,
+    "path": ".scratch/full-volume-ready-state/.synth_state.json",
+    "receipt_matches_spool": true,
+    "representative_trace_count": 61,
+    "sha256": "85cad6d0bb2093a36616e124efd97161232f24aeec873c9f1f6eafa202dfa7cf"
+  },
+  "versions": {
+    "langfuse": "4.17.0",
+    "langfuse_synth_core": "4.1.1"
+  }
+}

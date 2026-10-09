@@ -121,7 +121,7 @@ Recorded decision/evidence: `docs/demo/prototype/REVIEW.md`
 
 ### authoring: ready
 
-Fresh user-created project: corrected small import passes 244 checks; protected production saved and one live v7 turn has eight correctly targeted EVAL results. Full-scale target, member denial and Depot delivery remain pending.
+User independently verified protected-label enforcement, closing small walkthrough. Full model-free offline spool prepared and verified; clean target and Depot delivery prerequisites remain pending.
 
 Recorded decision/evidence: `docs/demo/authoring/REVIEW.md`
 
@@ -130,18 +130,18 @@ Recorded decision/evidence: `docs/demo/authoring/REVIEW.md`
 - [.github/workflows/publish.yml](https://github.com/borismichel/langfuse-synth-prompt/blob/main/.github/workflows/publish.yml) — `23fc4ffe24a0`
 - [DEMO_SCRIPT.md](https://github.com/borismichel/langfuse-synth-prompt/blob/main/DEMO_SCRIPT.md) — `6e5a09de213d`
 - [Dockerfile](https://github.com/borismichel/langfuse-synth-prompt/blob/main/Dockerfile) — `deba3d44aa16`
-- [README.md](https://github.com/borismichel/langfuse-synth-prompt/blob/main/README.md) — `f5dc0d6b07db`
+- [README.md](https://github.com/borismichel/langfuse-synth-prompt/blob/main/README.md) — `4c654073728e`
 - [config/demo.yaml](https://github.com/borismichel/langfuse-synth-prompt/blob/main/config/demo.yaml) — `928ae61db19d`
 - [docs/demo/authoring/ASSETS.md](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/ASSETS.md) — `a86057fab3bf`
 - [docs/demo/authoring/CATEGORICAL_BUILD.md](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/CATEGORICAL_BUILD.md) — `e12ff34391b6`
 - [docs/demo/authoring/COMPANION.md](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/COMPANION.md) — `089c2606976c`
 - [docs/demo/authoring/DEPOT_ACCESS.md](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/DEPOT_ACCESS.md) — `1a090c5f5812`
-- [docs/demo/authoring/FRESH_PROJECT.md](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/FRESH_PROJECT.md) — `7648f01adef0`
-- [docs/demo/authoring/GENERATION.md](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/GENERATION.md) — `adf01cb888ea`
-- [docs/demo/authoring/NATIVE_REHEARSAL.md](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/NATIVE_REHEARSAL.md) — `8cc32012b140`
+- [docs/demo/authoring/FRESH_PROJECT.md](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/FRESH_PROJECT.md) — `4669c7590949`
+- [docs/demo/authoring/GENERATION.md](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/GENERATION.md) — `aa4944a028b7`
+- [docs/demo/authoring/NATIVE_REHEARSAL.md](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/NATIVE_REHEARSAL.md) — `70f2eb321608`
 - [docs/demo/authoring/NULLABLE_EVALUATOR_RESEARCH.md](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/NULLABLE_EVALUATOR_RESEARCH.md) — `7376545a02d1`
 - [docs/demo/authoring/READINESS_RESEARCH.md](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/READINESS_RESEARCH.md) — `f2d8eb33bb46`
-- [docs/demo/authoring/REVIEW.md](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/REVIEW.md) — `6128f4428c19`
+- [docs/demo/authoring/REVIEW.md](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/REVIEW.md) — `c470e2d5836b`
 - [docs/demo/authoring/TRACE_DESIGN_AUDIT.md](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/TRACE_DESIGN_AUDIT.md) — `3399ccf4c7d7`
 - [docs/demo/authoring/evidence/application-guide-companion.png](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/evidence/application-guide-companion.png) — `e58fce90b9be`
 - [docs/demo/authoring/evidence/application-guide-fixed-companion.png](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/evidence/application-guide-fixed-companion.png) — `48ae0ca0e637`
@@ -168,6 +168,7 @@ Recorded decision/evidence: `docs/demo/authoring/REVIEW.md`
 - [docs/demo/authoring/evidence/fresh-project-verification.json](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/evidence/fresh-project-verification.json) — `c749d27a8c52`
 - [docs/demo/authoring/evidence/fresh-prompt-metrics.png](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/evidence/fresh-prompt-metrics.png) — `25db6154517c`
 - [docs/demo/authoring/evidence/fresh-protected-label.png](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/evidence/fresh-protected-label.png) — `4cb0f2dc039b`
+- [docs/demo/authoring/evidence/full-volume-spool.json](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/evidence/full-volume-spool.json) — `83408ab0a77f`
 - [docs/demo/authoring/evidence/live-companion-formatted.jpg](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/evidence/live-companion-formatted.jpg) — `ce0d2cbe887d`
 - [docs/demo/authoring/evidence/live-companion-four-turns.jpg](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/evidence/live-companion-four-turns.jpg) — `c57d64946d4d`
 - [docs/demo/authoring/evidence/live-model-session.json](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/evidence/live-model-session.json) — `781fa0417fd8`
@@ -181,6 +182,7 @@ Recorded decision/evidence: `docs/demo/authoring/REVIEW.md`
 - [docs/demo/authoring/evidence/native-session-trace.png](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/evidence/native-session-trace.png) — `b51ce004886b`
 - [docs/demo/authoring/evidence/native-staging-v9.png](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/evidence/native-staging-v9.png) — `797ed66fe574`
 - [docs/demo/authoring/evidence/preview-rehearsal.md](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/evidence/preview-rehearsal.md) — `ca43efbb71b4`
+- [docs/demo/authoring/evidence/protected-label-user-verification.json](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/evidence/protected-label-user-verification.json) — `6810a9ffc476`
 - [docs/demo/authoring/evidence/refined-companion-feedback.jpg](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/evidence/refined-companion-feedback.jpg) — `1b30f3b66837`
 - [docs/demo/authoring/evidence/refined-container-smoke.json](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/evidence/refined-container-smoke.json) — `02f3f82197c8`
 - [docs/demo/authoring/evidence/refined-live-session.json](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/evidence/refined-live-session.json) — `92d8c7e83f89`

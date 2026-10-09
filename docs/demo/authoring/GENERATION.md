@@ -41,7 +41,7 @@ allocation preserves the exact requested total at smaller and larger volumes.
 | History scale | Request traces | Generations | All observations | Outcomes | Chat turns | Chat sessions | Chat users |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | Small fixture, seed 42 | 24 | 32 | 77 | 138 | 16 | 6 | 4 |
-| Accepted full plan, arithmetic only, seed 42 | 1,620 | 2,100 | 5,101 | 9,320 | 1,080 | 360 | 216 |
+| Full offline spool, seed 42, 2026-10-09 | 1,620 | 2,100 | 5,101 | 9,320 | 1,080 | 360 | 216 |
 
 The full plan preserves 180/108/72 conversations and 540/325/215 turns across
 PR-01/02/03. Session length allocations are respectively 72/72/36, 43/43/22 and
@@ -191,3 +191,14 @@ archived unchanged. That historical metadata is not a current revision claim for
 E-02/E-03. Current criterion definitions and exact evaluator-version readback
 establish the applicable revisions; new runtime metadata records them per
 criterion. No past score, receipt or judge execution is rewritten by this correction.
+
+## Full-volume offline spool after the small walkthrough
+
+After the user independently verified protected-label enforcement on 2026-10-09,
+the supported seed path generated the full dataset in dry-run mode with credentials
+removed and networking blocked. The [spool evidence](evidence/full-volume-spool.json)
+records its actual bytes, counts, category distributions and runbook artifact.
+This is generated offline output, not a live import or Depot admission. Full-volume
+live verification still requires a clean authorised target. The explicit date is
+part of reproducibility: weekday-weighted scheduling can change the version/case
+mix and therefore categorical counts when the date changes.

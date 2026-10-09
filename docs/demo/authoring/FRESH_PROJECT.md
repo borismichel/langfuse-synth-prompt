@@ -68,12 +68,17 @@ once. [Companion](evidence/fresh-live-companion.png) and
 This one-turn connection check complements the earlier multi-turn, calculator,
 experiment and promotion rehearsals; it does not replace or relabel their evidence.
 
-## What remains
+## Independent protection verification
 
-Member-role denial has not been observed: only the owner session is available.
-Protected-label configuration is verified, while role enforcement is a separate
-presenter check. The earlier corrected native v7/v9 experiments and owner promotion
+On 2026-10-09, in direct response to the pending protected-label permission check,
+the user stated: “Protection works verified it separately”. This closes that check
+as user-verified evidence. The agent did not observe or repeat the separate test;
+no account, test steps or additional outcomes are inferred. The exact statement is
+preserved in the [verification record](evidence/protected-label-user-verification.json).
+The small walkthrough gate is now complete. The earlier corrected native v7/v9 experiments and owner promotion
 remain valid evidence for unchanged behaviour and were not repeated on this target.
+
+## What remains
 
 The full 1,620-history-trace import remains pending. This small target must not be
 reseeded: imports append. Use a different fresh target or a separately authorised

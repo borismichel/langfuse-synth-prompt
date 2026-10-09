@@ -3,6 +3,9 @@
 The fresh 2026-10-09 project, corrected import and bounded live connection check
 are recorded in [Fresh project verification](FRESH_PROJECT.md). The earlier
 rehearsal below remains preserved against its original target.
+On 2026-10-09 the user separately confirmed that protection works; the pending
+permission check below is now closed by [user verification](evidence/protected-label-user-verification.json),
+without claiming the agent observed that separate test.
 
 Recorded 2026-10-08 in the user's existing authenticated Chrome session.
 Target: `prompt-dev-demo` (`cmuzyfy1f0481ad0f7rajddig`), EU Cloud,

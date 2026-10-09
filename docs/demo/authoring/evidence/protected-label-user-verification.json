@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "recordedOn": "2026-10-09",
+  "evidenceKind": "direct_user_attestation",
+  "scope": "Protected-label enforcement check discussed immediately before the user reply",
+  "statement": "Protection works verified it separately",
+  "decision": "Accept user verification as closing the protected-label permission gate for the small walkthrough.",
+  "agentObservedSeparateTest": false,
+  "limitations": [
+    "No test identity, steps or additional outcomes were supplied; none are inferred.",
+    "This attestation does not establish full-volume import, signed release, Depot admission or delivered staging rehearsal."
+  ]
+}
