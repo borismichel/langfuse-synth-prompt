@@ -1,0 +1,209 @@
+{
+  "project_id": "cmv0kpfl209mmad0kft5wn5h9",
+  "session_url": "https://cloud.langfuse.com/project/cmv0kpfl209mmad0kft5wn5h9/sessions/conversation-7564fc8b84aa408f86694c4b9bf367ae",
+  "turns": [
+    {
+      "session_id": "conversation-7564fc8b84aa408f86694c4b9bf367ae",
+      "trace_id": "5fb0c8568de25026116f924ca66c25d9",
+      "root_observation_id": "ea4736463a8baf56",
+      "generation_id": "18f788b6815fdac7",
+      "prompt_name": "products/explainer",
+      "prompt_version": 7,
+      "status": "complete",
+      "model": "claude-sonnet-5-5",
+      "native_prompt_id": "8c6f3c5e-dd38-4bf4-ac7f-b87e2e90362d",
+      "root_prompt_references": false,
+      "observation_names": [
+        "generate-response",
+        "explain-product",
+        "retrieve-product-context"
+      ],
+      "evaluations": {
+        "status": "complete",
+        "scores": [
+          {
+            "id": "293777e4-550b-5c66-be8c-fd13832b7d90",
+            "name": "claim_support",
+            "value": "Pass",
+            "data_type": "CATEGORICAL",
+            "comment": "Every substantive claim in the reply matches the record. It flags the name mismatch (Everyday Account vs. Everyday Access) and says it has no information on a product called Everyday Access. Monthly fee EUR 4 is correct. The waiver to EUR 0 requires at least EUR 1,200 in qualifying salary deposits per calendar month, and transfers from your own accounts are excluded, as the record says. The statement that the waiver is assessed separately each month and does not carry over is a fair reading of the timing field. Two included cash withdrawals per calendar month and EUR 1.50 each after that match the record. Card replacement at EUR 6 matches, and calling it \"Not included\" is a reasonable framing because the record lists it as a separate fee. The statements that the record gives no full list of what the monthly fee covers and says nothing about overdrafts or interest rates are accurate; the record's unknowns field confirms overdraft and interest rates are not provided. No unsupported claims found, and no profanity is present.",
+            "observation_id": "18f788b6815fdac7"
+          },
+          {
+            "id": "c51975a7-faa8-5ddb-a840-47d900c927f3",
+            "name": "record_fidelity",
+            "value": "Pass",
+            "data_type": "CATEGORICAL",
+            "comment": "The user asked about \"Everyday Access\", but the record covers only \"Everyday Account\". The assistant flagged the name mismatch and answered conditionally for the Everyday Account. The amounts match the record: monthly fee EUR 4, waiver to EUR 0 with at least EUR 1,200 in qualifying salary deposits, own-account transfers excluded, waiver assessed per calendar month, 2 included cash withdrawals per calendar month, EUR 1.50 each after that, and EUR 6 card replacement. All material conditions are retained. The assistant stated honestly that the record doesn't give a full list of what the fee covers, and that overdraft and interest information is missing. It made no unsupported financial assertions. No profanity is present, either quoted or direct.",
+            "observation_id": "18f788b6815fdac7"
+          },
+          {
+            "id": "8f210c0c-38f6-5fc8-b189-27c7afe289ac",
+            "name": "dark_side_delivery",
+            "value": 0.0,
+            "data_type": "NUMERIC",
+            "comment": "The reply is a plain, professional customer-service answer about bank account fees. It uses neutral, informative phrasing (e.g., \"I only have details for...\", \"Monthly fee: EUR 4\", \"The information I have doesn't give...\"). There is no theatrical wording, no commanding short phrases, no villainous tone, and no space metaphors. No profanity, quoted or direct, is present. This is an ordinary voice, so it matches the 0 anchor.",
+            "observation_id": "18f788b6815fdac7"
+          },
+          {
+            "id": "e7f3b2b6-759b-5c62-b574-c2488f9b9796",
+            "name": "user_contradiction",
+            "value": 0.0,
+            "data_type": "NUMERIC",
+            "comment": "The current user message is a question about the monthly fee and inclusions for a product called Everyday Access. It contains no factual self-report by the user, and there are no prior messages, so there is no earlier user statement to conflict with. No profanity (quoted or direct) appears. No conflict exists.",
+            "observation_id": "ea4736463a8baf56"
+          },
+          {
+            "id": "93f72c43-9c60-5ca6-ad62-05e5fe3d3d7a",
+            "name": "respectful_tone",
+            "value": 1.0,
+            "data_type": "NUMERIC",
+            "comment": "The assistant's reply is polite and factual. It politely points out that it only has information on \"Everyday Account\", not \"Everyday Access\", and it offers the details it has. There is no insult, threat, contempt, or mockery directed at the user, and no profanity, either quoted or direct. The clarification about the product name is a neutral factual correction.",
+            "observation_id": "18f788b6815fdac7"
+          },
+          {
+            "id": "d4c64d8c-aa18-5501-8859-53624312bbf4",
+            "name": "expressed_frustration",
+            "value": 0.0,
+            "data_type": "NUMERIC",
+            "comment": "The current user message is a neutral, informational question asking about the monthly fee and inclusions for Everyday Access. It contains no wording expressing frustration or agitation, no profanity (direct or quoted), no exclamations, and no complaints. There are no prior messages to consider.",
+            "observation_id": "ea4736463a8baf56"
+          },
+          {
+            "id": "a803e567-97f6-5e7f-8575-068b062ebc01",
+            "name": "user_disagreement",
+            "value": 0.0,
+            "data_type": "NUMERIC",
+            "comment": "The current user message is a neutral new question asking about the monthly fee and inclusions for Everyday Access. There are no prior messages, so there is no preceding assistant assertion to challenge, reject, or correct. No profanity is present, either quoted or direct.",
+            "observation_id": "ea4736463a8baf56"
+          },
+          {
+            "id": "5d1e12fb-2396-52c8-a0fe-dd6c9e3440cf",
+            "name": "user_profanity",
+            "value": 0.0,
+            "data_type": "NUMERIC",
+            "comment": "The current message asks about the monthly fee and features of 'Everyday Access'. It contains no profanity, either quoted or direct, so the criterion is not met.",
+            "observation_id": "ea4736463a8baf56"
+          }
+        ],
+        "received": 8,
+        "expected": 8,
+        "message": "Actual evaluator outcomes received."
+      },
+      "feedback": {
+        "id": "9be57ea5b7ec82b9a2fe1c9f3bb8eb48",
+        "name": "user-thumbs",
+        "value": true,
+        "dataType": "BOOLEAN",
+        "comment": null,
+        "subject": {
+          "kind": "observation",
+          "id": "ea4736463a8baf56",
+          "traceId": "5fb0c8568de25026116f924ca66c25d9"
+        }
+      }
+    },
+    {
+      "session_id": "conversation-7564fc8b84aa408f86694c4b9bf367ae",
+      "trace_id": "53c28fab696fb46fe1eb84e46c63c73d",
+      "root_observation_id": "32e0ca41c84d1db2",
+      "generation_id": "12a2e031531ada8c",
+      "prompt_name": "products/explainer",
+      "prompt_version": 7,
+      "status": "complete",
+      "model": "claude-sonnet-5-5",
+      "native_prompt_id": "8c6f3c5e-dd38-4bf4-ac7f-b87e2e90362d",
+      "root_prompt_references": false,
+      "observation_names": [
+        "generate-response",
+        "retrieve-product-context",
+        "explain-product"
+      ],
+      "evaluations": {
+        "status": "complete",
+        "scores": [
+          {
+            "id": "b98e4319-13ea-5eed-9469-81aa1267c2d8",
+            "name": "record_fidelity",
+            "value": "Pass",
+            "data_type": "CATEGORICAL",
+            "comment": "The reply answers the factual question accurately. It says withdrawals are not unlimited and gives the record's terms: 2 included per calendar month, then EUR 1.50 each. These match the reference context. It also notes that the record does not say the fee waiver changes the allowance, and that it does not say whether unused withdrawals carry over. Both are honest statements of what the record lacks, and neither adds an unsupported financial assertion. The conditions are retained and no profanity is present, quoted or direct.",
+            "observation_id": "12a2e031531ada8c"
+          },
+          {
+            "id": "40753d34-3a9e-57be-911b-66c48ea5b518",
+            "name": "claim_support",
+            "value": "Pass",
+            "data_type": "CATEGORICAL",
+            "comment": "Every substantive claim in the reply is supported by the record. The claim that withdrawals aren't unlimited, with 2 included per calendar month and EUR 1.50 for each additional one, matches cash_withdrawals (included_per_calendar_month: 2, fee_each_after_included: 1.5). The statements that the record doesn't say the fee waiver changes the allowance, and doesn't say whether unused withdrawals carry over, are accurate. The record has no information on either point, and the reply does not claim otherwise. No unsupported claims were found. No profanity is present, quoted or direct.",
+            "observation_id": "12a2e031531ada8c"
+          },
+          {
+            "id": "898884e9-5cb6-5614-91fc-c03134cc2165",
+            "name": "user_disagreement",
+            "value": 0.0,
+            "data_type": "NUMERIC",
+            "comment": "The user asks \"Does that mean I get unlimited cash withdrawals? Please clarify.\" This is a clarifying follow-up question, not a challenge or correction. The assistant said 2 withdrawals are included per month, and the user is seeking to understand it, perhaps with a mistaken inference. They do not reject or contradict the assistant's claim, nor assert it is wrong. No profanity is present, quoted or direct.",
+            "observation_id": "32e0ca41c84d1db2"
+          },
+          {
+            "id": "245ec7b3-4746-52c3-b204-cb8d76ab5579",
+            "name": "dark_side_delivery",
+            "value": 0.0,
+            "data_type": "NUMERIC",
+            "comment": "The reply is a plain, factual banking answer about withdrawal limits and fees. It uses ordinary, measured phrasing with hedging (\"I can't say\", \"I wouldn't assume\"). There is no theatrical wording, no commanding space-villain delivery, no space metaphors, and no profanity (quoted or direct). This matches an ordinary voice.",
+            "observation_id": "12a2e031531ada8c"
+          },
+          {
+            "id": "6d741a85-f87a-5354-b6f5-95271a751203",
+            "name": "respectful_tone",
+            "value": 1.0,
+            "data_type": "NUMERIC",
+            "comment": "The assistant reply directly answers the user's question: withdrawals are not unlimited, 2 are included per month, and each extra costs EUR 1.50. It then notes what the information doesn't cover. The tone is neutral and professional. There is no insult, threat, contempt, or mockery toward the user, and no profanity, quoted or direct. The firm \"No\" is a factual correction, which is acceptable.",
+            "observation_id": "12a2e031531ada8c"
+          },
+          {
+            "id": "9c3704a7-fe5f-57a4-97c0-712be16d9f0f",
+            "name": "user_profanity",
+            "value": 0.0,
+            "data_type": "NUMERIC",
+            "comment": "The current message, \"Does that mean I get unlimited cash withdrawals? Please clarify.\", contains no profanity, either quoted or direct. It is a polite question about cash withdrawals.",
+            "observation_id": "32e0ca41c84d1db2"
+          },
+          {
+            "id": "6c748084-9dcf-5f7c-82c6-5dd39b26660e",
+            "name": "user_contradiction",
+            "value": 0.0,
+            "data_type": "NUMERIC",
+            "comment": "The current user message is a question asking whether the user gets unlimited cash withdrawals. It makes no factual self-report about the user's situation, so there is nothing that could conflict with an earlier user statement. The only earlier user message was a question about the monthly fee for Everyday Access, which also contains no self-reported facts. There is no conflict, and no profanity, quoted or direct, appears in either message.",
+            "observation_id": "32e0ca41c84d1db2"
+          },
+          {
+            "id": "77798629-65ae-5e6a-a75a-633d147ae087",
+            "name": "expressed_frustration",
+            "value": 0.0,
+            "data_type": "NUMERIC",
+            "comment": "The current user message, \"Does that mean I get unlimited cash withdrawals? Please clarify.\", is a neutral clarifying question with a polite request. It has no profanity, insults, exclamations, or explicit statements of annoyance or agitation. \"Please clarify\" is a courteous request, not an expression of frustration. No quoted or direct profanity is present.",
+            "observation_id": "32e0ca41c84d1db2"
+          }
+        ],
+        "received": 8,
+        "expected": 8,
+        "message": "Actual evaluator outcomes received."
+      },
+      "feedback": {
+        "id": "97fd6b323d5780f9a9ae86a14dee7ccd",
+        "name": "user-thumbs",
+        "value": false,
+        "dataType": "BOOLEAN",
+        "comment": null,
+        "subject": {
+          "kind": "observation",
+          "id": "32e0ca41c84d1db2",
+          "traceId": "53c28fab696fb46fe1eb84e46c63c73d"
+        }
+      }
+    }
+  ],
+  "ok": true
+}

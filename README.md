@@ -48,7 +48,23 @@ Use a dedicated, fresh demo project and the supported Depot secret workflow.
 `.env.example` names the required environment variables; neither the CLI nor the
 repository silently loads secret files. A model connection inside Langfuse powers
 native experiments and managed evaluators; the companion separately receives its
-selected provider key.
+Anthropic provider key. The default Langfuse connection name is `anthropic`; set
+`LANGFUSE_EVAL_PROVIDER` if the existing Anthropic connection has a different name.
+Native experiments and evaluators use `claude-sonnet-5-5`. Companion product
+explanations use `claude-sonnet-5-5`; fee explanations and application guidance use
+`claude-opus-5-5`. The companion's per-role policy takes precedence over the legacy
+global `LLM_MODEL` setting. Depot advertises Anthropic as the supported provider.
+
+All recorded model names are the original provider IDs. Synthetic history uses
+the shared role policy, including `claude-fable-5-1` for the two complex history
+roles. Its explicit cost details are multiplied by three; model registry prices,
+real companion calls and native experiments retain base prices. No suffixed model
+aliases are created.
+
+`generation.target_traces` is the only volume control. It scales production
+history while keeping **nine prompts, eight initial versions per prompt, nine
+datasets and eighteen authored experiment traces** fixed. There is no prompt-count
+or prompt-scale option. Promoting a presenter-created version is a separate action.
 
 Managed evaluator setup is a separate model-using operation because Langfuse may
 validate the selected model on save. The historical seed remains model-free.
@@ -59,6 +75,8 @@ Read [native asset setup](docs/demo/authoring/ASSETS.md),
 `usecase.yaml` is the Depot integration contract. `Dockerfile` runs as a non-root
 user. The signed image workflow is pinned to the same core release and triggers
 only on a matching immutable version tag. Nothing is published by local tests.
+The updated Depot manifest and local checks do not establish deployment; signed
+release, Depot admission and delivery of this revision remain pending.
 
 Ingestion appends. The kit refuses a repeated live seed in the same state
 directory after provisioning/import begins. A partial failure requires a fresh
@@ -98,3 +116,10 @@ generations and 9,320 eligible outcomes over 28 complete days, plus eighteen sma
 historical experiment traces. E-02/E-03 include explicit Not applicable categories;
 missing, pending and failed executions remain distinct.
 History, products, accounting prices, user identities and replies are synthetic.
+
+The current [operational revision](docs/demo/authoring/OPERATIONAL_REVISION.md)
+replaced that earlier spool in the same project with original Claude model IDs,
+shared application trace names, generation-native prompt links and cleaned
+presentation labels. Explicit thumbs/comments now persist as BOOLEAN scores.
+All 248 live checks and the full inventory audit passed; existing non-seed records
+were preserved. Depot admission and delivered staging rehearsal remain pending.

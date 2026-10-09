@@ -11,14 +11,36 @@ from fastapi import FastAPI, Header
 from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from langfuse_synth_core.companion import CompanionAdapter, parse_invocation
+from langfuse_synth_core.companion.llm import LLMClient, resolve_provider
 from langfuse_synth_core.live import paths
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 from synth.catalog import load_fixture, prompt_by_id
 from .service import ConversationError, ConversationService
 
 HEALTH_PATH = "/healthz"
 REQUIRES_SECRETS = ("LANGFUSE_PUBLIC_KEY", "LANGFUSE_SECRET_KEY", "LLM_API_KEY")
+
+
+class RoleModelAdapter(CompanionAdapter):
+    """Keep provider transport in core; apply the kit's explicit per-role model.
+
+    The legacy global LLM_MODEL pin cannot replace a requested role model. Model
+    selection never mutates process environment or another request's client.
+    """
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._role_clients = {}
+
+    def llm(self, model=None):
+        if model is None:
+            return super().llm()
+        provider = resolve_provider()
+        if provider != "anthropic":
+            raise ValueError("The configured role models require the Anthropic provider")
+        if model not in self._role_clients:
+            self._role_clients[model] = LLMClient(provider, model)
+        return self._role_clients[model]
 
 
 class NewConversation(BaseModel):
@@ -34,6 +56,13 @@ class FeedbackRequest(BaseModel):
     request_id: str
     value: Literal[0, 1]
     comment: str = Field(default="", max_length=1000)
+
+    @field_validator("value", mode="before")
+    @classmethod
+    def exact_boolean_score(cls, value):
+        if type(value) is not int or value not in (0, 1):
+            raise ValueError("A thumbs rating must be the integer 0 or 1")
+        return value
 
 
 def create_app(adapter: CompanionAdapter, *, preview: bool = False) -> FastAPI:
@@ -150,7 +179,7 @@ def main(argv: list[str] | None = None) -> int:
     from synth.config import load_config
     invocation = parse_invocation(argv)
     config = load_config(invocation.config)
-    adapter = CompanionAdapter(config, requires_secrets=REQUIRES_SECRETS,
+    adapter = RoleModelAdapter(config, requires_secrets=REQUIRES_SECRETS,
                                health_path=HEALTH_PATH, llm_model_default=getattr(getattr(config, "live", None), "model", None))
     # Custom health reports story prerequisites, not merely process liveness.
     adapter.serve(create_app(adapter), host=invocation.host, port=invocation.port, mount_health=False)

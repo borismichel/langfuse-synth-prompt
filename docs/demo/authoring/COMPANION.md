@@ -35,12 +35,17 @@ It compiles the supplied reference record, role-bearing prior messages and curre
 through the managed template. Core's provider seam takes a single system string, so the
 compiled system messages are joined with a blank line; the generation input records that
 exact system string plus the actual history and current message sent to the provider.
+Historical and live application calls share these operation names; origin
+metadata preserves the difference between authored and real executions.
 The generation receives the real SDK prompt object, retaining its resolved version.
+Prompt references stay on the generation. The root carries request context and
+input evaluations; it does not duplicate the generation's prompt references.
 
-Each request emits a `handle-chat-turn` SPAN root, a validated
+Each request emits an application-specific SPAN root (`explain-product`,
+`explain-fees` or `guide-application`), a validated
 `retrieve-product-context` RETRIEVER, an optional `calculate-fee` TOOL,
 and a sibling `generate-response` GENERATION, with
-`environment=prompt-live` and the same session ID. The root's `input.messages` contains only
+`environment=production` and the same session ID. The root's `input.messages` contains only
 the new user message; its output contains only the new assistant message, avoiding repeated
 history in session replay. Root and generation both expose:
 
@@ -62,8 +67,12 @@ fictional model-selected tool messages are inserted.
 Only short correlation fields use propagated metadata because the SDK truncates propagated
 values. Full structured evaluator context is set explicitly on each observation. Input
 judges never need to join a child, and reply judges never need to join the root.
-The provider's actual model and input/output token usage are recorded; costs are left to
-Langfuse's model pricing. No guessed live cost or authored live score is written.
+The canonical [model policy](../story/MODEL_POLICY.md) selects Sonnet 5.5 for
+PR-01 and Opus 5.5 for PR-02/03; the full portfolio also assigns Fable 5.1 to
+summarisation/handoff roles. The provider's actual model and input/output token
+usage are recorded; costs use normal Langfuse model registry rates. The 3×
+authored-history multiplier never inflates live cost. Managed evaluator
+connections and native experiments use Sonnet 5.5. No authored live score is written.
 
 The four input and applicable reply evaluator tracks run through the provisioned native
 observation rules. Readback matches exact `(criterion name, observation ID)` pairs; unrelated
@@ -79,9 +88,14 @@ rules are configured; new live outcome/calibration checks remain separate.
 
 ## Feedback and failure behaviour
 
-Feedback is submitted server-side as BOOLEAN `user-helpfulness` on the saved **root observation**,
-with its trace correlation, comment and deterministic score ID. Subsequent edits upsert that
-score; changing bots or adding another reply does not change the target. An opaque conversation
+Feedback is submitted server-side as BOOLEAN `user-thumbs` on the saved **root observation**,
+with value 1 for thumbs up or 0 for thumbs down, its trace correlation, optional
+comment and deterministic score ID. This explicit user
+signal is separate from E-08 `user_disagreement`, which judges the next user message.
+One submission is allowed per reply: exact retries return its receipt, while changed ratings
+or comments return a conflict. An uncertain flush retries delivery without emitting another
+score. The implementation does not rely on score upserts. Changing bots or adding another reply
+does not change the target. An opaque conversation
 capability is required, and the server resolves the target from its saved reply rather than
 trusting a browser-supplied observation ID.
 
@@ -130,7 +144,7 @@ establish live readiness, inference, evaluator execution, prompt promotion or ad
 `tests/test_companion_runtime.py`: **14 passed**. Coverage includes all three bots, exact
 root/generation context and message roles, installed SDK chat-placeholder compilation,
 TTL-zero refresh, immutable old versions, four-turn v7 plain/v9 theatrical preview replies
-with exact actual history, feedback identity/upsert, session isolation,
+with exact actual history, feedback identity/deduplication, session isolation,
 request deduplication, concurrent-turn rejection, prompt/provider/feedback errors, exact
 score target readback, active-rule/project readiness, proxy-prefix assets, and preview
 credential/egress isolation. Tests use explicit fixture clients and make no external calls.

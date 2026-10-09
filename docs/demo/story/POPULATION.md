@@ -1,7 +1,8 @@
 # Historical population and metric contract
 
-Status: **proposed fictional assumptions for review**. These are coverage and
-consistency requirements, not generated traffic or statistical claims.
+Status: **accepted fictional story population**, with the model/cost policy amended
+on 2026-10-09. These are coverage and consistency requirements, not generated
+traffic or statistical claims.
 
 ## Cohorts and chronology
 
@@ -12,12 +13,15 @@ PR-01 v7 is production on entry; v8 is an unused draft; v9 does not exist until
 stage two. No pre-promotion production calls use v9. Moving the label leaves old
 generations linked to their actual versions.
 
-Maintain distinct environments/cohorts: `production-history`, `experiment`, and
-`live-demo`. They identify demo provenance, not independent security boundaries.
-Version labels such as production/staging select prompts and are a separate concept.
-The historical plot excludes experiments and live-demo by default. Experiments
-use fixed DS-01/r1 and identical histories across prompt variants. New live chat
-appears after D0 and must be recognisable as newly ingested traffic.
+Historical production and live companion calls both use environment `production`;
+experiments use `experiment`. Separate origin/cohort metadata distinguishes
+authored history from real companion calls without changing operational names.
+These fields record provenance, not independent security boundaries. Version
+labels such as production/staging select prompts and are a separate concept.
+Historical inspection filters the authored cohort and its date window, excluding
+experiments and new live calls. Experiments use fixed DS-01/r1 and identical
+histories across prompt variants. New live chat appears after D0 and remains
+recognisable through timestamps and origin metadata.
 
 ## Coverage-driven population
 
@@ -50,8 +54,11 @@ Additional historical-only work:
 These volumes provide a legible prototype population preview and a later seed
 brief. They do not justify significance claims. The prototype authors a small
 representative sample and explicitly labelled aggregate previews; it does not
-build all 2,100 generations. Authoring may scale volume while preserving the
-accepted proportions, coverage, session timing and relationships.
+build all 2,100 generations. Authoring scales only `generation.target_traces`,
+preserving accepted proportions, coverage, session timing and relationships. The
+asset inventory stays fixed: nine prompt families, eight opening versions each,
+nine datasets and eighteen historical experiment examples. Trace scaling neither
+adds prompt families/versions nor multiplies the historical experiment cohort.
 
 ## Variation and time
 
@@ -94,26 +101,28 @@ increase. Keep these preview numbers distinct from any computed fixture metric.
 
 ## Prices and improvement story
 
-Historical pricing assumptions per million tokens: synthetic `demo-compact-v1`
-USD 0.40 input/1.60 output; `demo-standard-v1` USD 1/4; `demo-reasoning-v1` USD 2/8.
-These are invented accounting rates and model labels, not real vendor quotes or
-runnable API model IDs. Use compact for PR-04/05/07, standard for PR-01/02/03/08,
-reasoning for PR-06/09. Record usage and calculate cost from these declared rates;
-never independently randomise both token counts and cost. Native history display
-must be tested with the chosen seed mechanism and custom model definitions.
+[MODEL_POLICY.md](MODEL_POLICY.md) and the canonical executable policy define the
+real Anthropic model IDs by role: Sonnet 5.5, Opus 5.5 and Fable 5.1. Historical
+production uses that role mapping; all historical experiment examples use
+`claude-sonnet-5-5`. Model registry rates remain normal provider base rates.
+Authored history and historical experiment cost details apply an explicit **3×**
+multiplier to recorded token usage × those rates, with synthetic provenance.
+Never independently randomise token counts and costs.
 
-Illustrative PR-01 standard-model examples at unchanged pricing:
+Illustrative PR-01 Sonnet 5.5 examples at $2 input/$10 output per million tokens,
+including the 3× historical multiplier:
 
-- Earlier prompt: 800 input + 240 output tokens -> USD 0.00176/generation.
-- Later concise prompt: 680 input + 180 output tokens -> USD 0.00140/generation.
+- Earlier prompt: 800 input + 240 output tokens -> USD 0.01200/generation.
+- Later concise prompt: 680 input + 180 output tokens -> USD 0.00948/generation.
 
 These are authored accounting examples, not benchmarks. Historical versions can
 show lower cost and better record fidelity on selected cohorts while other
 measures stay flat. Do not imply every version improves every metric. The new
 style version may consume more tokens and still demonstrate the feature well.
 
-Actual live/experiment calls use a configured real model, its real usage and
-applicable prices. Show the distinction from synthetic history; do not compare
+Actual companion calls use the role-assigned model; native experiments and
+managed evaluator connections use `claude-sonnet-5-5`. Their real usage is priced
+at normal applicable rates without the historical multiplier. Show the distinction from synthetic history; do not compare
 fictional historic costs with real live cost as if they were one measured trial.
 
 ## Evaluation coverage and timing
@@ -128,7 +137,7 @@ missing executions remain separate from completed counts. These are authored
 scores tied to records, not
 claims that paid judges already ran.
 
-For live-demo and the selected experiment, execute the applicable real evaluators
+For live companion calls and the selected experiment, execute the applicable real evaluators
 and show pending/failed states. The historical criteria already exist at opening;
 creating an evaluator during the demo cannot retroactively explain those scores.
 Any reduced sampling introduced in authoring must be visible and preserve the

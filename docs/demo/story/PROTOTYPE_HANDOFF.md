@@ -78,10 +78,11 @@ session ingestion, both evaluator tracks and evaluator readback. It must retain
 actual scores even if they disappoint. A working local simulation or accepted
 story proves none of these.
 
-No fixed real model/API credentials are required for this story/prototype packet.
-Choose and record an available model and compatible model settings before live
-execution. Baseline and candidate keep that choice fixed. Validate exact current
-API/SDK/server versions then, preserving the kit's separately pinned core release.
+The local prototype needs no provider credentials. Model identities and role
+assignments now follow [MODEL_POLICY.md](MODEL_POLICY.md), including Sonnet 5.5
+for both experiment runs and managed evaluators. Preserve those choices and
+compatible settings at live execution, and validate exact current API/SDK/server
+versions while retaining the kit's separately pinned core release.
 
 ## Factual-check representation amendment (D-32)
 

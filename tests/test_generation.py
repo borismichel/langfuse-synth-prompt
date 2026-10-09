@@ -11,6 +11,9 @@ from synth.catalog import (calibration_cases, dataset_items, load_fixture, promp
 from synth.materialize import (MODEL_RATES, build_events, build_historical_experiment_events,
                                local_day_bounds, population_plan)
 from synth.reference_tools import CHAT_OPERATION_NAME, GENERATION_OPERATION_NAME, REFERENCE_RETRIEVER_NAME, FEE_TOOL_NAME
+from synth.model_policy import MODEL_BY_PROMPT, MODEL_PRICES, EXPERIMENT_MODEL, load_model_policy, apply_model_policy
+from synth.prompt_references import annotate_prompt_references
+from synth.operation_names import ROOT_NAME_BY_PROMPT
 
 
 ANCHOR = datetime(2026, 10, 8, tzinfo=timezone.utc)
@@ -92,7 +95,9 @@ def test_scores_evaluate_the_actual_subject_and_context(history):
         assert "reference_context" in metadata(target)
         assert "current_user_message" in metadata(target)
         assert "prior_messages" in metadata(target)
-        assert "no judge executed" in score["comment"]
+        assert "no judge executed" not in score["comment"]
+        assert metadata(target)["evidence_kind"] == "authored-synthetic-history"
+        assert metadata(target)["evaluation_mode"] == "replay"
         scores_by_target[score["observationId"]].append(score["name"])
     for span in spans.values():
         meta = metadata(span)
@@ -152,7 +157,7 @@ def test_chat_reference_pipeline_matches_model_context_and_session(history):
         prompt_id = metadata(generation)["prompt_id"]
         prompts.add(prompt_id)
         assert root["spanId"] == trace_root_span_id(trace_id)
-        assert root["name"] == CHAT_OPERATION_NAME and generation["name"] == GENERATION_OPERATION_NAME
+        assert root["name"] == ROOT_NAME_BY_PROMPT[prompt_id] and generation["name"] == GENERATION_OPERATION_NAME
         assert all(child["parentSpanId"] == root["spanId"] for child in [*operations, generation])
         assert retriever["name"] == REFERENCE_RETRIEVER_NAME
         assert json.loads(attributes(retriever)["langfuse.observation.input"]) == {"source_id": "SRC-01", "prompt_id": prompt_id}
@@ -221,7 +226,12 @@ def test_usage_cost_and_version_periods(history):
         cost = json.loads(attrs["langfuse.observation.cost_details"])
         rates = MODEL_RATES[attrs["langfuse.observation.model.name"]]
         assert usage["total"] == usage["input"] + usage["output"]
-        assert cost["total"] == pytest.approx((usage["input"] * rates[0] + usage["output"] * rates[1]) / 1e6)
+        assert cost["input"] == pytest.approx(usage["input"] * rates[0] * 3 / 1e6)
+        assert cost["output"] == pytest.approx(usage["output"] * rates[1] * 3 / 1e6)
+        assert cost["total"] == pytest.approx(cost["input"] + cost["output"])
+        assert meta["synthetic_cost_multiplier"] == 3
+        assert meta["synthetic_usage"] and meta["synthetic_pricing"]
+        assert meta["cost_basis"] == "synthetic-demo-provider-price-multiple"
         timestamp = datetime.fromtimestamp(int(event["startTimeUnixNano"]) / 1e9, timezone.utc)
         from zoneinfo import ZoneInfo
         day = (timestamp.astimezone(ZoneInfo("Europe/Berlin")).date() - ANCHOR.date()).days
@@ -267,6 +277,13 @@ def test_separate_authored_historical_experiments():
         gen = spans[link["observation_id"]]
         assert gen["traceId"] == link["trace_id"]
         assert attributes(gen)["langfuse.environment"] == "experiment"
+        assert attributes(gen)["langfuse.observation.model.name"] == EXPERIMENT_MODEL == "claude-sonnet-5-5"
+        usage = json.loads(attributes(gen)["langfuse.observation.usage_details"])
+        cost = json.loads(attributes(gen)["langfuse.observation.cost_details"])
+        assert cost["total"] == pytest.approx((usage["input"] * 2 + usage["output"] * 10) * 3 / 1e6)
+        assert metadata(gen)["synthetic_cost_multiplier"] == 3
+
+    assert_prompt_references(events)
     for event in events:
         if event.get("type") == "score-create":
             target = metadata(spans[event["body"]["observationId"]])
@@ -274,6 +291,62 @@ def test_separate_authored_historical_experiments():
             definition = next(d for d in score_definitions().values() if d["name"] == event["body"]["name"])
             assert target["rubric_revisions"][definition["id"]] == definition["revision"]
             assert f"{definition['id']}/{definition['revision']}" in event["body"]["comment"]
+
+
+def test_default_model_distribution_and_uninflated_registry_prices(history):
+    expected = {"PR-01": "claude-sonnet-5-5", "PR-02": "claude-opus-5-5",
+                "PR-03": "claude-opus-5-5", "PR-04": "claude-sonnet-5-5",
+                "PR-05": "claude-sonnet-5-5", "PR-06": "claude-fable-5-1",
+                "PR-07": "claude-opus-5-5", "PR-08": "claude-opus-5-5",
+                "PR-09": "claude-fable-5-1"}
+    actual = {metadata(e)["prompt_id"]: attributes(e)["langfuse.observation.model.name"]
+              for e in history if "spanId" in e and attributes(e)["langfuse.observation.type"] == "generation"}
+    assert actual == MODEL_BY_PROMPT == expected
+    from synth.assets import MODEL_PRICES as registry_prices
+    assert registry_prices == MODEL_PRICES == {"claude-sonnet-5-5": (2, 10),
+        "claude-opus-5-5": (4, 20), "claude-fable-5-1": (10, 50)}
+    policy = load_model_policy()
+    assert policy["evaluation_model"] == policy["experiment_model"] == "claude-sonnet-5-5"
+    policy["model_by_prompt"]["PR-01"] = "mutated"
+    assert load_model_policy()["model_by_prompt"] == expected
+
+
+def assert_prompt_references(events):
+    spans = [e for e in events if "spanId" in e]
+    for event in spans:
+        attrs = attributes(event)
+        if event["spanId"] == trace_root_span_id(event["traceId"]):
+            assert not {"prompt_references", "prompt_name", "prompt_version", "resolved_version"} & metadata(event).keys()
+        elif attrs["langfuse.observation.type"] == "generation":
+            assert attrs["langfuse.observation.prompt.name"] == metadata(event)["prompt_name"]
+            assert int(attrs["langfuse.observation.prompt.version"]) == metadata(event)["resolved_version"]
+
+
+def test_prompt_associations_stay_on_generations_without_redundant_root_fields(history):
+    assert_prompt_references(history)
+    assert annotate_prompt_references(history) == history
+
+
+def test_policy_rewriter_is_pure_and_preserves_payloads(history):
+    from copy import deepcopy
+    previous = deepcopy(history)
+    generation = next(e for e in previous if "spanId" in e
+                      and attributes(e)["langfuse.observation.type"] == "generation")
+    for attr in generation["attributes"]:
+        if attr["key"] == "langfuse.observation.model.name":
+            attr["value"] = {"stringValue": "demo-standard-v1"}
+        elif attr["key"] == "langfuse.observation.cost_details":
+            attr["value"] = {"stringValue": '{"input":0,"output":0,"total":0}'}
+    expected_previous = deepcopy(previous)
+    assert apply_model_policy(previous) == history
+    assert previous == expected_previous
+    assert apply_model_policy(history) == history
+    experiments, _ = build_historical_experiment_events({"seed": 42}, run_date=ANCHOR)
+    assert apply_model_policy(experiments) == experiments
+    generation["attributes"] = [attr for attr in generation["attributes"]
+                                if attr["key"] != "langfuse.observation.metadata.synthetic_usage"]
+    with pytest.raises(ValueError, match="explicitly synthetic"):
+        apply_model_policy(previous)
 
 
 def test_seed_and_small_replay_are_deterministic():

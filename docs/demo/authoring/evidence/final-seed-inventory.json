@@ -1,0 +1,23 @@
+{
+  "project_id": "cmv0kpfl209mmad0kft5wn5h9",
+  "spool_sha256": "ac7e97af87650183b730ed85fd1869a8ac698bd1ae2db6841533bacd9c720a6d",
+  "trace_count": 1638,
+  "observations": 5137,
+  "scores": 9356,
+  "root_count": 1638,
+  "models": {
+    "claude-sonnet-5-5": 1038,
+    "claude-opus-5-5": 720,
+    "claude-fable-5-1": 360
+  },
+  "failures": 0,
+  "checks": [
+    "exact scope and unique IDs",
+    "native prompt links on every generation",
+    "no root prompt references",
+    "real model IDs and explicit costs",
+    "operational names/environments/tags",
+    "replay excluded from online evaluators",
+    "score subjects and outcomes"
+  ]
+}

@@ -76,7 +76,9 @@ class FixtureEmitter:
 
 class FixturePrompt:
     def __init__(self, pid, version):
+        from synth.catalog import prompt_by_id
         self.pid = pid
+        self.name = prompt_by_id(pid)["name"]
         self.version = version
         self.is_fallback = False
 
@@ -99,6 +101,7 @@ class FixtureAdapter:
         self.feedback = {}
         self.prompt_fetches = []
         self.completions = []
+        self.model_requests = []
         self.fail_model = False
         self.fail_prompt = False
         self.fail_feedback = False
@@ -130,6 +133,7 @@ class FixtureAdapter:
         return FixtureEmitter(self)
 
     def llm(self, model=None):
+        self.model_requests.append(model)
         return SimpleNamespace(model="fixture/no-model", provider="fixture", complete=self.complete)
 
     def complete(self, *, system, messages, temperature, max_tokens):

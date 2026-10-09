@@ -118,3 +118,46 @@ Local verification for the amendment is recorded in
 build passed; desktop browser inspection confirmed category labels, native badges
 and historical category counts. No new user acceptance of this implementation is
 recorded. Narrow-screen revalidation remains unclaimed.
+
+## User-requested model, provenance and feedback update — 2026-10-09
+
+The user requested current Claude models by prompt role, Sonnet 5.5 for experiments
+and evaluation, three-times authored history cost, prompt associations that can be
+inspected from request roots, and explicit thumbs with optional written feedback.
+This update implements that requested scope in the existing accepted prototype;
+the layout, brand styles, case outcomes and presenter journey are retained.
+No additional user acceptance of rendered or live behaviour is inferred.
+
+The prototype imports a byte-equivalent copy of the runtime model-policy fixture.
+Sonnet 5.5 serves PR-01/04/05; Opus 5.5 serves PR-02/03/07/08; Fable 5.1 serves
+PR-06/09. Experiment generations use Sonnet 5.5. Authored history and experiment
+cost estimates use base model prices multiplied by three; simulated live chat
+cost estimates retain base prices. All remain fixtures, not billed usage.
+Single-prompt roots record the resolved name/version and an exact generation
+reference. FLOW-01 records three separate references without assigning one prompt
+to the whole workflow. The root inspector links to those generation details.
+
+F-01 is now BOOLEAN `user-thumbs`, an explicit signal separate from inferred
+E-08 `user_disagreement`. It saves the comment on the rated reply's root, accepts
+one submission, deduplicates exact retries and rejects edits. This supersedes the
+earlier prototype upsert behaviour described in the original rehearsal above.
+
+Validation on this update: `npm run check` and `npm run build` passed. The checks
+cover canonical policy parity, every generation's role model, Sonnet experiments,
+price calculations, root reference cardinality/identity, Boolean feedback values,
+single submission and target isolation. In the running Chrome preview, the root
+prompt link opened the correct Sonnet generation; FLOW-01 showed all three prompt
+links; submitting thumbs down with a comment added one root outcome, disabled both
+rating buttons for that reply, and displayed the saved comment beside `user-thumbs`
+in the root's score view. The wide light trace view was visually inspected. Narrow
+viewports and dark-theme revalidation are not claimed for this focused amendment.
+
+### Subsequent prompt-link clarification
+
+The user clarified: “Prompt references should stay on generation. Sorry for that.
+If there was a misunderstanding they don't need to be on the root trace.” This
+supersedes the root-reference portion of the amendment above. The final prototype
+keeps native prompt/version associations on each generation and removes redundant
+root prompt references. Request-root input evaluation and explicit user feedback
+retain their existing subjects. The companion's Inspect generation link opens the observation with its native
+managed-prompt association and resolved version.

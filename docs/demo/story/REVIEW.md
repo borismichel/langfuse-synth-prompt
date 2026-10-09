@@ -98,3 +98,65 @@ Authored `1` / `0` / `null` values remain calibration inputs and map explicitly
 to `Pass` / `Fail` / `Not applicable`; absent or failed results do not map to N/A.
 The earlier screenshots and native numeric readbacks do not verify the amended
 categorical implementation. Fresh implementation checks/readback remain required.
+
+
+## User-directed model, provenance, feedback and scale amendment
+
+On 2026-10-09 the user instructed:
+
+> Please keep the model names original. I don't want any fake models in there, so people can relate to the data they see by seeing the model names they are used to seeing every day.
+
+> Make sure this is anchored in the demo kit.
+
+The role direction was higher-risk/higher-fidelity agents on Opus, simple
+retrieval chats on Sonnet-55 and selected higher-impact work on Fable-51, with:
+
+> Keep any experiment runs and LLM connections for evaluators on Sonnet-55, though.
+
+[MODEL_POLICY.md](MODEL_POLICY.md) records the exact Anthropic IDs and the concrete
+per-role assignments in the canonical executable policy. Authored historical
+cost details use an explicit 3× multiplier; normal model registry prices and
+actual live usage remain the basis for live accounting.
+
+For prompt/version provenance the user specified **“not just tags.”** They then
+clarified: **“Prompt references should stay on generation. Sorry for that. If
+there was a misunderstanding they don't need to be on the root trace.”** This
+supersedes the proposed root-level reference inventory: retain each generation's
+native managed-prompt association and remove redundant root prompt references.
+
+For direct user feedback the user instructed:
+
+> We should also add thumbs up, thumbs down, and feedback to the chats as a way for users to provide feedback on disagreement, in addition to having it run on the evaluators and create a score associated with that. Check the Langfuse score for a good implementation here.
+
+The implementation contract is explicit BOOLEAN `user-thumbs` (1/0) with an
+optional comment on the saved reply's actual request root, separate from E-08
+`user_disagreement`. One final submission is allowed per reply and identical
+retries do not create another score. This records the agreed implementation
+semantics, not a claim that a thumb proves factual error.
+
+On scale the user clarified:
+
+> For Trace scaling, etc., I think we don't need any other prompt scale or something.
+
+Only `generation.target_traces` scales. The nine prompt families, eight opening
+versions each, nine datasets and eighteen historical experiment examples remain
+fixed. These directives amend model identity, accounting, provenance, feedback
+and volume controls; they do not redesign the accepted presenter journey, cases,
+rubrics or promotion decision, and do not invent acceptance of new live evidence,
+deployment or release.
+
+
+## User-directed operational naming amendment
+
+The user then called out authored-history/synthetic wording on product surfaces,
+asked for the application to look like a real running application, and required
+companion trace names to match historical trace names. They explicitly included
+the spool and generation scripts in the requested fix, with a last-month history
+experience. This is a naming and presentation amendment, not permission to claim
+that authored records are real customer traffic.
+
+Use consistent application operation names across generated history and companion
+requests, ordinary production/experiment environment labels, and meaningful
+experiment names. Keep synthetic provenance, cost multipliers and origin in
+structured metadata and these documents. The accepted 28 complete days remain
+the last-month history window; no source facts, counts or scale axes change.

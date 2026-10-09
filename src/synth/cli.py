@@ -45,11 +45,27 @@ def _cmd_configure_evaluators(args: argparse.Namespace) -> int:
     from .assets import configure_evaluators
     cfg = load_config(args.config, overrides=args.set)
     assert_demo_project(cfg.target.base_url, cfg.target.project_hint)
-    result = configure_evaluators(cfg)
+    result = configure_evaluators(cfg, update_model=args.update_model)
     print(f"Configured {len(result.get('evaluators', {}))} managed evaluator definitions.")
     for missing in result.get('missing', []):
         print(f"Pending: {missing}")
     return 1 if result.get('missing') else 0
+
+
+def _cmd_history_replacement_plan(args: argparse.Namespace) -> int:
+    from pathlib import Path
+    from .migration import prepare_replacement
+    plan = prepare_replacement(
+        Path(args.source_spool), Path(args.destination),
+        expected_project_id=args.project_id, expected_run_date=args.run_date,
+        revision=args.revision,
+        expected_counts={'trace': args.expected_traces,
+                         'observation': args.expected_observations,
+                         'score': args.expected_scores},
+    )
+    print(f"Prepared local replacement plan: {plan}")
+    print("No live data changed. Follow docs/demo/authoring/HISTORY_REPLACEMENT.md for the guarded apply procedure.")
+    return 0
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -72,7 +88,24 @@ def build_parser() -> argparse.ArgumentParser:
 
     setup = sub.add_parser("configure-evaluators", help="configure managed judges separately; Langfuse may validate models on save")
     _add_config_args(setup)
+    setup.add_argument("--update-model", action="store_true",
+                       help="explicitly update only the model of existing accepted judges; preserve rubrics and rules")
     setup.set_defaults(func=_cmd_configure_evaluators)
+
+    replacement = sub.add_parser(
+        "history-replacement-plan",
+        help="developer mode: prepare an offline authored-history replacement plan; no network or asset writes",
+    )
+    replacement.add_argument("--source-spool", required=True,
+                             help="complete imported spool beside its .synth_state.json (combined evidence after expansion)")
+    replacement.add_argument("--destination", required=True, help="new, nonexistent directory for the replacement plan")
+    replacement.add_argument("--project-id", required=True, help="expected existing project ID")
+    replacement.add_argument("--run-date", required=True, help="exact timezone-aware run_date from the imported receipt")
+    replacement.add_argument("--revision", required=True, help="new descriptive deterministic replacement ID namespace")
+    replacement.add_argument("--expected-traces", required=True, type=int, help="exact authored trace count including experiments")
+    replacement.add_argument("--expected-observations", required=True, type=int, help="exact authored observation count")
+    replacement.add_argument("--expected-scores", required=True, type=int, help="exact authored score count")
+    replacement.set_defaults(func=_cmd_history_replacement_plan)
 
     return parser
 

@@ -16,7 +16,8 @@ from synth.assets import chat_prompt
 from synth.catalog import dataset_items, rubric_revisions
 from synth.companion.preview import FixtureAdapter
 from synth.companion.service import ConversationService
-from synth.reference_tools import CHAT_OPERATION_NAME, GENERATION_OPERATION_NAME, REFERENCE_RETRIEVER_NAME
+from synth.operation_names import ROOT_NAME_BY_PROMPT
+from synth.reference_tools import GENERATION_OPERATION_NAME, REFERENCE_RETRIEVER_NAME
 
 
 def merged_exported_metadata(attrs):
@@ -68,7 +69,8 @@ def test_real_export_isolates_metadata_collision_and_python_repr(sdk_emitter, di
             json.loads(raw)
 
 
-def test_service_real_sdk_preserves_scoped_rubrics_and_context(sdk_emitter):
+@pytest.mark.parametrize('pid', ['PR-01', 'PR-02', 'PR-03'])
+def test_service_real_sdk_preserves_scoped_rubrics_and_context(sdk_emitter, pid):
     emitter, exporter = sdk_emitter
     class Adapter(FixtureAdapter):
         is_fixture = False
@@ -76,23 +78,73 @@ def test_service_real_sdk_preserves_scoped_rubrics_and_context(sdk_emitter):
             return emitter
         def get_prompt(self, name, **kwargs):
             return ChatPromptClient(Prompt_Chat(name=name, version=7, config={}, labels=['production'],
-                tags=[], prompt=chat_prompt('PR-03', 7)))
+                tags=[], prompt=chat_prompt(pid, 7)))
     service = ConversationService(Adapter())
-    session = service.new('PR-03')
+    session = service.new(pid)
     turn = service.turn(session['session_id'], session['token'],
-        dataset_items('PR-03')[0]['input']['user_message'], 'sdk-metadata-test')
+        dataset_items(pid)[0]['input']['user_message'], 'sdk-metadata-test')
     assert turn['status'] == 'complete'
     spans = {span.name: dict(span.attributes) for span in exporter.get_finished_spans()}
-    for name, subject in ((CHAT_OPERATION_NAME, 'user_input'), (GENERATION_OPERATION_NAME, 'assistant_reply')):
+    for name, subject in ((ROOT_NAME_BY_PROMPT[pid], 'user_input'), (GENERATION_OPERATION_NAME, 'assistant_reply')):
         attrs = spans[name]
         merged = merged_exported_metadata(attrs)
-        assert merged['rubric_revisions'] == rubric_revisions('PR-03', subject=subject)
-        assert merged['trace_rubric_revisions'] == rubric_revisions('PR-03')
+        assert merged['rubric_revisions'] == rubric_revisions(pid, subject=subject)
+        assert merged['trace_rubric_revisions'] == rubric_revisions(pid)
         assert merged['evaluation_subject'] == subject
+        assert merged['evaluation_mode'] == 'online'
         assert merged['current_user_message'] == turn['user']
         assert 'reference_context' in merged
         assert 'langfuse.trace.metadata.rubric_revisions' not in attrs
-        assert json.loads(attrs['langfuse.trace.metadata.trace_rubric_revisions']) == rubric_revisions('PR-03')
+        assert json.loads(attrs['langfuse.trace.metadata.trace_rubric_revisions']) == rubric_revisions(pid)
     retriever = merged_exported_metadata(spans[REFERENCE_RETRIEVER_NAME])
     assert 'rubric_revisions' not in retriever and 'evaluation_subject' not in retriever
-    assert retriever['trace_rubric_revisions'] == rubric_revisions('PR-03')
+    assert 'evaluation_mode' not in retriever
+    assert retriever['trace_rubric_revisions'] == rubric_revisions(pid)
+    generation = spans[GENERATION_OPERATION_NAME]
+    assert generation['langfuse.observation.prompt.name'] == turn['prompt_name']
+    assert generation['langfuse.observation.prompt.version'] == 7
+    root = merged_exported_metadata(spans[ROOT_NAME_BY_PROMPT[pid]])
+    for key in ('prompt_name', 'prompt_version', 'resolved_version', 'prompt_label', 'prompt_references'):
+        assert key not in root
+        assert key not in retriever
+    prompt_metadata = merged_exported_metadata(generation)
+    assert prompt_metadata['prompt_name'] == turn['prompt_name']
+    assert prompt_metadata['prompt_version'] == prompt_metadata['resolved_version'] == 7
+    assert prompt_metadata['prompt_label'] == 'production'
+    # Prompt association belongs to the actual model invocation, never invented
+    # on the application SPAN or reference retriever.
+    assert 'langfuse.observation.prompt.name' not in spans[ROOT_NAME_BY_PROMPT[pid]]
+    assert 'langfuse.observation.prompt.name' not in spans[REFERENCE_RETRIEVER_NAME]
+
+
+def test_feedback_real_sdk_payload_targets_saved_root_and_is_enqueued_once(sdk_emitter, monkeypatch):
+    emitter, _exporter = sdk_emitter
+    events = []
+    monkeypatch.setattr(emitter.client._resources, 'add_score_task',
+                        lambda event, **kwargs: events.append(event))
+    class Adapter(FixtureAdapter):
+        is_fixture = False
+        def emitter(self, **kwargs):
+            return emitter
+        def get_prompt(self, name, **kwargs):
+            return ChatPromptClient(Prompt_Chat(name=name, version=7, config={}, labels=['production'],
+                tags=[], prompt=chat_prompt('PR-01', 7)))
+    service = ConversationService(Adapter())
+    session = service.new('PR-01')
+    first = service.turn(session['session_id'], session['token'],
+                         dataset_items('PR-01')[0]['input']['user_message'], 'first-sdk-reply')
+    second = service.turn(session['session_id'], session['token'],
+                          dataset_items('PR-01')[0]['input']['user_message'], 'second-sdk-reply')
+    for _ in range(2):
+        receipt = service.feedback(session['session_id'], session['token'],
+                                   first['request_id'], 0, 'I disagree with this explanation.')
+    assert len(events) == 1
+    assert events[0]['type'] == 'score-create'
+    payload = events[0]['body'].dict(by_alias=True)
+    assert payload['name'] == 'user-thumbs'
+    assert payload['dataType'] == 'BOOLEAN' and payload['value'] == 0
+    assert payload['traceId'] == first['trace_id'] != second['trace_id']
+    assert payload['observationId'] == first['root_observation_id'] != first['generation_id']
+    assert payload['id'] == receipt['score_id']
+    assert payload['comment'] == 'I disagree with this explanation.'
+    assert payload['metadata']['signal_source'] == 'explicit-user-feedback'

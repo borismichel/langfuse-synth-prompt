@@ -78,7 +78,7 @@ Next question: what happens when we try a new prompt version?
 
 Open PR-01's current version, add the agreed theatrical space-villain instruction,
 save v9 under `staging`, and create an experiment on DS-01/r1 with the existing
-model and evaluator definitions. Compare it with v7 on identical inputs, source
+Sonnet 5.5 model and evaluator definitions. Compare it with v7 on identical inputs, source
 records and conversation context. The precise candidate text, full outputs and
 controls are in [the main case file](cases/product-explainer.json).
 
@@ -111,7 +111,9 @@ historical fixtures. Show pending results or ingestion delay honestly.
 
 ### P-03 — Supporting provenance, available throughout
 
-Every prompt-using generation names its actual prompt and version. A shared trace
+Every prompt-using generation retains its native managed-prompt link to the
+exact resolved version. Prompt references stay on generations. [MODEL_POLICY.md](MODEL_POLICY.md) fixes model roles,
+historical cost accounting and explicit user feedback. A shared trace
 can contain several differently linked generations; tools do not receive invented
 prompt assignments. Old records retain resolved versions after production labels
 move. Session navigation preserves per-turn request boundaries and role-bearing

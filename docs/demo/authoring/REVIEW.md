@@ -100,3 +100,27 @@ all available authenticated native rehearsal continue. The corrected small targe
 is verified, and the user independently verified protection. The small walkthrough
 gate is complete. Full-volume same-project history and readback are now complete;
 Depot delivery remains open until the prerequisites above are resolved.
+
+## 2026-10-09 operational revision
+
+The user's later instructions replace anonymous model labels with original Claude
+IDs, keep experiments/judges on Sonnet 5.5, add explicit BOOLEAN thumbs/comments,
+make visible names resemble a running application, and retain prompt associations
+on generations only. This revision implements those changes without redesigning
+the accepted prototype or introducing prompt-volume scaling.
+
+[Operational revision evidence](OPERATIONAL_REVISION.md) records the same-project
+replacement, 248 successful live checks, exhaustive 5,150-observation/9,356-score
+readback, real Sonnet/Opus turns, feedback and generation linkage, 273 offline
+tests and refreshed isolated container. Authoring remains ready with Depot
+admission and delivered rehearsal pending; this is not new user acceptance of
+an unperformed deployment.
+
+## Final fresh-target seed — 2026-10-09
+
+The user requested a final run in a newly supplied blank project before onboarding
+and shipping. [Final seed evidence](FINAL_SEED.md) records the one-time full import,
+266 passing scenario checks, exhaustive readback, production-label protection,
+and a real two-turn chat with sixteen evaluator outcomes and two feedback scores.
+This is ready for review; no new user acceptance or Depot admission is inferred.
+The generation-only prompt association correction remains authoritative.

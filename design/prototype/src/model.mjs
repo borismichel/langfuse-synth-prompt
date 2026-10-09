@@ -2,7 +2,13 @@ import portfolio from './data/portfolio.json' with {type:'json'};
 import product from './data/product.json' with {type:'json'};
 import examples from './data/examples.json' with {type:'json'};
 import extras from './data/dataset-extras.json' with {type:'json'};
-export {portfolio,product,examples,extras};
+import modelPolicy from './data/model-policy.json' with {type:'json'};
+export {portfolio,product,examples,extras,modelPolicy};
+export const rootNameByPrompt={'PR-01':'explain-product','PR-02':'explain-fees','PR-03':'guide-application','PR-04':'classify-service-intent','PR-05':'rewrite-service-query','PR-06':'summarize-conversation','PR-07':'extract-document-fields','PR-08':'draft-customer-message','PR-09':'prepare-handoff-note'};
+export const environmentFor=stage=>stage==='experiment'?'experiment':stage==='control'?'staging':'production';
+export function sessionLabel(state,id){const first=state.traces.find(t=>t.sessionId===id);return first?`${first.root.name} · ${first.caseId}`:'New conversation';}
+export function modelFor(promptId,stage='history'){return stage==='experiment'?modelPolicy.experiment_model:modelPolicy.model_by_prompt[promptId];}
+export function costFor(model,input,output,multiplier=modelPolicy.synthetic_cost_multiplier){const prices=modelPolicy.models[model];return {input:input*prices.input_per_million*multiplier/1e6,output:output*prices.output_per_million*multiplier/1e6,total:(input*prices.input_per_million+output*prices.output_per_million)*multiplier/1e6};}
 export const definitions=[
  ['E-01','dark_side_delivery','The Dark Side of Customer Service','reply','0 ordinary; 0.5 isolated theatrical wording; 1 recognisable theatrical voice, at most one restrained space metaphor.'],
  ['E-02','record_fidelity','Record fidelity','reply','Correct requested facts and material conditions. Honest uncertainty passes; Not applicable when no factual issue applies. Failure to answer an answerable factual question is Fail.'],
@@ -16,8 +22,8 @@ export const definitions=[
  ['E-10','query_constraints_preserved','Query constraints','reply','Preserves material entities, amounts, deposit type and period.'],
  ['E-11','handoff_fidelity','Handoff fidelity','reply','Preserves facts, correction, uncertainty and unresolved work; invents no action.'],
  ['E-12','extraction_match','Extraction match','reply','Fields equal the authored expected object, including missing fields as null.'],
- ['F-01','user_feedback','Customer feedback','feedback','Helpful or not helpful; feedback targets the saved request root.']
-].map(([id,name,title,subject,rubric])=>({id,name,title,subject,rubric,dataType:['E-02','E-03'].includes(id)?'CATEGORICAL':'NUMERIC',revision:['E-02','E-03'].includes(id)?'r2':'r1',producer:id==='F-01'?'Human feedback': ['E-09','E-12'].includes(id)?'Proposed deterministic check':'Proposed LLM judge'}));
+ ['F-01','user-thumbs','Customer feedback','feedback','Explicit thumbs up or down with an optional comment on the saved request root. Separate from inferred E-08 disagreement; one submission per reply.']
+].map(([id,name,title,subject,rubric])=>({id,name,title,subject,rubric,dataType:id==='F-01'?'BOOLEAN':['E-02','E-03'].includes(id)?'CATEGORICAL':'NUMERIC',revision:['E-02','E-03'].includes(id)?'r2':'r1',producer:id==='F-01'?'Human feedback': ['E-09','E-12'].includes(id)?'Proposed deterministic check':'Proposed LLM judge'}));
 export const byDef=id=>definitions.find(d=>d.id===id);
 export const factualCategories=['Pass','Fail','Not applicable'];
 export function scoreDisplay(id,value){
@@ -43,16 +49,17 @@ export function makeTrace({id,sessionId,caseId,promptId='PR-01',version=7,user,r
  const p=portfolio.prompts.find(p=>p.id===promptId),rootId=id+'-root',genId=id+'-reply';
  const startTime=new Date(baseTime+(stage==='history'?-86400000:0)+seconds*1000),endTime=new Date(+startTime+1040);
  const context={current_user_message:user,prior_messages:prior,reference_context:source};
- const common={traceId:id,sessionId,startTime,endTime,level:'DEFAULT',children:[],metadata:{application_id:p.application_id,prompt_name:p.name,resolved_version:version,environment:stage,fixture_case_id:caseId}};
- const gen={...common,id:genId,parentObservationId:rootId,type:'GENERATION',name:p.name,promptId,promptVersion:version,model:'MODEL-BASE (fixture)',usageDetails:{input:680,output:version===9?215:180},input:[{role:'system',content:systemFor(promptId,version)+'\n\nReference context: '+JSON.stringify(source)},...prior,{role:'user',content:user}],output:{role:'assistant',content:reply},metadata:{...common.metadata,evaluation_subject:'assistant_reply',...context,assistant_reply:reply},children:[]};
- const root={...common,id:rootId,parentObservationId:null,isRootObservation:true,type:'AGENT',name:p.title+' request',input:{role:'user',content:user},output:{role:'assistant',content:reply},metadata:{...common.metadata,evaluation_subject:'user_input',...context},children:[gen]};
+ const model=modelFor(promptId,stage),usageDetails={input:680,output:version===9?215:180},multiplier=stage==='live-demo'?1:modelPolicy.synthetic_cost_multiplier;
+ const common={traceId:id,sessionId,startTime,endTime,level:'DEFAULT',children:[],metadata:{application_id:p.application_id,environment:environmentFor(stage),evidence_kind:'fixture',evaluation_mode:'preview',fixture_stage:stage,fixture_case_id:caseId,model_policy_revision:modelPolicy.revision}};
+ const gen={...common,id:genId,parentObservationId:rootId,type:'GENERATION',name:'generate-response',promptId,promptName:p.name,promptVersion:version,model,usageDetails,costDetails:costFor(model,usageDetails.input,usageDetails.output,multiplier),input:[{role:'system',content:systemFor(promptId,version)+'\n\nReference context: '+JSON.stringify(source)},...prior,{role:'user',content:user}],output:{role:'assistant',content:reply},metadata:{...common.metadata,prompt_name:p.name,prompt_version:version,resolved_version:version,prompt_label:stage==='live-demo'?'production':undefined,evaluation_subject:'assistant_reply',...context,assistant_reply:reply,cost_source:'authored fixture estimate',synthetic_cost_multiplier:multiplier},children:[]};
+ const root={...common,id:rootId,parentObservationId:null,isRootObservation:true,type:'AGENT',name:rootNameByPrompt[promptId],input:{role:'user',content:user},output:{role:'assistant',content:reply},metadata:{...common.metadata,evaluation_subject:'user_input',...context},children:[gen]};
  const trace={id,rootId,genId,sessionId,caseId,promptId,version,user,reply,prior,stage,startTime,endTime,root,nodes:[root,gen],expected,comment};
  return trace;
 }
 export function traceScores(trace,{outputOnly=false}={}){
  return Object.entries(trace.expected).filter(([id])=>!outputOnly||byDef(id).subject==='reply').map(([id,value])=>{
  const def=byDef(id),observationId=def.subject==='input'?trace.rootId:trace.genId;
- let reason=trace.comment||'Expected outcome authored from the supplied case and rubric.';
+ let reason=trace.comment||'Assessed against the supplied case and evaluation criteria.';
  if(def.subject==='input'){
   reason=id==='E-05'?(value?'An unacknowledged factual self-report conflicts with prior context.':'No unacknowledged conflict; an explicit correction is a valid update.'):
   id==='E-06'?(value?'The current user explicitly expresses frustration.':'No direct expression of frustration; a quotation alone does not establish it.'):
@@ -67,7 +74,7 @@ export function caseTrace(c,version,id,stage='history',override={}){
 }
 export function referenceSession(){
  let prior=[];return product.conversation.turns.map((t,i)=>{
- const trace=makeTrace({id:'REFERENCE-'+t.id,sessionId:'SESSION-01',caseId:t.id,version:9,user:t.user,reply:t.assistant,prior:[...prior],stage:'reference-session',seconds:t.after_seconds,expected:t.expected_scores,comment:'Authored SESSION-01 outcome; reference rehearsal, not pre-promotion production traffic.'});
+ const trace=makeTrace({id:'REFERENCE-'+t.id,sessionId:'SESSION-01',caseId:t.id,version:9,user:t.user,reply:t.assistant,prior:[...prior],stage:'reference-session',seconds:t.after_seconds,expected:t.expected_scores,comment:'Response assessed against the supplied product information and evaluation criteria.'});
  prior.push({role:'user',content:t.user},{role:'assistant',content:t.assistant});return trace;
  });
 }
@@ -75,10 +82,10 @@ export function flowTrace(){
  const id='FLOW-01',sessionId='FLOW-01-session',rootId=id+'-root';
  const source=product.source,common={traceId:id,sessionId,level:'DEFAULT',children:[]};
  const nodes=[['PR-04','fees'],['PR-05','monthly fee waiver own-account transfer'],['TOOL',source],['PR-09',examples.cases.find(c=>c.id==='PC-09').expected_output]].map(([pid,out],i)=>{
- const p=portfolio.prompts.find(p=>p.id===pid),operation=p?.operation_id||'SIM-LOOKUP';
- return {...common,id:id+'-'+operation,parentObservationId:rootId,type:p?'GENERATION':'TOOL',name:p?.name||'Reference lookup',promptId:p?.id,promptVersion:p?7:undefined,model:p?'MODEL-BASE (fixture)':undefined,startTime:new Date(baseTime-86400000+i*700),endTime:new Date(baseTime-86400000+i*700+650),input:i===0?{role:'user',content:portfolio.multi_prompt_example.user_request}:i===1?{role:'user',content:portfolio.multi_prompt_example.user_request}:i===2?{query:'monthly fee waiver own-account transfer'}:{intent:'fees',reference:source,account_ledger:'unavailable',user_request:portfolio.multi_prompt_example.user_request},output:pid==='PR-04'?{intent:out}:out,metadata:{operation_id:operation,environment:'history',source_id:'SRC-01'}};
+  const p=portfolio.prompts.find(p=>p.id===pid),operation=p?.operation_id||'SIM-LOOKUP',model=p?modelFor(pid):undefined;
+  return {...common,id:id+'-'+operation,parentObservationId:rootId,type:p?'GENERATION':'TOOL',name:p?'generate-response':'retrieve-product-context',promptId:p?.id,promptName:p?.name,promptVersion:p?7:undefined,model,...(p?{usageDetails:{input:680,output:180},costDetails:costFor(model,680,180)}:{}),startTime:new Date(baseTime-86400000+i*700),endTime:new Date(baseTime-86400000+i*700+650),input:i===0?{role:'user',content:portfolio.multi_prompt_example.user_request}:i===1?{role:'user',content:portfolio.multi_prompt_example.user_request}:i===2?{query:'monthly fee waiver own-account transfer'}:{intent:'fees',reference:source,account_ledger:'unavailable',user_request:portfolio.multi_prompt_example.user_request},output:pid==='PR-04'?{intent:out}:out,metadata:{operation_id:operation,environment:'production',evidence_kind:'fixture',evaluation_mode:'preview',source_id:'SRC-01',...(p?{prompt_name:p.name,prompt_version:7,resolved_version:7,cost_source:'authored fixture estimate',synthetic_cost_multiplier:modelPolicy.synthetic_cost_multiplier}:{} )}};
  });
- const root={...common,id:rootId,isRootObservation:true,type:'AGENT',name:'Service request review',startTime:new Date(baseTime-86400000),endTime:new Date(baseTime-86400000+3000),input:{role:'user',content:portfolio.multi_prompt_example.user_request},output:{role:'assistant',content:nodes[3].output},children:nodes};
+ const root={...common,id:rootId,isRootObservation:true,type:'AGENT',name:'review-service-request',startTime:new Date(baseTime-86400000),endTime:new Date(baseTime-86400000+3000),input:{role:'user',content:portfolio.multi_prompt_example.user_request},output:{role:'assistant',content:nodes[3].output},metadata:{environment:'production',evidence_kind:'fixture',evaluation_mode:'preview'},children:nodes};
  return {id,sessionId,caseId:'FLOW-01',rootId,genId:nodes[3].id,root,nodes:[root,...nodes],stage:'history',expected:{},user:portfolio.multi_prompt_example.user_request,reply:nodes[3].output};
 }
 export function initialState(){
@@ -87,7 +94,7 @@ export function initialState(){
  const flow=flowTrace();traces.push(flow);
  const scores=traces.flatMap(t=>traceScores(t));
  for(const [pid,eid] of [['PR-04','E-09'],['PR-05','E-10'],['PR-09','E-11']]){
-  const node=flow.nodes.find(n=>n.promptId===pid);scores.push(...traceScores({...flow,expected:{[eid]:1},genId:node.id,promptId:pid,comment:'Authored FLOW-01: operation output preserves the supplied request and reference.'}));
+  const node=flow.nodes.find(n=>n.promptId===pid);scores.push(...traceScores({...flow,expected:{[eid]:1},genId:node.id,promptId:pid,comment:'The operation output preserves the supplied request and reference.'}));
  }
  return {production:7,candidate:null,role:'member',traces,scores,experiment:null,pending:null,chatSessions:{'PR-01':null,'PR-02':null,'PR-03':null},serial:0,notice:'',audit:[]};
 }
@@ -102,14 +109,14 @@ export function transition(state,action){
  case 'startExperiment':
   if(!s.candidate)return {...s,notice:'Save a candidate before running an experiment.'};
   if(!s.candidate.fixtureMatches)return {...s,notice:'This prototype has authored outcomes for the supplied candidate only. Restore it to rehearse; custom text needs a real model run in the implementation.'};
-  return {...s,experiment:{status:'pending',scenario:action.scenario||'expected',traces:[]},notice:'Experiment queued in the local simulation. Complete the fixture run to inspect outcomes.'};
+  return {...s,experiment:{status:'pending',scenario:action.scenario||'expected',traces:[]},notice:'Comparison queued. Complete the run to inspect outcomes.'};
  case 'finishExperiment':{
   if(s.experiment?.status!=='pending')return s;
   const run=++s.serial,ids=[];const added=[];
   for(const c of product.cases)for(const version of [7,9]){
    const id=`EXP-${run}-v${version}-${c.id}`,override={};
    if(version===9&&s.experiment.scenario==='mixed'&&c.id==='C-02'){const control=product.negative_controls[0];Object.assign(override,{reply:control.output,expected:control.expected,comment:control.reason});}
-   if(version===9&&s.experiment.scenario==='flat')Object.assign(override,{reply:c.baseline_output,expected:c.expected_baseline_scores,comment:'Authored non-improving scenario: candidate output remains ordinary; retain the result.'});
+   if(version===9&&s.experiment.scenario==='flat')Object.assign(override,{reply:c.baseline_output,expected:c.expected_baseline_scores,comment:'The candidate output retains an ordinary speaking style.'});
    added.push(caseTrace(c,version,id,'experiment',override));ids.push(id);
   }
   return {...s,traces:[...s.traces,...added],scores:[...s.scores,...added.flatMap(t=>traceScores(t,{outputOnly:true}))],experiment:{...s.experiment,status:'complete',traces:ids,run},notice:'Experiment complete. Inspect the results; the next decision belongs to the presenter.'};
@@ -133,7 +140,7 @@ export function transition(state,action){
   if(reply===undefined)return {...s,notice:'This local prototype recognises the supplied example messages. Choose a suggestion to continue; no model was called.'};
   // Only replay input labels whose required context is actually present.
   expected={...expected};if(!prior.length){expected['E-05']=0;expected['E-08']=0;}
-  const trace=makeTrace({id:`LIVE-REQUEST-${n}`,sessionId,caseId,promptId:pid,version,user,reply,prior,source,stage:'live-demo',seconds:n*24,expected,comment:'Authored response and expected rubric result; local request simulation.'});
+  const trace=makeTrace({id:`LIVE-REQUEST-${n}`,sessionId,caseId,promptId:pid,version,user,reply,prior,source,stage:'live-demo',seconds:n*24,expected,comment:'Response assessed against the supplied product information and evaluation criteria.'});
   return {...s,serial:n,pending:{trace,phase:'fetch'},chatSessions:{...s.chatSessions,[pid]:sessionId},notice:`Resolving the production label for this request (v${version}).`};
  }
  case 'receive':{
@@ -146,8 +153,11 @@ export function transition(state,action){
  }
  case 'feedback':{
   const trace=s.traces.find(t=>t.id===action.traceId);if(!trace)return {...s,notice:'Reply is not saved yet.'};
-  const id=trace.id+':F-01',record={id,definitionId:'F-01',revision:byDef('F-01').revision,name:'user_feedback',value:action.value,dataType:'NUMERIC',source:'API',traceId:trace.id,observationId:trace.rootId,sessionId:trace.sessionId,caseId:trace.caseId,stage:trace.stage,producer:'Human feedback',evidence:'Local prototype interaction',comment:action.comment|| (action.value?'Helpful':'Not helpful'),status:'complete',timestamp:new Date()};
-  return {...s,scores:[...s.scores.filter(r=>r.id!==id),record],notice:'Feedback saved on the request root for this reply.'};
+  if(![0,1].includes(action.value)||typeof action.value!=='number'||(action.comment!==undefined&&typeof action.comment!=='string')||(action.comment||'').length>1000)return {...s,notice:'Choose thumbs up or down and a comment of at most 1,000 characters.'};
+  const id=trace.id+':F-01',comment=(action.comment||'').trim(),existing=s.scores.find(r=>r.id===id);
+  if(existing)return {...s,notice:existing.value===action.value&&existing.comment===comment?'Feedback already saved on this reply.':'Feedback has already been submitted for this reply.'};
+  const record={id,definitionId:'F-01',revision:byDef('F-01').revision,name:'user-thumbs',value:action.value,dataType:'BOOLEAN',source:'API',traceId:trace.id,observationId:trace.rootId,sessionId:trace.sessionId,caseId:trace.caseId,stage:trace.stage,producer:'Human feedback',signal_source:'explicit-user-feedback',evidence:'Local prototype interaction',comment,status:'complete',timestamp:new Date()};
+  return {...s,scores:[...s.scores,record],notice:'Feedback saved on the request root for this reply.'};
  }
  case 'reset':return initialState();
  default:return s;
@@ -156,12 +166,12 @@ export function transition(state,action){
 export const recordsFor=(state,observationId)=>state.scores.filter(r=>r.observationId===observationId);
 export function visibleTotals(state){return {records:new Set(state.scores.map(r=>r.id)).size,definitions:new Set(state.scores.map(r=>r.definitionId)).size,observations:new Set(state.traces.flatMap(t=>t.nodes.map(n=>n.id))).size,traces:state.traces.length};}
 export function coverage(state){return [
- {id:'P-01',feature:'Prompt portfolio & version links',purpose:'Find nine prompts; inspect the actual resolved version.',scoreIds:[],evidence:portfolio.prompts.map(p=>p.id),fidelity:'Local portfolio + source-backed trace rows'},
- {id:'P-02',feature:'Paired experiment',purpose:'Compare the same eight inputs without a release gate.',scoreIds:state.scores.filter(r=>r.stage==='experiment').map(r=>r.id),evidence:state.traces.filter(t=>t.stage==='experiment').map(t=>t.id),fidelity:'Simulated run; authored expected outcomes'},
- {id:'P-03',feature:'Multi-prompt provenance',purpose:'Each generation keeps its own prompt; lookup has none.',scoreIds:state.scores.filter(r=>r.traceId==='FLOW-01').map(r=>r.id),evidence:['FLOW-01'],fidelity:'Upstream tree/types, local I/O inspector'},
- {id:'P-04a',feature:'What the chatbot hears',purpose:'Distinct contradiction, frustration, profanity and disagreement.',scoreIds:state.scores.filter(r=>byDef(r.definitionId)?.subject==='input').map(r=>r.id),evidence:product.cases.map(c=>c.id),fidelity:'Authored root scores; native live mappings deferred'},
- {id:'P-04b',feature:'What the chatbot says',purpose:'Style, facts, grounding and tone on reply generations.',scoreIds:state.scores.filter(r=>byDef(r.definitionId)?.subject==='reply'&&r.stage!=='experiment'&&['PR-01','PR-02','PR-03'].includes(r.promptId)).map(r=>r.id),evidence:['SESSION-01','CTRL-01','CTRL-02','CTRL-03'],fidelity:'Actual ScoreBadge; authored values'},
- {id:'PH-01',feature:'Historical task quality',purpose:'Task-specific checks for the six historical-only prompt families.',scoreIds:state.scores.filter(r=>r.promptId&&!['PR-01','PR-02','PR-03'].includes(r.promptId)&&r.traceId!=='FLOW-01').map(r=>r.id),evidence:examples.cases.filter(c=>!['PR-02','PR-03'].includes(c.prompt_id)).map(c=>c.id),fidelity:'Authored task-specific outputs and checks'},
- {id:'P-04c',feature:'Protected promotion & session',purpose:'Admin moves production; new calls resolve that version.',scoreIds:[],evidence:['PR-01/v7','PR-01/v9','SESSION-01'],fidelity:'Local role boundary and session adaptation'},
- {id:'F-01',feature:'Customer feedback',purpose:'One stable root target per saved reply.',scoreIds:state.scores.filter(r=>r.definitionId==='F-01').map(r=>r.id),evidence:state.scores.filter(r=>r.definitionId==='F-01').map(r=>r.observationId),fidelity:'Local human feedback; no backend'}
+ {id:'P-01',feature:'Prompt portfolio & version links',purpose:'Find nine prompts; inspect the actual resolved version.',scoreIds:[],evidence:portfolio.prompts.map(p=>p.id),fidelity:'Prompt portfolio and trace links'},
+ {id:'P-02',feature:'Paired experiment',purpose:'Compare the same eight inputs without a release gate.',scoreIds:state.scores.filter(r=>r.stage==='experiment').map(r=>r.id),evidence:state.traces.filter(t=>t.stage==='experiment').map(t=>t.id),fidelity:'Paired output comparison'},
+ {id:'P-03',feature:'Multi-prompt provenance',purpose:'Each generation keeps its own prompt; lookup has none.',scoreIds:state.scores.filter(r=>r.traceId==='FLOW-01').map(r=>r.id),evidence:['FLOW-01'],fidelity:'Prompt references and operation details'},
+ {id:'P-04a',feature:'What the chatbot hears',purpose:'Distinct contradiction, frustration, profanity and disagreement.',scoreIds:state.scores.filter(r=>byDef(r.definitionId)?.subject==='input').map(r=>r.id),evidence:product.cases.map(c=>c.id),fidelity:'Request input scores'},
+ {id:'P-04b',feature:'What the chatbot says',purpose:'Style, facts, grounding and tone on reply generations.',scoreIds:state.scores.filter(r=>byDef(r.definitionId)?.subject==='reply'&&r.stage!=='experiment'&&['PR-01','PR-02','PR-03'].includes(r.promptId)).map(r=>r.id),evidence:['SESSION-01','CTRL-01','CTRL-02','CTRL-03'],fidelity:'Reply generation scores'},
+ {id:'PH-01',feature:'Background task quality',purpose:'Task-specific checks for the six background prompt families.',scoreIds:state.scores.filter(r=>r.promptId&&!['PR-01','PR-02','PR-03'].includes(r.promptId)&&r.traceId!=='FLOW-01').map(r=>r.id),evidence:examples.cases.filter(c=>!['PR-02','PR-03'].includes(c.prompt_id)).map(c=>c.id),fidelity:'Task-specific outputs and checks'},
+ {id:'P-04c',feature:'Protected promotion & session',purpose:'Admin moves production; new calls resolve that version.',scoreIds:[],evidence:['PR-01/v7','PR-01/v9','SESSION-01'],fidelity:'Protected promotion and conversation replay'},
+ {id:'F-01',feature:'Customer feedback',purpose:'One stable root target per saved reply.',scoreIds:state.scores.filter(r=>r.definitionId==='F-01').map(r=>r.id),evidence:state.scores.filter(r=>r.definitionId==='F-01').map(r=>r.observationId),fidelity:'Explicit user feedback'}
  ];}

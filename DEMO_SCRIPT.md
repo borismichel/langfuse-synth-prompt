@@ -12,14 +12,24 @@ release it. There is no opening incident and no automatic score gate.
 
 ## Before the audience arrives
 
+The product surfaces use ordinary application and operation names, shared by
+history and companion calls. Synthetic origin and historical cost multipliers are
+disclosed in metadata and this runbook; the last-month history remains authored.
+
 Use the dedicated demo project produced by the seed run. Confirm the current seed
 receipt passed verification; offline preview fixtures are not live evidence. The
 intended full portfolio has 1,620 history traces, 2,100 generations and 9,320 eligible
 synthetic outcomes across 28 complete days, plus a separate small historical
 experiment cohort. Seeded scores are authored examples, not historical model-judge
-runs. These are fictional products, users, conversations and accounting prices.
+runs. These are fictional products, users and conversations. Historical cost
+details apply an explicit 3× multiplier to usage × base model prices; live calls
+use actual usage and normal model registry rates. Only `generation.target_traces`
+scales: nine prompt families, eight opening versions each, nine datasets and
+eighteen historical experiment examples remain fixed.
 
-Confirm that the project has a usable model connection, active managed evaluators,
+Confirm that the project has an Anthropic connection for `claude-sonnet-5-5`
+experiments and managed evaluators, and the role-specific companion models in
+[the kit policy](docs/demo/story/MODEL_POLICY.md), active managed evaluators,
 and protected-label support. Protect `production` in native project settings; rehearse
 with a member account and an administrator/owner. An API key does not demonstrate
 member permissions. Public API provisioning cannot configure this protection.
@@ -38,14 +48,16 @@ have meaningful history, cases and versions but no companion screen. Open
 belong to small authored historical experiments; the other released versions have
 unequal traffic periods. Do not imply equal sample sizes.
 
-Use the prompt's Metrics view for cost, latency and usage. Synthetic model prices
-make historical accounting explicit. Inspect the available per-version quality
+Use the prompt's Metrics view for cost, latency and usage. The original Anthropic
+model names make role choices recognisable; historical cost metadata discloses
+the explicit 3× multiplier. Inspect the available per-version quality
 scores and sample counts; use native observation/score views for user-message
 signals if the prompt view does not aggregate scores from request roots. Do not
 promise that root scores appear in a generation-level chart.
 
-Show one request root and its answer generation. The generation names its exact
-prompt and version. Answer criteria attach there. The request root has the separate
+Show one request root and its answer generation. Select the generation to inspect
+its native link to the exact prompt and version. Answer criteria attach there.
+The request root has the separate
 input criteria: contradiction, expressed frustration, profanity and disagreement.
 These describe what the assistant hears; they are not defects in every reply.
 For example, an explicit self-correction is not an unresolved contradiction and
@@ -76,10 +88,11 @@ presenter may write their own equivalent instruction. Version numbers are resolv
 from the native editor, never assumed after previous rehearsals.
 
 Open the matching product-explainer dataset and run a native prompt experiment with
-v7, then v9. Select the same actual provider/model, parameters, dataset snapshot and
-E-01–E-04 definitions for both. Dataset inputs supply `reference_context`,
-`conversation_history` and `user_message`. Do not substitute one of the fictional
-history model names as a real provider model.
+v7, then v9. Explicitly select Anthropic `claude-sonnet-5-5` for both, with identical
+parameters, dataset snapshot and E-01–E-04 definitions. Older immutable prompt
+versions may retain an earlier configuration, so select Sonnet 5.5 in the native
+experiment model picker. Dataset inputs supply `reference_context`,
+`conversation_history` and `user_message`.
 
 Review **dark_side_delivery**, **record_fidelity**, **claim_support** and
 **respectful_tone**. The playful criterion should make the difference audible;
@@ -115,8 +128,11 @@ In the companion, start a new product-explainer chat and send these four message
 
 Each turn fetches the managed `production` prompt afresh. The reply is a real model
 result and may differ from authored history. Check the recorded prompt version in
-Presenter tools. Give feedback on one saved reply if useful; feedback is bound
-to that reply's root observation, not whichever turn is currently selected.
+Presenter tools. Give a thumbs up or down on one saved reply and optionally add a
+comment before submitting. This creates one final BOOLEAN `user-thumbs` score
+(1 = up, 0 = down) on that reply's saved root observation. It is separate from
+E-08 `user_disagreement`; changing the selected turn never retargets the feedback.
+Identical retries reuse the original submission.
 
 Choose **Open session**, the primary link. The native session should show each new
 user/assistant exchange once. Open a turn's underlying observations to inspect its

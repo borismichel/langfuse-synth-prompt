@@ -24,6 +24,20 @@ A session does not turn all those records into a single session-level judge.
 The exact native mapping/UI must be verified as described in
 [product research](PRODUCT_RESEARCH.md).
 
+## Explicit user feedback
+
+Each saved companion reply can receive one final `user-thumbs` score with explicit
+`BOOLEAN` type: `1` for thumbs up or `0` for thumbs down, and an optional written
+comment. It targets that reply's saved request-root observation ID with trace
+correlation. An identical retry reuses the same score; changing the selected turn
+cannot retarget it. No feedback is inferred when the user does not submit it.
+
+This direct user signal is separate from E-08 `user_disagreement`, which infers
+whether the incoming message challenges the preceding answer. Neither signal by
+itself establishes factual error. Explicit feedback adds no automatic judge call
+and is outside the fixed evaluator outcome counts below. See
+[the feedback policy](MODEL_POLICY.md).
+
 ## Rubrics and producers
 
 Managed LLM judges are proposed for E-01–E-08 because their criteria concern
@@ -32,7 +46,8 @@ criteria return a numeric value. Each includes a short reason referencing the
 actual relevant text. Calibrate against the positive and
 negative authored examples before authoring claims about reliability. Pin rubric
 revision and judge model/settings for comparisons; never infer reliability from
-these illustrative expected scores.
+these illustrative expected scores. All managed judge connections and experiment
+runs use `claude-sonnet-5-5` under [the model policy](MODEL_POLICY.md).
 
 | ID / stored name | Subject | Range and explicit rule | Required evidence |
 | --- | --- | --- | --- |

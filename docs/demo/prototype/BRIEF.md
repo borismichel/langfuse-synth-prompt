@@ -15,7 +15,7 @@ understanding changes. Ongoing improvement is the cause of the intervention;
 there is no invented opening incident or required failing prompt.
 
 The intervention changes PR-01's speaking style, holding product truth, question,
-history, model placeholder and rubric fixed. The payoff is a changed reply,
+history, Sonnet 5.5 model and rubric fixed. The payoff is a changed reply,
 followed by a session that exposes what the assistant said and what it heard.
 Presenter discretion remains decisive even with disappointing scores.
 
@@ -54,8 +54,9 @@ accepted by the user. No separate companion sentiment dashboard was added.
   or generated data. They do not alter source truth.
 - [Population preview](../../../design/prototype/src/population.mjs) holds authored
   aggregates separately from the representative traces. Current-version average
-  token usage for secondary prompts is a prototype assumption; prices/model labels
-  come from the story's fictional accounting contract.
+  token usage for secondary prompts is a prototype assumption; actual model IDs,
+  role assignments and the explicit 3× authored historical cost multiplier come
+  from [the canonical policy](../story/MODEL_POLICY.md).
 
 Initial evidence: **24 traces, 51 observations, 137 numeric/categorical outcomes and
 12 active criterion definitions**. The thirteenth planned definition is optional
@@ -83,9 +84,11 @@ SIM-LOOKUP reference tool → OP-09 handoff. Three generations link PR-04/05/09 
 independently; the tool has no invented prompt. No live APP-04 runtime is promised.
 
 Customer feedback is explicitly attached to the saved reply's **request root**,
-with a stable ID per request. Updating its value/comment replaces that record.
-Selecting another turn or layout cannot retarget it. This is distinct from a
-managed judge of the reply generation and distinct from a session-level score.
+as BOOLEAN `user-thumbs` (1 = up, 0 = down), with an optional comment and a stable
+ID per request. One final submission is allowed per reply; an identical retry
+reuses its receipt. Selecting another turn or layout cannot retarget it. This is
+separate from E-08 `user_disagreement`, any reply-generation judge and a
+session-level score.
 
 The prototype resolves production on every simulated request (TTL 0). It snapshots
 the version into the saved generation. A pending request keeps the version it
@@ -103,7 +106,11 @@ chat remain separate cohorts. Human gaps are independent of generation duration.
 PR-02's 6/80 → 12/80 disagreement example is an explicitly authored aggregate,
 with 100% eligible coverage in each seven-day window. A link to C-05 explains the
 signal but does not claim that this PR-01 example belongs to that PR-02 cohort.
-Synthetic token prices are not live vendor quotes or runnable model identifiers.
+Model IDs are the original Anthropic IDs in the canonical policy. Synthetic
+history costs explicitly multiply usage × base prices by three; model registry
+prices and real live/evaluator/experiment accounting keep normal rates. Only
+`generation.target_traces` scales: nine prompt families, eight opening versions
+each, nine datasets and eighteen historical experiment examples stay fixed.
 
 ## Incoming questions: results and limits
 
@@ -146,5 +153,6 @@ After prototype acceptance and a separate build request, hand this packet to
 `author-langfuse-demo-kit`. Preserve examples, prompt/session links, both eval
 tracks, discretion over promotion and the population contract. Prove live prompt
 fetch, authorised label changes, real model output, session ingestion, evaluator
-execution/calibration and score readback. Select actual supported model/server/SDK
-versions then; MODEL-BASE is intentionally not a runnable model ID here.
+execution/calibration and score readback. Preserve the role assignments and exact
+Anthropic IDs in [MODEL_POLICY.md](../story/MODEL_POLICY.md), with Sonnet 5.5 for
+experiments and managed judges. Validate supported server/SDK versions at execution.

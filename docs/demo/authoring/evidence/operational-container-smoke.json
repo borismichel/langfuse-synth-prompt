@@ -1,0 +1,133 @@
+{
+  "schemaVersion": 1,
+  "verifiedAt": "2026-10-09T06:16:35.915872+00:00",
+  "scope": "Local container packaging and isolated fixture-backed runtime smoke; no release or deployment.",
+  "image": {
+    "tag": "langfuse-synth-prompt:operational-local",
+    "id": "sha256:3b99afad5eca1f44b766065c00e84f01499e129bdadef18baa49eb7f616979b5",
+    "created": "2026-10-09T06:16:05.930875132Z",
+    "architecture": "arm64",
+    "os": "linux",
+    "configuredUser": "synth",
+    "workingDirectory": "/app",
+    "revisionDescription": "Uncommitted operational revision from the current working tree; not an image of the baseline commit."
+  },
+  "isolation": {
+    "network": "none",
+    "readOnlyRoot": true,
+    "capDrop": [
+      "ALL"
+    ],
+    "noNewPrivileges": true,
+    "writableTmpfs": "/tmp:rw,nosuid,nodev",
+    "publishedPorts": [],
+    "credentialsPassed": false
+  },
+  "dependencyProvenance": {
+    "coreTag": "v4.1.1",
+    "annotatedTagObject": "571f47a003b5f64c6177e48f0a26685ddc3ed75c",
+    "peeledCommit": "6b86ac16d797cd0c6a80da1cdd68e8fc8998c18d",
+    "verification": "Public git ls-remote tag and installed distribution direct_url.json agree."
+  },
+  "sourceStillMatchesAfterSmoke": true,
+  "helperSha256": "2bc0080ccf8372cc169a59ad05219c63e242f93c5b9418253db3d12504d7a450",
+  "focusedSourceChecks": {
+    "python": "55 passed: companion runtime, real-SDK metadata and feedback payload, provider binding",
+    "prototypeStateCheck": "passed",
+    "prototypeProductionBuild": "passed",
+    "diffWhitespaceCheck": "passed"
+  },
+  "smoke": {
+    "passed": true,
+    "uid": 10001,
+    "gid": 10001,
+    "installedPackageRoot": "/usr/local/lib/python3.12/site-packages/synth",
+    "installedPackageSha256": {
+      "__init__.py": "21d4cf5ad7b945741efc61245176ae837ba99c54cbde9345abcad29753957c27",
+      "assets.py": "cda70b6ce4a2c23e4a0ae647e482b29e1e217a6f18bb13da4b259c1450b05690",
+      "catalog.py": "a0ab98a45ac5f2977e8689e67f339e7bf7a8281297e1f2398ae4a13fc81cab27",
+      "cli.py": "9b3ea4624da09c878dc546041a5cd849745d5202694d2dc85cef1c611ac1dd57",
+      "companion/__init__.py": "37d535e6c92335da4aa858c684d7d989c7afe8fb0af5f3aeeb1fd2fa1f7e4b5d",
+      "companion/app.py": "016d47e5f70ee9c2c61f06b46f664774ad32b2b73f72bf42948be2cf85adbf56",
+      "companion/preview.py": "67a282650966d9e3da660ec868ace261df1286b0ee73ed856244ded2542eae67",
+      "companion/service.py": "7456433fc4163439321d5c8398c265a804e0e50aa3303fcb9d998922a9cd21e5",
+      "companion/static/app.js": "81a1d427a4645a1d13cb4bb8ac60cb2d486a06ba12a743c7dcbd3eddd386e9da",
+      "companion/static/brand.css": "e392c790cb7507217541baf9bb21e7f8c7271e364b7d6ad1c69fa0659d19b5fc",
+      "companion/static/fonts/GeistMono-OFL.txt": "1781d2806a07d91c4edf4740b88449fab7d0eadad53f7c351b94cd4d4eb8c00f",
+      "companion/static/fonts/Inter-OFL.txt": "5b9321a4298cfeb6b34354164a1c3afc3db114569984c502b9b35d988fd58c57",
+      "companion/static/fonts/SpaceGrotesk-OFL.txt": "564ce565c371c5e5bbf286006565a7c9aa55a9f56e7ca58d56e05d649dd61a72",
+      "companion/static/fonts/geist-mono.ttf": "5c1b7b77c2d6132460f03b60c175adc80da1ebd0b418c785135b1aed27a28b30",
+      "companion/static/fonts/inter.ttf": "29160a80ff49ddcab2c97711247e08b1fab27a484a329ce8b813d820dc559031",
+      "companion/static/fonts/space-grotesk.ttf": "3e699ead1876244fa392243054ddefe7cf631b488438828a8a100731a22ab995",
+      "companion/static/style.css": "042e3f35b8c1c809c16b07208267476fe3bdee11a313c9623644c2b7f45c1ac2",
+      "companion/templates/index.html": "f26cdfa5f19336db55917c043fb8c186e854d38e99daddc9b3fe83d65f3355e8",
+      "config.py": "f2b60ea19a8799ea86f9d1b87e930087533bc5f92328d7e79f7d7816bb07015e",
+      "expansion.py": "0accd7ff6cc795fb5e2762aa8f23da9a8182e51372d7caff2e9e8952db8d0968",
+      "fixtures/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "fixtures/conversations.json": "645d3b660bc868b0ead4847e58a68ddeb7d0dd14dd8e9e96cfb3d579b597c117",
+      "fixtures/dataset_extras.json": "45b26ac81f0f7c9b8adecfae687d984fe4de920148b6e8870c5c678c93ec0fd5",
+      "fixtures/examples.json": "7ae9d676f8056c1386eb6757340367f7f387c99bbff15c09e6124ecc3ac1c645",
+      "fixtures/model_policy.json": "695ca751bf29724853009d2ab34858efa46d3fd91ed782574b54479b099293e8",
+      "fixtures/portfolio.json": "4b6e61a4741ce3a4cce262f54b93dbf896b2d25a4c7aa3ef8f8927dd279add58",
+      "fixtures/product.json": "b2c6d9988987a5390d1d7e782915c09fd0a48ebc581e932df12809ab26041eb0",
+      "fixtures/prompt_versions.json": "ae39acd9b97e87795c7bf68be8e19c23b23887ad383ec5c583c2771edbf9faca",
+      "fixtures/score_definitions.json": "45f9514f4464d676fe1e5b7750cb15976d4adf651ebc1d9fba677465d2151e28",
+      "materialize.py": "8d2a4b32e8d8508fbd64bf14cedfb03d3dc3ac8b3869e564e340bc2dbd38644e",
+      "migration.py": "42335368b3069fe65c9a1b490adefbe4442bc28a0f89a9203bf7a4825fcc521f",
+      "model_policy.py": "672fec0be5bb8d2e46596df32e6c7cfe181b0000f1c64d4e8d6737a0be4b6ec7",
+      "operation_names.py": "a5f77e596a341f6ef84f3a120f50dbbe2864307c14ee0a8c43724eeb2e9f4547",
+      "prompt_references.py": "f8aad1de9e12af4ffa0f63f52887b09e9d95511977fe34489dae497b9219a72c",
+      "receipt.py": "85398fa4a15e4ee38f42bb3f1b0e7dfb726451fd200636aec31437e7c0be1527",
+      "reference_tools.py": "442b7b4ad70b5b8ac42943f0bc99be03f7d4ffda9ef950a4f58255c3ca9c8948",
+      "scores.py": "f8c00006852f7584cc898c189426639a01ce6c6901cdc5d2ecfe51b2923aa26c",
+      "seed.py": "9de3747e10b070a26dbe16ec008749d67e159d3a8a2402216ae5417b6475b6a2",
+      "state.py": "1e59a02ec9f5af3694b167569f347b083d68666d57b3c5e5a1aa3e064fd1aa43",
+      "verify.py": "2a76a4e79170475b69041dcbc3e6ed922fa3dd189256958f455b8c431d1bbd37"
+    },
+    "contextSha256": {
+      "Dockerfile": "deba3d44aa160463368c9f2bf18715c93252092f30a921e23634c05d26b7bca8",
+      ".dockerignore": "be988156e3df481508e7fda764571b945add2154fd428b596112d4cac2b70ef7",
+      "pyproject.toml": "fda8837ecbae8cf91266f630775ee309c7cd3f950086acb35dfa07af56cb9b2d",
+      "usecase.yaml": "348139be284d40563343c7439522c5b8e5f372a3d737066c63b1e8a688f188b0",
+      "config/demo.yaml": "c398b3b536874de85716a8ce2c12d4763fbd89809a9ac407900b1d2b6d6e6965",
+      "DEMO_SCRIPT.md": "254bac6272ef9ffbe0e1b39d2bca4eefe02aebe5a98814056472c78b52e36765",
+      "README.md": "0964e59b3af2ecf8030555a2228e2e2a728e206ce51f2b359337c22bd5404729",
+      "docs/demo/authoring/OPERATIONAL_REVISION.md": "836e3abe436e7c1f580e2ef18bc57d10a8ab134034f8ae532110515d41a332da",
+      "docs/demo/authoring/REVIEW.md": "e43765e3ceec10c56792b5fc7644bd472a13eeba84eaba533dfdbb89d3a76772",
+      "docs/demo/prototype/REVIEW.md": "a59a39e245a281e54eb2fe912bee4fee2037b4f05cc961ab323327a0ccd45f12"
+    },
+    "runbookSha256": "254bac6272ef9ffbe0e1b39d2bca4eefe02aebe5a98814056472c78b52e36765",
+    "coreVersion": "4.1.1",
+    "coreDirectUrl": {
+      "url": "https://github.com/borismichel/langfuse-synth-core",
+      "vcs_info": {
+        "commit_id": "6b86ac16d797cd0c6a80da1cdd68e8fc8998c18d",
+        "requested_revision": "v4.1.1",
+        "vcs": "git"
+      }
+    },
+    "checks": [
+      "installed package/source hash parity",
+      "original role model policy overrides legacy pin",
+      "production operation names",
+      "generation-only managed prompt association",
+      "three fixture-backed HTTP conversations",
+      "BOOLEAN feedback exact target, deduplication, conflict and input validation",
+      "packaged static files served with matching hashes",
+      "packaged runbook delivery",
+      "uid/gid 10001",
+      "read-only root filesystem",
+      "no network route",
+      "no credential environment or copied env/git/scratch files"
+    ],
+    "limitations": [
+      "No model or Langfuse calls were made; HTTP flows use the explicit fixture adapter.",
+      "Local container only; no publication, release, Depot admission or deployment performed."
+    ]
+  },
+  "sourceRevision": {
+    "baselineCommit": "f4482102832cbecd83f1baf623974c52cef7f6da",
+    "workingTreeHasUncommittedChanges": true,
+    "identity": "Exact package and context content hashes below identify this uncommitted revision."
+  }
+}

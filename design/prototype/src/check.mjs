@@ -1,8 +1,8 @@
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
-import {initialState,transition as t,product,portfolio,visibleTotals,coverage,definitions,recordsFor,systemFor,scoreDisplay,categoryCounts,traceScores,makeTrace} from './model.mjs';
-import {days,hours,lengths,usage,versions} from './population.mjs';
+import {initialState,transition as t,product,portfolio,visibleTotals,coverage,definitions,recordsFor,systemFor,scoreDisplay,categoryCounts,traceScores,makeTrace,modelPolicy,costFor,modelFor,rootNameByPrompt,environmentFor} from './model.mjs';
+import {days,hours,lengths,usage,versions,promptAverages} from './population.mjs';
 let s=initialState();const initial=visibleTotals(s);
 assert.equal(s.production,7);assert.equal(portfolio.prompts.length,9);assert.equal(portfolio.prompts.reduce((n,p)=>n+p.versions.length,0),72);
 for(const tr of s.traces){for(const node of tr.nodes){assert.equal(node.sessionId,tr.sessionId);assert.equal(node.traceId,tr.id)}}
@@ -27,6 +27,9 @@ s=t(s,{type:'newSession',promptId:'PR-01'});let sessionId;
 for(const turn of product.conversation.turns){s=t(s,{type:'send',promptId:'PR-01',text:turn.user});assert.equal(s.pending.trace.version,9);sessionId=s.pending.trace.sessionId;s=t(s,{type:'receive'});s=t(s,{type:'evaluate'});}
 const live=s.traces.filter(tr=>tr.sessionId===sessionId);assert.equal(live.length,4);assert.deepEqual(live.map(tr=>tr.prior.length),[0,2,4,6]);assert.equal(s.scores.filter(r=>r.sessionId===sessionId).length,32);
 const first=live[0],third=live[2];s=t(s,{type:'feedback',traceId:first.id,value:0,comment:'Needs clarity'});const afterFeedback=s.scores.length;s=t(s,{type:'feedback',traceId:first.id,value:1,comment:'Now clear'});assert.equal(s.scores.length,afterFeedback);assert.equal(s.scores.find(r=>r.id===first.id+':F-01').observationId,first.rootId);assert.ok(!recordsFor(s,third.rootId).some(r=>r.definitionId==='F-01'));assert.ok(!recordsFor(s,first.genId).some(r=>r.definitionId==='F-01'));
+const feedback=s.scores.find(r=>r.id===first.id+':F-01');assert.equal(feedback.value,0);assert.equal(feedback.comment,'Needs clarity');assert.equal(feedback.name,'user-thumbs');assert.equal(feedback.dataType,'BOOLEAN');assert.match(s.notice,/already been submitted/);
+assert.deepEqual(t(s,{type:'feedback',traceId:first.id,value:0,comment:'Needs clarity'}).scores,s.scores);
+for(const value of [true,'1',2,null])assert.deepEqual(t(s,{type:'feedback',traceId:third.id,value}).scores,s.scores);
 assert.equal(new Set(coverage(s).flatMap(c=>c.scoreIds)).size,s.scores.length);
 assert.equal(coverage(s).find(c=>c.id==='P-04c').scoreIds.length,0);
 assert.equal(visibleTotals(s).records,s.scores.length);assert.equal(new Set(s.scores.map(r=>r.id)).size,s.scores.length);
@@ -36,7 +39,7 @@ const reset=t(s,{type:'reset'});assert.deepEqual(visibleTotals(reset),initial);a
 assert.equal(systemFor('PR-02',7),portfolio.prompts.find(p=>p.id==='PR-02').current_system_prompt_proposal);
 const provenance=JSON.parse(readFileSync(new URL('../vendor/langfuse/provenance.json',import.meta.url)));
 for(const f of provenance.unmodified_files){const bytes=readFileSync(new URL('../vendor/langfuse/'+f.path,import.meta.url));assert.equal(createHash('sha256').update(bytes).digest('hex'),f.sha256,f.path)}
-console.log(JSON.stringify({passed:true,initial,afterRehearsal:visibleTotals(s),checks:['source hashes','explicit targets','session propagation/history','pending evaluation','paired experiment 64 outcomes','mixed-score admin promotion','historic version immutability','feedback upsert/isolation','all three bots','population totals','reset']},null,2));
+console.log(JSON.stringify({passed:true,initial,afterRehearsal:visibleTotals(s),checks:['source hashes','explicit targets','session propagation/history','pending evaluation','paired experiment 64 outcomes','mixed-score admin promotion','historic version immutability','feedback one submission/deduplication/isolation','all three bots','population totals','reset']},null,2));
 
 let rerun=t(s,{type:'startExperiment',scenario:'flat'});rerun=t(rerun,{type:'finishExperiment'});assert.equal(new Set(coverage(rerun).flatMap(c=>c.scoreIds)).size,rerun.scores.length);
 assert.ok(rerun.scores.filter(r=>rerun.experiment.traces.includes(r.traceId)&&r.definitionId==='E-01').every(r=>r.value===0));
@@ -65,3 +68,36 @@ for(const r of s.scores){
  if(r.definitionId!=='F-01')assert.ok(r.id.endsWith(':'+definition.revision));
 }
 console.log('Rubric provenance passed: E-02/E-03 r2, all other criteria r1, shared record revisions and identifiers.');
+
+assert.deepEqual(modelPolicy,JSON.parse(readFileSync(new URL('../../../src/synth/fixtures/model_policy.json',import.meta.url))));
+assert.equal(modelPolicy.experiment_model,'claude-sonnet-5-5');
+assert.equal(modelPolicy.evaluation_model,'claude-sonnet-5-5');
+for(const trace of s.traces){
+ const generations=trace.nodes.filter(n=>n.type==='GENERATION');
+ for(const key of ['prompt_references','prompt_name','prompt_version','resolved_version','prompt_label'])assert.equal(trace.root.metadata[key],undefined);
+ for(const node of generations){
+  assert.equal(node.metadata.prompt_name,node.promptName);
+  assert.equal(node.metadata.prompt_version,node.promptVersion);
+  assert.equal(node.model,modelFor(node.promptId,trace.stage));
+  const multiplier=trace.stage==='live-demo'?1:3;
+  assert.deepEqual(node.costDetails,costFor(node.model,node.usageDetails.input,node.usageDetails.output,multiplier));
+ }
+}
+for(const [index,p] of promptAverages.entries()){
+ assert.equal(p.model,modelPolicy.model_by_prompt[portfolio.prompts[index].id]);
+ const prices=modelPolicy.models[p.model];
+ assert.equal(p.cost,(p.input*prices.input_per_million+p.output*prices.output_per_million)*3/1e6);
+}
+console.log('Model policy passed: canonical fixture parity, role models, Sonnet experiments, base prices with explicit synthetic ×3 history cost, generation-only prompt association and exact generation targets.');
+
+// Operation names match the actual application for old and new requests.
+const operations=readFileSync(new URL('../../../src/synth/operation_names.py',import.meta.url),'utf8');
+assert.deepEqual(rootNameByPrompt,Object.fromEntries([...operations.matchAll(/'(PR-\d+)': '([^']+)'/g)].map(match=>[match[1],match[2]])));
+for(const trace of s.traces){
+ assert.equal(trace.root.name,trace.id==='FLOW-01'?'review-service-request':rootNameByPrompt[trace.promptId]);
+ assert.ok(trace.nodes.filter(n=>n.type==='GENERATION').every(n=>n.name==='generate-response'));
+ assert.ok(['production','experiment','staging'].includes(environmentFor(trace.stage)));
+ assert.equal(trace.root.metadata.evidence_kind,'fixture');
+ assert.equal(trace.root.metadata.evaluation_mode,'preview');
+}
+console.log('Application naming passed: runtime root mapping, one generation operation name, operational environment labels, and retained preview provenance.');

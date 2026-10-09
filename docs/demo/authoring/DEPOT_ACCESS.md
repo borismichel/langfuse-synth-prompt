@@ -120,3 +120,24 @@ Paths below are in neighbouring `langfuse-demo-depot` at the recorded revision.
 - `infra/docker-compose.host.yml:28–91`: loopback API/web topology.
 - `/Users/bmichel/.agents/skills/author-langfuse-demo-kit/references/delivery.md`:
   current Depot, guarded slug, disposable target, admission and staging requirements.
+
+## Recheck on 2026-10-09 before final onboarding
+
+Read-only research found Depot remote main at
+`9f50aff0fd4a2ea244d0ba1c52c5de780ca00d1d`. Staging-first defaults
+([#273](https://github.com/borismichel/langfuse-demo-depot/pull/273)) and the
+Manifest-slug guard ([#274](https://github.com/borismichel/langfuse-demo-depot/pull/274))
+are merged upstream. The running deployment still uses the image IDs recorded
+above and its relevant source hashes match the older local checkout. The database
+is at migration `0033_deployment_stats_snapshot`; `0034_staging_default` has not
+been applied, and the default remains published. There is no `prompt` catalog row.
+
+The current remote admin guide still describes API-only kit admission using a
+manually signed bearer. No supported signed-in browser admission action or
+credential-export path was found. The existing no-auth-workaround constraint
+therefore remains material. Updating Depot and providing supported admission
+access belong to Depot's own deployment workflow. No deployment, registry change,
+credential workaround, release or admission request was performed during this check.
+
+The newly supplied final-seed project is a separate verification target. It must
+not be treated as a blank admission scratch project after this seed completes.

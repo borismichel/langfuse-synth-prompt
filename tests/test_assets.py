@@ -91,7 +91,7 @@ def test_full_assets_are_model_free_and_follow_accepted_story():
     assert chat_prompt("PR-01", 7)[0]["content"] == system_prompt("PR-01", 7)
     for path, body in api.writes:
         if path.endswith("evaluation-rules"):
-            assert body["filter"][0]["value"] == ["prompt-live"]
+            assert next(f for f in body["filter"] if f["column"] == "environment")["value"] == ["production"]
             assert body["enabled"] is True
         if path.endswith("dataset-items"):
             assert "evaluation_context" in body["metadata"]
@@ -137,7 +137,7 @@ def test_input_only_mappings_cannot_see_reply_and_reply_rubric_is_scoped():
             assert all(m["source"] != "output" for m in variable_mapping(eid, live=live))
     assert variable_mapping("E-07", live=True) == [{"variable": "current_user_message", "source": "metadata", "jsonPath": "$.current_user_message"}]
     rule = rule_body("E-01", score_definitions()["E-01"], "eval-1", load_fixture("portfolio")["prompts"])
-    assert rule["filter"][2]["value"] == ["PR-01"]
+    assert next(f for f in rule["filter"] if f["column"] == "tags")["value"] == ["PR-01"]
     assert all(m["source"] == "experiment_item_metadata" for m in variable_mapping("E-05", live=False))
 
 
@@ -224,7 +224,7 @@ def test_factual_judges_use_single_categorical_output_and_nominal_configs():
     assert not result['missing']
     for eid in ('E-02', 'E-03'):
         rule = api.created['/api/public/v2/evaluation-rules/' + result['evaluator_rules'][eid]['id']]
-        assert rule['filter'][1]['value'] == 'assistant_reply'
+        assert next(f for f in rule['filter'] if f.get('key') == 'evaluation_subject')['value'] == 'assistant_reply'
         assert rule['evaluatorAssignments'][0]['variableMapping'] == variable_mapping(eid, live=True)
 
 

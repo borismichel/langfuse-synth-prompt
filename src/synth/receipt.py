@@ -83,7 +83,9 @@ def make_receipt(events: list[dict], spool_path: Path, *, run_date: datetime, se
                 **({'rubric_revisions': _decoded(a[otlp.OBS_METADATA_PREFIX + 'rubric_revisions'])}
                    if otlp.OBS_METADATA_PREFIX + 'rubric_revisions' in a else {}),
                 'operation_metadata': {key: _decoded(a[otlp.OBS_METADATA_PREFIX + key])
-                    for key in ('invocation', 'simulated', 'source_id', 'evidence_kind', 'calculation_results')
+                    for key in ('invocation', 'simulated', 'source_id', 'evidence_kind', 'calculation_results',
+                                'evaluation_mode',
+                                'model_policy_revision', 'synthetic_cost_multiplier')
                     if otlp.OBS_METADATA_PREFIX + key in a},
             })
         scores = []

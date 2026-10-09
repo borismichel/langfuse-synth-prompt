@@ -9,6 +9,7 @@ from pathlib import Path
 from langfuse_synth_core.config import load_config as _load_config
 from langfuse_synth_core.derivation import identity_derivation
 from langfuse_synth_core.timegen import parse_as_of_date
+from synth.model_policy import EVALUATION_MODEL, EXPERIMENT_MODEL
 
 @dataclass
 class Target:
@@ -29,11 +30,11 @@ class Generation:
 class Evaluation:
     # This is a provider connection name already configured in Langfuse, not a key.
     provider: str = ''
-    model: str = ''
+    model: str = EVALUATION_MODEL
 
 @dataclass
 class Live:
-    model: str = ''
+    model: str = EXPERIMENT_MODEL
 
 @dataclass
 class Verification:
@@ -62,8 +63,8 @@ def _model_factory(raw: dict) -> Config:
         Target(str(target.get('host', 'http://localhost:3000')), str(target.get('project_hint', 'demo'))),
         Generation(seed, count, parse_as_of_date(generation.get('as_of_date'))),
         Evaluation(os.environ.get('LANGFUSE_EVAL_PROVIDER', str(evaluation.get('provider', ''))),
-                   os.environ.get('LANGFUSE_EVAL_MODEL', str(evaluation.get('model', '')))),
-        Live(os.environ.get('LLM_MODEL', str(live.get('model', '')))),
+                   os.environ.get('LANGFUSE_EVAL_MODEL', str(evaluation.get('model') or EVALUATION_MODEL))),
+        Live(os.environ.get('LLM_MODEL', str(live.get('model') or EXPERIMENT_MODEL))),
         Verification(max(0, min(300, int(verification.get('timeout_seconds', 90)))),
                      max(.1, min(10, float(verification.get('poll_seconds', 3))))),
     )

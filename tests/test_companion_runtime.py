@@ -13,7 +13,8 @@ from synth.catalog import load_fixture, score_definitions
 from synth.companion.app import create_app
 from synth.companion.preview import FixtureAdapter
 from synth.companion.service import ConversationService
-from synth.reference_tools import CHAT_OPERATION_NAME, GENERATION_OPERATION_NAME, REFERENCE_RETRIEVER_NAME, FEE_TOOL_NAME, reference_arguments
+from synth.operation_names import ROOT_NAME_BY_PROMPT
+from synth.reference_tools import GENERATION_OPERATION_NAME, REFERENCE_RETRIEVER_NAME, FEE_TOOL_NAME, reference_arguments
 
 
 class TestAdapter(FixtureAdapter):
@@ -48,8 +49,12 @@ def request_tree(adapter, turn):
     tools = rest[:-1]
     assert [o.fields["type"] for o in observations] == ["SPAN", "RETRIEVER", *(["TOOL"] if tools else []), "GENERATION"]
     assert root.root and root.fields["parent_id"] is None
-    assert root.fields["name"] == CHAT_OPERATION_NAME
+    assert root.fields["name"] == ROOT_NAME_BY_PROMPT[root.fields["metadata"]["prompt_id"]]
+    assert root.fields["environment"] == "production"
+    assert root.fields["tags"] == [root.fields["metadata"]["prompt_id"]]
+    assert root.fields["metadata"]["evaluation_mode"] == ("preview" if turn["preview"] else "online")
     assert generation.fields["name"] == GENERATION_OPERATION_NAME
+    assert generation.fields["metadata"]["evaluation_mode"] == ("preview" if turn["preview"] else "online")
     assert root.children == observations[1:]
     assert all(o.fields["parent_id"] == root.observation_id for o in observations[1:])
     assert all(o.fields["session_id"] == turn["session_id"] and o.ended for o in observations)
@@ -106,34 +111,79 @@ def test_each_turn_refreshes_prompt_and_old_reply_retains_resolved_version():
         assert root.fields["input"]["messages"] == [{"role": "user", "content": first["user"]}]
         for key in ("current_user_message", "prior_messages", "reference_context"):
             assert root.fields["metadata"][key] == gen.fields["metadata"][key]
-        assert gen.fields["prompt"].version == root.fields["metadata"]["prompt_version"]
+        assert gen.fields["prompt"].version == gen.fields["metadata"]["prompt_version"]
+        for key in ("prompt_name", "prompt_version", "resolved_version", "prompt_label", "prompt_references"):
+            assert key not in root.fields["metadata"]
         assert gen.fields["usage_details"] == {"input": 0, "output": 0}
         assert root.fields["output"][0]["role"] == "assistant"
     request_tree(adapter, first)
     request_tree(adapter, second)
 
 
-def test_feedback_uses_saved_root_after_new_turn_and_upserts_same_score():
+def test_feedback_uses_saved_root_after_new_turn_and_emits_only_once():
     adapter, client = setup_client()
     state = session(client)
     first = post_turn(client, state).json()
     second = post_turn(client, state, request_id="request-0002").json()
     path = f"/api/conversations/{state['session_id']}/feedback"
     headers = {"X-Conversation-Token": state["token"]}
-    for value in (1, 0):
-        result = client.post(path, headers=headers, json={"request_id": first["request_id"], "value": value, "comment": "Review first reply"})
+    for _ in range(2):
+        result = client.post(path, headers=headers, json={"request_id": first["request_id"], "value": 0, "comment": "Review first reply"})
         assert result.status_code == 200
         assert result.json()["observation_id"] == first["root_observation_id"]
     assert len(adapter.feedback) == 1
     score = next(iter(adapter.feedback.values()))
     assert score["value"] == 0 and score["data_type"] == "BOOLEAN"
+    assert score["name"] == "user-thumbs"
+    assert score["metadata"]["signal_source"] == "explicit-user-feedback"
+    assert score["comment"] == "Review first reply"
     assert score["trace_id"] == first["trace_id"] != second["trace_id"]
     assert score["observation_id"] != first["generation_id"]
     assert score["observation_id"] not in {o.id for o in adapter.observations
                                            if o.fields["type"] in ("TOOL", "RETRIEVER")}
     assert client.post(path, headers={"X-Conversation-Token": "wrong"}, json={"request_id": first["request_id"], "value": 1}).status_code == 404
+    assert client.post(path, headers=headers, json={"request_id": first["request_id"], "value": 1}).status_code == 409
     adapter.fail_feedback = True
-    assert client.post(path, headers=headers, json={"request_id": first["request_id"], "value": 1}).status_code == 502
+    assert client.post(path, headers=headers, json={"request_id": second["request_id"], "value": 1}).status_code == 502
+
+
+def test_feedback_retry_after_uncertain_flush_never_enqueues_a_second_score():
+    adapter = TestAdapter()
+    service = ConversationService(adapter)
+    state = service.new("PR-01")
+    turn = service.turn(state["session_id"], state["token"], load_fixture("product")["conversation"]["turns"][0]["user"], "feedback-retry")
+    emitter = service.emitter()
+    calls = []
+    original_score = emitter.score
+    def score(*args, **kwargs):
+        calls.append(kwargs)
+        original_score(*args, **kwargs)
+    emitter.score = score
+    def fail_flush():
+        raise RuntimeError("Unknown delivery")
+    emitter.flush = fail_flush
+    from synth.companion.service import ConversationError
+    with pytest.raises(ConversationError, match="could not be delivered"):
+        service.feedback(state["session_id"], state["token"], turn["request_id"], 1, "Clear explanation")
+    emitter.flush = lambda: None
+    result = service.feedback(state["session_id"], state["token"], turn["request_id"], 1, "Clear explanation")
+    assert result["status"] == "submitted" and len(calls) == 1
+
+
+@pytest.mark.parametrize("value", [-1, 2, "1", True, None])
+def test_feedback_service_rejects_invalid_values(value):
+    from synth.companion.service import ConversationError
+    with pytest.raises(ConversationError, match="thumbs"):
+        ConversationService(TestAdapter()).feedback("unused", "unused", "unused", value, "")
+
+
+@pytest.mark.parametrize("value", [-1, 2, "1", True, 0.0, None])
+def test_feedback_http_rejects_coercible_or_invalid_values(value):
+    _adapter, client = setup_client()
+    state = session(client)
+    assert client.post(f"/api/conversations/{state['session_id']}/feedback",
+                       headers={"X-Conversation-Token": state["token"]},
+                       json={"request_id": "unused", "value": value}).status_code == 422
 
 
 @pytest.mark.parametrize("failure", ["fail_prompt", "fail_model"])
@@ -223,17 +273,40 @@ def test_repeated_request_is_idempotent_but_cannot_change_message():
 
 
 def test_all_three_bots_and_separate_sessions():
+    from synth.model_policy import MODEL_BY_PROMPT
     adapter, client = setup_client()
     catalog = client.get("/api/catalog").json()
     ids = set()
     for bot in catalog["bots"]:
         state = session(client, bot["id"])
+        assert state['session_id'].startswith('conversation-')
         turn = post_turn(client, state, bot["suggestions"][0]["message"]).json()
         assert turn["status"] == "complete" and turn["reply"]
         request_tree(adapter, turn)
         ids.add(turn["session_id"])
     assert len(ids) == 3
+    assert adapter.model_requests == [MODEL_BY_PROMPT[bot["id"]] for bot in catalog["bots"]]
     assert client.post("/api/conversations", json={"prompt_id": "PR-04"}).status_code == 422
+
+
+@pytest.mark.parametrize("pid,budget", [("PR-01", 2048), ("PR-02", 4096), ("PR-03", 4096)])
+def test_role_completion_budget_preserves_room_for_opus_thinking(pid, budget):
+    from synth.model_policy import MODEL_BY_PROMPT
+    adapter = TestAdapter()
+    calls = []
+    original = adapter.complete
+    def complete(**kwargs):
+        calls.append(kwargs)
+        return original(**kwargs)
+    adapter.llm = lambda model: SimpleNamespace(model=model, provider="anthropic", complete=complete)
+    client = TestClient(create_app(adapter))
+    state = session(client, pid)
+    bot = next(b for b in client.get('/api/catalog').json()['bots'] if b['id'] == pid)
+    turn = post_turn(client, state, bot['suggestions'][0]['message']).json()
+    assert turn['status'] == 'complete' and turn['model'] == MODEL_BY_PROMPT[pid]
+    assert calls[0]['max_tokens'] == budget
+    generation = next(o for o in adapter.observations if o.fields['type'] == 'GENERATION')
+    assert generation.fields['model_parameters'] == {'max_tokens': budget}
 
 
 def test_preview_is_explicit_and_health_never_claims_live_readiness(monkeypatch):

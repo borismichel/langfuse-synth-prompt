@@ -8,7 +8,7 @@ datasets, evaluator rubrics or promotion decision.
 Each PR-01/02/03 application turn has this shape:
 
 ```text
-handle-chat-turn (SPAN; current user message → assistant reply)
+explain-product / explain-fees / guide-application (SPAN; new message → reply)
 ├── retrieve-product-context (RETRIEVER; validated local fictional catalog)
 ├── calculate-fee (TOOL; only when explicit monthly withdrawal facts permit it)
 └── generate-response (GENERATION; full model conversation, exact managed prompt)
@@ -37,6 +37,13 @@ retrieval or calculation operations. Fixed task and experiment orchestration use
 SPAN roots; FLOW-01's source lookup is a RETRIEVER. Stable generation operation
 names are independent of the linked prompt name.
 
+Prompt references stay on each generation through its native managed-prompt
+association. FLOW-01 has three separately linked generations. Request roots and
+tools have no duplicate or invented prompt binding.
+Explicit BOOLEAN `user-thumbs` feedback (0/1 and optional comment) targets the
+saved request root, separately from E-08 input evaluation. See
+[MODEL_POLICY.md](MODEL_POLICY.md).
+
 Native prompt experiments use the dataset's supplied reference context. They test
 prompt/model output rather than execute the companion application, so their
 historical examples do not falsely claim this application tool pipeline ran.
@@ -56,3 +63,26 @@ with a meaningful optional calculation while retaining the accepted story.
 Based on the current official [data model](https://langfuse.com/docs/observability/data-model),
 [observation types](https://langfuse.com/docs/observability/features/observation-types)
 and [sessions](https://langfuse.com/docs/observability/features/sessions) documentation.
+
+
+## Shared operational names
+
+History and live calls use the same names and environment `production`;
+experiments use environment `experiment`. Application roots describe the work:
+
+| Application/prompt | Request root |
+| --- | --- |
+| PR-01 | `explain-product` |
+| PR-02 | `explain-fees` |
+| PR-03 | `guide-application` |
+| PR-04 | `classify-service-intent` |
+| PR-05 | `rewrite-service-query` |
+| PR-06 | `summarize-conversation` |
+| PR-07 | `extract-document-fields` |
+| PR-08 | `draft-customer-message` |
+| PR-09 | `prepare-handoff-note` |
+| FLOW-01 multi-prompt review | `review-service-request` |
+
+Generations retain `generate-response`; the retriever and fee tool retain the
+names above. Authored provenance remains explicit in metadata and documentation.
+An operational name is not evidence that an authored record came from a real call.

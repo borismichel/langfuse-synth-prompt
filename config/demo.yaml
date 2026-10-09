@@ -5,11 +5,12 @@ generation:
   seed: 42
   target_traces: 1620
 evaluation:
-  # Existing Langfuse model connection, resolved at deployment, never a secret.
-  provider: ''
-  model: ''
+  # Existing Anthropic connection in Langfuse; override its name if different.
+  provider: anthropic
+  model: claude-sonnet-5-5
 live:
-  model: ''
+  # Default for native experiments. Companion turns use the per-role model policy.
+  model: claude-sonnet-5-5
 verification:
   timeout_seconds: 90
   poll_seconds: 3

@@ -32,19 +32,21 @@ config_schema:
       title: Target traces
       description: Production-history trace count over 28 complete local days. The full story uses 1620
         traces and 2100 generations; small runs retain representative families where volume permits. Historical
-        experiment fixtures are a separate fixed cohort.
+        experiment fixtures are a separate fixed cohort. This is the only volume control; nine prompts,
+        eight initial versions per prompt, nine datasets and eighteen authored experiment traces stay fixed.
     evaluation.provider:
       type: string
-      default: ''
+      default: anthropic
       title: Judge provider connection
-      description: Name of an existing model connection configured in Langfuse. Required for managed live
-        and experiment evaluators; never an API key.
+      description: Name of an existing Anthropic model connection configured in Langfuse. The default
+        connection is anthropic; override only when the project's connection uses another name. Required
+        for managed live and experiment evaluators; never an API key.
     evaluation.model:
       type: string
-      default: ''
+      default: claude-sonnet-5-5
       title: Judge model
-      description: Model available through the selected Langfuse connection. Seed creates evaluator definitions
-        without invoking it.
+      description: Original Anthropic model ID for native evaluators. Claude Sonnet 5.5 is the demo default;
+        seed creates evaluator definitions without invoking it. No synthetic or suffixed model aliases.
   required: []
 pipeline:
 - id: seed
@@ -64,10 +66,10 @@ assets:
 llm:
   providers:
   - anthropic
-  - openai
 live_components:
 - name: companion
-  description: Three live chatbots using the managed production prompts. Exact prompt versions, both evaluation
+  description: Three live chatbots using the managed production prompts. Product explainer uses Claude Sonnet
+    5.5; fee explainer and application guide use Claude Opus 5.5. Exact prompt versions, both evaluation
     subjects, user feedback and a primary Open session action.
   command: synth companion --config {config} --host 0.0.0.0 --port 8080
   port: 8080

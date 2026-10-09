@@ -8,6 +8,7 @@ from .config import Config
 from .state import RunState
 from .catalog import decode_rubric_revisions
 from .scores import read_score_value, SCORE_CONTRACT
+from .receipt import _decoded
 
 @dataclass
 class Check:
@@ -52,7 +53,7 @@ def verify_trace(reader, expected: dict) -> Check:
         if 'rubric_revisions' in e and decode_rubric_revisions((o.metadata or {}).get('rubric_revisions')) != e['rubric_revisions']:
             problems.append(f"{e['id']} wrong rubric revisions")
         for key, value in e.get('operation_metadata', {}).items():
-            if (o.metadata or {}).get(key) != value:
+            if _decoded((o.metadata or {}).get(key)) != value:
                 problems.append(f"{e['id']} wrong operation metadata {key}")
     if len(actual.observations) != len(expected['observations']):
         problems.append('observation count differs (possible duplicate import)')

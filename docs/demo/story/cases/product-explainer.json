@@ -56,7 +56,7 @@
       "rubric revision r1",
       "conversation history for each item"
     ],
-    "model_binding": "MODEL-BASE: use one configured model for both comparison runs; record its real identifier/settings at execution. No model selected or invoked by this story packet."
+    "model_binding": "claude-sonnet-5-5: use this exact Anthropic model with identical settings for both comparison runs, following src/synth/fixtures/model_policy.json. Authored examples do not represent model executions."
   },
   "cases": [
     {

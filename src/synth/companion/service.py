@@ -17,12 +17,15 @@ from uuid import uuid4
 
 from synth.scores import read_score_value, CATEGORIES
 from synth.catalog import load_fixture, prompt_by_id, score_definitions, rubric_revisions
+from synth.model_policy import MODEL_BY_PROMPT, MODEL_POLICY_REVISION
+from synth.operation_names import ROOT_NAME_BY_PROMPT, PRODUCTION_ENVIRONMENT
 from synth.reference_tools import (
-    CHAT_OPERATION_NAME, GENERATION_OPERATION_NAME, REFERENCE_RETRIEVER_NAME, FEE_TOOL_NAME,
+    GENERATION_OPERATION_NAME, REFERENCE_RETRIEVER_NAME, FEE_TOOL_NAME,
     reference_arguments, validate_reference, fee_arguments, calculate_fee, generation_reference,
 )
 
-LIVE_ENVIRONMENT = "prompt-live"
+LIVE_ENVIRONMENT = PRODUCTION_ENVIRONMENT
+USER_FEEDBACK_SCORE = "user-thumbs"
 
 
 class ConversationError(Exception):
@@ -84,7 +87,7 @@ class ConversationService:
                     del self.sessions[sid]
             if len(self.sessions) >= 1000:
                 raise ConversationError("Conversation capacity reached; try again later.", 503)
-            session = Conversation("prompt-live-" + uuid4().hex, secrets.token_urlsafe(32), prompt_id)
+            session = Conversation("conversation-" + uuid4().hex, secrets.token_urlsafe(32), prompt_id)
             self.sessions[session.id] = session
         return {"session_id": session.id, "token": session.token, "prompt_id": prompt_id}
 
@@ -127,8 +130,9 @@ class ConversationService:
         context = {"current_user_message": message, "prior_messages": history}
         root_input = {"messages": [{"role": "user", "content": message}]}
         metadata = {"kit": "prompt", "evidence_kind": "live" if not self.preview else "fixture",
+                    "evaluation_mode": "preview" if self.preview else "online",
                     "application_id": spec["application_id"], "prompt_id": session.prompt_id,
-                    "prompt_name": spec["name"], "rubric_revisions": rubric_revisions(session.prompt_id, subject="user_input"),
+                    "rubric_revisions": rubric_revisions(session.prompt_id, subject="user_input"),
                     "evaluation_subject": "user_input", "request_id": request_id, **context}
         record = {"request_id": request_id, "session_id": session.id, "user": message,
                   "reply": "", "status": "failed", "prompt_name": spec["name"],
@@ -139,9 +143,9 @@ class ConversationService:
             # SDK propagation stringifies dicts with Python repr; ingestion also
             # lets trace metadata win same-name observation keys. Keep the trace
             # inventory separate and valid JSON, never overwriting scoped maps.
-            with emitter.trace(CHAT_OPERATION_NAME, session_id=session.id,
-                               environment=LIVE_ENVIRONMENT, tags=["prompt", "live", session.prompt_id],
-                               input=root_input, metadata={**{k: metadata[k] for k in ("kit", "evidence_kind", "application_id", "prompt_id", "prompt_name", "request_id")},
+            with emitter.trace(ROOT_NAME_BY_PROMPT[session.prompt_id], session_id=session.id,
+                               environment=LIVE_ENVIRONMENT, tags=[session.prompt_id],
+                               input=root_input, metadata={**{k: metadata[k] for k in ("kit", "evidence_kind", "application_id", "prompt_id", "request_id")},
                                                           "trace_rubric_revisions": json.dumps(rubric_revisions(session.prompt_id), sort_keys=True)}) as root:
                 root.update(metadata=metadata)
                 record.update(trace_id=root.id, root_observation_id=root.observation_id)
@@ -186,24 +190,30 @@ class ConversationService:
                     if not system_parts or not messages or any(m.get("role") not in ("user", "assistant") for m in messages):
                         raise ValueError("Managed chat prompt has unsupported conversation roles")
                     system_with_reference = "\n\n".join(system_parts)
-                    record["prompt_version"] = prompt.version
-                    metadata = {**metadata, "prompt_version": prompt.version}
-                    root.update(metadata=metadata)
+                    record.update(prompt_version=prompt.version, prompt_label="production")
+                    resolved_prompt = {"prompt_name": spec["name"], "prompt_version": prompt.version,
+                                       "resolved_version": prompt.version, "prompt_label": "production"}
                     # Core provider seam takes one system string; these are its exact inputs.
                     model_messages = [{"role": "system", "content": system_with_reference}, *messages]
-                    llm = self.adapter.llm()
-                    generation_metadata = {**metadata, "evaluation_subject": "assistant_reply",
+                    llm = self.adapter.llm(model=MODEL_BY_PROMPT[session.prompt_id])
+                    # Opus 5.5 includes always-on adaptive thinking in the output
+                    # budget; leave room for both thinking and the user-facing reply.
+                    max_tokens = 4096 if "opus" in llm.model else 2048
+                    metadata = {**metadata, "model_policy_revision": MODEL_POLICY_REVISION,
+                                "requested_model": MODEL_BY_PROMPT[session.prompt_id], "model": llm.model}
+                    root.update(metadata=metadata)
+                    generation_metadata = {**metadata, **resolved_prompt, "evaluation_subject": "assistant_reply",
                                            "rubric_revisions": rubric_revisions(session.prompt_id, subject="assistant_reply")}
                     if calculation is not None:
                         generation_metadata["calculation_results"] = model_reference["calculation_results"]
                     with root.generation(GENERATION_OPERATION_NAME, model=llm.model, prompt=prompt,
                                          input={"messages": model_messages},
-                                         model_parameters={"max_tokens": 700, **({"temperature": 0} if llm.provider == "openai" else {})},
+                                         model_parameters={"max_tokens": max_tokens, **({"temperature": 0} if llm.provider == "openai" else {})},
                                          metadata=generation_metadata) as generation:
                         record["generation_id"] = generation.id
                         try:
                             result = llm.complete(system=system_with_reference, messages=messages,
-                                                  temperature=0, max_tokens=700)
+                                                  temperature=0, max_tokens=max_tokens)
                             if not result.text.strip():
                                 raise ValueError("The provider returned no text")
                             output = [{"role": "assistant", "content": result.text}]
@@ -234,24 +244,41 @@ class ConversationService:
         return record
 
     def feedback(self, sid: str, token: str, request_id: str, value: int, comment: str) -> dict:
+        if type(value) is not int or value not in (0, 1):
+            raise ConversationError("Choose thumbs up or thumbs down.")
+        if not isinstance(comment, str) or len(comment) > 1000:
+            raise ConversationError("Feedback comments must contain at most 1,000 characters.")
+        comment = comment.strip()
         session = self.get(sid, token)
         with session.lock:
             record = next((t for t in session.turns if t["request_id"] == request_id), None)
             if not record or record["status"] != "complete" or not record["root_observation_id"]:
                 raise ConversationError("Feedback requires a completed reply in this conversation.", 404)
-            score_id = hashlib.sha256((record["root_observation_id"] + ":user-helpfulness").encode()).hexdigest()[:32]
+            previous = record.get("feedback")
+            if previous and (previous["value"], previous["comment"]) != (value, comment):
+                raise ConversationError("Feedback has already been submitted for this reply.", 409)
+            if previous and previous["status"] in ("submitted", "fixture"):
+                return dict(previous)
+            score_id = hashlib.sha256((record["trace_id"] + ":" + record["root_observation_id"] + ":" + USER_FEEDBACK_SCORE).encode()).hexdigest()[:32]
             try:
                 emitter = self.emitter()
-                emitter.score("user-helpfulness", value, trace_id=record["trace_id"],
-                              observation_id=record["root_observation_id"], data_type="BOOLEAN",
-                              comment=comment, score_id=score_id,
-                              metadata={"origin": "companion-feedback", "subject": "request_root"})
+                if previous is None:
+                    emitter.score(USER_FEEDBACK_SCORE, value, trace_id=record["trace_id"],
+                                  observation_id=record["root_observation_id"], data_type="BOOLEAN",
+                                  comment=comment, score_id=score_id,
+                                  metadata={"origin": "companion-feedback", "signal_source": "explicit-user-feedback",
+                                            "subject": "request_root", "request_id": request_id,
+                                            "prompt_name": record["prompt_name"], "prompt_version": record["prompt_version"]})
+                    # Once enqueued, an uncertain flush must never emit another
+                    # score. Retrying the same submission only retries delivery.
+                    record["feedback"] = {"value": value, "comment": comment, "score_id": score_id,
+                                          "name": USER_FEEDBACK_SCORE, "trace_id": record["trace_id"],
+                                          "observation_id": record["root_observation_id"], "status": "unconfirmed"}
                 emitter.flush()
             except Exception:
                 raise ConversationError("Feedback could not be delivered. Please try again.", 502) from None
-            record["feedback"] = {"value": value, "comment": comment, "score_id": score_id}
-            return {**record["feedback"], "observation_id": record["root_observation_id"],
-                    "status": "fixture" if self.preview else "submitted"}
+            record["feedback"]["status"] = "fixture" if self.preview else "submitted"
+            return dict(record["feedback"])
 
     def evaluations(self, sid: str, token: str, request_id: str) -> dict:
         session = self.get(sid, token)

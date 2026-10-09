@@ -20,6 +20,10 @@ from langfuse_synth_core.seed.otlp import trace_root_span_id
 from .scores import outcome_value
 from .catalog import dataset_items, load_fixture, prompt_by_id, score_definitions, system_prompt, rubric_revisions
 from .config import DERIVATION_HOOK
+from .model_policy import (MODEL_BY_PROMPT, MODEL_PRICES, EXPERIMENT_MODEL,
+                           MODEL_POLICY_REVISION, SYNTHETIC_COST_MULTIPLIER, authored_cost_details)
+from .prompt_references import annotate_prompt_references
+from .operation_names import normalize_operations, experiment_run_name
 from .reference_tools import (CHAT_OPERATION_NAME, GENERATION_OPERATION_NAME, REFERENCE_RETRIEVER_NAME, FEE_TOOL_NAME,
                               reference_arguments, validate_reference, fee_arguments, calculate_fee,
                               generation_reference, withdrawal_count)
@@ -29,10 +33,7 @@ HISTORY_TRACES = 1620
 HISTORY_COUNTS = {"PR-01": 540, "PR-02": 325, "PR-03": 215, "FLOW-01": 240,
                   "PR-06": 120, "PR-07": 80, "PR-08": 100}
 BERLIN = ZoneInfo("Europe/Berlin")
-MODEL_RATES = {"demo-compact-v1": (0.4, 1.6), "demo-standard-v1": (1.0, 4.0),
-               "demo-reasoning-v1": (2.0, 8.0)}
-MODEL_BY_PROMPT = {f"PR-{i:02}": "demo-compact-v1" if i in (4, 5, 7) else
-                   "demo-reasoning-v1" if i in (6, 9) else "demo-standard-v1" for i in range(1, 10)}
+MODEL_RATES = MODEL_PRICES
 TOKEN_BASES = {"PR-01": (680, 180), "PR-02": (420, 110), "PR-03": (510, 140),
                "PR-04": (260, 16), "PR-05": (320, 32), "PR-06": (1300, 210),
                "PR-07": (480, 75), "PR-08": (500, 125), "PR-09": (900, 190)}
@@ -226,9 +227,8 @@ def _generation(rng, trace_id, index, prompt_id, version, start, case_id, questi
     r = rng.sub("accounting", index, prompt_id)
     in_tokens = base_in + (7 - version) * 20 + r.randint(-20, 20) + len(history) * 18
     out_tokens = max(8, base_out + (7 - version) * 10 + r.randint(-8, 8))
-    model = MODEL_BY_PROMPT[prompt_id]
-    rate_in, rate_out = MODEL_RATES[model]
-    in_cost, out_cost = in_tokens * rate_in / 1_000_000, out_tokens * rate_out / 1_000_000
+    model = EXPERIMENT_MODEL if environment == "experiment" else MODEL_BY_PROMPT[prompt_id]
+    cost = authored_cost_details(model, {"input": in_tokens, "output": out_tokens})
     end = start + timedelta(milliseconds=850 + (7 - version) * 70 + r.randint(0, 450))
     metadata = _metadata(prompt_id, version, case_id, source, question, history,
                          subject="assistant_reply", output=output)
@@ -238,6 +238,9 @@ def _generation(rng, trace_id, index, prompt_id, version, start, case_id, questi
         metadata["calculation_results"] = deepcopy(model_reference["calculation_results"])
     definitions = score_definitions()
     metadata.update({"synthetic_pricing": True, "synthetic_usage": True,
+                     "synthetic_cost_multiplier": SYNTHETIC_COST_MULTIPLIER,
+                     "cost_basis": "synthetic-demo-provider-price-multiple",
+                     "model_policy_revision": MODEL_POLICY_REVISION,
                      "expected_outcomes": {eid: {"value": outcome_value(eid, value), "data_type": definitions[eid]["data_type"], "status": "complete"}
                                            for eid, value in sorted(outcomes.items())
                                            if definitions[eid]["subject"] == "assistant_reply"}})
@@ -246,7 +249,7 @@ def _generation(rng, trace_id, index, prompt_id, version, start, case_id, questi
         parent_id=trace_root_span_id(trace_id), start=start, end=end, environment=environment,
         model=model, model_parameters={"temperature": 0, "fixture_replay": True},
         usage_details={"input": in_tokens, "output": out_tokens, "total": in_tokens + out_tokens},
-        cost_details={"input": in_cost, "output": out_cost, "total": in_cost + out_cost},
+        cost_details=cost,
         prompt_name=prompt["name"], prompt_version=version,
         input=[{"role": "system", "content": system_prompt(prompt_id, version) +
                "\n\nReference context:\n" + json.dumps(source if model_reference is None else model_reference, sort_keys=True)},
@@ -307,8 +310,8 @@ def build_events(target_traces: int, params: Mapping[str, Any], *, run_date: dat
     definitions = score_definitions()
     for session_index, ((prompt_id, length), (start, day), user_index) in enumerate(zip(sessions, schedule, users)):
         r = rng.sub("session", session_index)
-        session_id = "history-" + rng.item_id("session", session_index)
-        user_id = "fictional-user-" + rng.item_id("user", user_index)
+        session_id = "conversation-" + rng.item_id("session", session_index)
+        user_id = "customer-" + rng.item_id("user", user_index)
         templates = templates_by_prompt[prompt_id]
         ordinal = prompt_session_indices[prompt_id]
         prompt_session_indices[prompt_id] += 1
@@ -388,7 +391,7 @@ def build_events(target_traces: int, params: Mapping[str, Any], *, run_date: dat
                 item["case_id"], question, context, [], output, expected)
             events.append(gen)
             events.extend(_scores(r, trace_id, index, trace_root_span_id(trace_id), gen_id, expected, end, item["case_id"]))
-    return events
+    return normalize_operations(annotate_prompt_references(events))
 
 
 def build_historical_experiment_events(params: Mapping[str, Any], *, run_date: datetime) -> tuple[list[dict], list[dict]]:
@@ -426,5 +429,5 @@ def build_historical_experiment_events(params: Mapping[str, Any], *, run_date: d
                               end, item["case_id"], environment="experiment"))
         links.append({"prompt_id": pid, "version": version, "case_id": item["case_id"],
                       "trace_id": trace_id, "observation_id": gen_id,
-                      "run_name": f"authored-history-{pid}-v{version}-r1"})
-    return events, links
+                      "run_name": experiment_run_name(pid, version)})
+    return normalize_operations(annotate_prompt_references(events)), links
