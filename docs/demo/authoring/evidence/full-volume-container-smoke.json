@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-10-09T05:06:34.946738+00:00",
+  "imageTag": "langfuse-synth-prompt:full-volume-local",
+  "imageId": "sha256:11ab0d06cfbb044ae10991385f895d5816f86e5f8e2dec264ad3291b81f7f3b9",
+  "localOnly": true,
+  "uid": 10001,
+  "network": "none",
+  "rootFilesystem": "read-only",
+  "credentialsAbsent": true,
+  "ignoredCredentialAndScratchFilesAbsent": true,
+  "installedExpansionModuleVerified": true,
+  "seedCliExpansionHelpVerified": true,
+  "corePublicSeamsAvailable": true,
+  "packagedRunbookMatchesWorkspace": true,
+  "pageAndVersionedAssetsServed": true,
+  "installedModuleSha256": {
+    "expansion.py": "0accd7ff6cc795fb5e2762aa8f23da9a8182e51372d7caff2e9e8952db8d0968",
+    "seed.py": "9de3747e10b070a26dbe16ec008749d67e159d3a8a2402216ae5417b6475b6a2",
+    "cli.py": "b52338165e2d082f5ce4543b367c3107d3df90e26fad563a5595f6a40304e227",
+    "state.py": "1e59a02ec9f5af3694b167569f347b083d68666d57b3c5e5a1aa3e064fd1aa43",
+    "assets.py": "4c098ba64cecd5d8241c68c7c6d9b06a83be15c382ebb9aeb68c6b42f3bbb158",
+    "verify.py": "cf19da48374dfb9b7f17da4628c6b99229871b8e589a5cf7488d287325b5ee7c"
+  },
+  "runbookSha256": "46382a5dec9d611df1943649cecf0f9e35c5461041431a13c27d7fd03773515f",
+  "installedAssetSha256": {
+    "templates/index.html": "3015d5c8eb4f17189f54df1c18b4b8c4da25881498ba6e3b3fb0bb6c8c73e9b6",
+    "static/style.css": "042e3f35b8c1c809c16b07208267476fe3bdee11a313c9623644c2b7f45c1ac2",
+    "static/app.js": "7f61ac8aa010c5c1570f11365ac66781e06c61e9fd142a3f740134d9f66e26e2",
+    "static/brand.css": "e392c790cb7507217541baf9bb21e7f8c7271e364b7d6ad1c69fa0659d19b5fc"
+  },
+  "versions": {
+    "prompt": "0.1.0",
+    "langfuse-synth-core": "4.1.1",
+    "langfuse": "4.17.0",
+    "openai": "3.26.1",
+    "anthropic": "1.12.1"
+  },
+  "coreRequestedRevision": "v4.1.1",
+  "coreResolvedCommit": "6b86ac16d797cd0c6a80da1cdd68e8fc8998c18d",
+  "scope": "Local installed-package, CLI help, runbook and fixture companion smoke; no seed, import, live API, model call or registry publication.",
+  "coreAnnotatedTagObject": "571f47a003b5f64c6177e48f0a26685ddc3ed75c",
+  "coreResolvedCommitMatchesProjectPin": true,
+  "installedModuleAndAssetHashesMatchWorkspace": true
+}

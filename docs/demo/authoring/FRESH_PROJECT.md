@@ -80,9 +80,12 @@ remain valid evidence for unchanged behaviour and were not repeated on this targ
 
 ## What remains
 
-The full 1,620-history-trace import remains pending. This small target must not be
-reseeded: imports append. Use a different fresh target or a separately authorised
-established reset, with fresh state and the same seed/date.
+The user subsequently requested full volume in this same project. A guarded,
+additive expansion preserved this sample and its assets while adding 1,572 new
+history traces with separate identities. The complete population passed exhaustive
+readback; see [full-volume evidence](FULL_VOLUME.md). The original small receipt
+and spool remain unchanged. Neither the original nor combined evidence spool may
+be re-imported.
 
 Signed release, Depot admission and delivered staging rehearsal remain pending
 for the concrete deployment prerequisites in [Depot access](DEPOT_ACCESS.md).

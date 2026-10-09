@@ -187,8 +187,31 @@ leaves the receipt unchanged. Categorical E-02/E-03 live verification and other
 unresolved prerequisites remain visible; a refresh does not establish live evaluator results. The companion reads
 the updated receipt on its next connection check.
 
-For the intended 1,620-trace run, use the same seed and as-of date on a **different
-fresh project** after the small walkthrough succeeds. The seed runbook is copied
+After the small walkthrough succeeds, a fresh project can receive the complete
+1,620-trace population in one seed. To keep the existing project, use the guarded
+developer-only expansion below instead. It preserves the imported sample and all
+assets, labels and live conversations, then adds only the missing history using
+an independent deterministic seed (`original seed + 1`). It does not repeat the
+historical experiments. The combined population therefore differs from a fresh
+single-seed run; the receipt records both seeds and the actual counts.
+
+```sh
+export SYNTH_STATE_DIR=/your/writable/prompt-full-state
+export SYNTH_OUT_DIR=/your/writable/prompt-full-artifacts
+synth seed --config config/demo.yaml --set generation.target_traces=1620 \
+  --set generation.as_of_date=2026-10-09 \
+  --expand-existing /your/writable/prompt-small-state/events.ndjson
+synth verify --config config/demo.yaml --set generation.target_traces=1620 \
+  --set generation.as_of_date=2026-10-09
+```
+
+Use the actual original run date and seed. The destination state directory must be
+new. Expansion validates the original receipt and spool, existing assets and live
+ID inventory before importing only the supplement. The combined evidence file
+must never be imported. The source receipt and spool remain preserved; a durable
+attempt lock prevents repeating the expansion through another destination.
+
+The seed runbook is copied
 to the configured output directory (`/app/out` in Depot). The anchors file on the
 spool volume contains project identity, provisioned assets and representative
 current-run records; the live container reads it without modifying it.

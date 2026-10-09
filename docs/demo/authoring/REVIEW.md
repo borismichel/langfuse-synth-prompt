@@ -48,6 +48,7 @@ acceptance of a finished implementation or claim the remaining delivery checks p
 | Application guide and final provenance | Two actual guide turns / 14 EVAL scores; one post-fix turn / 7 EVAL scores verifies distinct trace inventory and subject-scoped observation maps | [guide readback](evidence/application-guide-live.json), [metadata repair](evidence/application-guide-metadata-fixed.json) |
 | Full population offline spool | 1,620 history traces / 2,100 generations / 9,320 scores, including six explicit N/A outcomes; plus 18 experiment traces. No network or import. | [generation](GENERATION.md), [spool evidence](evidence/full-volume-spool.json) |
 | Fresh categorical history | User-created `prompt-portfolio-demo`; one import of 48 history + 18 authored experiment traces; 244 checks passed | [fresh verification](evidence/fresh-project-verification.json) |
+| Full-volume same-project history | 1,620 history + 18 experiment traces, 5,150 observations and 9,356 authored scores; exhaustive inventory passed; original sample and nine nonseed traces preserved | [full-volume evidence](FULL_VOLUME.md) |
 | Fresh target live connection | One v7 product turn, three observations, eight EVAL results on the correct subjects; native session link verified | [fresh live readback](evidence/fresh-project-live.json), [fresh project rehearsal](FRESH_PROJECT.md) |
 | Protected-label enforcement | User independently verified protection on 2026-10-09; accepted as closing the permission check | [user verification](evidence/protected-label-user-verification.json) |
 | Requested companion brand details | Lime marker and accents, exact corner masks and subtle stripes; light/dark desktop/phone checks and 28 runtime checks passed | [brand refinement](BRAND_REFINEMENT.md) |
@@ -70,19 +71,13 @@ correct scoped maps. Existing results remain preserved.
 
 ## Remaining gates
 
-1. **Full population.** The small walkthrough gate is complete, combining recorded
-   native/companion evidence with the user's independent protection verification.
-   The full offline spool and exact runbook artifact are verified. Full-volume
-   delivery and live readback remain pending.
-   The new project now contains the verified small import. Use a different fresh
-   target or a separately authorised reset for full volume; do not append a reseed.
-2. **Signed release and Depot admission.** No release tag, image publication,
+1. **Signed release and Depot admission.** No release tag, image publication,
    registry mutation or public deployment occurred. Authenticated Chrome access
    works; the deployed Depot lacks the required slug guard and supported admission
    access surface, and new entries default to published. Scratch configuration
    presence is known, but disposable-target suitability is unverified.
    [Concrete deployment findings](DEPOT_ACCESS.md).
-3. **Delivered rehearsal.** Staging visibility and the final Depot-served runbook,
+2. **Delivered rehearsal.** Staging visibility and the final Depot-served runbook,
    companion, history, evaluations and reset behaviour still need verification.
 
 ## Preserved earlier evidence
@@ -103,5 +98,5 @@ stage 3 says: “Keep scaling pending until the complete small walkthrough works
 useful offline fixes can continue while a target is unavailable.” Offline work and
 all available authenticated native rehearsal continue. The corrected small target
 is verified, and the user independently verified protection. The small walkthrough
-gate is complete; full delivery remains open until the full-volume target and Depot
-prerequisites above are resolved.
+gate is complete. Full-volume same-project history and readback are now complete;
+Depot delivery remains open until the prerequisites above are resolved.

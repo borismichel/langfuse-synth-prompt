@@ -102,7 +102,7 @@ def run_verify(cfg: Config, *, log=print, reader=None, clock=time.monotonic, sle
     report.checks.extend(checks.values())
     # Asset verifier independently reads prompt labels/versions, dataset items and rules.
     from .assets import verify_assets
-    for name, ok, detail in verify_assets(cfg, state.provisioning):
+    for name, ok, detail in verify_assets(cfg, state.provisioning, check_labels=not bool(state.expansion)):
         report.add(name,ok,detail)
     for check in report.checks:
         log(f"{'✓' if check.ok else '✗'} {check.name}: {check.detail}")

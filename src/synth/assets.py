@@ -400,7 +400,7 @@ def bind_historical_experiments(events: list[dict], provisioning: dict, links: l
     return bound, receipts
 
 
-def verify_assets(cfg, provisioning: dict, *, api=None) -> list[tuple[str, bool, str]]:
+def verify_assets(cfg, provisioning: dict, *, api=None, check_labels: bool = True) -> list[tuple[str, bool, str]]:
     """Read exact persisted resources; failed prerequisites remain failed checks."""
     api = api or AssetAPI(cfg.target.base_url)
     checks: list[tuple[str, bool, str]] = []
@@ -432,8 +432,9 @@ def verify_assets(cfg, provisioning: dict, *, api=None) -> list[tuple[str, bool,
                 actual = api.read(path, {"version": number})
                 return actual.get("version") == number and actual.get("type") == "chat" and actual.get("prompt") == chat_prompt(prompt["id"], number)
             check(f"prompt-{prompt['id']}-v{number}", prompt_check)
-        check(f"production-{prompt['id']}", lambda path=path: api.read(path, {"label": "production"}).get("version") == 7)
-        check(f"development-{prompt['id']}", lambda path=path: api.read(path, {"label": "development"}).get("version") == 8)
+        if check_labels:
+            check(f"production-{prompt['id']}", lambda path=path: api.read(path, {"label": "production"}).get("version") == 7)
+            check(f"development-{prompt['id']}", lambda path=path: api.read(path, {"label": "development"}).get("version") == 8)
         dataset = provisioning.get("datasets", {}).get(prompt["dataset_id"], {})
         expected_items = {i["case_id"]: i for i in dataset_items(prompt["id"])}
         checks.append((f"dataset-item-coverage-{prompt['dataset_id']}",

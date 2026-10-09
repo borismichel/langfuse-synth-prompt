@@ -42,3 +42,4 @@ class RunState(AnchorsIO):
     provisioning: dict = field(default_factory=dict)
     run_receipt: dict = field(default_factory=dict)
     import_status: str = "not_started"
+    expansion: dict = field(default_factory=dict)

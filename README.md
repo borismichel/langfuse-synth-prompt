@@ -76,8 +76,8 @@ The initial invalid-context experiment is retained separately.
 See [native rehearsal](docs/demo/authoring/NATIVE_REHEARSAL.md) and
 [authoring review](docs/demo/authoring/REVIEW.md) for evidence and remaining gates.
 
-Full-scale categorical history, live evaluator calibration,
-signed release and Depot admission remain pending. Earlier numeric pilot history
+Live evaluator calibration, signed release and Depot admission remain pending.
+Full-scale categorical history is verified in the user-selected project. Earlier numeric pilot history
 is preserved and does not establish the new categorical contract.
 
 On 2026-10-09 the fresh `prompt-portfolio-demo` project passed all 244 checks
@@ -86,6 +86,12 @@ One actual companion turn also produced eight correctly targeted evaluator resul
 See the [fresh project evidence](docs/demo/authoring/FRESH_PROJECT.md).
 The user independently verified protected-label enforcement on the same date,
 closing the small walkthrough's remaining permission check.
+
+The same project now contains 1,620 history traces plus 18 authored experiment
+traces, 2,118 generations, 74 calculator tool observations and 9,356 authored
+scores. A guarded expansion added 1,572 traces without replacing the sample,
+assets or live chats. Exhaustive readback found no missing or duplicate records.
+See [full-volume evidence](docs/demo/authoring/FULL_VOLUME.md).
 
 The full population specification is 1,620 production-history traces, 2,100
 generations and 9,320 eligible outcomes over 28 complete days, plus eighteen small

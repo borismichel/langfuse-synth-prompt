@@ -202,3 +202,22 @@ This is generated offline output, not a live import or Depot admission. Full-vol
 live verification still requires a clean authorised target. The explicit date is
 part of reproducibility: weekday-weighted scheduling can change the version/case
 mix and therefore categorical counts when the date changes.
+
+## Same-project full-volume expansion
+
+On 2026-10-09 the user requested full volume in `prompt-portfolio-demo`, preserving
+its existing setup. The supported expansion retained the original 48 history
+traces and 18 experiments (seed 42), then generated 1,572 complete new history
+traces with seed 43 and the same as-of date. Distinct trace, observation, score and
+session identities were verified before import. No assets or existing events were
+rewritten, and no model was invoked by generation or import.
+
+The delivered combined population has 1,638 traces, 5,150 observations (2,118
+generations, 1,320 retrievers, 74 tools and 1,638 roots), and 9,356 authored scores.
+Each factual criterion has 1,141 Pass, 45 Fail and two Not applicable outcomes.
+This preserves the accepted total history volume and story, while its individual
+cases and tool frequencies differ from the earlier single-seed offline spool.
+The combined evidence file is a verification source, never an import input.
+
+[Full-volume evidence](FULL_VOLUME.md) supersedes earlier pending scale statements
+above. The original offline spool remains preserved as offline evidence only.

@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-10-09T05:06:27.481846+00:00",
+  "project_id": "cmv0gc1710815ad0k7nnnd6v5",
+  "passed": true,
+  "scope": "Exhaustive official CLI observation and score inventory, compared to the imported combined spool; preexisting observations compared on core/basic/prompt fields.",
+  "expected_spool_sha256": "1e70b47728f81ebcc89b16ef507b89b9dccc7cc38335b9e0774aa4a2f5441b20",
+  "baseline_sha256": "13737281244e265f20b04b1dc933b5836fb5f429928e877fd58f864a9cd444dd",
+  "counts": {
+    "expected_seed_traces": 1638,
+    "expected_seed_observations": 5150,
+    "expected_authored_scores": 9356,
+    "actual_project_observations": 5161,
+    "actual_project_scores": 9364,
+    "preserved_preflight_observations": 199,
+    "preserved_nonseed_traces": 9,
+    "failures": 0
+  },
+  "failed_check_counts": {},
+  "checks": {
+    "complete_untruncated_reads": true,
+    "observation_ids_topology_types_prompts_sessions": true,
+    "score_ids_names_values_types_subjects": true,
+    "preexisting_observations_and_nonseed_traces_preserved": true
+  },
+  "limitations": [
+    "No input/output or metadata equality claim; exhaustive comparison covers the stated inventory fields.",
+    "Preflight score snapshots were not available; all expected authored scores are checked against the combined spool."
+  ]
+}

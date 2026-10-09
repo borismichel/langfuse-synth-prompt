@@ -104,8 +104,16 @@ def deliver_artifacts(out_dir: Path | None = None) -> Path:
 
 
 def run_seed(cfg: Config, *, dry_run: bool=False, do_import: bool=True,
-             spool_path: str | Path | None=None, refresh_configuration: bool=False, log=print) -> Path:
+             spool_path: str | Path | None=None, refresh_configuration: bool=False,
+             expand_existing: str | Path | None=None, log=print) -> Path:
     spool_path = Path(spool_path) if spool_path else DEFAULT_SPOOL
+    if expand_existing is not None:
+        if dry_run or not do_import or refresh_configuration:
+            raise ValueError('Expansion cannot be combined with dry-run, spool-only or configuration refresh.')
+        from .expansion import run_expansion
+        delta = run_expansion(cfg, previous_spool=Path(expand_existing), log=log)
+        deliver_artifacts()
+        return delta
     if refresh_configuration:
         if dry_run or not do_import:
             raise ValueError('Configuration refresh cannot be combined with dry-run or spool-only mode.')
