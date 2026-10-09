@@ -1,0 +1,45 @@
+{
+  "release": "v0.2.2",
+  "depot_main": "b16d46fe6ccd6ba6528e566d659d6b053de1c651",
+  "merged_prs": [
+    281,
+    282
+  ],
+  "images": {
+    "api": "sha256:eba0c072ff5f12bf5138056676652e7642e2fde8b2fcdda7919b1dd767dd600e",
+    "web": "sha256:2066dfe321a9ab68aba1575343f87fdbe1611863a595f5766ff7e7be2e86cce6",
+    "worker": "sha256:9e2a74d1b8f7e261150bab2f7c8e2d9291e4130592256ae7268add3851cc2a48"
+  },
+  "registry": {
+    "slug": "prompt",
+    "ref": "v0.2.2",
+    "image_ref": "ghcr.io/borismichel/langfuse-synth-prompt@sha256:3c32e33aececa64eb9ea2cc723c780bc83df05b58123e0b8754ec1e67be1d9d1",
+    "visibility": "published",
+    "status": "active",
+    "synced_at": "2026-10-09T09:22:22.645683Z"
+  },
+  "checks": {
+    "api_health": "passed",
+    "worker_heartbeat": "fresh",
+    "schema": "0034",
+    "member_catalog": "observed",
+    "rebuilt_completed_page": "observed",
+    "original_companions_preserved": 4,
+    "backend_tests": 141,
+    "frontend_tests": 471,
+    "typecheck": "passed",
+    "production_build": "passed",
+    "registry_validation": "passed",
+    "remote_depot_ci": "queued; no success claimed"
+  },
+  "progress_evidence": {
+    "live": "All six steps succeeded; custom evaluator step visibly running outside logs. Polling gap observed after seed.",
+    "fix": "PR #282 mounted tests cover running seed, completed seed without successor, queued custom step, running custom step and terminal stop.",
+    "post_rebuild": "Completed page, exact estimate and traces label inspected. No repeat full live sequence after UI-only fix."
+  },
+  "skill": {
+    "local_commit": "b3d7e1a",
+    "source_installed_archive_parity": "passed",
+    "pushed": false
+  }
+}

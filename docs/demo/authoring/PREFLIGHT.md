@@ -68,9 +68,13 @@ Probe tests exercise real core ingestion assembly and the v4 read adapter with
 mocked transport for success, changed timestamps, missing observations and guard
 rejection. The pipeline test dispatches all six manifest commands in order.
 
-These checks establish offline behavior. No live probe, seed, evaluator setup,
-admission or publishing was performed for this change. Existing live seed work
-was left running untouched.
+These checks establish offline behavior. The released candidate subsequently passed a
+[live probe](evidence/preflight-live-probe.txt) in `prompt-preflight-demo` within
+Boris Demo Enterprise. It wrote two observations and preserved the historical
+timestamp. All six deployed steps subsequently passed admission; the exact plan totals were
+displayed in Depot. Publication and rollout evidence is recorded in
+[SHIP_CHECKLIST.md](SHIP_CHECKLIST.md).
+The user's existing deployment and companion were preserved.
 
 The pinned core's `synth-authoring check` completed with `local_ready: true`:
 manifest validation, conformance and all 334 tests passed. The 100,000-history-trace

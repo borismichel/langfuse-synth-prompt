@@ -1,0 +1,123 @@
+{
+  "admission_run": "e86c64cd-b17d-4abe-aea0-0155aa17af7d",
+  "deployment": "fecf9792-bb8b-4bb4-90a4-606bcd3eb306",
+  "verdict": {
+    "passed": true,
+    "failed_step": null,
+    "reason": null,
+    "steps": [
+      {
+        "step": "register",
+        "status": "passed",
+        "reason": null,
+        "exit_code": null,
+        "job_id": null,
+        "log_object_key": null,
+        "container_id": null
+      },
+      {
+        "step": "build",
+        "status": "passed",
+        "reason": null,
+        "exit_code": null,
+        "job_id": null,
+        "log_object_key": null,
+        "container_id": null
+      },
+      {
+        "step": "spawn",
+        "status": "passed",
+        "reason": null,
+        "exit_code": null,
+        "job_id": null,
+        "log_object_key": null,
+        "container_id": null
+      },
+      {
+        "step": "seed",
+        "status": "passed",
+        "reason": null,
+        "exit_code": 0,
+        "job_id": "c6e95b35-84fe-44a7-8498-3491b5b580fa",
+        "log_object_key": "jobs/c6e95b35-84fe-44a7-8498-3491b5b580fa/full.log",
+        "container_id": "69bb9e5e543c8f4a383a7c69135392ce500450c4a38aecb6ef83b2392e04461b"
+      },
+      {
+        "step": "verify",
+        "status": "passed",
+        "reason": null,
+        "exit_code": 0,
+        "job_id": "503b3606-f6af-4e11-a49b-90c38a118703",
+        "log_object_key": "jobs/503b3606-f6af-4e11-a49b-90c38a118703/full.log",
+        "container_id": "8cf8ca896320504020d607428abbae7ef142f1fd0fa2f7535f4f978bef540888"
+      },
+      {
+        "step": "companion_smoke",
+        "status": "passed",
+        "reason": null,
+        "exit_code": null,
+        "job_id": null,
+        "log_object_key": null,
+        "container_id": null
+      }
+    ]
+  },
+  "estimate": {
+    "traces": 1638,
+    "observations": 5137,
+    "scores": 9356,
+    "total": 14493,
+    "units_per_trace": null,
+    "units_per_trace_source": "kit_plan"
+  },
+  "steps": [
+    {
+      "id": "a10e5206-d132-44f5-ad94-0ad51208f13f",
+      "step": "probe",
+      "status": "succeeded",
+      "started_at": "2026-10-09 09:06:59.485565+00:00",
+      "finished_at": "2026-10-09 09:07:20.135071+00:00",
+      "exit_code": 0
+    },
+    {
+      "id": "0915ceb2-df7e-446f-bcc7-e01953060f1e",
+      "step": "plan",
+      "status": "succeeded",
+      "started_at": "2026-10-09 09:07:20.256833+00:00",
+      "finished_at": "2026-10-09 09:07:21.390862+00:00",
+      "exit_code": 0
+    },
+    {
+      "id": "57a1b640-2fa4-43a1-a5c4-8fb4e59a376b",
+      "step": "configure-evaluators",
+      "status": "succeeded",
+      "started_at": "2026-10-09 09:07:21.532231+00:00",
+      "finished_at": "2026-10-09 09:07:54.850443+00:00",
+      "exit_code": 0
+    },
+    {
+      "id": "c6e95b35-84fe-44a7-8498-3491b5b580fa",
+      "step": "seed",
+      "status": "succeeded",
+      "started_at": "2026-10-09 09:07:54.962987+00:00",
+      "finished_at": "2026-10-09 09:10:41.692742+00:00",
+      "exit_code": 0
+    },
+    {
+      "id": "a7728344-c8f9-4f31-a6e5-9c689e845d2a",
+      "step": "configure-experiments",
+      "status": "succeeded",
+      "started_at": "2026-10-09 09:10:41.828957+00:00",
+      "finished_at": "2026-10-09 09:13:45.441327+00:00",
+      "exit_code": 0
+    },
+    {
+      "id": "503b3606-f6af-4e11-a49b-90c38a118703",
+      "step": "verify",
+      "status": "succeeded",
+      "started_at": "2026-10-09 09:13:45.568164+00:00",
+      "finished_at": "2026-10-09 09:16:20.188193+00:00",
+      "exit_code": 0
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "release": "v0.2.2",
+  "commit": "acb09ae2ffd9db92045dd3c7a0988d06e83deb9d",
+  "image": "ghcr.io/borismichel/langfuse-synth-prompt@sha256:3c32e33aececa64eb9ea2cc723c780bc83df05b58123e0b8754ec1e67be1d9d1",
+  "ci": {
+    "run": 37908206036,
+    "conclusion": "success"
+  },
+  "publish": {
+    "run": 37908208741,
+    "conclusion": "success"
+  },
+  "admission": {
+    "run": "e86c64cd-b17d-4abe-aea0-0155aa17af7d",
+    "deployment": "fecf9792-bb8b-4bb4-90a4-606bcd3eb306",
+    "passed": true,
+    "eligible_to_pin": true
+  },
+  "target": {
+    "id": "cmv0qcw7x00rfad0j6uv9zu6a",
+    "name": "prompt-preflight-demo",
+    "organization": "Boris Demo Enterprise",
+    "organization_id": "cmtqvkiw701e6ad0dtv73tds4"
+  },
+  "standalone_probe": "passed; 2 observations; separate from the successful admission pipeline probe"
+}

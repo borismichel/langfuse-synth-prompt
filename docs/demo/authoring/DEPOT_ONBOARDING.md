@@ -4,7 +4,36 @@ The user authorized Depot onboarding, registration and shipment, then approved
 creating a dedicated project in Boris Demo Enterprise with a name ending in
 `demo`. The existing final-seed project is preserved.
 
-## Current release: v0.2.1
+## Current release: v0.2.2
+
+The signed v0.2.2 release at `acb09ae2ffd9db92045dd3c7a0988d06e83deb9d`
+passed CI, publication and all six admission rungs. Its actual pipeline completed
+probe, plan, evaluator setup, seed, experiment setup and verify in that order in
+`prompt-preflight-demo` (`cmv0qcw7x00rfad0j6uv9zu6a`), within Boris Demo Enterprise
+(`cmtqvkiw701e6ad0dtv73tds4`). The estimate is 1,638 traces, 5,137 observations,
+9,356 scores and 14,493 ingestion units; historical generation makes no model calls.
+See the [release](evidence/preflight-release.json),
+[admission](evidence/preflight-admission.json) and [checklist](SHIP_CHECKLIST.md).
+
+Depot [PR #281](https://github.com/borismichel/langfuse-demo-depot/pull/281)
+adds exact plan counts and a visible custom-step notice. The live rehearsal exposed
+a refresh gap after seed; [PR #282](https://github.com/borismichel/langfuse-demo-depot/pull/282)
+fixes it with mounted polling-transition tests and updates the admitted registry pin.
+Both merged; Depot main is `b16d46fe6ccd6ba6528e566d659d6b053de1c651`.
+The local API and web were rebuilt, preserving all four original companions.
+Registry sync at `2026-10-09T09:22:22.645683Z` confirms v0.2.2 active and Published
+with the admitted image digest. The member catalog and rebuilt completed deployment
+page were inspected. [Rollout receipt](evidence/preflight-rollout.json),
+[catalog](evidence/preflight-catalog.png), [completed page](evidence/preflight-completed.png).
+
+Depot validation passed locally: 141 backend tests, 471 frontend tests, type checking,
+production build and registry validation. Its legacy self-hosted CI remained queued;
+no remote Depot CI success is claimed. The final polling fix was verified by mounted
+tests and rebuilt page inspection, without another full seed. The unchanged story
+and companion carry forward the v0.2.1 rehearsal below; the admission carrier's
+host-only project shortcut remains a known limitation. Existing demos were preserved.
+
+## Previous release: v0.2.1
 
 The exact signed `v0.2.1` candidate passed all six admission checks and the complete
 delivered walkthrough in `prompt-components-demo`, inside Boris Demo Enterprise.
