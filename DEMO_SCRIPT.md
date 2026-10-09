@@ -169,7 +169,14 @@ ready. See `docs/demo/authoring/COMPANION.md` for the isolated preview boundary.
 
 Load credentials through the approved environment workflow, never into committed
 configuration. `.env.example` lists names; this CLI does not silently load `.env`.
-A Langfuse judge connection is separate from the companion provider key. Set
+A Langfuse judge connection is separate from the companion provider key. Setup and seed
+create the named connection automatically when a compatible provider key is
+available (`ANTHROPIC_API_KEY`, or `LLM_API_KEY` with `LLM_PROVIDER=anthropic`
+for this kit). They reuse a compatible existing connection without replacing its
+key. No key is written to history, configuration receipts, artifacts or the UI.
+This stores connection configuration only and does not run a model. Without a
+key or existing connection, configure one through the target's normal workflow.
+Judge definitions remain an explicit pre-seed setup step. Set
 `evaluation.provider` and `evaluation.model` (or their documented environment
 variables) to the existing Langfuse connection and usable model.
 
@@ -202,6 +209,27 @@ provisions assets or reimports data. Incomplete or conflicting configuration
 leaves the receipt unchanged. Categorical E-02/E-03 live verification and other
 unresolved prerequisites remain visible; a refresh does not establish live evaluator results. The companion reads
 the updated receipt on its next connection check.
+
+Before the presenter rehearsal, after the final import and successful verification,
+configure the evaluator editor and native experiment assignments together:
+
+```sh
+synth configure-evaluators --config config/demo.yaml --set generation.target_traces=48 --update-mappings
+```
+
+Use the exact imported run's target, state directory, seed, trace count and as-of
+date (omit the 48-trace override for the standard full run). This explicit setup
+verifies the imported run, saves the seven LLM-judged dataset assignment rules with experiment
+item metadata overrides, and then changes evaluator defaults to observation
+metadata. Saving evaluator definitions may validate the model. It performs no
+history import. Run it only after all intended history imports are complete:
+enabled experiment rules also match subsequently imported experiment roots.
+Do not reseed or replay history into that project. For another population use a
+fresh project. The existing live production rules and evaluator IDs stay intact.
+If setup stops after an ambiguous remote update, inspect the evaluator/rule
+readback first. Use the configuration-only refresh described above to reconcile
+accepted version receipts, then repeat `--update-mappings`. Never repeat seed to
+recover configuration. Conflicting rubrics, models or mappings stop the repair.
 
 After the small walkthrough succeeds, a fresh project can receive the complete
 1,620-trace population in one seed. To keep the existing project, use the guarded

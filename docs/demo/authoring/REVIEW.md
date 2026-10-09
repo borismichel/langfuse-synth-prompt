@@ -124,3 +124,14 @@ and shipping. [Final seed evidence](FINAL_SEED.md) records the one-time full imp
 and a real two-turn chat with sixteen evaluator outcomes and two feedback scores.
 This is ready for review; no new user acceptance or Depot admission is inferred.
 The generation-only prompt association correction remains authoritative.
+
+## Evaluator editor correction and onboarding — 2026-10-09
+
+The user reported JSONPath warnings in the final project's judge editor and
+authorized Depot registration. [Mapping repair](EVALUATOR_MAPPING_REPAIR.md)
+records the corrected live defaults and native experiment overrides, verified
+in both product surfaces. The seed remains model-free. A separate post-import
+configuration step is included in the runbook. Depot admission remains pending
+until a released candidate completes its actual ladder; no local test is treated
+as admission. Reusable text-prompt components are requested for a subsequent
+release after registration.

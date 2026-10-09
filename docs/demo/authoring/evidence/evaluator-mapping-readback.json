@@ -1,0 +1,120 @@
+{
+  "project_id": "cmv0kpfl209mmad0kft5wn5h9",
+  "mapping_mode": "live",
+  "evaluators": 10,
+  "experiment_rules": 7,
+  "checks": [
+    {
+      "criterion": "E-01",
+      "evaluator_id": "cmv0ktacz08b6ad0j7s4n4mzd",
+      "version": 1,
+      "defaults_resolve_live_metadata": true,
+      "version_receipt_matches": true
+    },
+    {
+      "criterion": "E-02",
+      "evaluator_id": "cmv0ktckd08bbad0jk3sxuhl1",
+      "version": 2,
+      "defaults_resolve_live_metadata": true,
+      "version_receipt_matches": true
+    },
+    {
+      "criterion": "E-03",
+      "evaluator_id": "cmv0kte9o09nfad0kn0xcngyf",
+      "version": 2,
+      "defaults_resolve_live_metadata": true,
+      "version_receipt_matches": true
+    },
+    {
+      "criterion": "E-04",
+      "evaluator_id": "cmv0ktgc208n2ad0ek2t73xqx",
+      "version": 2,
+      "defaults_resolve_live_metadata": true,
+      "version_receipt_matches": true
+    },
+    {
+      "criterion": "E-05",
+      "evaluator_id": "cmv0ktih608raad0kc6wbiy5f",
+      "version": 2,
+      "defaults_resolve_live_metadata": true,
+      "version_receipt_matches": true
+    },
+    {
+      "criterion": "E-06",
+      "evaluator_id": "cmv0ktkl608nfad0eukgh8co3",
+      "version": 2,
+      "defaults_resolve_live_metadata": true,
+      "version_receipt_matches": true
+    },
+    {
+      "criterion": "E-07",
+      "evaluator_id": "cmv0ktmas08nkad0eoj9deuy8",
+      "version": 2,
+      "defaults_resolve_live_metadata": true,
+      "version_receipt_matches": true
+    },
+    {
+      "criterion": "E-08",
+      "evaluator_id": "cmv0ktoi508nuad0eezbg32ju",
+      "version": 2,
+      "defaults_resolve_live_metadata": true,
+      "version_receipt_matches": true
+    },
+    {
+      "criterion": "E-10",
+      "evaluator_id": "cmv0ktqku09noad0krjgcl3ho",
+      "version": 2,
+      "defaults_resolve_live_metadata": true,
+      "version_receipt_matches": true
+    },
+    {
+      "criterion": "E-11",
+      "evaluator_id": "cmv0ktspv08rgad0kw9rcuate",
+      "version": 2,
+      "defaults_resolve_live_metadata": true,
+      "version_receipt_matches": true
+    },
+    {
+      "dataset": "DS-01",
+      "rule_id": "cmv0m6sl608dtad0fg5521oiq",
+      "assignments_match": true,
+      "judges": 8
+    },
+    {
+      "dataset": "DS-02",
+      "rule_id": "cmv0m6swp0942ad0k262cu73a",
+      "assignments_match": true,
+      "judges": 7
+    },
+    {
+      "dataset": "DS-03",
+      "rule_id": "cmv0m6t8508o8ad0jjcktqbz1",
+      "assignments_match": true,
+      "judges": 7
+    },
+    {
+      "dataset": "DS-05",
+      "rule_id": "cmv0mc7x908f0ad0fmayxynh6",
+      "assignments_match": true,
+      "judges": 1
+    },
+    {
+      "dataset": "DS-06",
+      "rule_id": "cmv0mc88608k8ad0egdbk1xit",
+      "assignments_match": true,
+      "judges": 1
+    },
+    {
+      "dataset": "DS-08",
+      "rule_id": "cmv0mc8j408p0ad0jqfuxa9r1",
+      "assignments_match": true,
+      "judges": 3
+    },
+    {
+      "dataset": "DS-09",
+      "rule_id": "cmv0mc8v0094zad0eng4wclu8",
+      "assignments_match": true,
+      "judges": 1
+    }
+  ]
+}

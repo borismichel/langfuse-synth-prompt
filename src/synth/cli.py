@@ -42,10 +42,11 @@ def _cmd_verify(args: argparse.Namespace) -> int:
 
 def _cmd_configure_evaluators(args: argparse.Namespace) -> int:
     from langfuse_synth_core.seed.ingest import assert_demo_project
-    from .assets import configure_evaluators
+    from .assets import configure_evaluators, configure_evaluator_mappings
     cfg = load_config(args.config, overrides=args.set)
     assert_demo_project(cfg.target.base_url, cfg.target.project_hint)
-    result = configure_evaluators(cfg, update_model=args.update_model)
+    result = (configure_evaluator_mappings(cfg) if args.update_mappings
+              else configure_evaluators(cfg, update_model=args.update_model))
     print(f"Configured {len(result.get('evaluators', {}))} managed evaluator definitions.")
     for missing in result.get('missing', []):
         print(f"Pending: {missing}")
@@ -88,8 +89,11 @@ def build_parser() -> argparse.ArgumentParser:
 
     setup = sub.add_parser("configure-evaluators", help="configure managed judges separately; Langfuse may validate models on save")
     _add_config_args(setup)
-    setup.add_argument("--update-model", action="store_true",
+    setup_mode = setup.add_mutually_exclusive_group()
+    setup_mode.add_argument("--update-model", action="store_true",
                        help="explicitly update only the model of existing accepted judges; preserve rubrics and rules")
+    setup_mode.add_argument("--update-mappings", action="store_true",
+                       help="post-seed only: verify imported history, preserve dataset overrides, then use live evaluator defaults")
     setup.set_defaults(func=_cmd_configure_evaluators)
 
     replacement = sub.add_parser(

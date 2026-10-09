@@ -5,7 +5,7 @@ generation:
   seed: 42
   target_traces: 1620
 evaluation:
-  # Existing Anthropic connection in Langfuse; override its name if different.
+  # Named Anthropic connection; reuse it or provision from an available provider key.
   provider: anthropic
   model: claude-sonnet-5-5
 live:

@@ -1241,6 +1241,46 @@
       "detail": "matches provisioned asset"
     },
     {
+      "name": "experiment-rule-coverage",
+      "ok": true,
+      "detail": "Seven dataset assignment rules required; deterministic-only datasets have no managed judges."
+    },
+    {
+      "name": "experiment-rule-DS-01",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "experiment-rule-DS-02",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "experiment-rule-DS-03",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "experiment-rule-DS-05",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "experiment-rule-DS-06",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "experiment-rule-DS-08",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "experiment-rule-DS-09",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
       "name": "historical-experiment-products/explainer \u00b7 v2 baseline",
       "ok": true,
       "detail": "matches provisioned asset"
