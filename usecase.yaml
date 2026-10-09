@@ -61,6 +61,17 @@ config_schema:
         evaluator setup may validate this model. Historical seed generation never invokes it. No model aliases.
   required: []
 pipeline:
+- id: probe
+  run: synth probe --config {config}
+  timeout_minutes: 5
+  fatal: true
+- id: plan
+  run: synth plan --config {config}
+  parse:
+    event_count: 'regex:total_traces: (\d+)'
+    plan_counts: 'regex:PLAN_COUNTS=(\{[^\n]+\})'
+  timeout_minutes: 5
+  fatal: true
 - id: configure-evaluators
   run: synth configure-evaluators --config {config}
   requires_secrets:

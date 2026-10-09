@@ -72,16 +72,42 @@ factual boundaries, voice and structured output. Agent prompts use native Langfu
 references; their resolved opening instructions retain the accepted story. The
 presenter can append the shared `playful` voice reference to a staging candidate.
 
-Depot runs evaluator setup, history seed, experiment mapping setup, then verification.
+Depot runs **probe → plan → evaluator setup → history seed → experiment mapping setup → verification**.
+Probe uses the shared core's demo-project guard, writes two throwaway observations,
+and verifies that their backdated timestamp survives through the v4 observations API.
+It does not change the historical seed spool or receipt. A failed probe stops the pipeline.
+Plan runs offline, requires no credentials, and leaves existing spool, import markers
+and state untouched. It reports exact observations and scores for the selected history
+volume plus the fixed experiment cohort. Root observations count once; derived traces
+are shown separately. The two probe observations are additional to the seed estimate.
+The manifest exposes versioned `PLAN_COUNTS` for Depot's exact volume display and retains
+the raw trace-count field for older Depot versions, whose generic ratio remains approximate.
+
+Historical seed model cost is **USD 0** with **zero provider calls**. The synthetic
+model costs displayed in Langfuse are authored demo accounting and are not incurred spend.
+Langfuse ingestion is reported in billable units; no dollar price is invented for the
+account's plan. Evaluator model validation, later live chats and real experiments are
+outside this model-free seed estimate and may incur actual provider costs.
+
 Only the explicitly declared evaluator-setup step receives the selected provider key;
-seed and verify receive only Langfuse credentials.
+probe, seed and verify receive only Langfuse credentials; plan uses none.
 Setup creates a missing compatible Langfuse model connection when a provider key is
 available, or reuses the existing connection without changing its key. Evaluator
 setup is a separate model-using operation because Langfuse may validate the selected
 model on save. The historical seed remains model-free.
 Read [native asset setup](docs/demo/authoring/ASSETS.md),
 [companion integration](docs/demo/authoring/COMPANION.md), and
-[generation semantics](docs/demo/authoring/GENERATION.md).
+[generation semantics](docs/demo/authoring/GENERATION.md). The
+[preflight contract](docs/demo/authoring/PREFLIGHT.md) records counts and verification scope.
+
+For a local offline estimate, use:
+
+```sh
+.venv/bin/synth plan --config config/demo.yaml --set generation.target_traces=1620
+```
+
+The separate developer command `synth probe --config config/demo.yaml` writes its
+two-observation check to the authorised target; planning alone makes no network calls.
 
 `usecase.yaml` is the Depot integration contract. `Dockerfile` runs as a non-root
 user. The signed image workflow is pinned to the same core release and triggers

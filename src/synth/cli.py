@@ -1,6 +1,6 @@
 """The kit's `synth` runtime CLI (walking skeleton).
 
-Registers the pipeline verbs the manifest wires — `seed` and `verify` — each running
+Registers the pipeline verbs the manifest wires — including `probe`, `plan`, `seed` and `verify` — each running
 through the shared library. The invocation these verbs answer is the Contract's:
 `synth <verb> --config {config}`, with `--set dotted.key=value` overrides appended on
 pipeline steps only (CONTRACT.md §"The container invocation" — live and resume commands
@@ -16,6 +16,7 @@ import sys
 from .config import load_config
 from .seed import run_seed
 from .verify import run_verify
+from .preflight import run_plan, run_probe
 
 
 def _add_config_args(parser: argparse.ArgumentParser) -> None:
@@ -38,6 +39,15 @@ def _cmd_seed(args: argparse.Namespace) -> int:
 def _cmd_verify(args: argparse.Namespace) -> int:
     cfg = load_config(args.config, overrides=args.set)
     return 0 if run_verify(cfg).ok else 1
+
+
+def _cmd_probe(args: argparse.Namespace) -> int:
+    return 0 if run_probe(load_config(args.config, overrides=args.set)) else 1
+
+
+def _cmd_plan(args: argparse.Namespace) -> int:
+    run_plan(load_config(args.config, overrides=args.set))
+    return 0
 
 
 def _cmd_configure_evaluators(args: argparse.Namespace) -> int:
@@ -72,6 +82,14 @@ def _cmd_history_replacement_plan(args: argparse.Namespace) -> int:
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="synth", description="Demo Depot synth kit runtime.")
     sub = parser.add_subparsers(dest="command", metavar="<verb>")
+
+    probe = sub.add_parser("probe", help="check backdated ingestion with two throwaway observations")
+    _add_config_args(probe)
+    probe.set_defaults(func=_cmd_probe)
+
+    plan = sub.add_parser("plan", help="estimate seed volume and costs offline, without writing state or spool")
+    _add_config_args(plan)
+    plan.set_defaults(func=_cmd_plan)
 
     seed = sub.add_parser("seed", help="generate + ingest the backdated demo data")
     _add_config_args(seed)

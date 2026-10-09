@@ -1,6 +1,10 @@
 # Authoring implementation review
 
-Updated 2026-10-09. **v0.2.1 admitted, rehearsed and published in Depot.**
+Updated 2026-10-09. **v0.2.1 remains published; v0.2.2 pipeline follow-up is in validation.**
+See the [release checklist](SHIP_CHECKLIST.md) for explicit probe/plan stages, accurate
+volume estimates and visible custom-step progress. Offline checks pass (334 tests);
+new deployment/release evidence is pending. The completed v0.2.1 rehearsal below
+remains applicable to the unchanged story and companion, not to these new stages.
 The user accepted the story/prototype and authorised the complete kit, clean-context
 subagents, Langfuse skill and brand assets. The user subsequently approved categorical
 Pass / Fail / Not applicable for the two factual criteria. This does not record
