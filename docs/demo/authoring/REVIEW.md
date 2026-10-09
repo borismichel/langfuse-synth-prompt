@@ -1,6 +1,6 @@
 # Authoring implementation review
 
-Recorded 2026-10-08. **Implementation available for review; final delivery pending.**
+Updated 2026-10-09. **Implementation available for review; final delivery pending.**
 The user accepted the story/prototype and authorised the complete kit, clean-context
 subagents, Langfuse skill and brand assets. The user subsequently approved categorical
 Pass / Fail / Not applicable for the two factual criteria. This does not record
@@ -47,6 +47,8 @@ acceptance of a finished implementation or claim the remaining delivery checks p
 | Latest promoted conversation | Four v9 turns, twelve observations, 32 correctly targeted EVAL scores; native session and generation link verified | [live readback](evidence/categorical-live-session.json), [native rehearsal](NATIVE_REHEARSAL.md) |
 | Application guide and final provenance | Two actual guide turns / 14 EVAL scores; one post-fix turn / 7 EVAL scores verifies distinct trace inventory and subject-scoped observation maps | [guide readback](evidence/application-guide-live.json), [metadata repair](evidence/application-guide-metadata-fixed.json) |
 | Intended population arithmetic | 1,620 history traces / 2,100 generations / 9,320 scores, including six explicit N/A outcomes | [generation](GENERATION.md) |
+| Fresh categorical history | User-created `prompt-portfolio-demo`; one import of 48 history + 18 authored experiment traces; 244 checks passed | [fresh verification](evidence/fresh-project-verification.json) |
+| Fresh target live connection | One v7 product turn, three observations, eight EVAL results on the correct subjects; native session link verified | [fresh live readback](evidence/fresh-project-live.json), [fresh project rehearsal](FRESH_PROJECT.md) |
 
 The corrected native comparison has baseline style 0.00 and candidate style 0.75;
 both versions have eight Pass outcomes on each factual criterion and tone 1.00.
@@ -66,23 +68,20 @@ correct scoped maps. Existing results remain preserved.
 
 ## Remaining gates
 
-1. **Corrected history target.** The earlier pilot was imported once: 48 history
-   traces plus eighteen authored experiments, 80 generations and 312 old-contract
-   scores. It is preserved. A fresh project and scoped key were requested to verify
-   revised categorical/tool-enriched history without duplicate append ingestion.
-   Approval is pending; no fresh key or project has been created.
-2. **Member-role denial.** Owner promotion and protected-label configuration are
+1. **Member-role denial.** Owner promotion and protected-label configuration are
    observed. An actual member session is still needed to demonstrate denied
    production promotion. Owner/API access cannot stand in for that evidence.
-3. **Full population.** Arithmetic/model-free regression checks pass. Full-volume
+2. **Full population.** Arithmetic/model-free regression checks pass. Full-volume
    delivery and live readback remain pending completion of the small walkthrough.
-4. **Signed release and Depot admission.** No release tag, image publication,
+   The new project now contains the verified small import. Use a different fresh
+   target or a separately authorised reset for full volume; do not append a reseed.
+3. **Signed release and Depot admission.** No release tag, image publication,
    registry mutation or public deployment occurred. Authenticated Chrome access
    works; the deployed Depot lacks the required slug guard and supported admission
    access surface, and new entries default to published. Scratch configuration
    presence is known, but disposable-target suitability is unverified.
    [Concrete deployment findings](DEPOT_ACCESS.md).
-5. **Delivered rehearsal.** Staging visibility and the final Depot-served runbook,
+4. **Delivered rehearsal.** Staging visibility and the final Depot-served runbook,
    companion, history, evaluations and reset behaviour still need verification.
 
 ## Preserved earlier evidence
@@ -101,5 +100,6 @@ records the schema limitation and subsequent approved categorical decision.
 [author-langfuse-demo-kit SKILL.md](/Users/bmichel/.agents/skills/author-langfuse-demo-kit/SKILL.md)
 stage 3 says: “Keep scaling pending until the complete small walkthrough works;
 useful offline fixes can continue while a target is unavailable.” Offline work and
-all available authenticated native rehearsal continue. Full delivery remains open
-until the target, role and Depot prerequisites above are resolved.
+all available authenticated native rehearsal continue. The corrected small target
+is verified. Full delivery remains open until the role, full-volume target and
+Depot prerequisites above are resolved.

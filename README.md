@@ -80,6 +80,11 @@ Full-scale categorical history, live evaluator calibration, member-denial checks
 signed release and Depot admission remain pending. Earlier numeric pilot history
 is preserved and does not establish the new categorical contract.
 
+On 2026-10-09 the fresh `prompt-portfolio-demo` project passed all 244 checks
+after one corrected small import: 48 history traces plus 18 authored experiments.
+One actual companion turn also produced eight correctly targeted evaluator results.
+See the [fresh project evidence](docs/demo/authoring/FRESH_PROJECT.md).
+
 The full population specification is 1,620 production-history traces, 2,100
 generations and 9,320 eligible outcomes over 28 complete days, plus eighteen small
 historical experiment traces. E-02/E-03 include explicit Not applicable categories;

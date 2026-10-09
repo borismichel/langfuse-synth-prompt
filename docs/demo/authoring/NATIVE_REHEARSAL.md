@@ -1,5 +1,9 @@
 # Native Chrome rehearsal
 
+The fresh 2026-10-09 project, corrected import and bounded live connection check
+are recorded in [Fresh project verification](FRESH_PROJECT.md). The earlier
+rehearsal below remains preserved against its original target.
+
 Recorded 2026-10-08 in the user's existing authenticated Chrome session.
 Target: `prompt-dev-demo` (`cmuzyfy1f0481ad0f7rajddig`), EU Cloud,
 Langfuse v4.55.0, Enterprise organization. This supersedes the earlier IAB

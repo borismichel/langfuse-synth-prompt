@@ -1,0 +1,3181 @@
+{
+  "schemaVersion": 1,
+  "evidenceKind": "sanitized_offline_audit_of_saved_receipts",
+  "auditedOn": "2026-10-09",
+  "implementationCommit": "2ab6285755330c6fdd36f86bf7834698be8c09e3",
+  "implementationCommitProvenance": "Implementation revision supplied by the coordinating run; saved exports do not independently attest deployed code.",
+  "target": {
+    "host": "https://cloud.langfuse.com",
+    "projectId": "cmv0gc1710815ad0k7nnnd6v5",
+    "projectName": "prompt-portfolio-demo",
+    "projectUrl": "https://cloud.langfuse.com/project/cmv0gc1710815ad0k7nnnd6v5"
+  },
+  "provenance": {
+    "sourceFileSha256": {
+      ".scratch/portfolio-small-state/.synth_state.json": "4eded2b1bf81456725f39f7c589067eaf03f13cd4c150f07f615fba9b8ef2da6",
+      ".scratch/portfolio-small-verification.json": "1a3be9ca6b22f165388c178c2fb108d9849540b9df72bcb381fc0ef868871e36",
+      ".scratch/portfolio-small-setup.json": "cdce9e64e18afaf3321783c9186e60b40dc3d13fba0b7ac9ffc2ff2bbac2ceb3"
+    },
+    "sanitization": "Explicit field whitelist: receipt counts, identifiers, hashes, saved check results, calculator arguments/results and provisioning summaries. Private source files are not distributed.",
+    "workspaceHandoffStatusAtAudit": {
+      "story": "accepted",
+      "prototype": "accepted",
+      "authoring": "stale"
+    }
+  },
+  "runReceipt": {
+    "schema_version": 1,
+    "score_contract": "categorical-factual-r2",
+    "run_date": "2026-10-09T12:00:00+00:00",
+    "seed": 42,
+    "target_traces": 48,
+    "spool_sha256": "bb228efcad880e575e4d04a38a01957402fb75cde7051c8d01ab4e00e58f96c6",
+    "spooled_events": 500,
+    "actual_traces": 66,
+    "actual_generations": 80,
+    "actual_scores": 312
+  },
+  "import": {
+    "status": "imported",
+    "dryRun": false,
+    "scope": "48 authored history traces plus 18 authored experiment traces; one supplied import receipt. No seed or import was run during this audit."
+  },
+  "counts": {
+    "verificationChecks": 244,
+    "passedChecks": 244,
+    "failedChecks": 0,
+    "historyTraces": 48,
+    "experimentTraces": 18,
+    "totalTraces": 66,
+    "generations": 80,
+    "scores": 312,
+    "spooledEvents": 500,
+    "representativeTraces": 39,
+    "representativeObservations": 105,
+    "representativeScores": 131,
+    "representativeCategoricalFactualScores": 40,
+    "representativeCategoricalOutcomes": {
+      "Pass": 38,
+      "Fail": 2
+    },
+    "calculatorRepresentatives": 3
+  },
+  "provisioning": {
+    "counts": {
+      "prompts": 9,
+      "promptVersions": 72,
+      "datasets": 9,
+      "datasetItems": 32,
+      "scoreConfigs": 12,
+      "models": 3,
+      "evaluators": 10,
+      "evaluatorRules": 10,
+      "historicalExperiments": 18
+    },
+    "prompts": {
+      "PR-01": {
+        "name": "products/explainer",
+        "versions": [
+          {
+            "version": 1,
+            "id": "e881e152-b029-40d0-871d-7bdface28374",
+            "labels": []
+          },
+          {
+            "version": 2,
+            "id": "e91a722a-4cc8-4f02-83bc-eb97eb605d08",
+            "labels": []
+          },
+          {
+            "version": 3,
+            "id": "d7bd1c51-55e7-4a34-a4b5-b18a4c1f2b6b",
+            "labels": []
+          },
+          {
+            "version": 4,
+            "id": "6ebc4fe0-fab7-458e-9a39-f8ba9f488635",
+            "labels": []
+          },
+          {
+            "version": 5,
+            "id": "b80d85c6-8eec-4893-9a61-97f0723cc35a",
+            "labels": []
+          },
+          {
+            "version": 6,
+            "id": "ceebeac7-0114-4682-82be-84498e4c7959",
+            "labels": []
+          },
+          {
+            "version": 7,
+            "id": "5deaaec1-533a-4367-a0ba-120d3606b2a4",
+            "labels": [
+              "production"
+            ]
+          },
+          {
+            "version": 8,
+            "id": "b5d9ea78-ca94-48ad-b71f-b5c3c333c1c6",
+            "labels": [
+              "development"
+            ]
+          }
+        ]
+      },
+      "PR-02": {
+        "name": "fees/explainer",
+        "versions": [
+          {
+            "version": 1,
+            "id": "b9d37133-b28b-4699-8ee6-ca20781d3c42",
+            "labels": []
+          },
+          {
+            "version": 2,
+            "id": "e8ac999e-eead-4176-bfec-ceac96403178",
+            "labels": []
+          },
+          {
+            "version": 3,
+            "id": "71631547-bd68-4bd4-84b2-26b0c5cef89e",
+            "labels": []
+          },
+          {
+            "version": 4,
+            "id": "6c302db4-a81e-4b0f-aa79-39f070649bf7",
+            "labels": []
+          },
+          {
+            "version": 5,
+            "id": "3e3ebb1e-3140-49d4-ba12-c9357e6fd4ce",
+            "labels": []
+          },
+          {
+            "version": 6,
+            "id": "9432e8b5-d9ca-4daa-8ada-9acf108f62c2",
+            "labels": []
+          },
+          {
+            "version": 7,
+            "id": "bc3bf461-d32b-4c10-adf8-f05a6dfb8cab",
+            "labels": [
+              "production"
+            ]
+          },
+          {
+            "version": 8,
+            "id": "28294e8e-946d-4c85-a2da-808be2038d2b",
+            "labels": [
+              "development"
+            ]
+          }
+        ]
+      },
+      "PR-03": {
+        "name": "applications/guide",
+        "versions": [
+          {
+            "version": 1,
+            "id": "33050b17-ffec-41c3-931d-50e32d7a7739",
+            "labels": []
+          },
+          {
+            "version": 2,
+            "id": "96f960f4-fbfc-42b7-bd5f-84d166a9feb7",
+            "labels": []
+          },
+          {
+            "version": 3,
+            "id": "6e30781d-953f-48ab-9fac-ff85c7a15fe4",
+            "labels": []
+          },
+          {
+            "version": 4,
+            "id": "c36607c0-67af-4309-89e6-e51eda7b1cf9",
+            "labels": []
+          },
+          {
+            "version": 5,
+            "id": "1b60b65a-d138-4ad0-8daa-47e2bf04e01e",
+            "labels": []
+          },
+          {
+            "version": 6,
+            "id": "edddb7c1-d88e-40ef-87a3-5826cc00f98f",
+            "labels": []
+          },
+          {
+            "version": 7,
+            "id": "38717c04-4ef0-41ea-9f29-059f5b9267df",
+            "labels": [
+              "production"
+            ]
+          },
+          {
+            "version": 8,
+            "id": "6b9fd6eb-4e27-4461-a733-2738d3c6e2da",
+            "labels": [
+              "development"
+            ]
+          }
+        ]
+      },
+      "PR-04": {
+        "name": "service/intent",
+        "versions": [
+          {
+            "version": 1,
+            "id": "d3e99aa4-a820-424d-9701-5147b5b8f3f0",
+            "labels": []
+          },
+          {
+            "version": 2,
+            "id": "4f18036b-b5f3-4897-862d-67f38103df58",
+            "labels": []
+          },
+          {
+            "version": 3,
+            "id": "0aa79e69-3028-4a8c-b6a2-ca0127b27413",
+            "labels": []
+          },
+          {
+            "version": 4,
+            "id": "f32a996a-cd98-4760-90f1-ee0e0a72db51",
+            "labels": []
+          },
+          {
+            "version": 5,
+            "id": "25a23b81-7aa2-4691-bcb0-832321dbae85",
+            "labels": []
+          },
+          {
+            "version": 6,
+            "id": "2a225c4b-6733-4bd5-a39e-8c4e0fdfa5b1",
+            "labels": []
+          },
+          {
+            "version": 7,
+            "id": "131e03a6-b948-4538-9c4b-27ac2d744616",
+            "labels": [
+              "production"
+            ]
+          },
+          {
+            "version": 8,
+            "id": "00cf5154-de44-475e-8bff-672aa8e6b40b",
+            "labels": [
+              "development"
+            ]
+          }
+        ]
+      },
+      "PR-05": {
+        "name": "service/query-rewrite",
+        "versions": [
+          {
+            "version": 1,
+            "id": "0b0c214c-1e9f-4aa0-b2d2-e29dd9984489",
+            "labels": []
+          },
+          {
+            "version": 2,
+            "id": "a09338f3-df2e-43b5-a276-a40e243d958d",
+            "labels": []
+          },
+          {
+            "version": 3,
+            "id": "00242eb9-397a-4b7a-be8c-632964c3b46a",
+            "labels": []
+          },
+          {
+            "version": 4,
+            "id": "9fb50b1e-392d-4130-a34e-1cb9fa32d38c",
+            "labels": []
+          },
+          {
+            "version": 5,
+            "id": "558b4a7b-6566-402f-9651-55d54a70c9dd",
+            "labels": []
+          },
+          {
+            "version": 6,
+            "id": "0ca8ffe8-8fd8-40eb-a6d9-a269ed4342e2",
+            "labels": []
+          },
+          {
+            "version": 7,
+            "id": "2bedd36d-af0c-4c81-9b01-9191801a4c31",
+            "labels": [
+              "production"
+            ]
+          },
+          {
+            "version": 8,
+            "id": "1cae8474-4569-420a-9797-f55690d030fb",
+            "labels": [
+              "development"
+            ]
+          }
+        ]
+      },
+      "PR-06": {
+        "name": "service/conversation-summary",
+        "versions": [
+          {
+            "version": 1,
+            "id": "d2db2f7a-fa17-4612-bc2d-5079790519aa",
+            "labels": []
+          },
+          {
+            "version": 2,
+            "id": "50536a76-cbb9-41df-9383-1f5c10ff498a",
+            "labels": []
+          },
+          {
+            "version": 3,
+            "id": "bcf250c6-c946-493b-80b8-957570b43a7e",
+            "labels": []
+          },
+          {
+            "version": 4,
+            "id": "cc427efd-19d2-474f-b7cc-30e148dd579a",
+            "labels": []
+          },
+          {
+            "version": 5,
+            "id": "7deb6bce-3a11-4cd4-8217-96f4da6a5443",
+            "labels": []
+          },
+          {
+            "version": 6,
+            "id": "a519effa-e667-40c9-a547-dc1c70881533",
+            "labels": []
+          },
+          {
+            "version": 7,
+            "id": "0196b7b8-e15e-45aa-82a1-06cad37bbc71",
+            "labels": [
+              "production"
+            ]
+          },
+          {
+            "version": 8,
+            "id": "9dae7319-9d68-43cb-b425-d9cf2d81e9ee",
+            "labels": [
+              "development"
+            ]
+          }
+        ]
+      },
+      "PR-07": {
+        "name": "documents/field-extractor",
+        "versions": [
+          {
+            "version": 1,
+            "id": "3eb74923-2728-4e16-9a40-0382729d76f3",
+            "labels": []
+          },
+          {
+            "version": 2,
+            "id": "3c54a904-a113-47a2-8eab-68b5754a862f",
+            "labels": []
+          },
+          {
+            "version": 3,
+            "id": "727918ba-6ed5-41ce-8eba-4e44deab5bab",
+            "labels": []
+          },
+          {
+            "version": 4,
+            "id": "72ac074a-7ba2-446f-bbfd-9717d5a64f5c",
+            "labels": []
+          },
+          {
+            "version": 5,
+            "id": "bf7e32ec-9ad9-4484-9059-7023e06468f8",
+            "labels": []
+          },
+          {
+            "version": 6,
+            "id": "e2257a55-5a5b-4c73-af9f-4f96f9c7b810",
+            "labels": []
+          },
+          {
+            "version": 7,
+            "id": "5c2f7cf3-cd8f-4b60-bbe1-71763548733f",
+            "labels": [
+              "production"
+            ]
+          },
+          {
+            "version": 8,
+            "id": "4398f870-801b-4090-ab16-3ef86ecb6e44",
+            "labels": [
+              "development"
+            ]
+          }
+        ]
+      },
+      "PR-08": {
+        "name": "communications/message-drafter",
+        "versions": [
+          {
+            "version": 1,
+            "id": "d2149c86-7696-4c76-bdf1-24eb2319b11b",
+            "labels": []
+          },
+          {
+            "version": 2,
+            "id": "ae6ab159-6dbf-4a91-90a8-cd821b0bb2fb",
+            "labels": []
+          },
+          {
+            "version": 3,
+            "id": "e68869b1-26d9-4a24-a769-bece0eb632a4",
+            "labels": []
+          },
+          {
+            "version": 4,
+            "id": "5a587232-381b-4a7d-8d9d-6d2a34f53109",
+            "labels": []
+          },
+          {
+            "version": 5,
+            "id": "d48ff761-ed3e-4cbb-b43b-b2d95f0d631a",
+            "labels": []
+          },
+          {
+            "version": 6,
+            "id": "a5c6028c-e581-4a37-832f-c2c8b2bfd679",
+            "labels": []
+          },
+          {
+            "version": 7,
+            "id": "32148fbf-26c8-4bc7-bf09-402824d73baa",
+            "labels": [
+              "production"
+            ]
+          },
+          {
+            "version": 8,
+            "id": "a9e24fd2-8322-4308-9334-45138a5fc539",
+            "labels": [
+              "development"
+            ]
+          }
+        ]
+      },
+      "PR-09": {
+        "name": "service/handoff-note",
+        "versions": [
+          {
+            "version": 1,
+            "id": "b40b090e-6e41-45ca-ad1e-6e70e8045f1d",
+            "labels": []
+          },
+          {
+            "version": 2,
+            "id": "10025b76-38e3-486f-8155-e7f00af99612",
+            "labels": []
+          },
+          {
+            "version": 3,
+            "id": "bb1f2ac7-647f-446a-88c9-9c98e2d7071f",
+            "labels": []
+          },
+          {
+            "version": 4,
+            "id": "283a5391-e3dd-4d0e-b2d5-07b3bce01c13",
+            "labels": []
+          },
+          {
+            "version": 5,
+            "id": "bd8efe93-e6c1-44eb-9aa5-14475faf6843",
+            "labels": []
+          },
+          {
+            "version": 6,
+            "id": "2e7b6d61-550c-4463-80ef-5be1f5229fab",
+            "labels": []
+          },
+          {
+            "version": 7,
+            "id": "77b0bfa3-af12-4969-9c21-76f8ec79204f",
+            "labels": [
+              "production"
+            ]
+          },
+          {
+            "version": 8,
+            "id": "3f71aaab-8f37-413f-a1e5-fa07261a36ed",
+            "labels": [
+              "development"
+            ]
+          }
+        ]
+      }
+    },
+    "datasets": {
+      "DS-01": {
+        "id": "cmv0gillv07xnad0e8trf9jg5",
+        "name": "prompt/DS-01-products-explainer",
+        "version": "2026-10-09T04:20:05.436Z",
+        "itemCount": 8
+      },
+      "DS-02": {
+        "id": "cmv0ginqq07f3ad0e8zg41454",
+        "name": "prompt/DS-02-fees-explainer",
+        "version": "2026-10-09T04:20:07.428Z",
+        "itemCount": 3
+      },
+      "DS-03": {
+        "id": "cmv0gip7t07fbad0eyltlkguq",
+        "name": "prompt/DS-03-applications-guide",
+        "version": "2026-10-09T04:20:09.332Z",
+        "itemCount": 3
+      },
+      "DS-04": {
+        "id": "cmv0giqpn076sad0n3jf2mt8o",
+        "name": "prompt/DS-04-service-intent",
+        "version": "2026-10-09T04:20:11.244Z",
+        "itemCount": 3
+      },
+      "DS-05": {
+        "id": "cmv0giskd0771ad0n5wtwlvwk",
+        "name": "prompt/DS-05-service-query-rewrite",
+        "version": "2026-10-09T04:20:13.650Z",
+        "itemCount": 3
+      },
+      "DS-06": {
+        "id": "cmv0giu4a07fmad0eeismnq90",
+        "name": "prompt/DS-06-service-conversation-summary",
+        "version": "2026-10-09T04:20:15.724Z",
+        "itemCount": 3
+      },
+      "DS-07": {
+        "id": "cmv0givnz07o2ad0jcspv31bu",
+        "name": "prompt/DS-07-documents-field-extractor",
+        "version": "2026-10-09T04:20:17.653Z",
+        "itemCount": 3
+      },
+      "DS-08": {
+        "id": "cmv0gix4207o6ad0jhupeaugk",
+        "name": "prompt/DS-08-communications-message-drafter",
+        "version": "2026-10-09T04:20:19.569Z",
+        "itemCount": 3
+      },
+      "DS-09": {
+        "id": "cmv0giywq082zad0ki8yth6r8",
+        "name": "prompt/DS-09-service-handoff-note",
+        "version": "2026-10-09T04:20:21.890Z",
+        "itemCount": 3
+      }
+    },
+    "evaluators": {
+      "E-01": {
+        "id": "cmv0gh9w707iaad0e8e13tnp4",
+        "version": 1,
+        "version_id": "cmv0gh9w707icad0e3d5nozxv",
+        "name": "dark_side_delivery"
+      },
+      "E-02": {
+        "id": "cmv0ghc7v08x0ad0kxgy6x94a",
+        "version": 1,
+        "version_id": "cmv0ghc7v08x2ad0kn9fhmm9s",
+        "name": "record_fidelity"
+      },
+      "E-03": {
+        "id": "cmv0ghe2y07x1ad0hfpzemv6b",
+        "version": 1,
+        "version_id": "cmv0ghe2y07x3ad0hb9ky92in",
+        "name": "claim_support"
+      },
+      "E-04": {
+        "id": "cmv0ghfor07eoad0ega8aymhq",
+        "version": 1,
+        "version_id": "cmv0ghfos07eqad0etwts0dzz",
+        "name": "respectful_tone"
+      },
+      "E-05": {
+        "id": "cmv0ghh9i08ixad0eh2z13wn1",
+        "version": 1,
+        "version_id": "cmv0ghh9j08izad0esi67f7ab",
+        "name": "user_contradiction"
+      },
+      "E-06": {
+        "id": "cmv0ghiux07ikad0e8wbq2dzm",
+        "version": 1,
+        "version_id": "cmv0ghiux07imad0eatuytvby",
+        "name": "expressed_frustration"
+      },
+      "E-07": {
+        "id": "cmv0ghkig07nhad0jqb6c6h5v",
+        "version": 1,
+        "version_id": "cmv0ghkig07njad0jz5pamsrv",
+        "name": "user_profanity"
+      },
+      "E-08": {
+        "id": "cmv0ghm1v07x8ad0eitgm9k54",
+        "version": 1,
+        "version_id": "cmv0ghm1v07xaad0ewmbup5vs",
+        "name": "user_disagreement"
+      },
+      "E-10": {
+        "id": "cmv0gho3z081wad0k980rvaoj",
+        "version": 1,
+        "version_id": "cmv0gho3z081yad0kz7zbwjgh",
+        "name": "query_constraints_preserved"
+      },
+      "E-11": {
+        "id": "cmv0ghpqn0821ad0kb42t2cqq",
+        "version": 1,
+        "version_id": "cmv0ghpqn0823ad0k4dh7nhu5",
+        "name": "handoff_fidelity"
+      }
+    },
+    "evaluatorRules": {
+      "E-01": {
+        "id": "cmv0gha5g08wvad0kp1tbdhaz",
+        "enabled": true
+      },
+      "E-02": {
+        "id": "cmv0ghcft07wwad0hac1t1436",
+        "enabled": true
+      },
+      "E-03": {
+        "id": "cmv0ghea608x5ad0k255e4fss",
+        "enabled": true
+      },
+      "E-04": {
+        "id": "cmv0ghfwc07x6ad0h5ct5kekw",
+        "enabled": true
+      },
+      "E-05": {
+        "id": "cmv0ghhh907ifad0eagiv1li1",
+        "enabled": true
+      },
+      "E-06": {
+        "id": "cmv0ghj2y08gdad0e6mwmolw6",
+        "enabled": true
+      },
+      "E-07": {
+        "id": "cmv0ghkq807x3ad0ekgabum0e",
+        "enabled": true
+      },
+      "E-08": {
+        "id": "cmv0ghm9p07xdad0e29nh6poy",
+        "enabled": true
+      },
+      "E-10": {
+        "id": "cmv0ghobz08xaad0k2gnxtr4y",
+        "enabled": true
+      },
+      "E-11": {
+        "id": "cmv0ghq15076cad0ngtwimi1g",
+        "enabled": true
+      }
+    },
+    "scoreConfigs": {
+      "E-01": {
+        "id": "009d0967-ce63-4909-ae8b-ab437b99a1bf",
+        "name": "dark_side_delivery"
+      },
+      "E-02": {
+        "id": "0b4ac639-0bc1-40e4-b9c5-757a2826a5b8",
+        "name": "record_fidelity"
+      },
+      "E-03": {
+        "id": "2502d2e9-770a-4bc6-a555-1e9f044a123a",
+        "name": "claim_support"
+      },
+      "E-04": {
+        "id": "d540b2ba-c282-47cb-aa25-1190cabcb100",
+        "name": "respectful_tone"
+      },
+      "E-05": {
+        "id": "ffd70567-c317-4d2f-b495-90e59ef1a6e1",
+        "name": "user_contradiction"
+      },
+      "E-06": {
+        "id": "76c9e734-b9cb-486b-bc81-35822ef86f5f",
+        "name": "expressed_frustration"
+      },
+      "E-07": {
+        "id": "d17233af-bde1-4b86-aebd-5a82a433c182",
+        "name": "user_profanity"
+      },
+      "E-08": {
+        "id": "4bf862f5-be84-4f27-b3f6-a8b337787ba0",
+        "name": "user_disagreement"
+      },
+      "E-09": {
+        "id": "db652efe-96c0-4f12-93fe-310b98fe7ca3",
+        "name": "intent_correct"
+      },
+      "E-10": {
+        "id": "d38fea6b-7d5d-402e-bf4e-1c0ae031758b",
+        "name": "query_constraints_preserved"
+      },
+      "E-11": {
+        "id": "6a03db0d-e487-4d4d-9d83-8e33a5026799",
+        "name": "handoff_fidelity"
+      },
+      "E-12": {
+        "id": "e9e9d46a-057e-4ef5-abdf-dd569e989749",
+        "name": "extraction_match"
+      }
+    },
+    "models": {
+      "demo-compact-v1": {
+        "id": "cmv0giiu607etad0e9bsq29kf",
+        "input_per_million": 0.4,
+        "output_per_million": 1.6
+      },
+      "demo-standard-v1": {
+        "id": "cmv0giizc07ipad0ei19mchew",
+        "input_per_million": 1.0,
+        "output_per_million": 4.0
+      },
+      "demo-reasoning-v1": {
+        "id": "cmv0gij460826ad0kppa3kr9i",
+        "input_per_million": 2.0,
+        "output_per_million": 8.0
+      }
+    },
+    "manualPrerequisites": [
+      "Native protected production label and member/admin role enforcement require target UI verification."
+    ],
+    "missing": []
+  },
+  "historicalExperiments": [
+    {
+      "prompt_id": "PR-01",
+      "version": 2,
+      "case_id": "C-01",
+      "trace_id": "7cd344769aee3fcd2d7926b442f9e9aa",
+      "observation_id": "aa2776459ebc7d10",
+      "run_name": "authored-history-PR-01-v2-r1",
+      "experiment_id": "07db4cbe2173693b5decf64d58d5f2d1",
+      "dataset_name": "prompt/DS-01-products-explainer",
+      "dataset_id": "cmv0gillv07xnad0e8trf9jg5",
+      "dataset_item_id": "57cdcee9-f861-4734-8795-fca942eaf76e",
+      "dataset_version": "2026-10-09T04:20:05.436Z"
+    },
+    {
+      "prompt_id": "PR-01",
+      "version": 4,
+      "case_id": "C-01",
+      "trace_id": "7e1bae54dd8a7d30954bd16fba78fafa",
+      "observation_id": "ce6f6a204c65a93f",
+      "run_name": "authored-history-PR-01-v4-r1",
+      "experiment_id": "b4c0e34679af6c6481f0fca703ad7e71",
+      "dataset_name": "prompt/DS-01-products-explainer",
+      "dataset_id": "cmv0gillv07xnad0e8trf9jg5",
+      "dataset_item_id": "57cdcee9-f861-4734-8795-fca942eaf76e",
+      "dataset_version": "2026-10-09T04:20:05.436Z"
+    },
+    {
+      "prompt_id": "PR-02",
+      "version": 2,
+      "case_id": "PC-02",
+      "trace_id": "895eec3555f385718a5f855d1479af63",
+      "observation_id": "9a26c72618e66b92",
+      "run_name": "authored-history-PR-02-v2-r1",
+      "experiment_id": "ec4a3afe068ec6ff75a955c9561b7f81",
+      "dataset_name": "prompt/DS-02-fees-explainer",
+      "dataset_id": "cmv0ginqq07f3ad0e8zg41454",
+      "dataset_item_id": "4131549a-7bf5-47dc-a1c5-c9265f8696d0",
+      "dataset_version": "2026-10-09T04:20:07.428Z"
+    },
+    {
+      "prompt_id": "PR-02",
+      "version": 4,
+      "case_id": "PC-02",
+      "trace_id": "52fee624a2332a9ca89ac4162d2d562b",
+      "observation_id": "cd36b9d5216b896c",
+      "run_name": "authored-history-PR-02-v4-r1",
+      "experiment_id": "479a114707309969eca85cf05fa73ea4",
+      "dataset_name": "prompt/DS-02-fees-explainer",
+      "dataset_id": "cmv0ginqq07f3ad0e8zg41454",
+      "dataset_item_id": "4131549a-7bf5-47dc-a1c5-c9265f8696d0",
+      "dataset_version": "2026-10-09T04:20:07.428Z"
+    },
+    {
+      "prompt_id": "PR-03",
+      "version": 2,
+      "case_id": "PC-03",
+      "trace_id": "c35982e5723584600c034e7739cd64f7",
+      "observation_id": "f8c53c6d290bad88",
+      "run_name": "authored-history-PR-03-v2-r1",
+      "experiment_id": "e7c4b3d9afe0ed222db20dcecdf2b013",
+      "dataset_name": "prompt/DS-03-applications-guide",
+      "dataset_id": "cmv0gip7t07fbad0eyltlkguq",
+      "dataset_item_id": "f601927a-22ff-4c47-94fe-a81f61bbf294",
+      "dataset_version": "2026-10-09T04:20:09.332Z"
+    },
+    {
+      "prompt_id": "PR-03",
+      "version": 4,
+      "case_id": "PC-03",
+      "trace_id": "bfb0cb329a5cf87fe968d8c8bd28c64f",
+      "observation_id": "9a633f856a67f31c",
+      "run_name": "authored-history-PR-03-v4-r1",
+      "experiment_id": "3c8cbb9de4f64deaf5bcbff2ddd39dec",
+      "dataset_name": "prompt/DS-03-applications-guide",
+      "dataset_id": "cmv0gip7t07fbad0eyltlkguq",
+      "dataset_item_id": "f601927a-22ff-4c47-94fe-a81f61bbf294",
+      "dataset_version": "2026-10-09T04:20:09.332Z"
+    },
+    {
+      "prompt_id": "PR-04",
+      "version": 2,
+      "case_id": "PC-04",
+      "trace_id": "ac1585c517eb7aeda429bf77ecddde19",
+      "observation_id": "c3e51d3a24927dc8",
+      "run_name": "authored-history-PR-04-v2-r1",
+      "experiment_id": "0bcc2be0b06ef6b5b3bd6469d45874e8",
+      "dataset_name": "prompt/DS-04-service-intent",
+      "dataset_id": "cmv0giqpn076sad0n3jf2mt8o",
+      "dataset_item_id": "6434a774-7dc8-4a54-9ae9-f7450bad51cd",
+      "dataset_version": "2026-10-09T04:20:11.244Z"
+    },
+    {
+      "prompt_id": "PR-04",
+      "version": 4,
+      "case_id": "PC-04",
+      "trace_id": "0dbaa1b9cd4e50798ac901479b2c5806",
+      "observation_id": "27822b14df996cba",
+      "run_name": "authored-history-PR-04-v4-r1",
+      "experiment_id": "efd48118297a37cf963e2c3b10534e56",
+      "dataset_name": "prompt/DS-04-service-intent",
+      "dataset_id": "cmv0giqpn076sad0n3jf2mt8o",
+      "dataset_item_id": "6434a774-7dc8-4a54-9ae9-f7450bad51cd",
+      "dataset_version": "2026-10-09T04:20:11.244Z"
+    },
+    {
+      "prompt_id": "PR-05",
+      "version": 2,
+      "case_id": "PC-05",
+      "trace_id": "84e65c219f692c04b3491a17de0d92e2",
+      "observation_id": "8db1ccd81aaddc4a",
+      "run_name": "authored-history-PR-05-v2-r1",
+      "experiment_id": "adee931cabdcbc29d8e500177205d51c",
+      "dataset_name": "prompt/DS-05-service-query-rewrite",
+      "dataset_id": "cmv0giskd0771ad0n5wtwlvwk",
+      "dataset_item_id": "5b193112-dc9f-45bb-a439-616a0f970e90",
+      "dataset_version": "2026-10-09T04:20:13.650Z"
+    },
+    {
+      "prompt_id": "PR-05",
+      "version": 4,
+      "case_id": "PC-05",
+      "trace_id": "e34216948bfda7f6494c4688a0ac04dd",
+      "observation_id": "1a4ea37b8739f699",
+      "run_name": "authored-history-PR-05-v4-r1",
+      "experiment_id": "1c061a1581ee7e5445f845ed5ae6722d",
+      "dataset_name": "prompt/DS-05-service-query-rewrite",
+      "dataset_id": "cmv0giskd0771ad0n5wtwlvwk",
+      "dataset_item_id": "5b193112-dc9f-45bb-a439-616a0f970e90",
+      "dataset_version": "2026-10-09T04:20:13.650Z"
+    },
+    {
+      "prompt_id": "PR-06",
+      "version": 2,
+      "case_id": "PC-06",
+      "trace_id": "04d64a4c4f548f950dfeb4511118dfa0",
+      "observation_id": "444fc1ea370a248e",
+      "run_name": "authored-history-PR-06-v2-r1",
+      "experiment_id": "93bfee6ec84d1f2bd717a7ce73b4e317",
+      "dataset_name": "prompt/DS-06-service-conversation-summary",
+      "dataset_id": "cmv0giu4a07fmad0eeismnq90",
+      "dataset_item_id": "616d7197-0c80-402c-bc3e-e66cab712090",
+      "dataset_version": "2026-10-09T04:20:15.724Z"
+    },
+    {
+      "prompt_id": "PR-06",
+      "version": 4,
+      "case_id": "PC-06",
+      "trace_id": "1a21e409b8f0b17268a96a0eabe31a0d",
+      "observation_id": "e8803803f85af01e",
+      "run_name": "authored-history-PR-06-v4-r1",
+      "experiment_id": "7bcafefc3c9e542a373279ae4231e0b9",
+      "dataset_name": "prompt/DS-06-service-conversation-summary",
+      "dataset_id": "cmv0giu4a07fmad0eeismnq90",
+      "dataset_item_id": "616d7197-0c80-402c-bc3e-e66cab712090",
+      "dataset_version": "2026-10-09T04:20:15.724Z"
+    },
+    {
+      "prompt_id": "PR-07",
+      "version": 2,
+      "case_id": "PC-07",
+      "trace_id": "017c3d8a237ce0959f282fec3ee4343a",
+      "observation_id": "b6a75efb71425e8c",
+      "run_name": "authored-history-PR-07-v2-r1",
+      "experiment_id": "b0be11fe858c1851026791dba0a046e6",
+      "dataset_name": "prompt/DS-07-documents-field-extractor",
+      "dataset_id": "cmv0givnz07o2ad0jcspv31bu",
+      "dataset_item_id": "d734a339-5d77-4383-a83d-2b8a90ea4c5c",
+      "dataset_version": "2026-10-09T04:20:17.653Z"
+    },
+    {
+      "prompt_id": "PR-07",
+      "version": 4,
+      "case_id": "PC-07",
+      "trace_id": "6ab0e3a3ab1e8fe5865c94c70512c37c",
+      "observation_id": "00131d2c503eeedb",
+      "run_name": "authored-history-PR-07-v4-r1",
+      "experiment_id": "8bd4465cd1551187ac67b8c1b9b39f3f",
+      "dataset_name": "prompt/DS-07-documents-field-extractor",
+      "dataset_id": "cmv0givnz07o2ad0jcspv31bu",
+      "dataset_item_id": "d734a339-5d77-4383-a83d-2b8a90ea4c5c",
+      "dataset_version": "2026-10-09T04:20:17.653Z"
+    },
+    {
+      "prompt_id": "PR-08",
+      "version": 2,
+      "case_id": "PC-08",
+      "trace_id": "99318c3215e67652162393e473a6eb39",
+      "observation_id": "29ab2a1b0a53b202",
+      "run_name": "authored-history-PR-08-v2-r1",
+      "experiment_id": "d35b02e00b09c611f1be06b8455cc670",
+      "dataset_name": "prompt/DS-08-communications-message-drafter",
+      "dataset_id": "cmv0gix4207o6ad0jhupeaugk",
+      "dataset_item_id": "2b41f093-d86f-4d6f-b8f3-d214dd20af76",
+      "dataset_version": "2026-10-09T04:20:19.569Z"
+    },
+    {
+      "prompt_id": "PR-08",
+      "version": 4,
+      "case_id": "PC-08",
+      "trace_id": "3b5eb3a9575e486a03981e9c97a604d8",
+      "observation_id": "039aa9e8c7e777c2",
+      "run_name": "authored-history-PR-08-v4-r1",
+      "experiment_id": "d558e18ef8044b36ae8c68737f3db14e",
+      "dataset_name": "prompt/DS-08-communications-message-drafter",
+      "dataset_id": "cmv0gix4207o6ad0jhupeaugk",
+      "dataset_item_id": "2b41f093-d86f-4d6f-b8f3-d214dd20af76",
+      "dataset_version": "2026-10-09T04:20:19.569Z"
+    },
+    {
+      "prompt_id": "PR-09",
+      "version": 2,
+      "case_id": "PC-09",
+      "trace_id": "ec126a997e9c10ecdebd7271aa83cf16",
+      "observation_id": "202819ee5a166aec",
+      "run_name": "authored-history-PR-09-v2-r1",
+      "experiment_id": "03b3807b2d1d54b39f1ab536e338f70d",
+      "dataset_name": "prompt/DS-09-service-handoff-note",
+      "dataset_id": "cmv0giywq082zad0ki8yth6r8",
+      "dataset_item_id": "721d9262-4f67-4f6b-98b8-183ad2a9f8ca",
+      "dataset_version": "2026-10-09T04:20:21.890Z"
+    },
+    {
+      "prompt_id": "PR-09",
+      "version": 4,
+      "case_id": "PC-09",
+      "trace_id": "881285a324bd2ffff4b4bd51144b01e4",
+      "observation_id": "6d7c449c41f64751",
+      "run_name": "authored-history-PR-09-v4-r1",
+      "experiment_id": "29fe6897126f58033b5af8c6f5f5db39",
+      "dataset_name": "prompt/DS-09-service-handoff-note",
+      "dataset_id": "cmv0giywq082zad0ki8yth6r8",
+      "dataset_item_id": "721d9262-4f67-4f6b-98b8-183ad2a9f8ca",
+      "dataset_version": "2026-10-09T04:20:21.890Z"
+    }
+  ],
+  "representativeTraces": [
+    {
+      "traceId": "6cadcc31981bb1d4a4717e6a7cbcf3be",
+      "traceUrl": "https://cloud.langfuse.com/project/cmv0gc1710815ad0k7nnnd6v5/traces/6cadcc31981bb1d4a4717e6a7cbcf3be",
+      "observationIds": [
+        "3d7d0a6d3b027411",
+        "3a1fde82155491f7",
+        "8875e36b4faa7cf5"
+      ],
+      "scoreIds": [
+        "d4e2186d18517a503d1b4e7c",
+        "2c4cee3388ad8d2628265d93",
+        "2d6d45fdc5aa289e7322ace0",
+        "201f37d55d1924ac9026a897",
+        "7c6a6d905bf089a2ce4d182c",
+        "4bd77972bb7328492cac730c",
+        "47ef465e76eeb5d6a93b529b",
+        "b3c27cc38f2d7507afb01271"
+      ],
+      "categoricalScores": [
+        {
+          "id": "2c4cee3388ad8d2628265d93",
+          "name": "record_fidelity",
+          "value": "Pass",
+          "observationId": "8875e36b4faa7cf5",
+          "dataType": "CATEGORICAL"
+        },
+        {
+          "id": "2d6d45fdc5aa289e7322ace0",
+          "name": "claim_support",
+          "value": "Pass",
+          "observationId": "8875e36b4faa7cf5",
+          "dataType": "CATEGORICAL"
+        }
+      ]
+    },
+    {
+      "traceId": "8eca014d25c921b8fd2df766a56e892c",
+      "traceUrl": "https://cloud.langfuse.com/project/cmv0gc1710815ad0k7nnnd6v5/traces/8eca014d25c921b8fd2df766a56e892c",
+      "observationIds": [
+        "966903917fbef9e8",
+        "c6b2c6b9356ac0d4",
+        "88f9c5e231dea4b3"
+      ],
+      "scoreIds": [
+        "edbfd7904fec10daa32612a4",
+        "e1b1fa2bcd6e8209daeec04a",
+        "89b5b22054a69413684f640f",
+        "369e0d1e5308f95ee4ad41cb",
+        "1b095a0580fc5b38ce5ceb3b",
+        "576750eb5a8c6332ceaa8d31",
+        "58207760fd9b84bb016bc911",
+        "a14b0c17f9d287d2c601f4e9"
+      ],
+      "categoricalScores": [
+        {
+          "id": "e1b1fa2bcd6e8209daeec04a",
+          "name": "record_fidelity",
+          "value": "Pass",
+          "observationId": "88f9c5e231dea4b3",
+          "dataType": "CATEGORICAL"
+        },
+        {
+          "id": "89b5b22054a69413684f640f",
+          "name": "claim_support",
+          "value": "Pass",
+          "observationId": "88f9c5e231dea4b3",
+          "dataType": "CATEGORICAL"
+        }
+      ]
+    },
+    {
+      "traceId": "08bd9400173e1c28e892255707bd5ef9",
+      "traceUrl": "https://cloud.langfuse.com/project/cmv0gc1710815ad0k7nnnd6v5/traces/08bd9400173e1c28e892255707bd5ef9",
+      "observationIds": [
+        "d67c6748043da4a3",
+        "7a7770bc22f88c27",
+        "e8d5053f1dda06e7"
+      ],
+      "scoreIds": [
+        "95b71f4114f24c885c5639d3",
+        "ebf49be00fab15287841fb24",
+        "35845f6fe0b47b8d997e38de",
+        "f999abbb6c7f2a85298b0c9f",
+        "c74a398035328be10715b1d0",
+        "bdecd8a14080e83862a9256d",
+        "4bb78bf250dbba60e49916a4",
+        "0b629417d074089be073a009"
+      ],
+      "categoricalScores": [
+        {
+          "id": "ebf49be00fab15287841fb24",
+          "name": "record_fidelity",
+          "value": "Pass",
+          "observationId": "e8d5053f1dda06e7",
+          "dataType": "CATEGORICAL"
+        },
+        {
+          "id": "35845f6fe0b47b8d997e38de",
+          "name": "claim_support",
+          "value": "Pass",
+          "observationId": "e8d5053f1dda06e7",
+          "dataType": "CATEGORICAL"
+        }
+      ]
+    },
+    {
+      "traceId": "91f9306952345f25e5622491d574969c",
+      "traceUrl": "https://cloud.langfuse.com/project/cmv0gc1710815ad0k7nnnd6v5/traces/91f9306952345f25e5622491d574969c",
+      "observationIds": [
+        "a5d3d0a5b0cf3861",
+        "ca26a913d259a8c4",
+        "72fbbd0503fff5e7",
+        "0d5499da2060f2e6"
+      ],
+      "scoreIds": [
+        "0ffb93f40cb4830bf3664149",
+        "6c65a1fdd264f3ef8a414e60",
+        "df5ab38492c9e7357da3da00",
+        "ca0a2b6ef12173fbb859e13e",
+        "822509f90cd03718148c78a9",
+        "0416f06b2e68258d0874d3dd",
+        "0f4399b14dd460159d859d74"
+      ],
+      "categoricalScores": [
+        {
+          "id": "0ffb93f40cb4830bf3664149",
+          "name": "record_fidelity",
+          "value": "Pass",
+          "observationId": "0d5499da2060f2e6",
+          "dataType": "CATEGORICAL"
+        },
+        {
+          "id": "6c65a1fdd264f3ef8a414e60",
+          "name": "claim_support",
+          "value": "Pass",
+          "observationId": "0d5499da2060f2e6",
+          "dataType": "CATEGORICAL"
+        }
+      ]
+    },
+    {
+      "traceId": "b77a192ce695d48ef9dbfad26748d999",
+      "traceUrl": "https://cloud.langfuse.com/project/cmv0gc1710815ad0k7nnnd6v5/traces/b77a192ce695d48ef9dbfad26748d999",
+      "observationIds": [
+        "648841c0fd97b622",
+        "391776e831ec988c",
+        "2f679640d143e9c9",
+        "0a602e8cd8ee6755"
+      ],
+      "scoreIds": [
+        "b8be7578705184277def92b5",
+        "9a4fb63539f2cb7fa431216a",
+        "b97861f0d35dfdb81e8010b3",
+        "3dbea914d74c4571f5906871",
+        "99ab8add8a720d11dc3b199c",
+        "3c7e0a480a369ec0201d96b1",
+        "18d9f2ab30afb709dcb943f4"
+      ],
+      "categoricalScores": [
+        {
+          "id": "b8be7578705184277def92b5",
+          "name": "record_fidelity",
+          "value": "Pass",
+          "observationId": "0a602e8cd8ee6755",
+          "dataType": "CATEGORICAL"
+        },
+        {
+          "id": "9a4fb63539f2cb7fa431216a",
+          "name": "claim_support",
+          "value": "Pass",
+          "observationId": "0a602e8cd8ee6755",
+          "dataType": "CATEGORICAL"
+        }
+      ]
+    },
+    {
+      "traceId": "25dcf7730461fd437e157d64335cfaa2",
+      "traceUrl": "https://cloud.langfuse.com/project/cmv0gc1710815ad0k7nnnd6v5/traces/25dcf7730461fd437e157d64335cfaa2",
+      "observationIds": [
+        "4a8e86b45fbe0247",
+        "740ba026cae4a2a0",
+        "ac43738a64abb7cf",
+        "c4c59f5e705fc3a0"
+      ],
+      "scoreIds": [
+        "3bd63a371bfacee151bcee27",
+        "acbf01a4adb5de5377b1ddcb",
+        "88fe535f5ac22c1bf6a81e20",
+        "653335724d26e987a974a474",
+        "776fbc9f17399f3f0f24de71",
+        "4709f5198c4c5d1ffbf3a4b9",
+        "37a55cfea98e777d3c34c442"
+      ],
+      "categoricalScores": [
+        {
+          "id": "3bd63a371bfacee151bcee27",
+          "name": "record_fidelity",
+          "value": "Pass",
+          "observationId": "c4c59f5e705fc3a0",
+          "dataType": "CATEGORICAL"
+        },
+        {
+          "id": "acbf01a4adb5de5377b1ddcb",
+          "name": "claim_support",
+          "value": "Pass",
+          "observationId": "c4c59f5e705fc3a0",
+          "dataType": "CATEGORICAL"
+        }
+      ]
+    },
+    {
+      "traceId": "5ace5e4d5a21f7c76c288bf661fea926",
+      "traceUrl": "https://cloud.langfuse.com/project/cmv0gc1710815ad0k7nnnd6v5/traces/5ace5e4d5a21f7c76c288bf661fea926",
+      "observationIds": [
+        "a42b283abb314b14",
+        "7c118165999918c3",
+        "0284bd642f2bde67"
+      ],
+      "scoreIds": [
+        "d6628834b6257ffd02b92bba",
+        "7df64e71cc757828ab0f14d5",
+        "0711e5428c0085eb265830cc",
+        "cab8b870c78ebb8826c9f116",
+        "7c5cb4228d0cbc7e08673f75",
+        "2bc6ba5deb8514e9973c5cc5",
+        "22bbebd55e374b1887cdef6f"
+      ],
+      "categoricalScores": [
+        {
+          "id": "d6628834b6257ffd02b92bba",
+          "name": "record_fidelity",
+          "value": "Pass",
+          "observationId": "0284bd642f2bde67",
+          "dataType": "CATEGORICAL"
+        },
+        {
+          "id": "7df64e71cc757828ab0f14d5",
+          "name": "claim_support",
+          "value": "Pass",
+          "observationId": "0284bd642f2bde67",
+          "dataType": "CATEGORICAL"
+        }
+      ]
+    },
+    {
+      "traceId": "1e83b987c421a05ff69005383bc5d7f4",
+      "traceUrl": "https://cloud.langfuse.com/project/cmv0gc1710815ad0k7nnnd6v5/traces/1e83b987c421a05ff69005383bc5d7f4",
+      "observationIds": [
+        "6922ce4e198f1402",
+        "53b70c78135b7767",
+        "ad087df9972d9968"
+      ],
+      "scoreIds": [
+        "4fec9e8d19396d6b9ed4f3d6",
+        "8c4dad8decbf2c365f19d530",
+        "37b9e952ba7b57965edfb7ff",
+        "d67aa4f0ed6d7a7a59ea86df",
+        "ded3b18b7f497defa89fbd4b",
+        "680df77ecb514e25b7f1ba60",
+        "bf1678ad84d962674f202f1a"
+      ],
+      "categoricalScores": [
+        {
+          "id": "4fec9e8d19396d6b9ed4f3d6",
+          "name": "record_fidelity",
+          "value": "Pass",
+          "observationId": "ad087df9972d9968",
+          "dataType": "CATEGORICAL"
+        },
+        {
+          "id": "8c4dad8decbf2c365f19d530",
+          "name": "claim_support",
+          "value": "Pass",
+          "observationId": "ad087df9972d9968",
+          "dataType": "CATEGORICAL"
+        }
+      ]
+    },
+    {
+      "traceId": "00643e1a94d7ab5431e770555ac8de86",
+      "traceUrl": "https://cloud.langfuse.com/project/cmv0gc1710815ad0k7nnnd6v5/traces/00643e1a94d7ab5431e770555ac8de86",
+      "observationIds": [
+        "33e181fc9d7695c9",
+        "7214fa4eda2c97a5",
+        "c6c7ff4b2dbf9772",
+        "f3b935df5d0fb273",
+        "52ea9a60637679dd"
+      ],
+      "scoreIds": [
+        "e873cb4946d40aaa30cc7298",
+        "6bb28ce8b5f7017da6666e92",
+        "5c4c9dd826310b7ed006777f"
+      ],
+      "categoricalScores": []
+    },
+    {
+      "traceId": "909a585029ea05053d27f6d0886844bc",
+      "traceUrl": "https://cloud.langfuse.com/project/cmv0gc1710815ad0k7nnnd6v5/traces/909a585029ea05053d27f6d0886844bc",
+      "observationIds": [
+        "8e0d8ffca1b83ee7",
+        "edc468f0c5326fb9",
+        "8b25f222ec7d2b8a",
+        "3e1868b2121aafcc",
+        "845cb21bc5168703"
+      ],
+      "scoreIds": [
+        "47ab97dd58624db0e816a8d4",
+        "1f0879d086cab5ccaf5f7a2b",
+        "c46429bccab2f97129a6911d"
+      ],
+      "categoricalScores": []
+    },
+    {
+      "traceId": "53f5bcac9821a2b73c384f827a2f3675",
+      "traceUrl": "https://cloud.langfuse.com/project/cmv0gc1710815ad0k7nnnd6v5/traces/53f5bcac9821a2b73c384f827a2f3675",
+      "observationIds": [
+        "c9ab87f12c77ff46",
+        "1bc50e3709741ac6",
+        "2077f75288b99775",
+        "bef20fc88dabc907",
+        "dab4a407f75970d0"
+      ],
+      "scoreIds": [
+        "85d5bbcd7f6ecbffb80efe23",
+        "94e8bf3d3804f9679deed988",
+        "3d8f6909f36f9b1847211da4"
+      ],
+      "categoricalScores": []
+    },
+    {
+      "traceId": "d5df9b552aa3ded5c16393fe8410d1c9",
+      "traceUrl": "https://cloud.langfuse.com/project/cmv0gc1710815ad0k7nnnd6v5/traces/d5df9b552aa3ded5c16393fe8410d1c9",
+      "observationIds": [
+        "221ffa003ba6d77f",
+        "2968bd5629dcb011",
+        "90fb5581516b14c8",
+        "3f271a72d6893c08",
+        "369f94e80737ca94"
+      ],
+      "scoreIds": [
+        "e3663192e37b3eb626c70df0",
+        "46bfac8624aa353ebd104914",
+        "16413a97323ce0a946c68280"
+      ],
+      "categoricalScores": []
+    },
+    {
+      "traceId": "a3f54824640fd99b8415f071e3b4379a",
+      "traceUrl": "https://cloud.langfuse.com/project/cmv0gc1710815ad0k7nnnd6v5/traces/a3f54824640fd99b8415f071e3b4379a",
+      "observationIds": [
+        "35c0d91b49c51418",
+        "66279f12895a9eec",
+        "eda23abdd5954230",
+        "f36faca3273bd4f8",
+        "2e74d9d2b9fd1dc9"
+      ],
+      "scoreIds": [
+        "04a233a7620e213481362b14",
+        "8dd400d24d9f8cad26485405",
+        "1f90c3dd93e9c5f5eed6a19b"
+      ],
+      "categoricalScores": []
+    },
+    {
+      "traceId": "6a61150c7554c271dbb427e73653ab7e",
+      "traceUrl": "https://cloud.langfuse.com/project/cmv0gc1710815ad0k7nnnd6v5/traces/6a61150c7554c271dbb427e73653ab7e",
+      "observationIds": [
+        "c0d0bce37f8e0ebf",
+        "3fcaff92ee4933af"
+      ],
+      "scoreIds": [
+        "747127dbefeba414bc09e218"
+      ],
+      "categoricalScores": []
+    },
+    {
+      "traceId": "3a7669e6ec10034f0dc347a9a9939ae8",
+      "traceUrl": "https://cloud.langfuse.com/project/cmv0gc1710815ad0k7nnnd6v5/traces/3a7669e6ec10034f0dc347a9a9939ae8",
+      "observationIds": [
+        "2041571c27cd4c3d",
+        "dbd36fb4380e13c6"
+      ],
+      "scoreIds": [
+        "5aec07b1a1db0b79da602046"
+      ],
+      "categoricalScores": []
+    },
+    {
+      "traceId": "51746e5aa2946435b023d2164feb5e08",
+      "traceUrl": "https://cloud.langfuse.com/project/cmv0gc1710815ad0k7nnnd6v5/traces/51746e5aa2946435b023d2164feb5e08",
+      "observationIds": [
+        "01ba972caa5969b1",
+        "1627975b5f8db107"
+      ],
+      "scoreIds": [
+        "21561e5253e4d62301b5e07a"
+      ],
+      "categoricalScores": []
+    },
+    {
+      "traceId": "9f5301d739e26c67786ad9897a2c1833",
+      "traceUrl": "https://cloud.langfuse.com/project/cmv0gc1710815ad0k7nnnd6v5/traces/9f5301d739e26c67786ad9897a2c1833",
+      "observationIds": [
+        "40ee8d0d423a1e4a",
+        "a58cd5c4519a0999"
+      ],
+      "scoreIds": [
+        "1d953dfe1fd7d6925bd713fb"
+      ],
+      "categoricalScores": []
+    },
+    {
+      "traceId": "40d45a5210de317e7f1071f2b3a46171",
+      "traceUrl": "https://cloud.langfuse.com/project/cmv0gc1710815ad0k7nnnd6v5/traces/40d45a5210de317e7f1071f2b3a46171",
+      "observationIds": [
+        "3efaec91a2603e29",
+        "b65044449e9ff8e7"
+      ],
+      "scoreIds": [
+        "0df4c2bf49bc1f0b6df1694d",
+        "6e799a75f9f148b838a76cfa",
+        "da2eb66fce005358933510f9"
+      ],
+      "categoricalScores": [
+        {
+          "id": "0df4c2bf49bc1f0b6df1694d",
+          "name": "record_fidelity",
+          "value": "Pass",
+          "observationId": "b65044449e9ff8e7",
+          "dataType": "CATEGORICAL"
+        },
+        {
+          "id": "6e799a75f9f148b838a76cfa",
+          "name": "claim_support",
+          "value": "Pass",
+          "observationId": "b65044449e9ff8e7",
+          "dataType": "CATEGORICAL"
+        }
+      ]
+    },
+    {
+      "traceId": "688ea1db56a25c005f729736744f0dd6",
+      "traceUrl": "https://cloud.langfuse.com/project/cmv0gc1710815ad0k7nnnd6v5/traces/688ea1db56a25c005f729736744f0dd6",
+      "observationIds": [
+        "6c9d6219dc5f5770",
+        "c960e367484bee40"
+      ],
+      "scoreIds": [
+        "62a6cdd02bc6cdece5d93e35",
+        "a79035c04f24a88422abfc77",
+        "47fcaaa8bbdc552ad54edd3e"
+      ],
+      "categoricalScores": [
+        {
+          "id": "62a6cdd02bc6cdece5d93e35",
+          "name": "record_fidelity",
+          "value": "Pass",
+          "observationId": "c960e367484bee40",
+          "dataType": "CATEGORICAL"
+        },
+        {
+          "id": "a79035c04f24a88422abfc77",
+          "name": "claim_support",
+          "value": "Pass",
+          "observationId": "c960e367484bee40",
+          "dataType": "CATEGORICAL"
+        }
+      ]
+    },
+    {
+      "traceId": "71a7c99804347863fa8305ba2a85edce",
+      "traceUrl": "https://cloud.langfuse.com/project/cmv0gc1710815ad0k7nnnd6v5/traces/71a7c99804347863fa8305ba2a85edce",
+      "observationIds": [
+        "4f3205009c1b0102",
+        "c2ea6c5fa810da4d"
+      ],
+      "scoreIds": [
+        "ca40b40766b875fdf46c0d39",
+        "35d7fc2dea8485819cf22d41",
+        "b71bb8665d8e727caa6d1800"
+      ],
+      "categoricalScores": [
+        {
+          "id": "ca40b40766b875fdf46c0d39",
+          "name": "record_fidelity",
+          "value": "Pass",
+          "observationId": "c2ea6c5fa810da4d",
+          "dataType": "CATEGORICAL"
+        },
+        {
+          "id": "35d7fc2dea8485819cf22d41",
+          "name": "claim_support",
+          "value": "Pass",
+          "observationId": "c2ea6c5fa810da4d",
+          "dataType": "CATEGORICAL"
+        }
+      ]
+    },
+    {
+      "traceId": "7cd344769aee3fcd2d7926b442f9e9aa",
+      "traceUrl": "https://cloud.langfuse.com/project/cmv0gc1710815ad0k7nnnd6v5/traces/7cd344769aee3fcd2d7926b442f9e9aa",
+      "observationIds": [
+        "ef17db0897d2d8d1",
+        "aa2776459ebc7d10"
+      ],
+      "scoreIds": [
+        "083bacb32ee0aee57f6e0547",
+        "b971b6a2c10dc99b8674219b",
+        "e44771d9b9f0e0186da2cba1",
+        "7fb774ed6ed88a561440c9d4"
+      ],
+      "categoricalScores": [
+        {
+          "id": "b971b6a2c10dc99b8674219b",
+          "name": "record_fidelity",
+          "value": "Pass",
+          "observationId": "aa2776459ebc7d10",
+          "dataType": "CATEGORICAL"
+        },
+        {
+          "id": "e44771d9b9f0e0186da2cba1",
+          "name": "claim_support",
+          "value": "Pass",
+          "observationId": "aa2776459ebc7d10",
+          "dataType": "CATEGORICAL"
+        }
+      ]
+    },
+    {
+      "traceId": "7e1bae54dd8a7d30954bd16fba78fafa",
+      "traceUrl": "https://cloud.langfuse.com/project/cmv0gc1710815ad0k7nnnd6v5/traces/7e1bae54dd8a7d30954bd16fba78fafa",
+      "observationIds": [
+        "33da8cbb05d082bc",
+        "ce6f6a204c65a93f"
+      ],
+      "scoreIds": [
+        "0cc3e965e296558bcce722af",
+        "7c263568eeb38c3910e782c1",
+        "75985c0c62216739e34000f8",
+        "c5dce495748def0969d39fae"
+      ],
+      "categoricalScores": [
+        {
+          "id": "7c263568eeb38c3910e782c1",
+          "name": "record_fidelity",
+          "value": "Pass",
+          "observationId": "ce6f6a204c65a93f",
+          "dataType": "CATEGORICAL"
+        },
+        {
+          "id": "75985c0c62216739e34000f8",
+          "name": "claim_support",
+          "value": "Pass",
+          "observationId": "ce6f6a204c65a93f",
+          "dataType": "CATEGORICAL"
+        }
+      ]
+    },
+    {
+      "traceId": "895eec3555f385718a5f855d1479af63",
+      "traceUrl": "https://cloud.langfuse.com/project/cmv0gc1710815ad0k7nnnd6v5/traces/895eec3555f385718a5f855d1479af63",
+      "observationIds": [
+        "4a610622aa2a516a",
+        "9a26c72618e66b92"
+      ],
+      "scoreIds": [
+        "1e2040f3e6854130a8a4f5b3",
+        "b8d634838d685c25d6f78b6b",
+        "3d9508f8e0b3c5e38ad8467a"
+      ],
+      "categoricalScores": [
+        {
+          "id": "1e2040f3e6854130a8a4f5b3",
+          "name": "record_fidelity",
+          "value": "Pass",
+          "observationId": "9a26c72618e66b92",
+          "dataType": "CATEGORICAL"
+        },
+        {
+          "id": "b8d634838d685c25d6f78b6b",
+          "name": "claim_support",
+          "value": "Pass",
+          "observationId": "9a26c72618e66b92",
+          "dataType": "CATEGORICAL"
+        }
+      ]
+    },
+    {
+      "traceId": "52fee624a2332a9ca89ac4162d2d562b",
+      "traceUrl": "https://cloud.langfuse.com/project/cmv0gc1710815ad0k7nnnd6v5/traces/52fee624a2332a9ca89ac4162d2d562b",
+      "observationIds": [
+        "1177a14c104ae805",
+        "cd36b9d5216b896c"
+      ],
+      "scoreIds": [
+        "64ef3667e93570f608a4d91f",
+        "e29fbdbce9cce12b2b7ba253",
+        "31bcfcf566981e6b2464f92d"
+      ],
+      "categoricalScores": [
+        {
+          "id": "64ef3667e93570f608a4d91f",
+          "name": "record_fidelity",
+          "value": "Pass",
+          "observationId": "cd36b9d5216b896c",
+          "dataType": "CATEGORICAL"
+        },
+        {
+          "id": "e29fbdbce9cce12b2b7ba253",
+          "name": "claim_support",
+          "value": "Pass",
+          "observationId": "cd36b9d5216b896c",
+          "dataType": "CATEGORICAL"
+        }
+      ]
+    },
+    {
+      "traceId": "c35982e5723584600c034e7739cd64f7",
+      "traceUrl": "https://cloud.langfuse.com/project/cmv0gc1710815ad0k7nnnd6v5/traces/c35982e5723584600c034e7739cd64f7",
+      "observationIds": [
+        "ff7e48a13097ba1d",
+        "f8c53c6d290bad88"
+      ],
+      "scoreIds": [
+        "fb4b831afa7a1dff2bc5efd1",
+        "b14ccfbdae0c40840b1c6839",
+        "780514c1f050b25398941b5f"
+      ],
+      "categoricalScores": [
+        {
+          "id": "fb4b831afa7a1dff2bc5efd1",
+          "name": "record_fidelity",
+          "value": "Pass",
+          "observationId": "f8c53c6d290bad88",
+          "dataType": "CATEGORICAL"
+        },
+        {
+          "id": "b14ccfbdae0c40840b1c6839",
+          "name": "claim_support",
+          "value": "Pass",
+          "observationId": "f8c53c6d290bad88",
+          "dataType": "CATEGORICAL"
+        }
+      ]
+    },
+    {
+      "traceId": "bfb0cb329a5cf87fe968d8c8bd28c64f",
+      "traceUrl": "https://cloud.langfuse.com/project/cmv0gc1710815ad0k7nnnd6v5/traces/bfb0cb329a5cf87fe968d8c8bd28c64f",
+      "observationIds": [
+        "ac3d22cdd443c063",
+        "9a633f856a67f31c"
+      ],
+      "scoreIds": [
+        "73e30402b00180f54cf8395c",
+        "6aad17aeb6b2b47b6a2f6a4b",
+        "d7198bdfe455efdcd8d2ba1b"
+      ],
+      "categoricalScores": [
+        {
+          "id": "73e30402b00180f54cf8395c",
+          "name": "record_fidelity",
+          "value": "Pass",
+          "observationId": "9a633f856a67f31c",
+          "dataType": "CATEGORICAL"
+        },
+        {
+          "id": "6aad17aeb6b2b47b6a2f6a4b",
+          "name": "claim_support",
+          "value": "Pass",
+          "observationId": "9a633f856a67f31c",
+          "dataType": "CATEGORICAL"
+        }
+      ]
+    },
+    {
+      "traceId": "ac1585c517eb7aeda429bf77ecddde19",
+      "traceUrl": "https://cloud.langfuse.com/project/cmv0gc1710815ad0k7nnnd6v5/traces/ac1585c517eb7aeda429bf77ecddde19",
+      "observationIds": [
+        "63a814f74cc4c43d",
+        "c3e51d3a24927dc8"
+      ],
+      "scoreIds": [
+        "3fbc15add5d2de93bb038743"
+      ],
+      "categoricalScores": []
+    },
+    {
+      "traceId": "0dbaa1b9cd4e50798ac901479b2c5806",
+      "traceUrl": "https://cloud.langfuse.com/project/cmv0gc1710815ad0k7nnnd6v5/traces/0dbaa1b9cd4e50798ac901479b2c5806",
+      "observationIds": [
+        "f28d69904b50a5e4",
+        "27822b14df996cba"
+      ],
+      "scoreIds": [
+        "7722d238cf5d24aeb2ddf6f3"
+      ],
+      "categoricalScores": []
+    },
+    {
+      "traceId": "84e65c219f692c04b3491a17de0d92e2",
+      "traceUrl": "https://cloud.langfuse.com/project/cmv0gc1710815ad0k7nnnd6v5/traces/84e65c219f692c04b3491a17de0d92e2",
+      "observationIds": [
+        "cab48baa03b1bbcb",
+        "8db1ccd81aaddc4a"
+      ],
+      "scoreIds": [
+        "1069231514745621fc07a3db"
+      ],
+      "categoricalScores": []
+    },
+    {
+      "traceId": "e34216948bfda7f6494c4688a0ac04dd",
+      "traceUrl": "https://cloud.langfuse.com/project/cmv0gc1710815ad0k7nnnd6v5/traces/e34216948bfda7f6494c4688a0ac04dd",
+      "observationIds": [
+        "e9e7876776393b9b",
+        "1a4ea37b8739f699"
+      ],
+      "scoreIds": [
+        "e517de8bdbdf1532d1e16bde"
+      ],
+      "categoricalScores": []
+    },
+    {
+      "traceId": "04d64a4c4f548f950dfeb4511118dfa0",
+      "traceUrl": "https://cloud.langfuse.com/project/cmv0gc1710815ad0k7nnnd6v5/traces/04d64a4c4f548f950dfeb4511118dfa0",
+      "observationIds": [
+        "1049c71503ef23b9",
+        "444fc1ea370a248e"
+      ],
+      "scoreIds": [
+        "eff279fbe256097bb7841625"
+      ],
+      "categoricalScores": []
+    },
+    {
+      "traceId": "1a21e409b8f0b17268a96a0eabe31a0d",
+      "traceUrl": "https://cloud.langfuse.com/project/cmv0gc1710815ad0k7nnnd6v5/traces/1a21e409b8f0b17268a96a0eabe31a0d",
+      "observationIds": [
+        "28d291d8d5f9b69b",
+        "e8803803f85af01e"
+      ],
+      "scoreIds": [
+        "40a08f85e749587017ec2ec5"
+      ],
+      "categoricalScores": []
+    },
+    {
+      "traceId": "017c3d8a237ce0959f282fec3ee4343a",
+      "traceUrl": "https://cloud.langfuse.com/project/cmv0gc1710815ad0k7nnnd6v5/traces/017c3d8a237ce0959f282fec3ee4343a",
+      "observationIds": [
+        "148345c91bf042df",
+        "b6a75efb71425e8c"
+      ],
+      "scoreIds": [
+        "09736ce2855f70b35443f65c"
+      ],
+      "categoricalScores": []
+    },
+    {
+      "traceId": "6ab0e3a3ab1e8fe5865c94c70512c37c",
+      "traceUrl": "https://cloud.langfuse.com/project/cmv0gc1710815ad0k7nnnd6v5/traces/6ab0e3a3ab1e8fe5865c94c70512c37c",
+      "observationIds": [
+        "7124a650a35779fa",
+        "00131d2c503eeedb"
+      ],
+      "scoreIds": [
+        "76495a63c960e5ece3efcfd2"
+      ],
+      "categoricalScores": []
+    },
+    {
+      "traceId": "99318c3215e67652162393e473a6eb39",
+      "traceUrl": "https://cloud.langfuse.com/project/cmv0gc1710815ad0k7nnnd6v5/traces/99318c3215e67652162393e473a6eb39",
+      "observationIds": [
+        "cd484e4d7a084f8a",
+        "29ab2a1b0a53b202"
+      ],
+      "scoreIds": [
+        "af73889f65caa6875fdf4743",
+        "5dbf7532f68e56ea4d9b3329",
+        "b0b00c078515c44cf830152f"
+      ],
+      "categoricalScores": [
+        {
+          "id": "af73889f65caa6875fdf4743",
+          "name": "record_fidelity",
+          "value": "Pass",
+          "observationId": "29ab2a1b0a53b202",
+          "dataType": "CATEGORICAL"
+        },
+        {
+          "id": "5dbf7532f68e56ea4d9b3329",
+          "name": "claim_support",
+          "value": "Pass",
+          "observationId": "29ab2a1b0a53b202",
+          "dataType": "CATEGORICAL"
+        }
+      ]
+    },
+    {
+      "traceId": "3b5eb3a9575e486a03981e9c97a604d8",
+      "traceUrl": "https://cloud.langfuse.com/project/cmv0gc1710815ad0k7nnnd6v5/traces/3b5eb3a9575e486a03981e9c97a604d8",
+      "observationIds": [
+        "dee5f8233bbe7b8f",
+        "039aa9e8c7e777c2"
+      ],
+      "scoreIds": [
+        "db01bf9fd2b7716f44f47abd",
+        "0cfb00d4e1ba43310f5c53af",
+        "d12133b3bbc554a1e27ed8de"
+      ],
+      "categoricalScores": [
+        {
+          "id": "db01bf9fd2b7716f44f47abd",
+          "name": "record_fidelity",
+          "value": "Pass",
+          "observationId": "039aa9e8c7e777c2",
+          "dataType": "CATEGORICAL"
+        },
+        {
+          "id": "0cfb00d4e1ba43310f5c53af",
+          "name": "claim_support",
+          "value": "Pass",
+          "observationId": "039aa9e8c7e777c2",
+          "dataType": "CATEGORICAL"
+        }
+      ]
+    },
+    {
+      "traceId": "ec126a997e9c10ecdebd7271aa83cf16",
+      "traceUrl": "https://cloud.langfuse.com/project/cmv0gc1710815ad0k7nnnd6v5/traces/ec126a997e9c10ecdebd7271aa83cf16",
+      "observationIds": [
+        "ca4e88e47348a162",
+        "202819ee5a166aec"
+      ],
+      "scoreIds": [
+        "c28e225081194d01568bcb31"
+      ],
+      "categoricalScores": []
+    },
+    {
+      "traceId": "881285a324bd2ffff4b4bd51144b01e4",
+      "traceUrl": "https://cloud.langfuse.com/project/cmv0gc1710815ad0k7nnnd6v5/traces/881285a324bd2ffff4b4bd51144b01e4",
+      "observationIds": [
+        "f185311eba5b4dac",
+        "6d7c449c41f64751"
+      ],
+      "scoreIds": [
+        "6e22ffd341a36cf725ad3a53"
+      ],
+      "categoricalScores": []
+    },
+    {
+      "traceId": "4407b9be4dd308fc0a3d0ade985ec2c8",
+      "traceUrl": "https://cloud.langfuse.com/project/cmv0gc1710815ad0k7nnnd6v5/traces/4407b9be4dd308fc0a3d0ade985ec2c8",
+      "observationIds": [
+        "41b84201f0d73119",
+        "bcaae626451ee6c3",
+        "10f84e99418d212f"
+      ],
+      "scoreIds": [
+        "25be17bd3a6f4a56eebd22e5",
+        "b34c9d48afdbd0d3e4c1a384",
+        "ccf3a67e07d6bcee128cc195",
+        "82380879b5c3f6df26cfc8c7",
+        "7e6a28f94df9d34656e3d2c9",
+        "a2fa0076fe1bb871e382fa28",
+        "c1142484c173020ac068a740",
+        "ff2602ebc12dd53d07bb5f35"
+      ],
+      "categoricalScores": [
+        {
+          "id": "b34c9d48afdbd0d3e4c1a384",
+          "name": "record_fidelity",
+          "value": "Fail",
+          "observationId": "10f84e99418d212f",
+          "dataType": "CATEGORICAL"
+        },
+        {
+          "id": "ccf3a67e07d6bcee128cc195",
+          "name": "claim_support",
+          "value": "Fail",
+          "observationId": "10f84e99418d212f",
+          "dataType": "CATEGORICAL"
+        }
+      ]
+    }
+  ],
+  "calculatorRepresentatives": [
+    {
+      "traceId": "91f9306952345f25e5622491d574969c",
+      "observationId": "72fbbd0503fff5e7",
+      "parentObservationId": "a5d3d0a5b0cf3861",
+      "name": "calculate-fee",
+      "input": {
+        "source_id": "SRC-01",
+        "currency": "EUR",
+        "period": "calendar_month",
+        "withdrawal_count": 3,
+        "included_count": 2,
+        "fee_each_after_included": 1.5
+      },
+      "output": {
+        "currency": "EUR",
+        "period": "calendar_month",
+        "chargeable_withdrawals": 1,
+        "total_fee": "1.50"
+      },
+      "invocation": "application",
+      "simulated": true
+    },
+    {
+      "traceId": "b77a192ce695d48ef9dbfad26748d999",
+      "observationId": "2f679640d143e9c9",
+      "parentObservationId": "648841c0fd97b622",
+      "name": "calculate-fee",
+      "input": {
+        "source_id": "SRC-01",
+        "currency": "EUR",
+        "period": "calendar_month",
+        "withdrawal_count": 3,
+        "included_count": 2,
+        "fee_each_after_included": 1.5
+      },
+      "output": {
+        "currency": "EUR",
+        "period": "calendar_month",
+        "chargeable_withdrawals": 1,
+        "total_fee": "1.50"
+      },
+      "invocation": "application",
+      "simulated": true
+    },
+    {
+      "traceId": "25dcf7730461fd437e157d64335cfaa2",
+      "observationId": "ac43738a64abb7cf",
+      "parentObservationId": "4a8e86b45fbe0247",
+      "name": "calculate-fee",
+      "input": {
+        "source_id": "SRC-01",
+        "currency": "EUR",
+        "period": "calendar_month",
+        "withdrawal_count": 3,
+        "included_count": 2,
+        "fee_each_after_included": 1.5
+      },
+      "output": {
+        "currency": "EUR",
+        "period": "calendar_month",
+        "chargeable_withdrawals": 1,
+        "total_fee": "1.50"
+      },
+      "invocation": "application",
+      "simulated": true
+    }
+  ],
+  "auditAssertions": {
+    "all244SavedChecksPass": true,
+    "representativeIdsExactlyMatchVerifiedTraceChecks": true,
+    "categoricalContractIsR2": true,
+    "all40RepresentativeCategoricalScoresHaveFactualNamesAndValidLabels": true,
+    "threeCalculatorRepresentativesMatchArgumentsAndArithmetic": true,
+    "setupMatchesStateEvaluatorAndRuleIds": true,
+    "noMissingProvisionedAssets": true
+  },
+  "checks": [
+    {
+      "name": "receipt",
+      "ok": true,
+      "detail": "Current target and generation inputs match an imported run"
+    },
+    {
+      "name": "score-contract",
+      "ok": true,
+      "detail": "Current categorical factual score contract"
+    },
+    {
+      "name": "as_of_date",
+      "ok": true,
+      "detail": "Run anchor matches requested date"
+    },
+    {
+      "name": "trace:6cadcc31981bb1d4a4717e6a7cbcf3be",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:8eca014d25c921b8fd2df766a56e892c",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:08bd9400173e1c28e892255707bd5ef9",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:91f9306952345f25e5622491d574969c",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:b77a192ce695d48ef9dbfad26748d999",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:25dcf7730461fd437e157d64335cfaa2",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:5ace5e4d5a21f7c76c288bf661fea926",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:1e83b987c421a05ff69005383bc5d7f4",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:00643e1a94d7ab5431e770555ac8de86",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:909a585029ea05053d27f6d0886844bc",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:53f5bcac9821a2b73c384f827a2f3675",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:d5df9b552aa3ded5c16393fe8410d1c9",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:a3f54824640fd99b8415f071e3b4379a",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:6a61150c7554c271dbb427e73653ab7e",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:3a7669e6ec10034f0dc347a9a9939ae8",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:51746e5aa2946435b023d2164feb5e08",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:9f5301d739e26c67786ad9897a2c1833",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:40d45a5210de317e7f1071f2b3a46171",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:688ea1db56a25c005f729736744f0dd6",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:71a7c99804347863fa8305ba2a85edce",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:7cd344769aee3fcd2d7926b442f9e9aa",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:7e1bae54dd8a7d30954bd16fba78fafa",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:895eec3555f385718a5f855d1479af63",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:52fee624a2332a9ca89ac4162d2d562b",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:c35982e5723584600c034e7739cd64f7",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:bfb0cb329a5cf87fe968d8c8bd28c64f",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:ac1585c517eb7aeda429bf77ecddde19",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:0dbaa1b9cd4e50798ac901479b2c5806",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:84e65c219f692c04b3491a17de0d92e2",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:e34216948bfda7f6494c4688a0ac04dd",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:04d64a4c4f548f950dfeb4511118dfa0",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:1a21e409b8f0b17268a96a0eabe31a0d",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:017c3d8a237ce0959f282fec3ee4343a",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:6ab0e3a3ab1e8fe5865c94c70512c37c",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:99318c3215e67652162393e473a6eb39",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:3b5eb3a9575e486a03981e9c97a604d8",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:ec126a997e9c10ecdebd7271aa83cf16",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:881285a324bd2ffff4b4bd51144b01e4",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "trace:4407b9be4dd308fc0a3d0ade985ec2c8",
+      "ok": true,
+      "detail": "Exact observations, prompt versions, payloads, session, timestamps and score subjects match"
+    },
+    {
+      "name": "asset-project",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "asset-inventory-prompts",
+      "ok": true,
+      "detail": "Expected 9 recorded prompts"
+    },
+    {
+      "name": "asset-inventory-datasets",
+      "ok": true,
+      "detail": "Expected 9 recorded datasets"
+    },
+    {
+      "name": "asset-inventory-score_configs",
+      "ok": true,
+      "detail": "Expected 12 recorded score_configs"
+    },
+    {
+      "name": "asset-inventory-models",
+      "ok": true,
+      "detail": "Expected 3 recorded models"
+    },
+    {
+      "name": "prompt-PR-01-v1",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-01-v2",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-01-v3",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-01-v4",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-01-v5",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-01-v6",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-01-v7",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-01-v8",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "production-PR-01",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "development-PR-01",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-coverage-DS-01",
+      "ok": true,
+      "detail": "Every accepted dataset case must have a recorded persisted item"
+    },
+    {
+      "name": "dataset-DS-01",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-C-01",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-C-02",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-C-03",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-C-04",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-C-05",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-C-06",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-C-07",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-C-08",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-02-v1",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-02-v2",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-02-v3",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-02-v4",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-02-v5",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-02-v6",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-02-v7",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-02-v8",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "production-PR-02",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "development-PR-02",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-coverage-DS-02",
+      "ok": true,
+      "detail": "Every accepted dataset case must have a recorded persisted item"
+    },
+    {
+      "name": "dataset-DS-02",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-PC-02",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-PC-02-CTRL",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-PX-02",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-03-v1",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-03-v2",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-03-v3",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-03-v4",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-03-v5",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-03-v6",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-03-v7",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-03-v8",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "production-PR-03",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "development-PR-03",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-coverage-DS-03",
+      "ok": true,
+      "detail": "Every accepted dataset case must have a recorded persisted item"
+    },
+    {
+      "name": "dataset-DS-03",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-PC-03",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-PC-03-CTRL",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-PX-03",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-04-v1",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-04-v2",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-04-v3",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-04-v4",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-04-v5",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-04-v6",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-04-v7",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-04-v8",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "production-PR-04",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "development-PR-04",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-coverage-DS-04",
+      "ok": true,
+      "detail": "Every accepted dataset case must have a recorded persisted item"
+    },
+    {
+      "name": "dataset-DS-04",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-PC-04",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-PC-04-CTRL",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-PX-04",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-05-v1",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-05-v2",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-05-v3",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-05-v4",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-05-v5",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-05-v6",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-05-v7",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-05-v8",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "production-PR-05",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "development-PR-05",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-coverage-DS-05",
+      "ok": true,
+      "detail": "Every accepted dataset case must have a recorded persisted item"
+    },
+    {
+      "name": "dataset-DS-05",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-PC-05",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-PC-05-CTRL",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-PX-05",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-06-v1",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-06-v2",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-06-v3",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-06-v4",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-06-v5",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-06-v6",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-06-v7",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-06-v8",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "production-PR-06",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "development-PR-06",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-coverage-DS-06",
+      "ok": true,
+      "detail": "Every accepted dataset case must have a recorded persisted item"
+    },
+    {
+      "name": "dataset-DS-06",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-PC-06",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-PC-06-CTRL",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-PX-06",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-07-v1",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-07-v2",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-07-v3",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-07-v4",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-07-v5",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-07-v6",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-07-v7",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-07-v8",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "production-PR-07",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "development-PR-07",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-coverage-DS-07",
+      "ok": true,
+      "detail": "Every accepted dataset case must have a recorded persisted item"
+    },
+    {
+      "name": "dataset-DS-07",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-PC-07",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-PC-07-CTRL",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-PX-07",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-08-v1",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-08-v2",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-08-v3",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-08-v4",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-08-v5",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-08-v6",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-08-v7",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-08-v8",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "production-PR-08",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "development-PR-08",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-coverage-DS-08",
+      "ok": true,
+      "detail": "Every accepted dataset case must have a recorded persisted item"
+    },
+    {
+      "name": "dataset-DS-08",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-PC-08",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-PC-08-CTRL",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-PX-08",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-09-v1",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-09-v2",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-09-v3",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-09-v4",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-09-v5",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-09-v6",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-09-v7",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "prompt-PR-09-v8",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "production-PR-09",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "development-PR-09",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-coverage-DS-09",
+      "ok": true,
+      "detail": "Every accepted dataset case must have a recorded persisted item"
+    },
+    {
+      "name": "dataset-DS-09",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-PC-09",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-PC-09-CTRL",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "dataset-item-PX-09",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "score-config-coverage",
+      "ok": true,
+      "detail": "Twelve criterion configurations required."
+    },
+    {
+      "name": "model-coverage",
+      "ok": true,
+      "detail": "Three synthetic pricing definitions required."
+    },
+    {
+      "name": "dataset-coverage",
+      "ok": true,
+      "detail": "Nine matching datasets required."
+    },
+    {
+      "name": "score-config-E-01",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "score-config-E-02",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "score-config-E-03",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "score-config-E-04",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "score-config-E-05",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "score-config-E-06",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "score-config-E-07",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "score-config-E-08",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "score-config-E-09",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "score-config-E-10",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "score-config-E-11",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "score-config-E-12",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "model-demo-compact-v1",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "model-demo-standard-v1",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "model-demo-reasoning-v1",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "managed-evaluator-coverage",
+      "ok": true,
+      "detail": "Ten managed rubric definitions required; missing setup is not live-ready."
+    },
+    {
+      "name": "evaluator-E-01",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "evaluator-rule-E-01",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "evaluator-E-02",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "evaluator-rule-E-02",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "evaluator-E-03",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "evaluator-rule-E-03",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "evaluator-E-04",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "evaluator-rule-E-04",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "evaluator-E-05",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "evaluator-rule-E-05",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "evaluator-E-06",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "evaluator-rule-E-06",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "evaluator-E-07",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "evaluator-rule-E-07",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "evaluator-E-08",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "evaluator-rule-E-08",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "evaluator-E-10",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "evaluator-rule-E-10",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "evaluator-E-11",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "evaluator-rule-E-11",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "historical-experiment-authored-history-PR-01-v2-r1",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "historical-experiment-authored-history-PR-01-v4-r1",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "historical-experiment-authored-history-PR-02-v2-r1",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "historical-experiment-authored-history-PR-02-v4-r1",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "historical-experiment-authored-history-PR-03-v2-r1",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "historical-experiment-authored-history-PR-03-v4-r1",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "historical-experiment-authored-history-PR-04-v2-r1",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "historical-experiment-authored-history-PR-04-v4-r1",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "historical-experiment-authored-history-PR-05-v2-r1",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "historical-experiment-authored-history-PR-05-v4-r1",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "historical-experiment-authored-history-PR-06-v2-r1",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "historical-experiment-authored-history-PR-06-v4-r1",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "historical-experiment-authored-history-PR-07-v2-r1",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "historical-experiment-authored-history-PR-07-v4-r1",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "historical-experiment-authored-history-PR-08-v2-r1",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "historical-experiment-authored-history-PR-08-v4-r1",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "historical-experiment-authored-history-PR-09-v2-r1",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    },
+    {
+      "name": "historical-experiment-authored-history-PR-09-v4-r1",
+      "ok": true,
+      "detail": "matches provisioned asset"
+    }
+  ],
+  "limitations": [
+    "This records the bounded 48-history-trace seed plus 18 experiments, not a full-scale generation or import.",
+    "Saved verification results are preserved; this audit made no live API calls.",
+    "The original provisioning manual prerequisite is preserved verbatim; native UI evidence is recorded separately.",
+    "Member-role denial, release, Depot admission, and delivered rehearsal are not established here.",
+    "Representative categorical counts cover the 39 receipt representatives, not every score in the imported population."
+  ]
+}

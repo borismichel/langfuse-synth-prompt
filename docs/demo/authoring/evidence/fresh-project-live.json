@@ -1,0 +1,377 @@
+{
+  "schemaVersion": 1,
+  "evidenceKind": "sanitized_offline_audit_of_saved_receipts",
+  "auditedOn": "2026-10-09",
+  "implementationCommit": "2ab6285755330c6fdd36f86bf7834698be8c09e3",
+  "implementationCommitProvenance": "Implementation revision supplied by the coordinating run; saved exports do not independently attest deployed code.",
+  "target": {
+    "host": "https://cloud.langfuse.com",
+    "projectId": "cmv0gc1710815ad0k7nnnd6v5",
+    "projectName": "prompt-portfolio-demo",
+    "projectUrl": "https://cloud.langfuse.com/project/cmv0gc1710815ad0k7nnnd6v5",
+    "sessionId": "prompt-live-af106f29edd14167bae431e59551e3f9",
+    "sessionUrl": "https://cloud.langfuse.com/project/cmv0gc1710815ad0k7nnnd6v5/sessions/prompt-live-af106f29edd14167bae431e59551e3f9",
+    "traceId": "7ffd68162f0a968a2478193657f4adb3",
+    "traceUrl": "https://cloud.langfuse.com/project/cmv0gc1710815ad0k7nnnd6v5/traces/7ffd68162f0a968a2478193657f4adb3"
+  },
+  "provenance": {
+    "sourceFileSha256": {
+      ".scratch/fresh-live-observations.json": "4dafd70325789b333da2f3e2164593425fcdb14c9876b9bf93bf058cd8d8d19b",
+      ".scratch/fresh-live-scores.json": "c2e848e88795b980556957d1896cd8a5314d46112ddee1eba8a4d0e3b64daf80"
+    },
+    "sanitization": "Explicit whitelist of observation identity, role-bearing messages, authored source reference, usage/cost, scoped rubric maps, and score identity/results. Raw transport attributes and credentials are excluded.",
+    "sourcePagesComplete": true
+  },
+  "counts": {
+    "turns": 1,
+    "traces": 1,
+    "observations": 3,
+    "evalScores": 8,
+    "rootScores": 4,
+    "generationScores": 4,
+    "categoricalFactualScores": 2
+  },
+  "managedPrompt": {
+    "portfolioId": "PR-01",
+    "name": "products/explainer",
+    "version": 7,
+    "id": "5deaaec1-533a-4367-a0ba-120d3606b2a4",
+    "promptUrl": "https://cloud.langfuse.com/project/cmv0gc1710815ad0k7nnnd6v5/prompts/5deaaec1-533a-4367-a0ba-120d3606b2a4"
+  },
+  "traceRubricRevisions": {
+    "E-01": "r1",
+    "E-02": "r2",
+    "E-03": "r2",
+    "E-04": "r1",
+    "E-05": "r1",
+    "E-06": "r1",
+    "E-07": "r1",
+    "E-08": "r1"
+  },
+  "sourceReference": {
+    "id": "SRC-01",
+    "provenance": "Authored fictional product record; not an actual financial product or customer document.",
+    "name": "Everyday Account",
+    "currency": "EUR",
+    "monthly_fee": 4,
+    "waiver": {
+      "fee": 0,
+      "condition": "At least EUR 1200 in qualifying salary deposits in each calendar month.",
+      "exclusions": [
+        "Transfers from your own accounts do not count as salary deposits."
+      ],
+      "timing": "The waiver is assessed separately for each calendar month."
+    },
+    "eligibility": [
+      "Age 18 or older.",
+      "Resident of the fictional service region."
+    ],
+    "card_replacement_fee": 6,
+    "cash_withdrawals": {
+      "included_per_calendar_month": 2,
+      "fee_each_after_included": 1.5
+    },
+    "opening_documents": [
+      "Valid photo ID.",
+      "Proof of address dated within the last three months."
+    ],
+    "processing_time": "Two working days after complete documents are received.",
+    "unknowns": [
+      "Overdraft availability, interest rates and approval eligibility are not provided.",
+      "Document-upload status is not available to this assistant."
+    ],
+    "action_boundary": "The assistant explains supplied facts; it cannot open accounts, waive fees, approve credit or inspect a real account."
+  },
+  "sourceReferenceCanonicalSha256": "33d3f611785a31d24abed46254c42820b1c51718b6211fdc2a8ab8c49fe40ba9",
+  "turn": {
+    "turn": 1,
+    "input": {
+      "messages": [
+        {
+          "role": "user",
+          "content": "I get EUR 1300 in salary each month. What would this account cost me?"
+        }
+      ]
+    },
+    "output": [
+      {
+        "role": "assistant",
+        "content": "Based on the product details, here's how the costs break down for you:\n\n## Monthly Fee\nThe standard monthly fee is **EUR 4**, but since you receive **EUR 1,300 in salary per month**, you would **qualify for the fee waiver** — bringing the monthly fee to **EUR 0**. The key conditions are:\n\n- The salary deposit must be **at least EUR 1,200** in each calendar month.\n- It must be a **qualifying salary deposit** (transfers from your own accounts do not count).\n- The waiver is assessed **separately each calendar month**, so you'd need to meet the condition every month to avoid the fee.\n\n## Other Potential Costs\n- **Card replacement:** EUR 6 per replacement.\n- **Cash withdrawals:** 2 are included free per calendar month; after that, each withdrawal costs **EUR 1.50**.\n\n## Summary\nIf your EUR 1,300 salary is deposited as a qualifying salary payment every month, your **regular running cost would be EUR 0** — you'd only pay if you replaced your card or made more than 2 cash withdrawals in a given month."
+      }
+    ],
+    "priorMessages": [],
+    "generationInput": {
+      "messages": [
+        {
+          "role": "system",
+          "content": "You explain fictional financial-services products using only the supplied reference_context. Answer the user's question directly in plain English. Keep all amounts, conditions, exclusions and processing times accurate. Do not invent missing facts or claim to perform account actions. If a relevant fact is absent, say it is not provided. If information in earlier user messages conflicts, ask for clarification rather than choosing silently; respect explicit corrections. Remain respectful when the user disagrees or swears. Use conversation_history to understand follow-up questions. Keep the reply concise without dropping a material condition.\n\nSupplied reference_context:\n{\"id\": \"SRC-01\", \"provenance\": \"Authored fictional product record; not an actual financial product or customer document.\", \"name\": \"Everyday Account\", \"currency\": \"EUR\", \"monthly_fee\": 4, \"waiver\": {\"fee\": 0, \"condition\": \"At least EUR 1200 in qualifying salary deposits in each calendar month.\", \"exclusions\": [\"Transfers from your own accounts do not count as salary deposits.\"], \"timing\": \"The waiver is assessed separately for each calendar month.\"}, \"eligibility\": [\"Age 18 or older.\", \"Resident of the fictional service region.\"], \"card_replacement_fee\": 6, \"cash_withdrawals\": {\"included_per_calendar_month\": 2, \"fee_each_after_included\": 1.5}, \"opening_documents\": [\"Valid photo ID.\", \"Proof of address dated within the last three months.\"], \"processing_time\": \"Two working days after complete documents are received.\", \"unknowns\": [\"Overdraft availability, interest rates and approval eligibility are not provided.\", \"Document-upload status is not available to this assistant.\"], \"action_boundary\": \"The assistant explains supplied facts; it cannot open accounts, waive fees, approve credit or inspect a real account.\"}"
+        },
+        {
+          "role": "user",
+          "content": "I get EUR 1300 in salary each month. What would this account cost me?"
+        }
+      ]
+    },
+    "observations": [
+      {
+        "id": "4e3e53e7244973eb",
+        "traceId": "7ffd68162f0a968a2478193657f4adb3",
+        "name": "handle-chat-turn",
+        "type": "SPAN",
+        "parentObservationId": "ea2a5f310ade8bef",
+        "isRootObservation": true,
+        "startTime": "2026-10-09T04:21:06.148Z",
+        "endTime": "2026-10-09T04:21:12.815Z",
+        "sessionId": "prompt-live-af106f29edd14167bae431e59551e3f9",
+        "inputCanonicalSha256": "154f7530fb4f5121f291aba8f7090645742cabd8f880f94b6633f39b72552dd5",
+        "outputCanonicalSha256": "339936cca62721d844164e52ca8b6600dbd7866f8f70df28251f49bd8a7d5f7a",
+        "inputRef": "/turn/input",
+        "outputRef": "/turn/output",
+        "evaluationSubject": "user_input",
+        "rubricRevisions": {
+          "E-05": "r1",
+          "E-06": "r1",
+          "E-07": "r1",
+          "E-08": "r1"
+        }
+      },
+      {
+        "id": "e9f1722462833733",
+        "traceId": "7ffd68162f0a968a2478193657f4adb3",
+        "name": "retrieve-product-context",
+        "type": "RETRIEVER",
+        "parentObservationId": "4e3e53e7244973eb",
+        "isRootObservation": false,
+        "startTime": "2026-10-09T04:21:06.148Z",
+        "endTime": "2026-10-09T04:21:06.149Z",
+        "sessionId": "prompt-live-af106f29edd14167bae431e59551e3f9",
+        "inputCanonicalSha256": "c1292236ce724e9d4752fcfa56d7b755fe4154a5a4e615c244710b9c3f111bba",
+        "outputCanonicalSha256": "33d3f611785a31d24abed46254c42820b1c51718b6211fdc2a8ab8c49fe40ba9",
+        "input": {
+          "source_id": "SRC-01",
+          "prompt_id": "PR-01"
+        },
+        "outputRef": "/sourceReference",
+        "sourceId": "SRC-01",
+        "invocation": "application"
+      },
+      {
+        "id": "a7cfa960117c507d",
+        "traceId": "7ffd68162f0a968a2478193657f4adb3",
+        "name": "generate-response",
+        "type": "GENERATION",
+        "parentObservationId": "4e3e53e7244973eb",
+        "isRootObservation": false,
+        "startTime": "2026-10-09T04:21:06.192Z",
+        "endTime": "2026-10-09T04:21:12.815Z",
+        "sessionId": "prompt-live-af106f29edd14167bae431e59551e3f9",
+        "inputCanonicalSha256": "05a9f9b3137669771220e140252e6940f7da59c4a0e6d952ee66a47958d31842",
+        "outputCanonicalSha256": "339936cca62721d844164e52ca8b6600dbd7866f8f70df28251f49bd8a7d5f7a",
+        "promptId": "5deaaec1-533a-4367-a0ba-120d3606b2a4",
+        "promptName": "products/explainer",
+        "promptVersion": 7,
+        "model": "claude-sonnet-4-6",
+        "usageDetails": {
+          "input": 438,
+          "output": 257,
+          "total": 695
+        },
+        "costDetails": {
+          "input": 0.001314,
+          "output": 0.003855,
+          "total": 0.005169
+        },
+        "inputRef": "/turn/generationInput",
+        "outputRef": "/turn/output",
+        "evaluationSubject": "assistant_reply",
+        "rubricRevisions": {
+          "E-01": "r1",
+          "E-02": "r2",
+          "E-03": "r2",
+          "E-04": "r1"
+        }
+      }
+    ],
+    "scores": [
+      {
+        "id": "384ff584-2508-5c6c-934b-ca75fb4a08ae",
+        "name": "dark_side_delivery",
+        "source": "EVAL",
+        "timestamp": "2026-10-09T04:21:15.672Z",
+        "dataType": "NUMERIC",
+        "value": 0,
+        "comment": "The assistant reply is a straightforward financial breakdown using plain, informative language. It contains no theatrical phrasing, commanding language, space metaphors, or any stylistic markers associated with a space-villain delivery. It reads as ordinary professional advice.",
+        "subject": {
+          "kind": "observation",
+          "id": "a7cfa960117c507d",
+          "traceId": "7ffd68162f0a968a2478193657f4adb3"
+        },
+        "criterionId": "E-01",
+        "rubricRevision": "r1",
+        "evaluatorId": "cmv0gh9w707iaad0e8e13tnp4",
+        "evaluatorVersionId": "cmv0gh9w707icad0e3d5nozxv",
+        "evaluationRuleId": "cmv0gha5g08wvad0kp1tbdhaz"
+      },
+      {
+        "id": "9c1f72a4-ba84-5e05-894f-1a82d99c7fe3",
+        "name": "record_fidelity",
+        "source": "EVAL",
+        "timestamp": "2026-10-09T04:21:17.295Z",
+        "dataType": "CATEGORICAL",
+        "value": "Pass",
+        "comment": "The assistant correctly identifies the EUR 4 monthly fee, the EUR 1,200 waiver threshold, states the user's EUR 1,300 salary would qualify for the waiver (bringing the fee to EUR 0), and accurately retains all material conditions: qualifying salary deposits only (not own-account transfers), assessed separately each calendar month. Other fees (card replacement EUR 6, cash withdrawal EUR 1.50 after 2 free per month) are correctly stated. No material omissions or unsupported assertions.",
+        "subject": {
+          "kind": "observation",
+          "id": "a7cfa960117c507d",
+          "traceId": "7ffd68162f0a968a2478193657f4adb3"
+        },
+        "criterionId": "E-02",
+        "rubricRevision": "r2",
+        "evaluatorId": "cmv0ghc7v08x0ad0kxgy6x94a",
+        "evaluatorVersionId": "cmv0ghc7v08x2ad0kn9fhmm9s",
+        "evaluationRuleId": "cmv0ghcft07wwad0hac1t1436"
+      },
+      {
+        "id": "66176fa2-8ba2-5bbd-ad30-e56dd8e10395",
+        "name": "claim_support",
+        "source": "EVAL",
+        "timestamp": "2026-10-09T04:21:18.382Z",
+        "dataType": "CATEGORICAL",
+        "value": "Pass",
+        "comment": "The assistant states the monthly fee is EUR 4 (supported), that EUR 1,300 qualifies for the waiver requiring EUR 1,200 (supported), that the waiver condition is assessed each calendar month (supported), that transfers from own accounts don't count (supported), card replacement is EUR 6 (supported), 2 free cash withdrawals per calendar month with EUR 1.50 per withdrawal after (supported), and that the regular running cost would be EUR 0 given qualifying salary deposits (supported). All substantive claims map directly to the reference record.",
+        "subject": {
+          "kind": "observation",
+          "id": "a7cfa960117c507d",
+          "traceId": "7ffd68162f0a968a2478193657f4adb3"
+        },
+        "criterionId": "E-03",
+        "rubricRevision": "r2",
+        "evaluatorId": "cmv0ghe2y07x1ad0hfpzemv6b",
+        "evaluatorVersionId": "cmv0ghe2y07x3ad0hb9ky92in",
+        "evaluationRuleId": "cmv0ghea608x5ad0k255e4fss"
+      },
+      {
+        "id": "96d8be79-8e2e-5db0-a982-549c8cbe712a",
+        "name": "respectful_tone",
+        "source": "EVAL",
+        "timestamp": "2026-10-09T04:21:15.611Z",
+        "dataType": "NUMERIC",
+        "value": 1,
+        "comment": "The assistant's reply is purely informational and helpful. It explains the fee structure, waiver conditions, and other potential costs in a neutral, constructive tone. There is no personal insult, threat, contempt, or mockery directed at the user at any point.",
+        "subject": {
+          "kind": "observation",
+          "id": "a7cfa960117c507d",
+          "traceId": "7ffd68162f0a968a2478193657f4adb3"
+        },
+        "criterionId": "E-04",
+        "rubricRevision": "r1",
+        "evaluatorId": "cmv0ghfor07eoad0ega8aymhq",
+        "evaluatorVersionId": "cmv0ghfos07eqad0etwts0dzz",
+        "evaluationRuleId": "cmv0ghfwc07x6ad0h5ct5kekw"
+      },
+      {
+        "id": "85aa3e29-436b-5b5e-8cde-e2872dbdd7ac",
+        "name": "user_contradiction",
+        "source": "EVAL",
+        "timestamp": "2026-10-09T04:21:14.989Z",
+        "dataType": "NUMERIC",
+        "value": 0,
+        "comment": "There are no prior messages in the conversation history, so there is no earlier user statement to conflict with. The current message is the first statement made by the user.",
+        "subject": {
+          "kind": "observation",
+          "id": "4e3e53e7244973eb",
+          "traceId": "7ffd68162f0a968a2478193657f4adb3"
+        },
+        "criterionId": "E-05",
+        "rubricRevision": "r1",
+        "evaluatorId": "cmv0ghh9i08ixad0eh2z13wn1",
+        "evaluatorVersionId": "cmv0ghh9j08izad0esi67f7ab",
+        "evaluationRuleId": "cmv0ghhh907ifad0eagiv1li1"
+      },
+      {
+        "id": "051966dd-f752-5a9c-ad31-3a94ad5f38ed",
+        "name": "expressed_frustration",
+        "source": "EVAL",
+        "timestamp": "2026-10-09T04:21:15.129Z",
+        "dataType": "NUMERIC",
+        "value": 0,
+        "comment": "The user's message is a straightforward, neutral inquiry about account costs relative to their salary. There is no language expressing frustration or agitation.",
+        "subject": {
+          "kind": "observation",
+          "id": "4e3e53e7244973eb",
+          "traceId": "7ffd68162f0a968a2478193657f4adb3"
+        },
+        "criterionId": "E-06",
+        "rubricRevision": "r1",
+        "evaluatorId": "cmv0ghiux07ikad0e8wbq2dzm",
+        "evaluatorVersionId": "cmv0ghiux07imad0eatuytvby",
+        "evaluationRuleId": "cmv0ghj2y08gdad0e6mwmolw6"
+      },
+      {
+        "id": "39f37481-1c9f-5430-be11-c8bb75d8f916",
+        "name": "user_profanity",
+        "source": "EVAL",
+        "timestamp": "2026-10-09T04:21:15.077Z",
+        "dataType": "NUMERIC",
+        "value": 0,
+        "comment": "No profanity, quoted or direct, appears in the message. The user is asking a straightforward question about salary and account costs.",
+        "subject": {
+          "kind": "observation",
+          "id": "4e3e53e7244973eb",
+          "traceId": "7ffd68162f0a968a2478193657f4adb3"
+        },
+        "criterionId": "E-07",
+        "rubricRevision": "r1",
+        "evaluatorId": "cmv0ghkig07nhad0jqb6c6h5v",
+        "evaluatorVersionId": "cmv0ghkig07njad0jz5pamsrv",
+        "evaluationRuleId": "cmv0ghkq807x3ad0ekgabum0e"
+      },
+      {
+        "id": "7cf3eaa5-0cf0-5bdd-898e-baec98a32afa",
+        "name": "user_disagreement",
+        "source": "EVAL",
+        "timestamp": "2026-10-09T04:21:15.243Z",
+        "dataType": "NUMERIC",
+        "value": 0,
+        "comment": "There are no prior assistant messages, so the user cannot be challenging, rejecting, or correcting any assistant assertion. The user is simply asking a new question about cost based on their salary information.",
+        "subject": {
+          "kind": "observation",
+          "id": "4e3e53e7244973eb",
+          "traceId": "7ffd68162f0a968a2478193657f4adb3"
+        },
+        "criterionId": "E-08",
+        "rubricRevision": "r1",
+        "evaluatorId": "cmv0ghm1v07x8ad0eitgm9k54",
+        "evaluatorVersionId": "cmv0ghm1v07xaad0ewmbup5vs",
+        "evaluationRuleId": "cmv0ghm9p07xdad0e29nh6poy"
+      }
+    ]
+  },
+  "assertions": {
+    "oneRootWithRetrieverAndGenerationChildren": true,
+    "allObservationsShareProjectSessionAndTrace": true,
+    "rootContainsCurrentUserAndActualAssistantReply": true,
+    "generationIncludesActualSystemReferenceAndCurrentUserMessage": true,
+    "retrievedSourceEqualsRootAndGenerationReferenceContext": true,
+    "managedPromptIdMatchesProvisionedPR01Version7": true,
+    "rootRubricMapContainsOnlyE05ThroughE08": true,
+    "generationRubricMapContainsOnlyE01ThroughE04": true,
+    "allObservationsHaveSeparateCombinedTraceRubricMap": true,
+    "exactlyFourInputScoresTargetRootAndFourReplyScoresTargetGeneration": true,
+    "noScoresTargetRetriever": true,
+    "categoricalFactualScoresAreR2Pass": true,
+    "scoreEvaluatorAndRuleIdsMatchProvisioning": true,
+    "actualJudgeOutcomesPreserved": true
+  },
+  "findings": [
+    "The real live PR-01 version 7 response scored dark_side_delivery=0 and respectful_tone=1; both categorical factual checks returned Pass. All four input signals returned 0.",
+    "The two categorical factual EVAL results are linked to the generation and to their provisioned evaluators and rules.",
+    "This one-turn live readback is separate from the authored synthetic history and experiments."
+  ],
+  "limitations": [
+    "Offline audit of the saved API readbacks; no new model call or live API request was made.",
+    "This is one PR-01 turn, not full portfolio or multi-turn live coverage.",
+    "The logical root has an external physical parent ID; its isRootObservation flag and direct operation children establish the request boundary.",
+    "This evidence does not establish full-scale readiness, member-role denial, release, Depot admission, or delivered rehearsal."
+  ]
+}
