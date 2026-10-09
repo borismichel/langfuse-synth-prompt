@@ -9,15 +9,17 @@ passing checks and four pending prerequisites, including 36 exact trace checks
 and 18 exact historical experiment links; the pilot made no model calls.
 
 Before writing, the provisioner completely inventories prompt, dataset,
-score-config and model names. A collision with any of the nine authored prompt
-names, nine kit dataset names, twelve score names or three synthetic model names
-stops the operation before its first write. Existing unrelated records are not
+score-config and model names. A collision with any of the nine agent prompt
+names, four text component names, nine kit dataset names or twelve score names
+stops the operation before its first write. Compatible original-provider model
+definitions are reused after checking their prices; conflicting definitions fail. Existing unrelated records are not
 changed. This does not replace the coordinator's single-writer guard: another
 writer racing the preflight could still change a server resource.
 
-The fresh payload contains 72 prompt versions: every family's v7 has
-`production`, and v8 has `development`. Each is a chat prompt with the exact
-authored system text, a separate reference-context system message, a
+The fresh payload creates five versions across four text component families first,
+then 72 agent prompt versions: every agent family's v7 has
+`production`, and v8 has `development`. Each agent is a chat prompt with native references whose resolved content is the exact
+accepted system text, a separate reference-context system message, a
 `conversation_history` placeholder, and the `user_message` variable. This same
 prompt shape can run in native prompt experiments and in the companion. There
 are 32 dataset cases: eight PR-01 examples and three for each secondary family.
@@ -34,10 +36,26 @@ returned by its item writes, then reads the versioned dataset-item endpoint to
 prove that timestamp contains exactly the intended item IDs. No client-clock
 guess is used for a dataset version.
 
-Three synthetic pricing definitions use the story's `demo-compact-v1`,
-`demo-standard-v1`, and `demo-reasoning-v1` labels and declared token prices.
-They are accounting fixtures, never model-provider identifiers. Set `live.model`
-to a real supported identifier for native experiments.
+Model definitions use original Anthropic IDs from the shared role policy:
+`claude-sonnet-5-5`, `claude-opus-5-5` and `claude-fable-5-1`. Historical cost
+details apply the disclosed 3× multiplier; registry base prices and live usage
+are unchanged. Experiments and judges use Sonnet 5.5.
+
+## Reusable text components
+
+`building-blocks/reference-context`, `factual-boundaries`, `voice` and
+`structured-output` are text prompts. Voice has plain version 1 (`production`)
+and theatrical version 2 (`playful`); the other blocks each have one version.
+All nine agent families reference the shared context block, and reuse the other
+fragments where applicable. Seeded references pin component versions. The
+presenter may reference the playful voice label when saving a staging candidate.
+
+Storage and resolved fixture content are separate: verification reads each
+managed prompt with `resolve=false` to check the references, then normally to
+check the resolved messages and dependency graph. Tests compile the resolved
+messages with the actual SDK and all dataset inputs. Historical fixtures and
+existing v0.1.0 receipts retain their original semantics. New components are
+seeded only into a fresh target; there is no implicit migration or history replay.
 
 ## Managed evaluation configuration
 
@@ -52,7 +70,7 @@ command `synth seed --config config/demo.yaml --refresh-configuration`, with
 the same target, state directory and generation overrides as the imported run.
 It reads already-configured evaluators and rules through the same discovery
 checks, requires all ten managed evaluator/rule pairs, and atomically refreshes
-their saved configuration receipts. Only `seed` writes RunState. No prompt,
+their saved configuration receipts. The explicit post-import mapping setup also updates its configuration receipts. No prompt,
 dataset, score, model, evaluator or rule is created; no history is generated or
 imported. The event receipt, IDs, spool and import status remain unchanged.
 Missing or conflicting setup, an unsuccessful seed, a different target,
@@ -70,15 +88,16 @@ A successful refresh is configuration evidence, not proof that live judges execu
 `verify` again and rehearse the remaining live outcomes separately.
 
 With `evaluation.provider` and `evaluation.model` configured, setup checks
-the selected provider's existing Langfuse LLM connection, then inventories
+the selected provider's Langfuse LLM connection, creating a missing compatible
+connection when an authorized provider key is available, then inventories
 evaluator/rule names before any writes. Matching existing definitions/rules are
 reused only after exact readback; conflicting names or definitions stop setup.
 It creates up to ten runnable rubric definitions:
 E-01–E-08, E-10 and E-11. E-02/E-03 use the user-approved single-match
 `CATEGORICAL` results `Pass`, `Fail`, `Not applicable`. E-09 and E-12 are
 authored-case deterministic criteria;
-they are not silently replaced with model judgments. No provider key is created
-or changed by this module.
+they are not silently replaced with model judgments. Existing connection credentials are never replaced. New connection credentials
+are sent only to the configured Langfuse service and never saved in public receipts.
 
 Definitions use the stable `POST /api/public/v2/evaluators` contract. Their
 default mappings read the top-level dataset-item `$.eval_*` metadata paths for
@@ -86,9 +105,10 @@ experiment context and the selected experiment item output for reply judgments.
 Live rules use
 `POST /api/public/v2/evaluation-rules`, overriding those same rubric variables
 to observation metadata. Input criteria cannot read assistant output. E-07 sees
-only the current user message. One rule per criterion filters to `prompt-live`,
-the correct `evaluation_subject` and the applicable prompt-ID tags. Historical
-and authored experiment environments therefore cannot trigger these rules.
+only the current user message. One rule per criterion filters to production observations with
+`evaluation_mode=online`, the correct `evaluation_subject` and applicable
+prompt-ID tags. Seeded history lacks that online marker and cannot trigger
+these production rules.
 The companion must propagate its prompt-ID tag to the scored observations.
 
 Saving the evaluator can execute a validation model request. A subsequent matching live
@@ -97,8 +117,8 @@ execute a provider model. Stable evaluator IDs are reusable in experiments;
 rules follow their latest definition version. Receipts retain version identity,
 and verification fails if a definition changes during the demo.
 
-Missing provider/model settings or absent connections leave managed evaluators
-uncreated and record an explicit missing prerequisite. Native label
+Missing provider/model settings, or an absent connection without a compatible
+provider key, leave managed evaluators uncreated and report a setup failure. Native label
 protection/role enforcement lives in `manual_prerequisites`; it does not force
 automated asset checks to fail after an operator has configured it, and it still
 requires separate rehearsal evidence. The user approved categorical E-02/E-03

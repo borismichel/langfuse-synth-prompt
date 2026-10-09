@@ -5,8 +5,8 @@
   "branch": "main",
   "core": {
     "repository": "https://github.com/borismichel/langfuse-synth-core",
-    "ref": "v4.1.1",
-    "commit": "6b86ac16d797cd0c6a80da1cdd68e8fc8998c18d"
+    "ref": "v4.2.0",
+    "commit": "f81f505b58b6a72f48a8a3d2d9919c75e2f90580"
   },
   "depot_repository": "https://github.com/borismichel/langfuse-demo-depot",
   "skills_repository": "https://github.com/borismichel/my-skills",
@@ -27,14 +27,14 @@
         "docs/demo/story/PRODUCT_RESEARCH.md": "67caaddd1d07def67a6a53c3ef8844ae972211512b21e21efa0c2869d421c75a",
         "docs/demo/story/PROTOTYPE_HANDOFF.md": "54b0336004ac3676c17865cdc4c3cc26390b0427de8937e03c98274f64060bcc",
         "docs/demo/story/REVIEW.md": "63aed553a320742293cb745f9e3e28214464914d72f709bc790bb1f4aaa0c265",
-        "docs/demo/story/STORY_BRIEF.md": "fe58e0cafce4bb61733d1bcdfda04d1708cfa0248e081645d5c62c6cf1cf4f59",
+        "docs/demo/story/STORY_BRIEF.md": "909ad570250fd91e37b0fc9c3ceebb43c0579fb8a1fc2fabe5d656d3af6c8aa4",
         "docs/demo/story/TRACE_SHAPES.md": "4dfcffb3b81434fa93b2f05569b9abc2df18d13513ec02f2c96bf403dc6a7916",
         "docs/demo/story/cases/portfolio-examples.json": "7ae9d676f8056c1386eb6757340367f7f387c99bbff15c09e6124ecc3ac1c645",
         "docs/demo/story/cases/product-explainer.json": "b2c6d9988987a5390d1d7e782915c09fd0a48ebc581e932df12809ab26041eb0",
         "docs/demo/story/story-contract.yaml": "8dee7c444b6c96bd2f04bb91dc6df00d215aa37a946ada68a7d0a050550fd8ce"
       },
       "decision_file": "docs/demo/story/REVIEW.md",
-      "note": "Preserves accepted story; records explicit requested reusable text prompt addition without changing resolved opening examples.",
+      "note": "Accepted story and explicit reusable text component amendment; brief aligned.",
       "input_checkpoint": null
     },
     "prototype": {
@@ -120,8 +120,8 @@
         "docs/demo/prototype/evidence/trace-dark.jpg": "6604419e5c86cf36d4c59164e5bdff9cffa96a2af742981cc8dbc0cc4c310887"
       },
       "decision_file": "docs/demo/prototype/REVIEW.md",
-      "note": "Accepted companion layout retained; additive native prompt-composition request documented, no redesigned prototype.",
-      "input_checkpoint": "d30aa40c22f2aa92259f1531e72f8ea90e52eea9871217d3bde16d51aa6fe267"
+      "note": "Accepted prototype unchanged; native text components preserve resolved fixture content.",
+      "input_checkpoint": "21ab0e95cf01d40f88ab2893022bcd01a8f8f147f6e38279629159b108c9c760"
     },
     "authoring": {
       "status": "ready",
@@ -142,17 +142,17 @@
       "files": {
         ".dockerignore": "be988156e3df481508e7fda764571b945add2154fd428b596112d4cac2b70ef7",
         ".github/workflows/ci.yml": "f1112d2db51ab2f00802e84d59371e768349a72909cd5aabba16500d26257358",
-        ".github/workflows/publish.yml": "23fc4ffe24a024a261ba66deb2a347c2504292bbf0463eabf3727753961449d5",
-        "DEMO_SCRIPT.md": "09b1d50599272fa63382b11622c5c5893760037cb6907fe927cef3d7b50bd860",
+        ".github/workflows/publish.yml": "e6091cc13e457eb2e67d590291ac612883828d3270059269bd1b9556fe68e032",
+        "DEMO_SCRIPT.md": "303132f4a2b024323cabf1c28d914d9adac0b8470f35bec9dcb0c0a20b26514a",
         "Dockerfile": "deba3d44aa160463368c9f2bf18715c93252092f30a921e23634c05d26b7bca8",
-        "README.md": "dc3480758b5b169ec1fdf6331e41d47b641a83916f4bbaba73e1dd01477e7ada",
+        "README.md": "44576ec6122d86776269630fc1d95bb06ddfcd6dceb8aa1d269cea9695690287",
         "config/demo.yaml": "f11d13f1d2db31eb0e1f6614b77f223eeb42cae1f69be4b6277be703b0b318d9",
-        "docs/demo/authoring/ASSETS.md": "a86057fab3bf19f029b2c2b769326b3c7ffcff0c00c1345d8af77228b480f9dd",
+        "docs/demo/authoring/ASSETS.md": "77c79438053d76b0bd8e42b42366fa1bff2e282a2124897d602f5f4ce06177f4",
         "docs/demo/authoring/BRAND_REFINEMENT.md": "84c62a32fc750d40f2d29c91cf320731d8db3a605424ffe7cad18b20ee302ea2",
         "docs/demo/authoring/CATEGORICAL_BUILD.md": "4e0f30230e11906c4dc4c06dd300cd5c1a5f63d901d977feb0ecd9e73d0ed5d1",
         "docs/demo/authoring/COMPANION.md": "4b751107be1ea5ef310d507e4daa1eae445f708a4d745df4945b55c6c0a69bda",
         "docs/demo/authoring/DEPOT_ACCESS.md": "642083047cfaffe1efc44a5e63f8ba75c2a784f22e014a5e6f75a9d129c86bf4",
-        "docs/demo/authoring/DEPOT_ONBOARDING.md": "de1e03e1d0ae37f894e0a47922bedc14097b218bd40a4e335841f84fcdbab525",
+        "docs/demo/authoring/DEPOT_ONBOARDING.md": "e7ad526b13fa425af1b96b18f20b5f8d3cd56338736669d4c02972c074a1bcb1",
         "docs/demo/authoring/EVALUATOR_MAPPING_REPAIR.md": "bb4188ac4cc678e2526b42b91753ec713ccf8c0d16f1b980c72646b956b9dff9",
         "docs/demo/authoring/FINAL_SEED.md": "5ab944374d79eac6a8c89fd86fd785c458da7a59d0141acbf53194f4662609d0",
         "docs/demo/authoring/FRESH_PROJECT.md": "328d75f111bc46c20d31b6f461bbfe21da0af572230d6d0e307056522ddae45f",
@@ -163,7 +163,7 @@
         "docs/demo/authoring/NULLABLE_EVALUATOR_RESEARCH.md": "7376545a02d192098ffe7392e2af29ce4e649110dcbb3decd7b405c13b77e24e",
         "docs/demo/authoring/OPERATIONAL_REVISION.md": "836e3abe436e7c1f580e2ef18bc57d10a8ab134034f8ae532110515d41a332da",
         "docs/demo/authoring/READINESS_RESEARCH.md": "f2d8eb33bb4657f875c74a7c9712c3dbfeca5de2d9cc6fc9e4777defb3980ac7",
-        "docs/demo/authoring/REVIEW.md": "2f9b29f58c7ad441439669a3a2a4edf59e3b182b7c177df3e9fa9e8e8c5fa0c6",
+        "docs/demo/authoring/REVIEW.md": "a23a8587f0c61e6d1fa5bdc943ff6ccb21dbe073cd9ac756ceae409dc4f96317",
         "docs/demo/authoring/TRACE_DESIGN_AUDIT.md": "3399ccf4c7d7e179d8b0a4e0ccadf08d56569807119cdf6dd3f0ea33dd903abe",
         "docs/demo/authoring/V4_COMPATIBILITY.md": "f99cc56d1d6f1a8b7c98cf9f4c585c80c27514fad1b431f426324c92ac6fe96a",
         "docs/demo/authoring/evidence/application-guide-companion.png": "e58fce90b9be187da2cac07c38517d5e9538391b2ec2574a3fa823344c0bfbe7",
@@ -185,7 +185,10 @@
         "docs/demo/authoring/evidence/categorical-native-session.png": "a3cd84912f84bf5ae92e2e52b7f329eb90fc68e5de362b9922b6cc4329cbfb8b",
         "docs/demo/authoring/evidence/categorical-native-trace.png": "5259bf906040d535c7f3ca477e6bd515727f64f1842b7e4b0e1ee3ba11bd46c0",
         "docs/demo/authoring/evidence/companion-four-turns.jpg": "f72337cd508fc348a5cc419fc0c3b4179012228b71006ed164433fa650e88272",
+        "docs/demo/authoring/evidence/components-production-protection.png": "5edb16d8d3c8816ca667c72c1f56a89d46256897bac2c2e28f01de92a63bb14d",
+        "docs/demo/authoring/evidence/components-project-empty.png": "8e3d76977c23d03336552e12b075512fcd9f46c0f318bfd4edd554bdceceecf5",
         "docs/demo/authoring/evidence/configuration-refresh-readback.json": "8e98338bda07c2e2384abb3fe88d2a72f4bc7cf92802e175eaa9918ca16e66d2",
+        "docs/demo/authoring/evidence/conformance-v0.2.1.txt": "a9b96c0c2377a6ab82c8d73a0d533bc32b83ff68c685bd6a62aadb5ad0424660",
         "docs/demo/authoring/evidence/conformance.txt": "a9b96c0c2377a6ab82c8d73a0d533bc32b83ff68c685bd6a62aadb5ad0424660",
         "docs/demo/authoring/evidence/container-smoke.json": "41d8fd061ae9cec6c0348ad652eac62ea22cc5f62c6af46af5408496e2b59b76",
         "docs/demo/authoring/evidence/dependencies.txt": "9261363b733079a641c2e4cc9bc46ffa1d8336945a87f807b6cf68847dbc9b09",
@@ -240,9 +243,10 @@
         "docs/demo/authoring/evidence/refined-live-session.json": "92d8c7e83f89a9f4cd4e070fabb46aca418eb15c7cbc7c65df1d410ee5d6536c",
         "docs/demo/authoring/evidence/rubric-propagation.json": "38ea2e9c3ccb18c3ee5c037764fb831d5532fb93f09ec4687cec6e152061960c",
         "docs/demo/authoring/evidence/schema-check.json": "29a3c2b107a45d889d0136fc4d7785065bc700246aacec2694de22fe2de72526",
+        "docs/demo/authoring/evidence/tests-v0.2.1.txt": "6459cae42d15e84543ae41bebe18d0bb878fb7a6753ecaeb151ae60e1567af81",
         "docs/demo/authoring/evidence/tests.txt": "e75eebae240f895031f4019aa2d0443f45e04ec2c93628d6492458ec0288b3e6",
         "docs/demo/authoring/evidence/trace-shapes.json": "c895df736326d26b086dfe025e51698b43cb4bc8f8abb416b87ec959e4a6b62e",
-        "pyproject.toml": "26326d067c6b59951735cd18144487300bfbfd74622c2a0e53fb2a01be89f11d",
+        "pyproject.toml": "4e5ffe78736bb532dbcbeb32ab026881976fa4552c29bd9420beed5201def0ba",
         "src/synth/__init__.py": "21d4cf5ad7b945741efc61245176ae837ba99c54cbde9345abcad29753957c27",
         "src/synth/assets.py": "845c214ff60f268ac0ac5850cd748dd369e15c38306d8d9cd87b6f1669973450",
         "src/synth/catalog.py": "a0ab98a45ac5f2977e8689e67f339e7bf7a8281297e1f2398ae4a13fc81cab27",
@@ -289,7 +293,7 @@
         "tests/test_assets.py": "0a1b3dab0d5302ddecb138285bdafe1363a7f1176a26adf08f56b8b6a57b9339",
         "tests/test_companion_runtime.py": "caefad24eb49dc394e9bfbb0c58531f6b13fe91b33b193d9609127ad48055832",
         "tests/test_configuration_refresh.py": "9cc12336c713462fb76d9cb7046a799c441de231a8d5dc9307aeee7b0ea88603",
-        "tests/test_deployment_pipeline.py": "a4aa49dc25927a99453af289b332e6e0c27386876dd671725dc5c9d438094d3b",
+        "tests/test_deployment_pipeline.py": "ad09704deb9b9acbd278daf6590cb7bb505d1697c28e062e880fd25ec5c87ca2",
         "tests/test_determinism.py": "24549a562ff43f1937181d6b49fbb7bc170a5422bd957221f7081055b848aa6e",
         "tests/test_evaluator_mapping_setup.py": "70324f117326291966863d9fa697fac10b0f9a394485be034fbc8d04753c7383",
         "tests/test_expansion.py": "601f0ee105e90e8ac44bb039e5bed8c283544816372727f8471bea54a185b298",
@@ -308,11 +312,11 @@
         "tests/test_run_evidence.py": "82c534a689abe8a42634195ce69aff57201171a73cd0302d0dc921cc3bd84074",
         "tests/test_sdk_metadata.py": "8016ae25512ac3c62e6371744fcf6becfd4a96221ae4add518823bde8c1aa1df",
         "tests/test_validate.py": "92b36f0caff4effea56827871597c73f1c9c3497e9a960f45283c1ce62562c16",
-        "usecase.yaml": "dd347cb84129ada95b148e4dfb86976af68dfdeda7a87e8ef721fe2127b51aa1"
+        "usecase.yaml": "781278c7aa8e3ab9a3bbc60f80dc98f00a57167e67d3956dd3b8f7cfac8ce6fb"
       },
       "decision_file": "docs/demo/authoring/REVIEW.md",
-      "note": "v0.2.0 candidate: reusable text components and fresh-project setup; 325 tests and conformance passed. New admission and delivered rehearsal pending.",
-      "input_checkpoint": "bac84dfd61037f2a5a0393125b2667e29aa4a8718b70a2af140ba49ac29d23e7"
+      "note": "v0.2.1 on released core4.2.0:325 tests and conformance pass; explicit setup credentials. Fresh admission pending.",
+      "input_checkpoint": "53ca1b75b500bb66ce302a0b520cd1809289cf5ebd5f366a5a5059dee6492b1d"
     }
   }
 }

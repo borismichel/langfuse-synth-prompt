@@ -1,7 +1,7 @@
 # Prompt portfolio: inspect, experiment, promote
 
 Status: **accepted for prototyping**. Prepared 2026-10-08.
-The user's agreed decisions are preserved as D-01–D-31 in
+The user's agreed decisions, including later amendments D-32–D-33, are preserved in
 [the story contract](story-contract.yaml). Concrete records, counts and rubrics in
 this packet are agent-authored proposals implementing those decisions.
 
@@ -40,6 +40,9 @@ in [product research](PRODUCT_RESEARCH.md).
 
 - **Nine prompt families**, each with **eight stored versions**: three live
   chatbots and six historical-only prompt families.
+- **Four reusable text building blocks** support those nine agents: reference context,
+  factual boundaries, voice and structured output. Native references preserve the
+  resolved opening content. Voice includes the accepted playful candidate instruction.
 - Main chatbot: **product explainer**. Additional live chatbots: **fee explainer**
   and **application guide**. The other families support classification, query
   rewriting, summarisation, extraction, drafting and handoff examples.

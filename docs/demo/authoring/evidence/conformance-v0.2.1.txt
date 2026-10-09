@@ -1,0 +1,8 @@
+conformance: usecase.yaml
+  ✓ manifest passes the blocking Contract lint (synth-authoring validate)
+  ✓ live surface declared per contract; command parses clean under the fixed companion invocation and rejects `--set`
+  ✓ companion serves its declared health path and renders its index offline, secret-free
+  ✓ anchors write where the state-dir env points, resolved at call time
+  ✓ every observation type the kit names is one Langfuse recognises
+  ✓ no deprecated Langfuse endpoint reached: observations go out as OTLP spans, scores as `score-create`, and every read goes through the read seam
+✓ conformance: the Contract holds

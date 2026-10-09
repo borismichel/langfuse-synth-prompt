@@ -38,7 +38,7 @@ Langfuse project; the accepted visual prototype remains in `design/prototype`.
 .venv/bin/python -m pytest -q
 ```
 
-The pinned core release is v4.1.1; the Langfuse Python SDK is 4.17.0. CI runs the
+The pinned core release is v4.2.0; the Langfuse Python SDK is 4.17.0. CI runs the
 same tests and conformance checks. The golden spool covers 24 history traces plus
 18 authored experiment examples. Process-repeatability checks vary Python hash
 seeds with egress blocked. No model generates seed content.
@@ -73,6 +73,8 @@ references; their resolved opening instructions retain the accepted story. The
 presenter can append the shared `playful` voice reference to a staging candidate.
 
 Depot runs evaluator setup, history seed, experiment mapping setup, then verification.
+Only the explicitly declared evaluator-setup step receives the selected provider key;
+seed and verify receive only Langfuse credentials.
 Setup creates a missing compatible Langfuse model connection when a provider key is
 available, or reuses the existing connection without changing its key. Evaluator
 setup is a separate model-using operation because Langfuse may validate the selected

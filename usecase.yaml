@@ -63,6 +63,10 @@ config_schema:
 pipeline:
 - id: configure-evaluators
   run: synth configure-evaluators --config {config}
+  requires_secrets:
+  - LANGFUSE_PUBLIC_KEY
+  - LANGFUSE_SECRET_KEY
+  - LLM_API_KEY
   timeout_minutes: 15
   fatal: true
 - id: seed

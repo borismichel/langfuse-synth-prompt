@@ -16,6 +16,8 @@ def test_manifest_dispatches_setup_seed_experiment_setup_and_final_verification(
         'configure-evaluators', 'seed', 'configure-experiments', 'verify',
     ]
     assert all(stage['fatal'] is True for stage in stages)
+    assert stages[0]['requires_secrets'] == ['LANGFUSE_PUBLIC_KEY', 'LANGFUSE_SECRET_KEY', 'LLM_API_KEY']
+    assert all('LLM_API_KEY' not in stage.get('requires_secrets', []) for stage in stages[1:])
     calls = []
     configs = []
     from langfuse_synth_core.seed import ingest

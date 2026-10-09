@@ -8,7 +8,7 @@ acceptance of a finished implementation or claim the remaining delivery checks p
 
 ## Delivered implementation
 
-- Pinned synth-core v4.1.1 runtime and image workflow; Langfuse SDK 4.17.0 with
+- Pinned synth-core v4.2.0 runtime and image workflow; Langfuse SDK 4.17.0 with
   Anthropic 1.12.1 and OpenAI 3.26.1 provider clients.
 - Nine prompt families with eight opening versions, nine datasets with 32 cases,
   twelve score definitions, model-free authored history and eighteen authored
@@ -35,8 +35,8 @@ acceptance of a finished implementation or claim the remaining delivery checks p
 
 | Check | Observed result | Evidence |
 | --- | --- | --- |
-| Scenario/integration suite | 170 passed | [tests](evidence/tests.txt) |
-| Manifest and pinned core conformance | Passed, no skips | [manifest](evidence/manifest.txt), [conformance](evidence/conformance.txt) |
+| Scenario/integration suite | 325 passed on core v4.2.0 | [tests](evidence/tests-v0.2.1.txt) |
+| Manifest and pinned core conformance | Passed, no skips | [manifest](evidence/manifest.txt), [conformance](evidence/conformance-v0.2.1.txt) |
 | Current local image | Brand-refined image built; UID 10001, no network/credentials, read-only root; exact page/static assets served. Earlier image verified seed, runbook and SDK export. | [brand refinement](BRAND_REFINEMENT.md), [categorical build](CATEGORICAL_BUILD.md) |
 | Process repeatability | Same complete spool across hash seeds with networking denied | Test suite |
 | Approved categorical contract | Source, prototype, golden, readback and native definitions updated | [categorical setup](evidence/categorical-evaluators.json) |
@@ -72,7 +72,7 @@ correct scoped maps. Existing results remain preserved.
 ## Remaining gates
 
 1. **Follow-up release.** The original `v0.1.0` is signed, passed all six
-   admission checks and is registered/published in Depot. The `v0.2.0` candidate
+   admission checks and is registered/published in Depot. The `v0.2.1` candidate
    adds native reusable text components, complete fresh-project setup stages and
    catalog metadata; its release/admission is pending until observed.
    [Delivery evidence](DEPOT_ONBOARDING.md).

@@ -88,3 +88,39 @@ under a separate prompt folder, compose them into the agent prompts through
 Langfuse's native prompt references, verify resolution/version behavior, and
 update the presenter story. This is an authorized follow-up release, not an
 unrecorded change to the initial admission candidate.
+
+## Text-component release sequence
+
+`v0.2.0` (`fc661fc88b06eed45eaf00670cc3d4fb5b55795f`) contains the text
+components, catalog metadata and explicit setup pipeline. Its
+[CI](https://github.com/borismichel/langfuse-synth-prompt/actions/runs/37900030832)
+and [signed build](https://github.com/borismichel/langfuse-synth-prompt/actions/runs/37900034373)
+passed. It has not been admitted or pinned in Depot.
+
+Deployment review then found a shared contract gap: the original core/Depot
+pipeline intentionally provides only Langfuse credentials to jobs, so an explicit
+model-connection setup stage cannot receive Depot's provider key. The coordinated
+follow-up adds an explicit custom-step secret declaration. It must retain the
+provider-free seed boundary and avoid silently granting credentials to old kits.
+The next kit release will opt in only for connection/evaluator setup. The immutable
+`v0.2.0` tag will not move.
+
+The fresh project `prompt-components-demo` (`cmv0nl149090gad0f8c5p5xcb`) was
+created in Boris Demo Enterprise for that candidate. The user approved its project-scoped API key at action time. Credentials were
+stored in Depot's existing admission reference and verified against this exact
+project using observations v2 and datasets; both were empty. No model connection
+or evaluator was manually created, so admission can prove the complete setup.
+Production-label protection is enabled; final admission remains pending. Existing populated targets remain intact.
+
+Depot's [PR #278](https://github.com/borismichel/langfuse-demo-depot/pull/278)
+fixes the misleading admission-carrier publish controls; 20 relevant router tests
+passed. It merged at `2b4622b46c70b7bd755a98bef184300a32d83dab`. The independent
+catalog grouping cleanup in PR #277 is preserved and its frontend image is already
+running locally. Final API/worker rebuild will include both and the final kit pin.
+
+Core [PR #61](https://github.com/borismichel/langfuse-synth-core/pull/61) merged
+with all three CI checks passing. Immutable `v4.2.0` points to
+`f81f505b58b6a72f48a8a3d2d9919c75e2f90580`. Kit candidate `v0.2.1` pins that
+release and opts only its initial evaluator-setup step into `LLM_API_KEY` delivery.
+Its 325 tests and all conformance checks passed on that exact installed release.
+The final kit release/admission and catalog sync are still pending.

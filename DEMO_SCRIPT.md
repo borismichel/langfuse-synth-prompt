@@ -29,7 +29,7 @@ eighteen historical experiment examples remain fixed.
 
 Confirm that the project has an Anthropic connection for `claude-sonnet-5-5`
 experiments and managed evaluators, and the role-specific companion models in
-[the kit policy](docs/demo/story/MODEL_POLICY.md), active managed evaluators,
+[the kit policy](https://github.com/borismichel/langfuse-synth-prompt/blob/v0.2.1/docs/demo/story/MODEL_POLICY.md), active managed evaluators,
 and protected-label support. Protect `production` in native project settings; rehearse
 with a member account and an administrator/owner. An API key does not demonstrate
 member permissions. Public API provisioning cannot configure this protection.
@@ -201,7 +201,8 @@ variables) to the existing Langfuse connection and usable model.
 Depot runs four ordered steps for a fresh project: evaluator setup, model-free
 history seed, post-import experiment mapping setup, then final verification.
 The two explicit setup steps may validate the configured model; they are separate
-from history generation. A missing compatible provider connection/key stops setup
+from history generation. Only initial setup declares the provider-key capability;
+seed, final verification and post-import mapping setup receive only Langfuse credentials. A missing compatible provider connection/key stops setup
 rather than delivering an application with missing judges.
 
 Use a fresh approved demo project and a fresh state directory. Start with 48 history
@@ -301,5 +302,5 @@ The 2026-10-08 corrected native comparison improved theatrical delivery from
 subsequent four-turn live session used production v9 with the exact style instruction,
 but every reply retained ordinary prose. Do not promise a deterministic voice change;
 show the resolved version and actual outcomes. Two user-input judges also flagged
-an explicit self-correction incorrectly. See [native rehearsal](docs/demo/authoring/NATIVE_REHEARSAL.md)
+an explicit self-correction incorrectly. See [native rehearsal](https://github.com/borismichel/langfuse-synth-prompt/blob/v0.2.1/docs/demo/authoring/NATIVE_REHEARSAL.md)
 for the preserved results, correct context mappings and remaining permission/delivery checks.
