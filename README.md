@@ -86,9 +86,9 @@ Read [native asset setup](docs/demo/authoring/ASSETS.md),
 `usecase.yaml` is the Depot integration contract. `Dockerfile` runs as a non-root
 user. The signed image workflow is pinned to the same core release and triggers
 only on a matching immutable version tag. Nothing is published by local tests.
-Release v0.1.0 passed admission and is registered in Depot. The text-component
-follow-up requires its own immutable release, admission and delivered rehearsal;
-local checks alone do not establish those outcomes.
+Release v0.2.1 passed all six admission checks and the delivered rehearsal, and is
+published in Depot. The final source/image and rollout receipts are recorded in
+[Depot onboarding](docs/demo/authoring/DEPOT_ONBOARDING.md).
 
 Ingestion appends. The kit refuses a repeated live seed in the same state
 directory after provisioning/import begins. A partial failure requires a fresh
@@ -96,32 +96,24 @@ approved target or a separately authorised reset; it must never be blindly retri
 
 ## Readiness
 
-Authoring checks verify the native prompt/metrics flow, protected-label owner
-promotion and a four-turn live session with 32 input/reply EVAL scores. The corrected
-native v7/v9 experiment pair produced 16 outputs and 64 scores: style 0.00 → 0.75,
-both factual criteria eight Passes per version, tone 1.00. The promoted live run
-resolved v9 correctly but retained ordinary prose on all four turns. Results and
-input-judge calibration failures are preserved; no score gate or quality retry ran.
-The initial invalid-context experiment is retained separately.
-See [native rehearsal](docs/demo/authoring/NATIVE_REHEARSAL.md) and
-[authoring review](docs/demo/authoring/REVIEW.md) for evidence and remaining gates.
+On 2026-10-09, the exact signed v0.2.1 image completed automatic setup, full seed,
+verification and companion smoke in `prompt-components-demo` within Boris Demo
+Enterprise. The final [delivered rehearsal](docs/demo/authoring/COMPONENTS_REHEARSAL.md)
+then exercised native text components, prompt metrics, two real eight-case Sonnet
+5.5 experiments, owner promotion, four live turns and explicit feedback.
 
-Live evaluator calibration, signed release and Depot admission remain pending.
-Full-scale categorical history is verified in the user-selected project. Earlier numeric pilot history
-is preserved and does not establish the new categorical contract.
+The comparison produced 16 outputs and 128 actual EVAL results. Style averaged
+0 for v7 and 0.3375 for composed v9; both factual criteria passed all eight cases,
+with respectful tone 1. The promoted live conversation used v9 on every turn,
+scored 0.5 for style, and produced 32 input/reply evaluations plus a thumbs-down
+score on the intended third reply. No score gate or quality-driven retry ran.
+Online observation mappings and experiment item overrides were verified separately.
 
-On 2026-10-09 the fresh `prompt-portfolio-demo` project passed all 244 checks
-after one corrected small import: 48 history traces plus 18 authored experiments.
-One actual companion turn also produced eight correctly targeted evaluator results.
-See the [fresh project evidence](docs/demo/authoring/FRESH_PROJECT.md).
-The user independently verified protected-label enforcement on the same date,
-closing the small walkthrough's remaining permission check.
-
-The same project now contains 1,620 history traces plus 18 authored experiment
-traces, 2,118 generations, 74 calculator tool observations and 9,356 authored
-scores. A guarded expansion added 1,572 traces without replacing the sample,
-assets or live chats. Exhaustive readback found no missing or duplicate records.
-See [full-volume evidence](docs/demo/authoring/FULL_VOLUME.md).
+The user independently verified protected-label enforcement. The final rehearsal
+used an owner account and does not claim a fresh member-denial test. The admission
+carrier's project shortcut remains host-only; use the exact project or companion
+session links documented in the rehearsal. Earlier projects, experiments and
+calibration failures are preserved in [authoring review](docs/demo/authoring/REVIEW.md).
 
 The full population specification is 1,620 production-history traces, 2,100
 generations and 9,320 eligible outcomes over 28 complete days, plus eighteen small
@@ -129,9 +121,7 @@ historical experiment traces. E-02/E-03 include explicit Not applicable categori
 missing, pending and failed executions remain distinct.
 History, products, accounting prices, user identities and replies are synthetic.
 
-The current [operational revision](docs/demo/authoring/OPERATIONAL_REVISION.md)
-replaced that earlier spool in the same project with original Claude model IDs,
-shared application trace names, generation-native prompt links and cleaned
-presentation labels. Explicit thumbs/comments now persist as BOOLEAN scores.
-All 248 live checks and the full inventory audit passed; existing non-seed records
-were preserved. Depot admission and delivered staging rehearsal remain pending.
+Original Claude model IDs, shared historical/live operation names, generation-native
+prompt links and BOOLEAN thumbs/comments remain part of the delivered contract.
+The [operational revision](docs/demo/authoring/OPERATIONAL_REVISION.md) preserves
+the earlier migration evidence; the final fresh-target evidence is linked above.

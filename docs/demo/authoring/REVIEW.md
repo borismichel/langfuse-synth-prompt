@@ -1,10 +1,10 @@
 # Authoring implementation review
 
-Updated 2026-10-09. **Implementation available for review; final delivery pending.**
+Updated 2026-10-09. **v0.2.1 admitted, rehearsed and published in Depot.**
 The user accepted the story/prototype and authorised the complete kit, clean-context
 subagents, Langfuse skill and brand assets. The user subsequently approved categorical
 Pass / Fail / Not applicable for the two factual criteria. This does not record
-acceptance of a finished implementation or claim the remaining delivery checks passed.
+acceptance of a finished implementation. Observed delivery checks are recorded below.
 
 ## Delivered implementation
 
@@ -32,6 +32,16 @@ acceptance of a finished implementation or claim the remaining delivery checks p
   new categorical contract. Seed remains model-free and never provisions paid judges.
 
 ## Current evidence
+
+The final [text-component rehearsal](COMPONENTS_REHEARSAL.md) verifies the exact
+v0.2.1 signed release in Boris Demo Enterprise: automatic connection/evaluator
+setup, full history, native components, two eight-case Sonnet 5.5 experiments
+(128 actual scores), owner promotion and four live turns (32 evaluator scores
+plus third-reply feedback). The real style means are 0 versus 0.3375 in the
+experiment and 0.5 on every promoted live reply. Factual criteria all passed.
+Online observation mappings and experiment item overrides are separate and
+verified. The table and analysis below retain earlier checkpoints explicitly;
+their previous style and mapping limitations are not substituted for final results.
 
 | Check | Observed result | Evidence |
 | --- | --- | --- |
@@ -69,15 +79,15 @@ and SDK dictionary stringification. An actual SDK/export regression reproduced b
 distinct trace metadata and explicit JSON fixed them. One new live turn confirms
 correct scoped maps. Existing results remain preserved.
 
-## Remaining gates
+## Final delivery
 
-1. **Follow-up release.** The original `v0.1.0` is signed, passed all six
-   admission checks and is registered/published in Depot. The `v0.2.1` candidate
-   adds native reusable text components, complete fresh-project setup stages and
-   catalog metadata; its release/admission is pending until observed.
-   [Delivery evidence](DEPOT_ONBOARDING.md).
-2. **Delivered rehearsal.** The final Depot-served runbook, companion, composed
-   prompts, experiments and session still need a complete run on the new revision.
+Registry PR #280 is merged, the local API rebuilt, and authenticated registry sync
+replaced the published entry with the exact admitted v0.2.1 digest. Catalog and
+detail views show Financial Services and all seven feature badges. Primary Depot
+main is current; unrelated work and the independent frontend cleanup are preserved.
+[Delivery evidence](DEPOT_ONBOARDING.md). The admission carrier's host-only project
+shortcut and immutable pre-admission documentation snapshot remain disclosed;
+the companion's actual project/session links and final main-branch evidence work.
 
 ## Text-component amendment
 

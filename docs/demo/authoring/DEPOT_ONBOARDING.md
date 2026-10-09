@@ -4,6 +4,37 @@ The user authorized Depot onboarding, registration and shipment, then approved
 creating a dedicated project in Boris Demo Enterprise with a name ending in
 `demo`. The existing final-seed project is preserved.
 
+## Current release: v0.2.1
+
+The exact signed `v0.2.1` candidate passed all six admission checks and the complete
+delivered walkthrough in `prompt-components-demo`, inside Boris Demo Enterprise.
+Automatic connection/evaluator setup, provider-free seed, post-import mappings,
+native components, two real experiments, protected-label promotion, four live
+turns, feedback and session links are verified. See the
+[final rehearsal](COMPONENTS_REHEARSAL.md) and
+[admission receipt](evidence/depot-admission-v0.2.1.json).
+[Registry PR #280](https://github.com/borismichel/langfuse-demo-depot/pull/280)
+merged at `386524cb70561ca3a4623b9fd2fec4fdc32759b1`. The primary Depot checkout
+was fast-forwarded to that commit, preserving all seven unrelated untracked paths.
+The final API image is
+`sha256:7806a10e3be2e785b9e1144e25492dd75782c47532e5f5aa1716d6678e0dc462`;
+health returned 200. The worker on the merged setup capability, PR #277 frontend,
+and all three running companions were preserved. Authenticated registry sync
+completed at `2026-10-09T08:25:39.024583Z`: `prompt` is v0.2.1, active and
+Published with the exact admitted digest. The catalog visibly shows Financial
+Services and prompt-management, experiments, evaluators plus four additional
+features. The detail page lists all seven features and the text-component story.
+[Catalog proof](evidence/depot-published-catalog-v0.2.1.png).
+
+Local registry validation passed on the exact PR head, resolving all four release
+pins. Depot's legacy self-hosted CI runner remained queued; no remote CI pass is
+claimed for PR #280. Kit release CI and signed image publication both passed.
+Release-tag documentation is an immutable pre-admission snapshot; main contains
+the retrospective final receipts and current readiness statement.
+
+The sections below preserve the earlier delivery sequence; their pending states
+describe those historical checkpoints, not the final rehearsal verdict.
+
 ## Admission target
 
 - Organization: Boris Demo Enterprise, enterprise plan.

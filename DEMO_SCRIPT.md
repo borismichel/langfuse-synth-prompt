@@ -173,7 +173,7 @@ mode is visibly labelled and cannot stand in for live health or native evidence.
 ## Developer mode — installation, seed and verification
 
 Install the pinned kit with `python -m pip install -e '.[dev]'`. Core is pinned to
-v4.1.1; this version uses the separate offline commands:
+v4.2.0; this version uses the separate offline commands:
 
 ```sh
 synth-authoring validate usecase.yaml

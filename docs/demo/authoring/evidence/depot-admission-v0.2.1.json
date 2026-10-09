@@ -1,0 +1,41 @@
+{
+  "release": "v0.2.1",
+  "commit": "f8cdd9dab4b7d46a706e122c83734113ba457c7f",
+  "image": "ghcr.io/borismichel/langfuse-synth-prompt@sha256:1683eeba9c4be0596346c8fec8e45febc736562223627d8dfb7ca79bf780e555",
+  "core": "v4.2.0",
+  "admission_id": "3e3f4be3-1f46-4b33-b47d-033cb60c1ea7",
+  "deployment_id": "927d32ef-2ce6-4e10-87b2-0ac8232452c3",
+  "project_id": "cmv0nl149090gad0f8c5p5xcb",
+  "project_name": "prompt-components-demo",
+  "organization": "Boris Demo Enterprise",
+  "organization_id": "cmtqvkiw701e6ad0dtv73tds4",
+  "ci": "https://github.com/borismichel/langfuse-synth-prompt/actions/runs/37901739638",
+  "publish": "https://github.com/borismichel/langfuse-synth-prompt/actions/runs/37901742724",
+  "status": "passed",
+  "eligible_to_pin": true,
+  "checks": {
+    "register": "passed",
+    "build": "passed",
+    "spawn": "passed",
+    "seed": "passed",
+    "verify": "passed",
+    "companion_smoke": "passed"
+  },
+  "manual_model_connection_setup": false,
+  "manual_evaluator_setup": false,
+  "automatic_setup": {
+    "status": "passed",
+    "job_id": "52d57a51-cc4b-4318-b778-a3199bec2524",
+    "exit_code": 0,
+    "provider": "anthropic",
+    "credential_source": "shared",
+    "audit_at": "2026-10-09T07:58:55Z",
+    "model_connection_readback": "anthropic connection with default models enabled; absent before run"
+  },
+  "automatic_postseed_mapping": {
+    "status": "passed",
+    "job_id": "619a0a17-3ce0-416c-9028-596b365b16c3",
+    "exit_code": 0
+  },
+  "verify_job_id": "42e84934-ec6a-4e5d-afc8-f75b506fca2e"
+}
