@@ -177,3 +177,9 @@ This records an additive user instruction and its compatibility with the accepte
 prototype, not a new user acceptance of runtime tests or release evidence. The
 companion layout and behaviour remain as prototyped. Fresh live resolution and
 release/admission checks are required for the new revision.
+
+## Loading copy amendment — 2026-10-09
+
+The user requested natural chat loading language instead of prompt-retrieval and
+generation details. Prototype and companion now show “Thinking…”. This changes
+only the pending-message text; the accepted interaction and instrumentation remain.

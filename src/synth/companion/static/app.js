@@ -124,7 +124,7 @@ function render() {
       row.append(evaluation,state);$('inspector').append(row);
     }
   }
-  if(busy) $('transcript').append(element('p','Retrieving the managed production prompt and preparing a reply…','pending-inline'));
+  if(busy) $('transcript').append(element('p','Thinking…','pending-inline'));
   bot.suggestions.forEach(s=>{const button=element('button',s.label+' ↗');button.title=s.message;button.onclick=()=>send(s.message);$('suggestions').append(button)});
   const last=[...(session?.turns||[])].reverse().find(t=>t.session_url);
   setLink('session',last?.session_url);

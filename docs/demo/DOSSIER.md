@@ -43,7 +43,7 @@ Recorded decision/evidence: `docs/demo/story/REVIEW.md`
 
 ### prototype: accepted
 
-Accepted prototype unchanged; native text components preserve resolved fixture content.
+User-requested natural loading copy amendment: Thinking…; accepted interaction unchanged.
 
 Recorded decision/evidence: `docs/demo/prototype/REVIEW.md`
 
@@ -68,7 +68,7 @@ Recorded decision/evidence: `docs/demo/prototype/REVIEW.md`
 - [design/prototype/src/data/portfolio.json](https://github.com/borismichel/langfuse-synth-prompt/blob/main/design/prototype/src/data/portfolio.json) — `4b6e61a4741c`
 - [design/prototype/src/data/product.json](https://github.com/borismichel/langfuse-synth-prompt/blob/main/design/prototype/src/data/product.json) — `b2c6d9988987`
 - [design/prototype/src/langfuse-theme.css](https://github.com/borismichel/langfuse-synth-prompt/blob/main/design/prototype/src/langfuse-theme.css) — `c8e3182f9bce`
-- [design/prototype/src/main.tsx](https://github.com/borismichel/langfuse-synth-prompt/blob/main/design/prototype/src/main.tsx) — `031e17aa6fe3`
+- [design/prototype/src/main.tsx](https://github.com/borismichel/langfuse-synth-prompt/blob/main/design/prototype/src/main.tsx) — `6e64f8a682b6`
 - [design/prototype/src/model.mjs](https://github.com/borismichel/langfuse-synth-prompt/blob/main/design/prototype/src/model.mjs) — `09b7da708ddd`
 - [design/prototype/src/population.mjs](https://github.com/borismichel/langfuse-synth-prompt/blob/main/design/prototype/src/population.mjs) — `80110dd536cf`
 - [design/prototype/src/style.css](https://github.com/borismichel/langfuse-synth-prompt/blob/main/design/prototype/src/style.css) — `ed035dc53feb`
@@ -109,7 +109,7 @@ Recorded decision/evidence: `docs/demo/prototype/REVIEW.md`
 - [design/prototype/vite.config.js](https://github.com/borismichel/langfuse-synth-prompt/blob/main/design/prototype/vite.config.js) — `e073e0acc225`
 - [docs/demo/prototype/BRIEF.md](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/prototype/BRIEF.md) — `68bbb357edf8`
 - [docs/demo/prototype/PROVENANCE.json](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/prototype/PROVENANCE.json) — `ca908ddec9fe`
-- [docs/demo/prototype/REVIEW.md](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/prototype/REVIEW.md) — `92d62433dcf0`
+- [docs/demo/prototype/REVIEW.md](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/prototype/REVIEW.md) — `2c0a1c9cef66`
 - [docs/demo/prototype/evidence/build.txt](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/prototype/evidence/build.txt) — `0e324e7cf7d7`
 - [docs/demo/prototype/evidence/categorical-checks.md](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/prototype/evidence/categorical-checks.md) — `36f177d57ebf`
 - [docs/demo/prototype/evidence/categorical-control-dark.jpg](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/prototype/evidence/categorical-control-dark.jpg) — `8e1305c7ed89`
@@ -123,7 +123,7 @@ Recorded decision/evidence: `docs/demo/prototype/REVIEW.md`
 
 ### authoring: ready
 
-v0.2.2 published after exact six-step pipeline admission; kit and Depot on main, rebuilt Depot and member catalog verified. Unchanged story rehearsal carried forward; polling fix verified by mounted tests and rebuilt page inspection.
+Natural loading copy updated in source and prototype; syntax and renderer checks pass. Published v0.2.2 unchanged; copy amendment awaits next image release.
 
 Recorded decision/evidence: `docs/demo/authoring/REVIEW.md`
 
@@ -152,7 +152,7 @@ Recorded decision/evidence: `docs/demo/authoring/REVIEW.md`
 - [docs/demo/authoring/OPERATIONAL_REVISION.md](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/OPERATIONAL_REVISION.md) — `836e3abe436e`
 - [docs/demo/authoring/PREFLIGHT.md](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/PREFLIGHT.md) — `fb2a5bb9f6b4`
 - [docs/demo/authoring/READINESS_RESEARCH.md](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/READINESS_RESEARCH.md) — `f2d8eb33bb46`
-- [docs/demo/authoring/REVIEW.md](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/REVIEW.md) — `11bfcf708b3e`
+- [docs/demo/authoring/REVIEW.md](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/REVIEW.md) — `9a3666659f79`
 - [docs/demo/authoring/SHIP_CHECKLIST.md](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/SHIP_CHECKLIST.md) — `4765d0aa62af`
 - [docs/demo/authoring/TRACE_DESIGN_AUDIT.md](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/TRACE_DESIGN_AUDIT.md) — `3399ccf4c7d7`
 - [docs/demo/authoring/V4_COMPATIBILITY.md](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/V4_COMPATIBILITY.md) — `f99cc56d1d6f`
@@ -269,7 +269,7 @@ Recorded decision/evidence: `docs/demo/authoring/REVIEW.md`
 - [src/synth/companion/app.py](https://github.com/borismichel/langfuse-synth-prompt/blob/main/src/synth/companion/app.py) — `016d47e5f70e`
 - [src/synth/companion/preview.py](https://github.com/borismichel/langfuse-synth-prompt/blob/main/src/synth/companion/preview.py) — `67a282650966`
 - [src/synth/companion/service.py](https://github.com/borismichel/langfuse-synth-prompt/blob/main/src/synth/companion/service.py) — `7456433fc416`
-- [src/synth/companion/static/app.js](https://github.com/borismichel/langfuse-synth-prompt/blob/main/src/synth/companion/static/app.js) — `81a1d427a464`
+- [src/synth/companion/static/app.js](https://github.com/borismichel/langfuse-synth-prompt/blob/main/src/synth/companion/static/app.js) — `91ebc69c0c9f`
 - [src/synth/companion/static/brand.css](https://github.com/borismichel/langfuse-synth-prompt/blob/main/src/synth/companion/static/brand.css) — `e392c790cb75`
 - [src/synth/companion/static/fonts/GeistMono-OFL.txt](https://github.com/borismichel/langfuse-synth-prompt/blob/main/src/synth/companion/static/fonts/GeistMono-OFL.txt) — `1781d2806a07`
 - [src/synth/companion/static/fonts/Inter-OFL.txt](https://github.com/borismichel/langfuse-synth-prompt/blob/main/src/synth/companion/static/fonts/Inter-OFL.txt) — `5b9321a4298c`

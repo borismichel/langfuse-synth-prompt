@@ -66,7 +66,7 @@
         "design/prototype/src/data/portfolio.json": "4b6e61a4741ce3a4cce262f54b93dbf896b2d25a4c7aa3ef8f8927dd279add58",
         "design/prototype/src/data/product.json": "b2c6d9988987a5390d1d7e782915c09fd0a48ebc581e932df12809ab26041eb0",
         "design/prototype/src/langfuse-theme.css": "c8e3182f9bcea3eb7194e8e36278b4ac87157d78d46e9b8001e9e1b7526dc837",
-        "design/prototype/src/main.tsx": "031e17aa6fe3e2b4f09cfa8c944cf68ece459884b08a8e6e1af9bdc1dc76c7c0",
+        "design/prototype/src/main.tsx": "6e64f8a682b62dcd03e555fc6ca0bf193374eb467b003130e3de620c36f2e541",
         "design/prototype/src/model.mjs": "09b7da708ddd05af5a1a93c275bc070f0e6c7a00f6129c8de899a1e9cf8aee4a",
         "design/prototype/src/population.mjs": "80110dd536cf17c4f67f79fb3253bb2497a547083943e43f445855c403185d82",
         "design/prototype/src/style.css": "ed035dc53feb70be83d84013d133b26d63f41d4de7195d9f7045d5d1d0589773",
@@ -107,7 +107,7 @@
         "design/prototype/vite.config.js": "e073e0acc2250ad8c55086a4469cf85b407a415851f9ef790b767a6cd0c19bab",
         "docs/demo/prototype/BRIEF.md": "68bbb357edf899f8ecb6b8bdab28bbd5fdb3fd934731659db8875afd0ab8df10",
         "docs/demo/prototype/PROVENANCE.json": "ca908ddec9fea34b403235173c145911d4ad3129c27b40134466b2cac631d628",
-        "docs/demo/prototype/REVIEW.md": "92d62433dcf03a0f1c78975664ec4fe892647138276374e14047ff0023adbd9b",
+        "docs/demo/prototype/REVIEW.md": "2c0a1c9cef66aedf9e160a6fa7eec3407ab26906cb2c6eb43a51ea6f59fe4737",
         "docs/demo/prototype/evidence/build.txt": "0e324e7cf7d73358ee5f1b7dbfdc821d5824cd508f5ed88bac96e44dd794c55d",
         "docs/demo/prototype/evidence/categorical-checks.md": "36f177d57ebf178ae85c8ccf80798e78413925a33d27c46e14b3ca3507af7914",
         "docs/demo/prototype/evidence/categorical-control-dark.jpg": "8e1305c7ed89ab8b4d912516e45f2160722a857b9f55ad77150a8eaf3cdbf82e",
@@ -120,7 +120,7 @@
         "docs/demo/prototype/evidence/trace-dark.jpg": "6604419e5c86cf36d4c59164e5bdff9cffa96a2af742981cc8dbc0cc4c310887"
       },
       "decision_file": "docs/demo/prototype/REVIEW.md",
-      "note": "Accepted prototype unchanged; native text components preserve resolved fixture content.",
+      "note": "User-requested natural loading copy amendment: Thinking\u2026; accepted interaction unchanged.",
       "input_checkpoint": "21ab0e95cf01d40f88ab2893022bcd01a8f8f147f6e38279629159b108c9c760"
     },
     "authoring": {
@@ -165,7 +165,7 @@
         "docs/demo/authoring/OPERATIONAL_REVISION.md": "836e3abe436e7c1f580e2ef18bc57d10a8ab134034f8ae532110515d41a332da",
         "docs/demo/authoring/PREFLIGHT.md": "fb2a5bb9f6b44ddf9e0d2b93050cf0037b1e78d02173390a52035521e645fa2a",
         "docs/demo/authoring/READINESS_RESEARCH.md": "f2d8eb33bb4657f875c74a7c9712c3dbfeca5de2d9cc6fc9e4777defb3980ac7",
-        "docs/demo/authoring/REVIEW.md": "11bfcf708b3e40ac88474382fc0063943bb3b0272823f4b26adfca9cd75c01bc",
+        "docs/demo/authoring/REVIEW.md": "9a3666659f79b8f4cfb486484bed833466f52d8f2ceb32ebf5ddaeffe9ec785d",
         "docs/demo/authoring/SHIP_CHECKLIST.md": "4765d0aa62afc472c113a9de664044f2dc523f3b16a4bf0caed3f8724c1bebae",
         "docs/demo/authoring/TRACE_DESIGN_AUDIT.md": "3399ccf4c7d7e179d8b0a4e0ccadf08d56569807119cdf6dd3f0ea33dd903abe",
         "docs/demo/authoring/V4_COMPATIBILITY.md": "f99cc56d1d6f1a8b7c98cf9f4c585c80c27514fad1b431f426324c92ac6fe96a",
@@ -282,7 +282,7 @@
         "src/synth/companion/app.py": "016d47e5f70ee9c2c61f06b46f664774ad32b2b73f72bf42948be2cf85adbf56",
         "src/synth/companion/preview.py": "67a282650966d9e3da660ec868ace261df1286b0ee73ed856244ded2542eae67",
         "src/synth/companion/service.py": "7456433fc4163439321d5c8398c265a804e0e50aa3303fcb9d998922a9cd21e5",
-        "src/synth/companion/static/app.js": "81a1d427a4645a1d13cb4bb8ac60cb2d486a06ba12a743c7dcbd3eddd386e9da",
+        "src/synth/companion/static/app.js": "91ebc69c0c9f7c344c77b76b8272425265b9fc79e45ca8ab5a7288b16560346f",
         "src/synth/companion/static/brand.css": "e392c790cb7507217541baf9bb21e7f8c7271e364b7d6ad1c69fa0659d19b5fc",
         "src/synth/companion/static/fonts/GeistMono-OFL.txt": "1781d2806a07d91c4edf4740b88449fab7d0eadad53f7c351b94cd4d4eb8c00f",
         "src/synth/companion/static/fonts/Inter-OFL.txt": "5b9321a4298cfeb6b34354164a1c3afc3db114569984c502b9b35d988fd58c57",
@@ -344,8 +344,8 @@
         "usecase.yaml": "f35cb88c278567ac34b3ca4d8232259c560f22572c198de476a2bd1046feca99"
       },
       "decision_file": "docs/demo/authoring/REVIEW.md",
-      "note": "v0.2.2 published after exact six-step pipeline admission; kit and Depot on main, rebuilt Depot and member catalog verified. Unchanged story rehearsal carried forward; polling fix verified by mounted tests and rebuilt page inspection.",
-      "input_checkpoint": "53ca1b75b500bb66ce302a0b520cd1809289cf5ebd5f366a5a5059dee6492b1d"
+      "note": "Natural loading copy updated in source and prototype; syntax and renderer checks pass. Published v0.2.2 unchanged; copy amendment awaits next image release.",
+      "input_checkpoint": "730a00ce3d6810c723b5832e8c6b3f375f22084c15516782740b302502fdd798"
     }
   }
 }
