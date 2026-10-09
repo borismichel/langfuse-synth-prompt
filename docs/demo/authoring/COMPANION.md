@@ -5,6 +5,10 @@ The accepted companion styling and all three assistants are preserved. Prompt br
 editing, experiment execution, protected-label promotion, sessions and observation detail
 belong to native Langfuse. The companion links there; it does not reproduce those pages.
 
+The user's 2026-10-09 request adds restrained lime accents, the exact brand corner
+masks and a small stripe motif. Layout and behaviour remain unchanged; see
+[brand refinement and visual checks](BRAND_REFINEMENT.md).
+
 ## Delivered surface
 
 - Product explainer PR-01, fee explainer PR-02 and application guide PR-03 share the same

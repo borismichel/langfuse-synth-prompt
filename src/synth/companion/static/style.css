@@ -13,3 +13,45 @@
 
 /* Reply blocks inherit the existing chat typography and theme. */
 .reply-content{min-width:0;overflow-wrap:anywhere}.reply-content>*{margin:0}.reply-content>*+*{margin-top:12px}.reply-content h3,.reply-content h4{font-size:14px;font-weight:550}.reply-content ul,.reply-content ol{padding-left:22px}.reply-content hr{border:0;border-top:1px solid var(--line-structure)}.reply-content code{font-size:.92em}.reply-table-wrap{max-width:100%;overflow-x:auto}.reply-content th,.reply-content td{padding:8px 10px;font-size:inherit;white-space:normal;vertical-align:top}.reply-content th{font-weight:550}
+
+
+/* Companion brand accents reuse brand.css marker, mask and stripe recipes.
+   Keep the dark theme's native olive accent and the existing ink CTAs. */
+.chat-panel.corner-box-corners-flush,
+.bot-list > .bot-option {
+  position: relative;
+}
+
+.bot-list > .bot-option {
+  border-radius: 2px;
+}
+
+/* Selection keeps the source mask visible. Keyboard focus also reveals it,
+   while retaining the separate focus outline for a clear focus indicator. */
+.bot-list > .bot-option[aria-pressed=true]::before,
+.bot-list > .bot-option:focus-visible::before {
+  opacity: 1;
+}
+
+.bot-list > .bot-option:disabled:not([aria-pressed=true])::before {
+  opacity: 0;
+}
+
+.bot-list > .bot-option[aria-pressed=true] .bot-number {
+  color: var(--text-primary);
+  background: var(--surface-cta-primary);
+  box-shadow: 0 0 0 3px var(--surface-cta-primary);
+  border-radius: 1px;
+}
+
+.chat-panel .assistant-mark {
+  color: var(--text-primary);
+  background: var(--surface-cta-primary);
+}
+
+/* A small, static application of the exact 315deg / 4px stripe recipe. */
+.sidebar-bottom .orbit-mark {
+  width: 48px;
+  text-align: center;
+  color: var(--text-secondary);
+}

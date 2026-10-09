@@ -1,0 +1,17 @@
+{
+  "uid": 10001,
+  "credentialsAbsent": true,
+  "pageAndVersionedAssetsServed": true,
+  "installedAssetSha256": {
+    "templates/index.html": "3015d5c8eb4f17189f54df1c18b4b8c4da25881498ba6e3b3fb0bb6c8c73e9b6",
+    "static/style.css": "042e3f35b8c1c809c16b07208267476fe3bdee11a313c9623644c2b7f45c1ac2",
+    "static/app.js": "7f61ac8aa010c5c1570f11365ac66781e06c61e9fd142a3f740134d9f66e26e2",
+    "static/brand.css": "e392c790cb7507217541baf9bb21e7f8c7271e364b7d6ad1c69fa0659d19b5fc"
+  },
+  "imageId": "sha256:ed13b4d5ef433e972fd6f774852f31fce78c1166dd3d3d5e1fa38003dc849d5d",
+  "localOnly": true,
+  "network": "none",
+  "rootFilesystem": "read-only",
+  "checkedOn": "2026-10-09",
+  "scope": "Packaged companion page and exact static assets, not new seed or live model verification."
+}

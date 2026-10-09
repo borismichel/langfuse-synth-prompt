@@ -37,7 +37,7 @@ acceptance of a finished implementation or claim the remaining delivery checks p
 | --- | --- | --- |
 | Scenario/integration suite | 170 passed | [tests](evidence/tests.txt) |
 | Manifest and pinned core conformance | Passed, no skips | [manifest](evidence/manifest.txt), [conformance](evidence/conformance.txt) |
-| Current local image | Built; UID 10001, no network/credentials, read-only root; small seed, runbook and preview passed | [categorical build](CATEGORICAL_BUILD.md) |
+| Current local image | Brand-refined image built; UID 10001, no network/credentials, read-only root; exact page/static assets served. Earlier image verified seed, runbook and SDK export. | [brand refinement](BRAND_REFINEMENT.md), [categorical build](CATEGORICAL_BUILD.md) |
 | Process repeatability | Same complete spool across hash seeds with networking denied | Test suite |
 | Approved categorical contract | Source, prototype, golden, readback and native definitions updated | [categorical setup](evidence/categorical-evaluators.json) |
 | Native experiment context | 32 existing dataset items preserved; nine default mappings repaired and read back | [repair receipt](evidence/experiment-context-repair.json) |
@@ -50,6 +50,7 @@ acceptance of a finished implementation or claim the remaining delivery checks p
 | Fresh categorical history | User-created `prompt-portfolio-demo`; one import of 48 history + 18 authored experiment traces; 244 checks passed | [fresh verification](evidence/fresh-project-verification.json) |
 | Fresh target live connection | One v7 product turn, three observations, eight EVAL results on the correct subjects; native session link verified | [fresh live readback](evidence/fresh-project-live.json), [fresh project rehearsal](FRESH_PROJECT.md) |
 | Protected-label enforcement | User independently verified protection on 2026-10-09; accepted as closing the permission check | [user verification](evidence/protected-label-user-verification.json) |
+| Requested companion brand details | Lime marker and accents, exact corner masks and subtle stripes; light/dark desktop/phone checks and 28 runtime checks passed | [brand refinement](BRAND_REFINEMENT.md) |
 
 The corrected native comparison has baseline style 0.00 and candidate style 0.75;
 both versions have eight Pass outcomes on each factual criterion and tone 1.00.

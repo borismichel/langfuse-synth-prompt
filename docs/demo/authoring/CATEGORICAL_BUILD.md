@@ -1,5 +1,9 @@
 # Categorical local container verification
 
+This records the earlier runtime verification. The 2026-10-09
+[brand-refined image](BRAND_REFINEMENT.md) supersedes it for companion presentation;
+the underlying generation, tracing and evaluation implementation is unchanged.
+
 Checked 2026-10-08. Rebuilt `langfuse-synth-prompt:categorical-local` from the
 current workspace; local image only, never published. Image ID:
 `sha256:65e71429e78c4ccd06f6b1a12e6cbaa87f8ab6c31fcca058134dcf566484f171`.
