@@ -1,0 +1,26 @@
+{
+  "date": "2026-10-12",
+  "kind": "static frontend patch; no restart or reseed",
+  "scope": [
+    {
+      "container": "portal-live-5492474c-8c0c-426c-b2d7-f16f5d1a7de1",
+      "path": "/usr/local/lib/python3.12/site-packages/synth/companion/static/app.js",
+      "before_sha256": "0af0b34b920e36de6781910dbc6fa043d199ad8211a411fd21c2d2b43e6a881f",
+      "after_sha256": "6d1a3e75263900571cec484425f3d07e482bc0d23b9810ceb163c2c8efee7869"
+    },
+    {
+      "container": "portal-live-2337d511-4a7d-4a9e-b257-11596f445bf0",
+      "path": "/usr/local/lib/python3.12/site-packages/synth/companion/static/app.js",
+      "before_sha256": "0af0b34b920e36de6781910dbc6fa043d199ad8211a411fd21c2d2b43e6a881f",
+      "after_sha256": "6d1a3e75263900571cec484425f3d07e482bc0d23b9810ceb163c2c8efee7869"
+    }
+  ],
+  "limitation": "Older deployment images do not contain this patch; source is ready for the next release.",
+  "validation": {
+    "pending_regression": "Immediate bubble before session/turn response; no duplicate after success; previous history retained; transport and session errors restore draft; failed model turn rendered once; inert user text",
+    "composer_and_reply_regressions": "passed",
+    "companion_runtime_tests": "43 passed",
+    "browser": "Current running companion: submitted question immediately appears above Thinking; input clears; completed reply retains one user bubble",
+    "screenshot": "chat-pending.png"
+  }
+}

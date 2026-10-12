@@ -1,5 +1,20 @@
 # Authoring implementation review
 
+2026-10-12 immediate-message follow-up: submitted user text now appears before
+“Thinking…” while the input clears immediately. Successful responses replace the
+pending presentation without duplication; request failures restore the draft.
+Both running Prompt companions received the static-only patch without restart.
+Actual browser rendering and delayed-response regression checks passed, alongside
+the 43 companion runtime tests. [Receipt](evidence/chat-pending-hotfix.json).
+This remains a running-instance correction; old deployment images are unchanged.
+
+Voice-block investigation on the current dry-run project confirmed that Product
+Explainer production v7 references only building-blocks/reference-context v1.
+The voice component now has production and playful on v2, but v7 has no voice
+dependency. This matches Beat 2, which adds the playful reference in a new parent
+version before comparison and promotion. No prompt content or labels were changed
+during this read-only investigation.
+
 2026-10-12 companion follow-up: the user’s running v0.2.2 surface retained the
 old loading copy despite catalog publication. Both running Prompt companions
 received a narrowly scoped, byte-verified static frontend patch: “Thinking…”

@@ -141,7 +141,7 @@
       ],
       "files": {
         ".dockerignore": "be988156e3df481508e7fda764571b945add2154fd428b596112d4cac2b70ef7",
-        ".github/workflows/ci.yml": "78b910262773971be87ab79a24f629eeb555ad1c03d3dc9f3534ca686401767f",
+        ".github/workflows/ci.yml": "c4a1fbb32d369483ae6167c6495ade6dc0728ba3935c4dd7e370306112f117ab",
         ".github/workflows/publish.yml": "e6091cc13e457eb2e67d590291ac612883828d3270059269bd1b9556fe68e032",
         "DEMO_SCRIPT.md": "884535a29186e1bbf86df9f9ab67c06da52c4647abe4b2ce5e37e5b8041e9b62",
         "Dockerfile": "086aaccafa08239cd0f0f7d053ce540864cb2ede6b6e9bb0cf5772b3d94ff117",
@@ -166,7 +166,7 @@
         "docs/demo/authoring/OPERATIONAL_REVISION.md": "836e3abe436e7c1f580e2ef18bc57d10a8ab134034f8ae532110515d41a332da",
         "docs/demo/authoring/PREFLIGHT.md": "f26b9e7dd9cb0915b1ea862873c8add40a03b02b911018d83e4e86a768c9da1d",
         "docs/demo/authoring/READINESS_RESEARCH.md": "f2d8eb33bb4657f875c74a7c9712c3dbfeca5de2d9cc6fc9e4777defb3980ac7",
-        "docs/demo/authoring/REVIEW.md": "73104ebbf33c20be9dc0f7068733d834a5abbf1fb4dcfd361c3691e4a6a2bd0b",
+        "docs/demo/authoring/REVIEW.md": "1046b75e95be69edda6fdbad91db9cc6a600ebb02a3ede1bd4859657efde7d3c",
         "docs/demo/authoring/SHIP_CHECKLIST.md": "92a09455f4af09c44ce367cf31b3064399a9cda65a41b32af8ddddfcffe9f881",
         "docs/demo/authoring/TRACE_DESIGN_AUDIT.md": "3399ccf4c7d7e179d8b0a4e0ccadf08d56569807119cdf6dd3f0ea33dd903abe",
         "docs/demo/authoring/V4_COMPATIBILITY.md": "f99cc56d1d6f1a8b7c98cf9f4c585c80c27514fad1b431f426324c92ac6fe96a",
@@ -190,6 +190,8 @@
         "docs/demo/authoring/evidence/categorical-native-trace.png": "5259bf906040d535c7f3ca477e6bd515727f64f1842b7e4b0e1ee3ba11bd46c0",
         "docs/demo/authoring/evidence/chat-controls-hotfix.json": "3b44381a598caf92a7cff10eaec10cbfa9ae71a507c6cf3e40ec8a3a9047fb93",
         "docs/demo/authoring/evidence/chat-controls-thinking.png": "56731a1e1ca988c6c3586dbb940e6c9b6bb8451b93b9ed2a5fe288552d463c3b",
+        "docs/demo/authoring/evidence/chat-pending-hotfix.json": "3d732e147608eb24259c9236522a832a5af6d2d5fa72ff724318140cb5e4d982",
+        "docs/demo/authoring/evidence/chat-pending.png": "8377f503dc13cf45131213534cdf4b45cc1dc790d10bdeb056dfcfd6d193ce2b",
         "docs/demo/authoring/evidence/companion-four-turns.jpg": "f72337cd508fc348a5cc419fc0c3b4179012228b71006ed164433fa650e88272",
         "docs/demo/authoring/evidence/components-before-promotion.png": "d283675fdea0150b2d66300a5691e541a8dfe07ad57874da4a61d3903095b709",
         "docs/demo/authoring/evidence/components-experiments.json": "6c8791365c34ea109490e376ee6b923d2e304ede3540c439d81d02db816e8da7",
@@ -305,7 +307,7 @@
         "src/synth/companion/app.py": "016d47e5f70ee9c2c61f06b46f664774ad32b2b73f72bf42948be2cf85adbf56",
         "src/synth/companion/preview.py": "67a282650966d9e3da660ec868ace261df1286b0ee73ed856244ded2542eae67",
         "src/synth/companion/service.py": "7456433fc4163439321d5c8398c265a804e0e50aa3303fcb9d998922a9cd21e5",
-        "src/synth/companion/static/app.js": "0af0b34b920e36de6781910dbc6fa043d199ad8211a411fd21c2d2b43e6a881f",
+        "src/synth/companion/static/app.js": "6d1a3e75263900571cec484425f3d07e482bc0d23b9810ceb163c2c8efee7869",
         "src/synth/companion/static/brand.css": "e392c790cb7507217541baf9bb21e7f8c7271e364b7d6ad1c69fa0659d19b5fc",
         "src/synth/companion/static/fonts/GeistMono-OFL.txt": "1781d2806a07d91c4edf4740b88449fab7d0eadad53f7c351b94cd4d4eb8c00f",
         "src/synth/companion/static/fonts/Inter-OFL.txt": "5b9321a4298cfeb6b34354164a1c3afc3db114569984c502b9b35d988fd58c57",
@@ -344,6 +346,7 @@
         "tests/golden_seed.py": "89ca40c5528d20c7a749b828e18afb612baa59d8823e6b468d7905a96753d4b8",
         "tests/test_assets.py": "0a1b3dab0d5302ddecb138285bdafe1363a7f1176a26adf08f56b8b6a57b9339",
         "tests/test_chat_composer.cjs": "768c191e21a2dc1055c63b64b662f60c9ae0c8b3b5fd30a6636a42f67fb58c6e",
+        "tests/test_chat_pending.cjs": "fd0bedc496d3e664af73eb2e738a9fe4a28871cb54550e9ab94b7ae19877326c",
         "tests/test_companion_runtime.py": "caefad24eb49dc394e9bfbb0c58531f6b13fe91b33b193d9609127ad48055832",
         "tests/test_configuration_refresh.py": "9cc12336c713462fb76d9cb7046a799c441de231a8d5dc9307aeee7b0ea88603",
         "tests/test_deployment_pipeline.py": "f90e4395227f5c418fe5f987c4c906213d5fb9ede1f5cafa95a55b20ac51f0d9",
@@ -371,7 +374,7 @@
         "usecase.yaml": "9e8128ce356e0e5f00542f859aeebee525a644e4ee1556ad4dd6533579c5e434"
       },
       "decision_file": "docs/demo/authoring/REVIEW.md",
-      "note": "Companion UI follow-up: current running old-image surfaces patched and browser verified Thinking/Enter; source and regression saved. Published v0.2.4 remains immutable; old-deployment replacement-container limitation recorded.",
+      "note": "Immediate user messages verified on both running companion frontends; async rendering, keyboard, reply and 43 runtime checks pass. Voice reference absence in current production v7 diagnosed read-only.",
       "input_checkpoint": "730a00ce3d6810c723b5832e8c6b3f375f22084c15516782740b302502fdd798"
     }
   }

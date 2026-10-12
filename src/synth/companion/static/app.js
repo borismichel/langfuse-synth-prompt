@@ -3,7 +3,7 @@ const $ = id => document.getElementById(id);
 const base = document.body.dataset.base;
 const preview = document.body.dataset.preview === 'true';
 const chats = new Map();
-let bots = [], current = 'PR-01', busy = false, feedback = null, returnFocus = null;
+let bots = [], current = 'PR-01', busy = false, pendingMessage = null, feedback = null, returnFocus = null;
 const params = new URLSearchParams(location.search);
 function appearance() {
   const dark = params.get('theme') === 'dark';
@@ -97,7 +97,7 @@ function render() {
   $('bot-title').textContent=bot.title;
   document.querySelectorAll('#bots>button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.bot===current)));
   $('transcript').replaceChildren(); $('suggestions').replaceChildren(); $('inspector').replaceChildren();
-  if (!session?.turns.length) {
+  if (!session?.turns.length && pendingMessage === null) {
     const empty=element('div',undefined,'chat-empty');
     empty.append(element('span','✳','welcome-star'),element('h2','Let’s make sense of it.'),element('p',current==='PR-01'?'Ask about the Everyday Account’s monthly fee. We can work through the details together.':current==='PR-02'?'Check how the withdrawal allowance affects a fee.':'Understand which documents you need and when processing starts.'));
     $('transcript').append(empty);
@@ -124,6 +124,12 @@ function render() {
       row.append(evaluation,state);$('inspector').append(row);
     }
   }
+  if(pendingMessage !== null) {
+    const wrapper=element('div',undefined,'chat-turn');
+    const user=element('div',undefined,'chat-message user-message');
+    user.append(element('small','You'),element('p',pendingMessage));
+    wrapper.append(user);$('transcript').append(wrapper);
+  }
   if(busy) $('transcript').append(element('p','Thinking…','pending-inline'));
   bot.suggestions.forEach(s=>{const button=element('button',s.label+' ↗');button.title=s.message;button.onclick=()=>send(s.message);$('suggestions').append(button)});
   const last=[...(session?.turns||[])].reverse().find(t=>t.session_url);
@@ -134,14 +140,14 @@ function render() {
 async function ensureSession(){let session=chats.get(current);if(!session){session={...await api('/api/conversations',{method:'POST',body:JSON.stringify({prompt_id:current})}),turns:[]};chats.set(current,session)}return session;}
 async function send(text) {
   if(busy||!text.trim())return;
-  const original=text;busy=true;notice('');render();
+  const original=text;busy=true;pendingMessage=text;$('message').value='';notice('');render();
   try{
     const session=await ensureSession();
     const turn=await api(`/api/conversations/${session.session_id}/turns`,{method:'POST',body:JSON.stringify({message:text,request_id:crypto.randomUUID()})},session);
-    session.turns.push(turn);$('message').value='';
+    session.turns.push(turn);
     if(turn.status==='failed')notice(turn.error);
   }catch(e){notice(e.message);$('message').value=original}
-  finally{busy=false;render();$('message').focus()}
+  finally{busy=false;pendingMessage=null;render();$('message').focus()}
 }
 function openFeedback(session,turn,value,button){feedback={session,turn,value};returnFocus=button;$('feedback-comment').value='';$('feedback-title').textContent=value?'Helpful reply':'Not helpful reply';$('feedback-target').textContent='Add an optional comment before submitting. Your rating stays with this reply and can be submitted once.';$('feedback-dialog').hidden=false;$('feedback-comment').focus()}
 function closeFeedback(){feedback=null;$('feedback-dialog').hidden=true;returnFocus?.focus()}
