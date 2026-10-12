@@ -2,8 +2,11 @@
 
 2026-10-12: **v0.2.5 is published and active in the local Depot catalog.**
 Kit main and signed image include selective composition and chat usability fixes.
-Depot PR #284 is reviewed and locally deployed but awaits its unavailable CI
-runner before remote merge; no merge override was used.
+Depot PR #284 merged with explicit user approval of pending CI after local
+verification and review. The remaining documentation-only EV PR #242 also merged.
+Local Depot main is `02dad63`; its API was rebuilt and restarted, and the exact
+published v0.2.5 digest reverified. All 14 non-API containers remained unchanged.
+Neither the kit nor Depot has an open PR at this checkpoint.
 [Delivery receipt](evidence/release-025-release.json).
 
 2026-10-12 seeded building-block correction: all four component families now have

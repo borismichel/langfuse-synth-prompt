@@ -13,12 +13,13 @@
   three frontend regressions passed. Golden changes are limited to three Product
   Explainer observation inputs with the revised shared baseline/candidate wording.
 - Signed v0.2.5 publication and kit CI passed; actual image checked offline.
-- Local Depot API rebuilt from reviewed registry branch and synced: exact v0.2.5
-  digest is active and published, other catalog entries and running companions
-  preserved. Existing-kit update requires no new admission project or reseed.
-- Remote Depot PR #284 remains unmerged: no self-hosted runner is registered, so
-  validate is queued. Repo policy forbids bypassing that gate without explicit
-  approval; no bypass used. [Release receipt](evidence/release-025-release.json).
+- Depot PR #284 merged after explicit user approval of pending CI; remaining
+  documentation-only EV PR #242 also merged. Both repositories have no open PRs.
+- Local Depot API rebuilt from primary main `02dad63`: health and catalog HTTP 200,
+  exact v0.2.5 digest active/published. All 14 non-API containers, including the
+  four running companions, preserved. No web rebuild or reseed was required.
+- Full local Depot web tests passed; API had 1,192 passes, one baseline-reproduced
+  failure and one optional integration skip. [Release receipt](evidence/release-025-release.json).
 
 
 ## v0.2.4 consolidated correction

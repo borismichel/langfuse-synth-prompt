@@ -19,9 +19,10 @@
   "depot": {
     "pull_request": "https://github.com/borismichel/langfuse-demo-depot/pull/284",
     "registry_commit": "806135e",
-    "local_delivery": "reviewed branch, API rebuilt and synced; all non-API containers preserved",
-    "remote_merge": "pending: validate check queued, no self-hosted runners registered, auto-merge disabled; no merge override used",
+    "local_delivery": "API rebuilt from merged main in primary checkout; exact catalog digest reverified; all 14 non-API containers preserved",
+    "remote_merge": "PR284 merged at 87643b30433f885f4b20198a48d893a3b40f5824 with explicit user approval of pending CI",
     "validation": "all four registry manifests/images and signature policy passed; 26 tooling and 15 backup tests; independent Standards and Spec review passed",
-    "receipt": "release-025-depot.json"
+    "receipt": "release-025-depot.json",
+    "primary_main": "02dad63e654298b165d387e927af1d7e306df961"
   }
 }
