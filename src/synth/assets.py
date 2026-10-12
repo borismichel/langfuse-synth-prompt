@@ -15,6 +15,7 @@ from urllib.parse import quote
 
 from synth.catalog import dataset_items, load_fixture, score_definitions, system_prompt
 from .scores import FACTUAL_CRITERIA
+from .progress import report
 
 from .model_policy import MODEL_PRICES
 from .prompt_composition import COMPOSITION_REVISION, building_blocks, compose_chat_prompt
@@ -637,7 +638,7 @@ def ensure_policy_models(cfg, *, api: AssetAPI | None = None) -> dict:
     return result
 
 
-def provision_assets(cfg, *, api: AssetAPI | None = None) -> dict:
+def provision_assets(cfg, *, api: AssetAPI | None = None, log=report) -> dict:
     """Provision only a fresh namespace; return concrete receipts and missing gates.
 
     The caller owns the durable seed guard. A partial failure is not resumable;
@@ -646,6 +647,7 @@ def provision_assets(cfg, *, api: AssetAPI | None = None) -> dict:
     api = api or AssetAPI(cfg.target.base_url)
     prompts = load_fixture("portfolio")["prompts"]
     definitions = score_definitions()
+    log("Checking the target project and existing asset names.")
     projects = api.read("/api/public/projects").get("data", [])
     if len(projects) != 1 or not projects[0].get("id"):
         raise ValueError("Exactly one authenticated Langfuse project is required")
@@ -663,6 +665,7 @@ def provision_assets(cfg, *, api: AssetAPI | None = None) -> dict:
         conflicts = names & {r.get(key) for r in _inventory(api, path)}
         if conflicts:
             raise AssetConflict(f"Fresh namespace required; existing {path}: {', '.join(sorted(conflicts))}")
+    log("Checking the model connection and evaluator configuration.")
     ensure_llm_connection(cfg, api=api)
     evaluation_receipt = _evaluation_assets(cfg, api, create=False)
     result["evaluators"] = evaluation_receipt["evaluators"]
@@ -673,10 +676,12 @@ def provision_assets(cfg, *, api: AssetAPI | None = None) -> dict:
         result["missing"].append("Select live.model for native prompt experiments.")
 
     # All collision checks complete before the first write.
+    log("Preparing model cost definitions and score definitions.")
     result["models"] = ensure_policy_models(cfg, api=api)
     for eid, definition in definitions.items():
         created = api.create("/api/public/score-configs", score_config_body(eid, definition))
         result["score_configs"][eid] = {"id": created["id"], "name": definition["name"]}
+        log(f"Created score definition: {definition['name']}.")
     # All text dependencies exist before any agent prompt refers to them.
     for key, block in building_blocks().items():
         versions = []
@@ -690,6 +695,7 @@ def provision_assets(cfg, *, api: AssetAPI | None = None) -> dict:
             if created.get("version") != version["version"]:
                 raise RuntimeError("Building-block version changed during provisioning; stop and inspect target")
             versions.append({"version": version["version"], "id": created.get("id"), "labels": version["labels"]})
+            log(f"Created text component {block['name']} v{version['version']}.")
         result["building_blocks"][key] = {"name": block["name"], "versions": versions}
     for prompt in prompts:
         versions = []
@@ -705,6 +711,7 @@ def provision_assets(cfg, *, api: AssetAPI | None = None) -> dict:
             if created.get("version") != number:
                 raise RuntimeError("Prompt version changed during provisioning; stop and inspect target")
             versions.append({"version": number, "id": created.get("id"), "labels": version["opening_labels"]})
+            log(f"Created prompt {prompt['name']} v{number}.")
         result["prompts"][prompt["id"]] = {"name": prompt["name"], "versions": versions}
         name = dataset_name(prompt)
         created = api.create("/api/public/v2/datasets", {"name": name, "description": prompt["purpose"],
@@ -726,6 +733,7 @@ def provision_assets(cfg, *, api: AssetAPI | None = None) -> dict:
         if {i["id"] for i in snapshot.get("data", [])} != {i["id"] for i in receipt["items"]}:
             raise ValueError("Server dataset snapshot does not contain exactly the authored items")
         result["datasets"][prompt["dataset_id"]] = receipt
+        log(f"Created and checked dataset {name}: {len(receipt['items'])} examples.")
     return result
 
 

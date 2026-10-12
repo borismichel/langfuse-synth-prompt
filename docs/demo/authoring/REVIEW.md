@@ -1,9 +1,10 @@
 # Authoring implementation review
 
-Latest source-only amendment, 2026-10-09: the user requested natural chat loading
-copy. Both companion and prototype now show “Thinking…” instead of describing
-prompt retrieval. JavaScript syntax and existing renderer checks pass. This copy
-change is not yet included in the published v0.2.2 image or running deployments.
+v0.2.3 candidate, 2026-10-12: natural “Thinking…” chat copy, the standard
+Depot plan confirmation gate, and flushed seed progress during asset provisioning
+and import. Both reported deployment defects were reproduced before the fix;
+all 336 kit tests pass. Release, admission and rollout are pending for this
+candidate; v0.2.2 evidence below remains historical.
 
 Updated 2026-10-09. **v0.2.2 is published in Depot; kit and Depot changes are on main.**
 The [release checklist](SHIP_CHECKLIST.md) records explicit probe/plan stages,

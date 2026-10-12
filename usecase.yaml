@@ -66,6 +66,7 @@ pipeline:
   timeout_minutes: 5
   fatal: true
 - id: plan
+  gate: confirm
   run: synth plan --config {config}
   parse:
     event_count: 'regex:total_traces: (\d+)'

@@ -100,6 +100,9 @@ Read [native asset setup](docs/demo/authoring/ASSETS.md),
 [generation semantics](docs/demo/authoring/GENERATION.md). The
 [preflight contract](docs/demo/authoring/PREFLIGHT.md) records counts and verification scope.
 
+Depot pauses after the estimate for your confirmation before setting up evaluators
+or generating data. Seed progress streams during asset creation and import.
+
 For a local offline estimate, use:
 
 ```sh

@@ -14,11 +14,12 @@ from .materialize import build_events, build_historical_experiment_events
 from .receipt import make_receipt
 from .state import RunState
 from .scores import SCORE_CONTRACT
+from .progress import report
 
 DEFAULT_SPOOL = Path('.synth_spool') / 'events.ndjson'
 
 
-def _refresh_configuration(cfg: Config, *, log=print) -> None:
+def _refresh_configuration(cfg: Config, *, log=report) -> None:
     """Read existing evaluator configuration; never regenerate or import events."""
     from .assets import AssetAPI, LEGACY_NULLABLE_GATE, _evaluation_assets
     from .catalog import score_definitions
@@ -105,7 +106,7 @@ def deliver_artifacts(out_dir: Path | None = None) -> Path:
 
 def run_seed(cfg: Config, *, dry_run: bool=False, do_import: bool=True,
              spool_path: str | Path | None=None, refresh_configuration: bool=False,
-             expand_existing: str | Path | None=None, log=print) -> Path:
+             expand_existing: str | Path | None=None, log=report) -> Path:
     spool_path = Path(spool_path) if spool_path else DEFAULT_SPOOL
     if expand_existing is not None:
         if dry_run or not do_import or refresh_configuration:
@@ -125,11 +126,13 @@ def run_seed(cfg: Config, *, dry_run: bool=False, do_import: bool=True,
         previous = RunState.load()
         if not previous.dry_run and previous.import_status in {'provisioning','importing','imported','failed'}:
             raise RuntimeError('This state directory already records a live seed attempt. Use a fresh authorised project and state directory; never re-import into an uncleared project.')
+    log('Starting seed: validating the target and preparing history.')
     project_id, project_name = None, ''
     if not dry_run:
         project_id, project_name = assert_demo_project(cfg.target.base_url, cfg.target.project_hint)
     state = RunState(base_url=cfg.target.base_url, project_name=project_name, project_id=project_id,
                      target_traces=cfg.generation.target_traces, seed=cfg.generation.seed, dry_run=dry_run)
+    log(f'Generating {cfg.generation.target_traces:,} historical traces and experiment examples.')
     events = build_events(cfg.generation.target_traces, {'seed':cfg.generation.seed}, run_date=run_date)
     experiment_events, experiment_links = build_historical_experiment_events({'seed':cfg.generation.seed}, run_date=run_date)
     events.extend(experiment_events)
@@ -138,10 +141,13 @@ def run_seed(cfg: Config, *, dry_run: bool=False, do_import: bool=True,
             from .assets import provision_assets, bind_historical_experiments
             state.import_status = 'provisioning'
             state.save()
-            state.provisioning = provision_assets(cfg)
+            log('Provisioning prompts, datasets and score definitions.')
+            state.provisioning = provision_assets(cfg, log=log)
+            log('Asset setup complete; binding historical experiments.')
             state.evaluator_rules = state.provisioning.get('evaluator_rules', {})
             events, experiments = bind_historical_experiments(events, state.provisioning, experiment_links)
             state.provisioning['historical_experiments'] = experiments
+        log('Writing the event spool and verification receipt.')
         ingestor = Ingestor.from_env(cfg.target.base_url, dry_run=dry_run, spool_path=spool_path)
         ingestor.open_spool()
         ingestor.extend(events)
@@ -153,6 +159,7 @@ def run_seed(cfg: Config, *, dry_run: bool=False, do_import: bool=True,
         if not dry_run and do_import:
             state.import_status = 'importing'
             state.save()
+            log(f'Importing {state.spooled_events:,} events into Langfuse.')
             ingestor.import_spool(path=spool_path, log=log)
             state.import_status = 'imported'
         else:
@@ -163,5 +170,5 @@ def run_seed(cfg: Config, *, dry_run: bool=False, do_import: bool=True,
         raise
     state.save()
     deliver_artifacts()
-    log(f'· run receipt: {RunState.state_path()}')
+    log(f'Seed complete ({state.import_status}); run receipt: {RunState.state_path()}')
     return spool_path

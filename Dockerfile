@@ -7,6 +7,9 @@
 
 FROM python:3.12-slim
 
+# Depot consumes stdout as it arrives; never buffer job progress in Python.
+ENV PYTHONUNBUFFERED=1
+
 # git: python:*-slim ships without it, but pip needs it to fetch the git-pinned lib.
 # The repo is public, so this is a plain HTTPS fetch — no build secret required.
 RUN apt-get update \

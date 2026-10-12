@@ -2,7 +2,9 @@
 
 The runtime pipeline now starts with `probe` and `plan`, followed by the existing
 evaluator setup, seed, experiment mapping setup and final scenario verification.
-The core pin remains v4.2.0. Generation, fixtures and accepted story are unchanged.
+The plan uses Depot’s standard `gate: confirm`: after showing the estimate, Depot
+waits for the operator before evaluator setup or seed. No separate kit approval
+screen is introduced. The core pin remains v4.2.0. Generation, fixtures and accepted story are unchanged.
 
 ## Target probe
 
@@ -80,3 +82,18 @@ The pinned core's `synth-authoring check` completed with `local_ready: true`:
 manifest validation, conformance and all 334 tests passed. The 100,000-history-trace
 offline plan also completed, reporting 100,018 derived traces, 315,231 observations,
 575,347 scores and 890,578 seed units without materializing a spool.
+
+## v0.2.3 correction — confirmation and streaming logs
+
+v0.2.2 omitted the plan gate, so Depot correctly advanced automatically instead
+of requesting confirmation. It also logged only after asset provisioning and
+used buffered stdout, making a healthy seed appear silent. v0.2.3 declares
+`gate: confirm`, flushes each seed message, reports asset and import progress, and
+sets `PYTHONUNBUFFERED=1` in the image. Depot continues to own confirmation,
+progress display, log transport and failure handling.
+
+The regression test runs the real seed CLI in a child process, holds provisioning
+open and asserts that progress reaches its stdout pipe before the request finishes.
+It also requires the actual manifest’s plan confirmation gate. Both failed before
+the fix and pass after it; the full kit suite passes with 336 tests. Published
+v0.2.2 deployments retain their existing manifest until upgraded or recreated.
