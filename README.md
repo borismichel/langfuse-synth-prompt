@@ -115,7 +115,7 @@ two-observation check to the authorised target; planning alone makes no network 
 `usecase.yaml` is the Depot integration contract. `Dockerfile` runs as a non-root
 user. The signed image workflow is pinned to the same core release and triggers
 only on a matching immutable version tag. Nothing is published by local tests.
-Release v0.2.2 passed all six admission checks and the complete deployment pipeline,
+Release v0.2.4 passed all six admission checks and the complete deployment pipeline,
 and is published in Depot. The unchanged presenter journey carries forward the
 v0.2.1 rehearsal. Final source/image and rollout receipts are recorded in
 [Depot onboarding](docs/demo/authoring/DEPOT_ONBOARDING.md).
@@ -126,8 +126,10 @@ approved target or a separately authorised reset; it must never be blindly retri
 
 ## Readiness
 
-v0.2.2 is published with target validation, offline volume/cost estimation and
-final verification. Custom setup progress is visible outside the logs. The
+v0.2.4 is published with target validation, an exact estimate and standard confirmation,
+streamed setup/seed/verification progress, and a validated 6,000-history-trace maximum.
+Completed Depot pages show actual totals without the planned-volume card. Existing
+deployments retain their original companion image. The
 [shipping checklist](docs/demo/authoring/SHIP_CHECKLIST.md) records current
 admission, rollout, tests and the scope of carried-forward rehearsal evidence.
 

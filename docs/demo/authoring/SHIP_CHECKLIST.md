@@ -3,7 +3,21 @@
 ## v0.2.4 consolidated correction
 
 See [cross-kit comparison](CROSS_KIT_SEED_REVIEW.md) for confirmed gaps and regression evidence.
-Offline verification, exact release, admission and rollout results are pending final reconciliation.
+| Check | Result |
+| --- | --- |
+| Accepted story/prototype | Unchanged; v0.2.1 presenter rehearsal remains the story evidence. |
+| Standard pipeline | Six steps retained; plan now declares `gate: confirm` before setup/seed. |
+| Progress | Real CLI pipe tests cover blocked seed/setup/verification, nested mapping checks, heartbeat shutdown and safe errors. |
+| Offline checks | Manifest validation, core conformance and 344 tests passed. |
+| Container scale | 6,000 history traces materialize/bind/spool in a 2 GiB container, peak 819 MiB. Old 100,000 maximum OOMed; runtime and manifest now enforce 6,000. |
+| Cost boundary | Exact estimate and confirmation; atomic seed has no measured-spool cap, as with registered EV/MRM. |
+| Recovery/readiness | Reset note added; append-only guard and core liveness/readiness contract retained. |
+| Release | Signed immutable v0.2.4 published; kit CI passed. [Receipt](evidence/release-024-release.json). |
+| Admission/catalog | All six admission rungs passed; exact digest synced active and Published. [Admission](evidence/release-024-admission.json), [catalog](evidence/release-024-catalog.png). |
+| Depot page | Rebuilt completed deployment hides estimate and retains actual totals. 458 pure and 14 mounted web tests, typecheck and build passed. [Screenshot](evidence/release-024-completed-page.png). |
+| Released companion | Actual chat displayed “Thinking…” and returned a live response on v0.2.4. [Thinking](evidence/release-024-thinking.png). Existing companions keep their original image. |
+| Normal confirmation | Member flow paused at “Needs your OK” with 14,493 units; only probe and plan ran, setup/seed pending. [Screenshot](evidence/release-024-standard-confirmation.png), [receipt](evidence/release-024-standard-gate-awaiting_confirm.json). |
+| Authoring skill | Source, installed skill and archive updated locally, commit `3e0045c8`; not pushed. |
 
 ## Previous v0.2.2 delivery
 
@@ -30,6 +44,8 @@ It preserves the accepted story, seed content and companion interactions.
 | Runbook/artifacts | Passed for this change | [README](../../../README.md) and [preflight guide](PREFLIGHT.md) document stages, scope and probe overhead; presenter journey unchanged. |
 | Release/admission | Passed | v0.2.2 source `acb09ae2` and signed image passed CI and all six admission rungs in run `e86c64cd-b17d-4abe-aea0-0155aa17af7d`. [Release receipt](evidence/preflight-release.json), [admission](evidence/preflight-admission.png). |
 | Publication/rollout | Passed | Kit and Depot changes merged to main; local Depot rebuilt, four existing companions preserved; registry sync shows v0.2.2 active and Published. [Rollout receipt](evidence/preflight-rollout.json), [member catalog](evidence/preflight-catalog.png). |
+| Released companion | Actual chat displayed “Thinking…” and returned a live response on v0.2.4. [Thinking](evidence/release-024-thinking.png). Existing companions keep their original image. |
+| Normal confirmation | Member flow paused at “Needs your OK” with 14,493 units; only probe and plan ran, setup/seed pending. [Screenshot](evidence/release-024-standard-confirmation.png), [receipt](evidence/release-024-standard-gate-awaiting_confirm.json). |
 | Authoring skill | Passed locally | Maintained source, installed skill and packaged archive updated; local skills commit `b3d7e1a`. Frontmatter, local references and package/source parity checked. |
 
 v0.2.2 is published and ready within the evidence scope above. The live run exercised

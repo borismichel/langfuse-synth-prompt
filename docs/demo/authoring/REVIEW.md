@@ -1,13 +1,21 @@
 # Authoring implementation review
 
-v0.2.4 candidate, 2026-10-12: the [cross-kit comparison](CROSS_KIT_SEED_REVIEW.md)
-consolidates plan confirmation, streamed seed/setup/verification progress, truthful
-reset guidance and a container-tested 6,000-trace ceiling. Companion health retains
-the pinned core liveness/readiness contract.
-Natural “Thinking…” chat copy is included. v0.2.3 was published for validation
-but held out of the catalog when the broader audit found remaining gaps.
-Release, admission and rollout for v0.2.4 are recorded separately; older results
-below remain historical evidence, not a new candidate verdict.
+Updated 2026-10-12: **v0.2.4 is admitted and published in Depot.** The
+[cross-kit comparison](CROSS_KIT_SEED_REVIEW.md) consolidates plan confirmation,
+streamed seed/setup/verification progress, reset guidance and a container-tested
+6,000-trace ceiling. Natural “Thinking…” chat copy was verified on the released
+companion. Core v4.2.0's liveness/readiness contract is preserved. Kit validation,
+conformance and all 344 tests passed; the exact signed image passed all six
+admission rungs in a fresh Boris Demo Enterprise project. Depot PR #283 merged,
+local API/web were rebuilt, and the catalog resolves the admitted digest.
+The completed existing demo now displays actual totals without the estimate.
+See the [release checklist](SHIP_CHECKLIST.md) and [release receipt](evidence/release-024-release.json).
+v0.2.3 was published for validation but never promoted into the catalog.
+Existing deployments retain their original image; publishing does not upgrade
+already-running companions. The unchanged story carries forward the accepted
+v0.2.1 full presenter rehearsal, with this release's affected surfaces checked anew.
+
+The sections below retain the earlier delivery history.
 
 Updated 2026-10-09. **v0.2.2 is published in Depot; kit and Depot changes are on main.**
 The [release checklist](SHIP_CHECKLIST.md) records explicit probe/plan stages,

@@ -4,7 +4,42 @@ The user authorized Depot onboarding, registration and shipment, then approved
 creating a dedicated project in Boris Demo Enterprise with a name ending in
 `demo`. The existing final-seed project is preserved.
 
-## Current release: v0.2.2
+## Current release: v0.2.4
+
+The signed release at `cef8fc589b0627dd25ba54f9fe0d2c8ec8886298` passed kit CI,
+publication and all six admission rungs in `prompt-release-024-demo`
+(`cmv4z0d16015qad0ek3rqg7y1`), in Boris Demo Enterprise. The fresh run completed
+probe, plan, evaluator setup, seed, experiment setup and final verification.
+It seeded 1,638 total traces, 5,137 observations and 9,356 scores; long stages
+streamed actual progress. [Release receipt](evidence/release-024-release.json),
+[admission](evidence/release-024-admission.json), [comparison](CROSS_KIT_SEED_REVIEW.md).
+
+[Depot PR #283](https://github.com/borismichel/langfuse-demo-depot/pull/283) merged
+as `7170e5cf9362caa46d21aa8a553ecceb348843b8`; primary Depot main was fast-forwarded
+with unrelated files preserved. API and web were rebuilt; the worker and existing
+companions were not restarted. Registry sync at `2026-10-12T08:30:47.927611Z`
+confirmed v0.2.4 active and Published at the exact admitted digest. The catalog
+and completed deployment page were inspected. The completed page hides its
+estimate and retains actual totals. v0.2.3 was held out of the catalog.
+
+Local Depot verification passed: 458 pure and 14 mounted web tests, typecheck,
+production build and pinned manifest validation. Legacy self-hosted GitHub
+registry validation remained queued; no remote Depot CI success is claimed.
+
+A new v0.2.4 companion was started from the admitted deployment and returned a
+real reply after visibly showing “Thinking…”. Existing deployment images are
+immutable snapshots: catalog publication does not upgrade their companions.
+The unchanged full story uses the v0.2.1 rehearsal below; this release records
+its own affected-surface checks. No bulk seed was repeated into an old project.
+
+A separate normal deployment, `431a333e-12f7-4d27-99dd-a5c23ed387a6`, proved the
+standard confirmation gate at plan. The UI showed “Needs your OK” and 14,493
+billable units; persisted jobs contained only successful probe and plan, with
+setup/seed still pending. [Proof](evidence/release-024-standard-gate-awaiting_confirm.json),
+[screenshot](evidence/release-024-standard-confirmation.png). Admission auto-confirms
+by design, so its success alone was not used as evidence of this interaction.
+
+## Previous release: v0.2.2
 
 The signed v0.2.2 release at `acb09ae2ffd9db92045dd3c7a0988d06e83deb9d`
 passed CI, publication and all six admission rungs. Its actual pipeline completed

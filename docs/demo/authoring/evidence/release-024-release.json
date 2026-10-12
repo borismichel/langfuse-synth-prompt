@@ -1,0 +1,49 @@
+{
+  "version": "v0.2.4",
+  "git_sha": "cef8fc589b0627dd25ba54f9fe0d2c8ec8886298",
+  "image_ref": "ghcr.io/borismichel/langfuse-synth-prompt@sha256:e570eac32e7a44f8c3a26687cc2b5df80ede6e0d90fe8a1e577690fece3da6db",
+  "ci_url": "https://github.com/borismichel/langfuse-synth-prompt/actions/runs/38222566860",
+  "publish_url": "https://github.com/borismichel/langfuse-synth-prompt/actions/runs/38222570094",
+  "ci": "passed",
+  "publication": "passed",
+  "offline": {
+    "validation": "passed",
+    "conformance": "passed",
+    "tests": 344
+  },
+  "admission": "passed all six rungs",
+  "catalog": "active and published",
+  "replaces_catalog_version": "v0.2.2",
+  "v0.2.3": "published for validation but never promoted into catalog",
+  "depot_validation": {
+    "pure_web_tests": 458,
+    "mounted_web_tests": 14,
+    "typecheck": "passed",
+    "production_web_build": "passed",
+    "pinned_manifest_validation": "passed",
+    "github_registry_sync": "queued on self-hosted runner; not represented as passed"
+  },
+  "authoring_skill": {
+    "commit": "3e0045c81fb29f59652c25fc936acd87b1b66830",
+    "delivery": "maintained source, installed skill and archive updated locally; not pushed"
+  },
+  "admission_run": "6f3cf3dd-b90e-466c-95bb-098e5c0f83ea",
+  "catalog_synced_at": "2026-10-12T08:30:47.927611Z",
+  "depot_main": "7170e5cf9362caa46d21aa8a553ecceb348843b8",
+  "depot_pr": "https://github.com/borismichel/langfuse-demo-depot/pull/283",
+  "normal_confirmation": {
+    "status": "verified awaiting_confirm",
+    "deployment_id": "431a333e-12f7-4d27-99dd-a5c23ed387a6",
+    "executed_jobs": [
+      "probe",
+      "plan"
+    ],
+    "billable_units": 14493,
+    "setup_or_seed_started": false
+  },
+  "companion": {
+    "url": "http://localhost:3009/live/141f0d87-9fee-4cc0-958d-a6df4cc1d599",
+    "thinking_and_real_response": "verified",
+    "existing_four_companions": "preserved"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "id": "431a333e-12f7-4d27-99dd-a5c23ed387a6",
+  "status": "awaiting_confirm",
+  "current_step": "plan",
+  "image_ref": "ghcr.io/borismichel/langfuse-synth-prompt@sha256:e570eac32e7a44f8c3a26687cc2b5df80ede6e0d90fe8a1e577690fece3da6db",
+  "project_id": null,
+  "project_name": "prompt-release-024-demo",
+  "jobs": [
+    {
+      "id": "1bfd69d7-98ca-4f87-a5ed-864af658833e",
+      "kind": "probe",
+      "status": "succeeded",
+      "started_at": "2026-10-12 08:33:16.725733+00:00",
+      "finished_at": "2026-10-12 08:33:29.130270+00:00"
+    },
+    {
+      "id": "1eb1726d-a549-45f9-bfc0-5772c16b09c6",
+      "kind": "plan",
+      "status": "succeeded",
+      "started_at": "2026-10-12 08:33:29.205628+00:00",
+      "finished_at": "2026-10-12 08:33:30.147247+00:00"
+    }
+  ]
+}
