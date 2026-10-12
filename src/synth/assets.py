@@ -18,7 +18,7 @@ from .scores import FACTUAL_CRITERIA
 from .progress import report, progress_scope
 
 from .model_policy import MODEL_PRICES
-from .prompt_composition import COMPOSITION_REVISION, building_blocks, compose_chat_prompt
+from .prompt_composition import COMPOSITION_REVISION, LEGACY_COMPOSITION_REVISION, VOICE_PROMPTS, building_blocks, compose_chat_prompt
 
 # Kept only to reconcile old setup receipts; never emitted for new categorical setups.
 LEGACY_NULLABLE_GATE = "Managed numeric E-02/E-03 inapplicability is unsupported by the current output schema; these judges/rules are pending, and null must not be reported as zero."
@@ -106,19 +106,21 @@ def dataset_name(prompt: dict) -> str:
     return f"prompt/{prompt['dataset_id']}-{prompt['name'].replace('/', '-')}"
 
 
-def chat_prompt(prompt_id: str, version: int) -> list[dict]:
+def chat_prompt(prompt_id: str, version: int, *, legacy: bool = False) -> list[dict]:
     """Resolved accepted payload, shared with authored history and SDK fixtures."""
     return [
-        {"role": "system", "content": system_prompt(prompt_id, version)},
+        {"role": "system", "content": load_fixture("legacy_product_prompts")[str(version)]
+         if legacy and prompt_id == "PR-01" and version in (7, 8) else system_prompt(prompt_id, version)},
         {"role": "system", "content": "Supplied reference_context:\n{{reference_context}}"},
         {"type": "placeholder", "name": "conversation_history"},
         {"role": "user", "content": "{{user_message}}"},
     ]
 
 
-def stored_chat_prompt(prompt_id: str, version: int) -> list[dict]:
+def stored_chat_prompt(prompt_id: str, version: int, *, legacy: bool = False) -> list[dict]:
     """Managed storage form; Langfuse resolves dependencies before SDK compile."""
-    return compose_chat_prompt(chat_prompt(prompt_id, version))
+    return compose_chat_prompt(chat_prompt(prompt_id, version, legacy=legacy),
+                               prompt_id=None if legacy else prompt_id, version=version)
 
 
 def _variables(eid: str) -> list[str]:
@@ -840,7 +842,7 @@ def verify_assets(cfg, provisioning: dict, *, api=None, check_labels: bool = Tru
         record(("asset-prerequisite", False, missing))
     composition = provisioning.get("prompt_composition")
     if composition:
-        record(("prompt-composition-contract", composition == COMPOSITION_REVISION,
+        record(("prompt-composition-contract", composition in (COMPOSITION_REVISION, LEGACY_COMPOSITION_REVISION),
                        "Known native text-component storage contract required."))
         blocks = building_blocks()
         receipts = provisioning.get("building_blocks", {})
@@ -868,15 +870,22 @@ def verify_assets(cfg, provisioning: dict, *, api=None, check_labels: bool = Tru
             number = version["version"]
             def prompt_check(path=path, number=number, prompt=prompt):
                 actual = api.read(path, {"version": number})
+                expected = chat_prompt(prompt["id"], number, legacy=composition != COMPOSITION_REVISION)
+                if not check_labels and composition == COMPOSITION_REVISION and prompt["id"] in VOICE_PROMPTS and number in (7, 8):
+                    voice = api.read("/api/public/v2/prompts/building-blocks%2Fvoice", {"label": "production"})
+                    if voice.get("type") != "text" or not isinstance(voice.get("prompt"), str):
+                        return False
+                    expected[0]["content"] = expected[0]["content"].replace(
+                        blocks["voice"]["versions"][0]["prompt"], voice["prompt"])
                 return (actual.get("version") == number and actual.get("type") == "chat"
-                        and actual.get("prompt") == chat_prompt(prompt["id"], number)
+                        and actual.get("prompt") == expected
                         and (not composition or bool(actual.get("resolutionGraph"))))
             check(f"prompt-{prompt['id']}-v{number}", prompt_check)
             if composition:
                 def raw_prompt_check(path=path, number=number, prompt=prompt):
                     actual = api.read(path, {"version": number, "resolve": "false"})
                     return (actual.get("version") == number and actual.get("type") == "chat"
-                            and actual.get("prompt") == stored_chat_prompt(prompt["id"], number)
+                            and actual.get("prompt") == stored_chat_prompt(prompt["id"], number, legacy=composition != COMPOSITION_REVISION)
                             and actual.get("resolutionGraph") is None)
                 check(f"prompt-raw-{prompt['id']}-v{number}", raw_prompt_check)
         if check_labels:

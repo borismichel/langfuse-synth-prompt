@@ -12,7 +12,7 @@ from .scores import outcome_values
 
 
 def load_fixture(name: str) -> Any:
-    if name not in {"portfolio", "product", "examples", "dataset_extras", "prompt_versions", "score_definitions", "conversations"}:
+    if name not in {"portfolio", "product", "examples", "dataset_extras", "prompt_versions", "score_definitions", "conversations", "legacy_product_prompts"}:
         raise ValueError(f"Unknown fixture: {name}")
     return json.loads(files("synth.fixtures").joinpath(f"{name}.json").read_text())
 

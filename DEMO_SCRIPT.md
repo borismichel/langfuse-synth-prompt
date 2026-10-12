@@ -85,9 +85,10 @@ product prompt for the main experiment story.
 
 ## Beat 2 — compare a proposed improvement
 
-From product explainer v7, create a new version. Retain the existing instructions
-and variable messages. In its **first system message**, use **Add prompt reference**
-to append `building-blocks/voice` with the `playful` label. The equivalent native
+The seeded Product Explainer already references the shared voice block using its
+`production` label (initially plain-English v1). From v7, create a new version,
+retain the task instructions and variable messages, and change that existing voice
+reference to `playful`; do not append a second voice instruction. The candidate
 reference is:
 
 ```text
@@ -100,6 +101,12 @@ respectful and preserving facts. This demonstrates reuse of a managed text promp
 as well as a candidate language change. The component's `playful` label resolves
 to version 2 at seed time; if the presenter moves that label later, inspect the
 resolved dependency again before comparison or promotion.
+
+Alternatively, moving the shared voice block’s `production` label changes all four
+customer-facing dependents: product explainer, fee explainer, application guide and
+message drafter. The other five agents do not follow that voice label. For the main
+experiment-first walkthrough, change the candidate’s reference and promote the
+parent prompt after comparing it, keeping the baseline voice unchanged.
 
 This becomes v9 when the opening project is untouched. Label it `staging`. The
 presenter may write their own equivalent instruction. Version numbers are resolved

@@ -1,5 +1,20 @@
 # Deployment release checklist
 
+## v0.2.5 seeded composition and chat usability
+
+- User-approved selective building-block coverage is present in seeded prompts.
+- Product Explainer and shared prototype case have aligned factual/voice wording.
+- Existing current-project prompts repaired through new versions; raw and resolved
+  content verified, selected voice v2 demonstrated in a real companion response.
+- Previous receipt verification retained; cross-revision expansion rejected before
+  network access. Current-revision expansion permits intentional voice label moves.
+- Immediate user messages, Thinking and Enter-to-send are included in this image.
+- Offline: 349 tests, repeatability, manifest validation, core conformance and all
+  three frontend regressions passed. Golden changes are limited to three Product
+  Explainer observation inputs with the revised shared baseline/candidate wording.
+- Release publication and Depot registry sync evidence will be recorded after delivery.
+
+
 ## v0.2.4 consolidated correction
 
 See [cross-kit comparison](CROSS_KIT_SEED_REVIEW.md) for confirmed gaps and regression evidence.

@@ -183,3 +183,14 @@ release/admission checks are required for the new revision.
 The user requested natural chat loading language instead of prompt-retrieval and
 generation details. Prototype and companion now show “Thinking…”. This changes
 only the pending-message text; the accepted interaction and instrumentation remain.
+
+## 2026-10-12 seeded composition correction
+
+The user explicitly requires building blocks in seeded prompts, with selective
+coverage by task. Product Explainer v7/v8 now include factual boundaries and voice;
+customer-facing voice references follow the shared production label. The candidate
+replaces the existing voice reference. The case fixture reflects equivalent
+plain-English baseline semantics and one playful candidate voice. Earlier v1–6
+remain unchanged. This supersedes the earlier promise of unchanged baseline bytes;
+the accepted visual layout and three-beat experiment/promotion journey remain.
+See [component coverage](../authoring/BUILDING_BLOCKS.md).

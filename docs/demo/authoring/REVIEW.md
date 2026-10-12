@@ -1,5 +1,12 @@
 # Authoring implementation review
 
+2026-10-12 seeded building-block correction: all four component families now have
+explicit task-appropriate coverage. Product Explainer includes factual boundaries
+and voice from seed time; four customer-facing agents follow the shared voice
+production label. Historical v1–6 remain unchanged. Current project parent prompts
+were repaired as new versions and the selected voice was verified in a real chat.
+[Coverage, compatibility and evidence](BUILDING_BLOCKS.md).
+
 2026-10-12 immediate-message follow-up: submitted user text now appears before
 “Thinking…” while the input clears immediately. Successful responses replace the
 pending presentation without duplication; request failures restore the draft.

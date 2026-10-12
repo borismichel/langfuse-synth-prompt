@@ -30,7 +30,7 @@
       },
       {
         "id": "D-07",
-        "decision": "Illustrative breadth: roughly 6\u201310 prompts, each with roughly 7\u201310 meaningful versions."
+        "decision": "Illustrative breadth: roughly 6–10 prompts, each with roughly 7–10 meaningful versions."
       },
       {
         "id": "D-08",
@@ -98,7 +98,7 @@
       },
       {
         "id": "D-24",
-        "decision": "Primary companion link opens the native Langfuse session chat view; show roughly 2\u20135 multi-turn exchanges."
+        "decision": "Primary companion link opens the native Langfuse session chat view; show roughly 2–5 multi-turn exchanges."
       },
       {
         "id": "D-25",
@@ -131,12 +131,17 @@
       {
         "id": "D-32",
         "decision": "E-02 record_fidelity and E-03 claim_support use Pass / Fail / Not applicable categories consistently across history, experiments and live chats, with category counts instead of numeric averages. Existing semantic criteria are unchanged.",
-        "approval": "User: \u201cSure\u201d on 2026-10-08."
+        "approval": "User: “Sure” on 2026-10-08."
       },
       {
         "id": "D-33",
         "decision": "After initial registration, add four reusable text prompt building blocks in a separate folder and use native references from agent prompts. Preserve resolved opening instructions; reuse the accepted playful voice in the staging candidate.",
         "approval": "Explicit user request on 2026-10-09; implementation and release evidence remain separate."
+      },
+      {
+        "id": "D-34",
+        "decision": "Building blocks must already be part of seeded prompts, with varied task-appropriate coverage. Current customer-facing agents follow the production voice label; historical v1–6 remain unchanged.",
+        "approval": "Explicit user correction on 2026-10-12, including checking all blocks and leaving out blocks where appropriate."
       }
     ],
     "proposal_scope": [
@@ -195,8 +200,14 @@
         "structured-output"
       ],
       "agent_family_count": 9,
-      "opening_content": "Resolved agent instructions and historical fixtures remain unchanged.",
-      "candidate_reference": "@@@langfusePrompt:name=building-blocks/voice|label=playful@@@"
+      "opening_content": "Task-specific composition is seeded. Product Explainer v7/v8 factor factual boundaries and voice into shared blocks; customer-facing voices follow production.",
+      "candidate_reference": "@@@langfusePrompt:name=building-blocks/voice|label=playful@@@",
+      "voice_dependents": [
+        "PR-01",
+        "PR-02",
+        "PR-03",
+        "PR-08"
+      ]
     }
   },
   "experiments": {

@@ -15,6 +15,7 @@ from synth.config import Config, Generation, Target
 from synth.materialize import build_historical_experiment_events
 from synth.receipt import attributes
 from synth.state import RunState
+from synth.prompt_composition import COMPOSITION_REVISION
 
 
 @pytest.fixture
@@ -33,7 +34,8 @@ def pilot(monkeypatch, tmp_path):
     state.import_status = 'imported'
     state.project_id = 'project-test'
     _, links = build_historical_experiment_events({'seed': 42}, run_date=datetime(2026, 10, 9, 12, tzinfo=timezone.utc))
-    state.provisioning = {'project_id': 'project-test', 'historical_experiments': links, 'retained': 'all-assets'}
+    state.provisioning = {'project_id': 'project-test', 'historical_experiments': links,
+                          'prompt_composition': COMPOSITION_REVISION, 'retained': 'all-assets'}
     state.save()
     (old / 'events.ndjson.imported').write_text('original import marker')
     snapshot = {path: path.read_bytes() for path in old.iterdir()}
@@ -95,7 +97,7 @@ def test_expansion_only_imports_disjoint_history_and_preserves_original_bytes(pi
     assert all(p['fromStartTime'] == '1970-01-01T00:00:00Z' for path, p in calls if path.endswith('observations'))
 
 
-@pytest.mark.parametrize('change', ['hash', 'failed', 'dry', 'date', 'seed', 'count', 'score-contract', 'expanded', 'missing-experiment'])
+@pytest.mark.parametrize('change', ['hash', 'failed', 'dry', 'date', 'seed', 'count', 'score-contract', 'expanded', 'missing-experiment', 'composition'])
 def test_invalid_pilot_rejected_before_network(pilot, monkeypatch, change):
     cfg, spool, state, *_ = pilot
     if change == 'hash': spool.write_text(spool.read_text() + '\n')
@@ -106,6 +108,7 @@ def test_invalid_pilot_rejected_before_network(pilot, monkeypatch, change):
     elif change == 'count': cfg.generation.target_traces = state.target_traces
     elif change == 'score-contract': state.run_receipt['score_contract'] = 'old'
     elif change == 'expanded': state.expansion = {'status': 'failed'}
+    elif change == 'composition': state.provisioning['prompt_composition'] = 'native-text-components-v1'
     else: state.provisioning['historical_experiments'].pop()
     state.save(str(spool.parent / '.synth_state.json'))
     monkeypatch.setattr(expansion, 'assert_demo_project', lambda *a: pytest.fail('Invalid local receipt reached network'))

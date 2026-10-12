@@ -1,0 +1,132 @@
+{
+  "project_id": "cmv4y6mhv034wad0ea0254dsn",
+  "changes": [
+    {
+      "name": "products/explainer",
+      "label": "production",
+      "before_version": 7,
+      "after_version": 9,
+      "raw_and_resolved_verified": true
+    },
+    {
+      "name": "products/explainer",
+      "label": "development",
+      "before_version": 8,
+      "after_version": 10,
+      "raw_and_resolved_verified": true
+    },
+    {
+      "name": "fees/explainer",
+      "label": "production",
+      "before_version": 7,
+      "after_version": 9,
+      "raw_and_resolved_verified": true
+    },
+    {
+      "name": "fees/explainer",
+      "label": "development",
+      "before_version": 8,
+      "after_version": 10,
+      "raw_and_resolved_verified": true
+    },
+    {
+      "name": "applications/guide",
+      "label": "production",
+      "before_version": 7,
+      "after_version": 9,
+      "raw_and_resolved_verified": true
+    },
+    {
+      "name": "applications/guide",
+      "label": "development",
+      "before_version": 8,
+      "after_version": 10,
+      "raw_and_resolved_verified": true
+    },
+    {
+      "name": "service/intent",
+      "label": "production",
+      "before_version": 7,
+      "after_version": 9,
+      "raw_and_resolved_verified": true
+    },
+    {
+      "name": "service/intent",
+      "label": "development",
+      "before_version": 8,
+      "after_version": 10,
+      "raw_and_resolved_verified": true
+    },
+    {
+      "name": "service/query-rewrite",
+      "label": "production",
+      "before_version": 7,
+      "after_version": 9,
+      "raw_and_resolved_verified": true
+    },
+    {
+      "name": "service/query-rewrite",
+      "label": "development",
+      "before_version": 8,
+      "after_version": 10,
+      "raw_and_resolved_verified": true
+    },
+    {
+      "name": "service/conversation-summary",
+      "label": "production",
+      "before_version": 7,
+      "after_version": 9,
+      "raw_and_resolved_verified": true
+    },
+    {
+      "name": "service/conversation-summary",
+      "label": "development",
+      "before_version": 8,
+      "after_version": 10,
+      "raw_and_resolved_verified": true
+    },
+    {
+      "name": "communications/message-drafter",
+      "label": "production",
+      "before_version": 7,
+      "after_version": 9,
+      "raw_and_resolved_verified": true
+    },
+    {
+      "name": "communications/message-drafter",
+      "label": "development",
+      "before_version": 8,
+      "after_version": 10,
+      "raw_and_resolved_verified": true
+    },
+    {
+      "name": "service/handoff-note",
+      "label": "production",
+      "before_version": 7,
+      "after_version": 9,
+      "raw_and_resolved_verified": true
+    },
+    {
+      "name": "service/handoff-note",
+      "label": "development",
+      "before_version": 8,
+      "after_version": 10,
+      "raw_and_resolved_verified": true
+    }
+  ],
+  "voice_labels_preserved": true,
+  "resolved_voice_version": 2,
+  "live_check": {
+    "parent": "products/explainer",
+    "parent_version": 9,
+    "generation_id": "c92df118e057e9ad",
+    "session_url": "https://cloud.langfuse.com/project/cmv4y6mhv034wad0ea0254dsn/sessions/conversation-dd8e9226c9d44b91973849b35dfca86d",
+    "response_style": "Mark it well; Each month is a new orbit to complete",
+    "facts_preserved": [
+      "EUR 4 monthly fee",
+      "EUR 1200 qualifying salary per calendar month",
+      "own transfers excluded"
+    ],
+    "screenshot": "seeded-blocks-live.png"
+  }
+}

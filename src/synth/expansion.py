@@ -21,6 +21,7 @@ from .materialize import build_events
 from .receipt import attributes, make_receipt
 from .scores import SCORE_CONTRACT
 from .state import RunState
+from .prompt_composition import COMPOSITION_REVISION
 
 
 def _trace(event):
@@ -55,6 +56,8 @@ def prepare_expansion(cfg, state: RunState, previous_spool: Path) -> tuple[list[
              and bool(receipt.get('representative_traces')) and valid_date)
     if not valid:
         raise RuntimeError('Expansion requires an unexpanded imported receipt matching this project, seed and date, with a larger target volume.')
+    if state.provisioning.get('prompt_composition') != COMPOSITION_REVISION:
+        raise RuntimeError('Expand this older seed with its original kit release, or seed a fresh project with this release. Prompt instructions changed; existing history will not be rewritten.')
     raw = previous_spool.read_bytes()
     if hashlib.sha256(raw).hexdigest() != receipt.get('spool_sha256'):
         raise RuntimeError('Previous spool hash does not match the imported receipt.')

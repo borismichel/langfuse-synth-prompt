@@ -41,8 +41,10 @@ in [product research](PRODUCT_RESEARCH.md).
 - **Nine prompt families**, each with **eight stored versions**: three live
   chatbots and six historical-only prompt families.
 - **Four reusable text building blocks** support those nine agents: reference context,
-  factual boundaries, voice and structured output. Native references preserve the
-  resolved opening content. Voice includes the accepted playful candidate instruction.
+  factual boundaries, voice and structured output, selectively included by task.
+  Current customer-facing prompts already follow the production voice label.
+  Product Explainer includes factual and voice blocks from seed time; the playful
+  candidate replaces the existing voice reference rather than appending one.
 - Main chatbot: **product explainer**. Additional live chatbots: **fee explainer**
   and **application guide**. The other families support classification, query
   rewriting, summarisation, extraction, drafting and handoff examples.

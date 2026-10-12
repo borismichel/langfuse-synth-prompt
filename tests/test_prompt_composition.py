@@ -14,7 +14,7 @@ from synth.prompt_composition import COMPOSITION_REVISION, building_blocks, comp
 from test_assets import FakeAPI, config
 
 
-TAG = re.compile(r'@@@langfusePrompt:name=([^|]+)\|version=(\d+)@@@')
+TAG = re.compile(r'@@@langfusePrompt:name=([^|]+)\|(version|label)=([^@]+)@@@')
 
 
 class NativePromptAPI(FakeAPI):
@@ -41,7 +41,9 @@ class NativePromptAPI(FakeAPI):
                 return actual
             dependencies = []
             def substitute(match):
-                child = self.stored(match[1], int(match[2]))
+                child = self.stored(match[1], int(match[3])) if match[2] == 'version' else next(
+                    v for p, v in self.created.items() if p.startswith('/api/public/v2/prompts/')
+                    and v['name'] == match[1] and match[3] in v['labels'])
                 assert child['type'] == 'text'
                 dependencies.append({'name': child['name'], 'version': child['version']})
                 return child['prompt']
@@ -75,9 +77,10 @@ def test_four_text_families_are_created_before_all_nine_chat_families(seeded):
     for body in bodies[5:]:
         references = TAG.findall(json.dumps(body['prompt']))
         assert references
-        assert ('building-blocks/reference-context', '1') in references
-        for name, version in references:
-            assert api.stored(name, int(version))['type'] == 'text'
+        assert ('building-blocks/reference-context', 'version', '1') in references
+        for name, kind, value in references:
+            child = api.stored(name, int(value)) if kind == "version" else api.read("/api/public/v2/prompts/"+name, {"label": value})
+            assert child["type"] == "text"
     assert api.stored('building-blocks/voice', 1)['labels'] == ['production']
     assert api.stored('building-blocks/voice', 2)['labels'] == ['playful']
 
@@ -161,7 +164,7 @@ def test_legacy_uncomposed_receipts_remain_verifiable(seeded):
     receipt.pop('building_blocks')
     for prompt in load_fixture('portfolio')['prompts']:
         for version in range(1, 9):
-            api.stored(prompt['name'], version)['prompt'] = chat_prompt(prompt['id'], version)
+            api.stored(prompt['name'], version)['prompt'] = chat_prompt(prompt['id'], version, legacy=True)
     checks = {name: ok for name, ok, _ in verify_assets(config(), receipt, api=api)}
     assert all(ok for name, ok in checks.items() if name.startswith('prompt-'))
     assert not any(name.startswith('prompt-raw-') for name in checks)
@@ -181,3 +184,64 @@ def test_composition_preserves_input_and_rejects_already_composed_input():
     assert resolved == before
     with pytest.raises(ValueError, match='resolved fixture'):
         compose_chat_prompt(composed)
+
+
+def test_current_prompts_have_purposeful_component_coverage(seeded):
+    api, _ = seeded
+    expected = {
+        'PR-01': {'reference-context', 'factual-boundaries', 'voice'},
+        'PR-02': {'reference-context', 'factual-boundaries', 'voice'},
+        'PR-03': {'reference-context', 'factual-boundaries', 'voice'},
+        'PR-04': {'reference-context', 'structured-output'},
+        'PR-05': {'reference-context'},
+        'PR-06': {'reference-context', 'factual-boundaries'},
+        'PR-07': {'reference-context', 'factual-boundaries', 'structured-output'},
+        'PR-08': {'reference-context', 'factual-boundaries', 'voice'},
+        'PR-09': {'reference-context', 'factual-boundaries'},
+    }
+    for prompt in load_fixture('portfolio')['prompts']:
+        for version in (7, 8):
+            refs = TAG.findall(json.dumps(api.stored(prompt['name'], version)['prompt']))
+            assert {name.split('/')[-1] for name, _, _ in refs} == expected[prompt['id']]
+            for name, kind, value in refs:
+                assert (kind, value) == (('label', 'production') if name.endswith('/voice') else ('version', '1'))
+
+
+def test_voice_label_move_changes_only_customer_facing_prompts(seeded):
+    api, _ = seeded
+    api.stored('building-blocks/voice', 1)['labels'] = []
+    api.stored('building-blocks/voice', 2)['labels'] = ['playful', 'production']
+    style = building_blocks()['voice']['versions'][1]['prompt']
+    for prompt in load_fixture('portfolio')['prompts']:
+        for version in range(1, 9):
+            resolved = api.read('/api/public/v2/prompts/'+prompt['name'], {'version': version})['prompt']
+            styled = prompt['id'] in {'PR-01', 'PR-02', 'PR-03', 'PR-08'} and version in (7, 8)
+            assert (style in resolved[0]['content']) == styled
+            if not styled:
+                assert resolved == chat_prompt(prompt['id'], version)
+            else:
+                assert 'Return a concise, respectful answer in plain English.' not in resolved[0]['content']
+
+
+def test_original_composed_seed_receipts_remain_verifiable(seeded):
+    from synth.prompt_composition import LEGACY_COMPOSITION_REVISION
+    api, receipt = seeded
+    receipt['prompt_composition'] = LEGACY_COMPOSITION_REVISION
+    for prompt in load_fixture('portfolio')['prompts']:
+        for version in range(1, 9):
+            api.stored(prompt['name'], version)['prompt'] = stored_chat_prompt(prompt['id'], version, legacy=True)
+    checks = {name: ok for name, ok, _ in verify_assets(config(), receipt, api=api)}
+    assert all(ok for name, ok in checks.items() if name.startswith(('prompt-', 'building-block-')))
+
+
+def test_post_demo_verification_allows_voice_label_changes_without_weakening_seed_checks(seeded):
+    api, receipt = seeded
+    api.stored('building-blocks/voice', 1)['labels'] = []
+    api.stored('building-blocks/voice', 2)['labels'] = ['playful', 'production']
+    strict = {name: ok for name, ok, _ in verify_assets(config(), receipt, api=api)}
+    assert not strict['prompt-PR-01-v7']
+    after_demo = {name: ok for name, ok, _ in verify_assets(config(), receipt, api=api, check_labels=False)}
+    assert all(ok for name, ok in after_demo.items() if name.startswith(('prompt-', 'building-block-')))
+    api.stored('products/explainer', 7)['prompt'][0]['content'] += ' Unrelated change.'
+    corrupt = {name: ok for name, ok, _ in verify_assets(config(), receipt, api=api, check_labels=False)}
+    assert not corrupt['prompt-PR-01-v7'] and not corrupt['prompt-raw-PR-01-v7']

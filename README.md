@@ -69,8 +69,10 @@ or prompt-scale option. Promoting a presenter-created version is a separate acti
 
 The `building-blocks` folder contains reusable text prompts for reference context,
 factual boundaries, voice and structured output. Agent prompts use native Langfuse
-references; their resolved opening instructions retain the accepted story. The
-presenter can append the shared `playful` voice reference to a staging candidate.
+references chosen for each task (see [component coverage](docs/demo/authoring/BUILDING_BLOCKS.md)).
+Customer-facing prompts already reference the voice block’s `production` label.
+The presenter changes that existing reference to `playful` in a staging candidate;
+moving the shared production label also updates all four voice-dependent agents.
 
 Depot runs **probe → plan → evaluator setup → history seed → experiment mapping setup → verification**.
 Probe uses the shared core's demo-project guard, writes two throwaway observations,
