@@ -1,0 +1,97 @@
+{
+  "verified_at": "2026-10-12T12:38:58.408450+00:00",
+  "api_health": 200,
+  "catalog_http_status": 200,
+  "catalog": {
+    "ref": "v0.2.5",
+    "status": "active",
+    "visibility": "published",
+    "image_ref": "ghcr.io/borismichel/langfuse-synth-prompt@sha256:7adc3c4e98e6150f5644d0642e55550650010fdfc4750b14c844324313fd8cf8",
+    "synced_at": "2026-10-12 12:38:01.367298+00:00"
+  },
+  "other_catalog_entries_unchanged": "asserted against pre-sync snapshot during initial sync request",
+  "depot_pr": "https://github.com/borismichel/langfuse-demo-depot/pull/284",
+  "depot_branch_commit": "806135e",
+  "depot_primary_main": "7170e5cf9362caa46d21aa8a553ecceb348843b8",
+  "deployment_source": "Reviewed registry branch; main merge pending queued check",
+  "validation": {
+    "registry_tool_tests": 26,
+    "backup_fingerprint_tests": 15,
+    "all_registry_manifests_and_images": "passed dry-run",
+    "standards_review": "passed independent reviewer",
+    "spec_review": "passed independent parent reviewer",
+    "kit_ci": "success",
+    "kit_publish": "success",
+    "worker_cosign_policy": "enabled; exact image signature verified"
+  },
+  "merge": {
+    "state": "open",
+    "merged": false,
+    "check": "validate",
+    "check_status": "QUEUED",
+    "check_url": "https://github.com/borismichel/langfuse-demo-depot/actions/runs/38250007586/job/114813544550",
+    "registered_repository_runners": 0,
+    "allow_auto_merge": false
+  },
+  "local_change": "API rebuilt and recreated with existing compose settings plus API build-context override; no other service restarted",
+  "preserved_containers": [
+    {
+      "name": "portal-live-5492474c-8c0c-426c-b2d7-f16f5d1a7de1",
+      "unchanged_and_running": true
+    },
+    {
+      "name": "langfuse-demo-portal-web-1",
+      "unchanged_and_running": true
+    },
+    {
+      "name": "langfuse-demo-portal-worker-1",
+      "unchanged_and_running": true
+    },
+    {
+      "name": "portal-live-2337d511-4a7d-4a9e-b257-11596f445bf0",
+      "unchanged_and_running": true
+    },
+    {
+      "name": "portal-live-57a49f48-9463-4061-9486-07a1302699e7",
+      "unchanged_and_running": true
+    },
+    {
+      "name": "portal-live-9051b5cb-fe9a-4fcc-afe5-e4825f068ff1",
+      "unchanged_and_running": true
+    },
+    {
+      "name": "langfuse-demo-portal-infisical-1",
+      "unchanged_and_running": true
+    },
+    {
+      "name": "langfuse-demo-portal-caddy-1",
+      "unchanged_and_running": true
+    },
+    {
+      "name": "langfuse-demo-portal-egress-proxy-1",
+      "unchanged_and_running": true
+    },
+    {
+      "name": "langfuse-demo-portal-postgres-1",
+      "unchanged_and_running": true
+    },
+    {
+      "name": "langfuse-demo-portal-docker-socket-proxy-1",
+      "unchanged_and_running": true
+    },
+    {
+      "name": "langfuse-demo-portal-caddy-socket-proxy-1",
+      "unchanged_and_running": true
+    },
+    {
+      "name": "langfuse-demo-portal-infisical-redis-1",
+      "unchanged_and_running": true
+    },
+    {
+      "name": "langfuse-demo-portal-minio-1",
+      "unchanged_and_running": true
+    }
+  ],
+  "runtime_build_override": "/private/tmp/depot-release-025-rollout.yml",
+  "runtime_source_checkout": "/private/tmp/depot-prompt-025"
+}

@@ -1,0 +1,27 @@
+{
+  "version": "v0.2.5",
+  "git_sha": "3af0b1d598e8d4a82948af6c3d7c7d2cbfbdf566",
+  "image_ref": "ghcr.io/borismichel/langfuse-synth-prompt@sha256:7adc3c4e98e6150f5644d0642e55550650010fdfc4750b14c844324313fd8cf8",
+  "ci": "passed",
+  "ci_url": "https://github.com/borismichel/langfuse-synth-prompt/actions/runs/38249581699",
+  "publication": "passed",
+  "publish_url": "https://github.com/borismichel/langfuse-synth-prompt/actions/runs/38249582119",
+  "offline": {
+    "tests": 349,
+    "manifest": "passed",
+    "conformance": "passed",
+    "repeatability": "passed",
+    "frontend_regressions": "all three passed",
+    "published_image": "all nine family dependency counts and packaged legacy fixture verified with network disabled"
+  },
+  "current_project": "repaired with new parent versions; previous history preserved; selected voice demonstrated in actual companion",
+  "catalog": "active and published; local API sync verified exact v0.2.5 digest",
+  "depot": {
+    "pull_request": "https://github.com/borismichel/langfuse-demo-depot/pull/284",
+    "registry_commit": "806135e",
+    "local_delivery": "reviewed branch, API rebuilt and synced; all non-API containers preserved",
+    "remote_merge": "pending: validate check queued, no self-hosted runners registered, auto-merge disabled; no merge override used",
+    "validation": "all four registry manifests/images and signature policy passed; 26 tooling and 15 backup tests; independent Standards and Spec review passed",
+    "receipt": "release-025-depot.json"
+  }
+}

@@ -1,5 +1,11 @@
 # Authoring implementation review
 
+2026-10-12: **v0.2.5 is published and active in the local Depot catalog.**
+Kit main and signed image include selective composition and chat usability fixes.
+Depot PR #284 is reviewed and locally deployed but awaits its unavailable CI
+runner before remote merge; no merge override was used.
+[Delivery receipt](evidence/release-025-release.json).
+
 2026-10-12 seeded building-block correction: all four component families now have
 explicit task-appropriate coverage. Product Explainer includes factual boundaries
 and voice from seed time; four customer-facing agents follow the shared voice

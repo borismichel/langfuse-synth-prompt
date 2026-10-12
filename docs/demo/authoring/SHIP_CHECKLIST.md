@@ -12,7 +12,13 @@
 - Offline: 349 tests, repeatability, manifest validation, core conformance and all
   three frontend regressions passed. Golden changes are limited to three Product
   Explainer observation inputs with the revised shared baseline/candidate wording.
-- Release publication and Depot registry sync evidence will be recorded after delivery.
+- Signed v0.2.5 publication and kit CI passed; actual image checked offline.
+- Local Depot API rebuilt from reviewed registry branch and synced: exact v0.2.5
+  digest is active and published, other catalog entries and running companions
+  preserved. Existing-kit update requires no new admission project or reseed.
+- Remote Depot PR #284 remains unmerged: no self-hosted runner is registered, so
+  validate is queued. Repo policy forbids bypassing that gate without explicit
+  approval; no bypass used. [Release receipt](evidence/release-025-release.json).
 
 
 ## v0.2.4 consolidated correction

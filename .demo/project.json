@@ -167,8 +167,8 @@
         "docs/demo/authoring/OPERATIONAL_REVISION.md": "836e3abe436e7c1f580e2ef18bc57d10a8ab134034f8ae532110515d41a332da",
         "docs/demo/authoring/PREFLIGHT.md": "f26b9e7dd9cb0915b1ea862873c8add40a03b02b911018d83e4e86a768c9da1d",
         "docs/demo/authoring/READINESS_RESEARCH.md": "f2d8eb33bb4657f875c74a7c9712c3dbfeca5de2d9cc6fc9e4777defb3980ac7",
-        "docs/demo/authoring/REVIEW.md": "84c52bea4fa4003d350f26bb101167ccba7ea4f0b2dc941f01c69eef9c6dc515",
-        "docs/demo/authoring/SHIP_CHECKLIST.md": "17d5c7daa3276c35f7c3e74044e1d66ead248a1861ab3538c48f5d401a627b91",
+        "docs/demo/authoring/REVIEW.md": "12aeb0656cbb20de1c75248900fee13b453d2779a552edddd37f5f0c991d66d5",
+        "docs/demo/authoring/SHIP_CHECKLIST.md": "13d03824d79bce0c13559fa35a04736444f8fe5e69dbbe423be3d42e51e4c24e",
         "docs/demo/authoring/TRACE_DESIGN_AUDIT.md": "3399ccf4c7d7e179d8b0a4e0ccadf08d56569807119cdf6dd3f0ea33dd903abe",
         "docs/demo/authoring/V4_COMPATIBILITY.md": "f99cc56d1d6f1a8b7c98cf9f4c585c80c27514fad1b431f426324c92ac6fe96a",
         "docs/demo/authoring/evidence/application-guide-companion.png": "e58fce90b9be187da2cac07c38517d5e9538391b2ec2574a3fa823344c0bfbe7",
@@ -294,6 +294,8 @@
         "docs/demo/authoring/evidence/release-024-standard-gate-awaiting_confirm.json": "4549c4951050b98e463358111a604cab004885e177714ffdded01cbee159870f",
         "docs/demo/authoring/evidence/release-024-thinking.png": "d8a64c51c922db0120e038c99d8c48b990f1ad306f2ceddd9253b0d588edad9e",
         "docs/demo/authoring/evidence/release-024-verify-progress.png": "78c6dcc023e565ea0a91325c07cafa4c499a87c9bc5986fda8b75655e612f1e4",
+        "docs/demo/authoring/evidence/release-025-depot.json": "525b871fd4f4674c46b8d2fb6699152dc178f855ba66f8763fdeaf813cfa0591",
+        "docs/demo/authoring/evidence/release-025-release.json": "d1e5bf2301d82552ab70c15e6074cf991fad6b38e4e19e681251c6f6212e7d08",
         "docs/demo/authoring/evidence/rubric-propagation.json": "38ea2e9c3ccb18c3ee5c037764fb831d5532fb93f09ec4687cec6e152061960c",
         "docs/demo/authoring/evidence/schema-check.json": "29a3c2b107a45d889d0136fc4d7785065bc700246aacec2694de22fe2de72526",
         "docs/demo/authoring/evidence/seeded-blocks-live-repair.json": "44acc8c89979c13ccd87ae12d34057f412ebc182bbfc9a7b28990f2e5b01a51e",
@@ -378,7 +380,7 @@
         "usecase.yaml": "9e8128ce356e0e5f00542f859aeebee525a644e4ee1556ad4dd6533579c5e434"
       },
       "decision_file": "docs/demo/authoring/REVIEW.md",
-      "note": "v0.2.5 ready: 349 tests, repeatability, manifest/conformance and frontend checks passed. Selective blocks and shared voice verified in current live demo; publication pending.",
+      "note": "v0.2.5 published and local Depot catalog active/published. 349 tests and image checks passed; current project voice transition verified. Depot registry PR284 remains queued for unavailable CI runner; reviewed branch locally deployed, all companion containers preserved.",
       "input_checkpoint": "3ab3369adcebcde06841275f2507edcd50c6d51be33c63180eb586e76a540052"
     }
   }
