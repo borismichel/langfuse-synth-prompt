@@ -123,7 +123,7 @@ Recorded decision/evidence: `docs/demo/prototype/REVIEW.md`
 
 ### authoring: ready
 
-v0.2.5 published and local Depot catalog active/published. 349 tests and image checks passed; current project voice transition verified. Depot registry PR284 remains queued for unavailable CI runner; reviewed branch locally deployed, all companion containers preserved.
+Local v0.2.5 catalog reverified active/published; current companion UI hash matches release. Full Depot web checks pass; API1192pass,1baseline-reproduced failure,1optional skip. Remote PR284 merge requires explicit pending-CI approval after automatic review rejection.
 
 Recorded decision/evidence: `docs/demo/authoring/REVIEW.md`
 
@@ -281,7 +281,7 @@ Recorded decision/evidence: `docs/demo/authoring/REVIEW.md`
 - [docs/demo/authoring/evidence/release-024-standard-gate-awaiting_confirm.json](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/evidence/release-024-standard-gate-awaiting_confirm.json) — `4549c4951050`
 - [docs/demo/authoring/evidence/release-024-thinking.png](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/evidence/release-024-thinking.png) — `d8a64c51c922`
 - [docs/demo/authoring/evidence/release-024-verify-progress.png](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/evidence/release-024-verify-progress.png) — `78c6dcc023e5`
-- [docs/demo/authoring/evidence/release-025-depot.json](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/evidence/release-025-depot.json) — `525b871fd4f4`
+- [docs/demo/authoring/evidence/release-025-depot.json](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/evidence/release-025-depot.json) — `cd6fdaa769bd`
 - [docs/demo/authoring/evidence/release-025-release.json](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/evidence/release-025-release.json) — `d1e5bf2301d8`
 - [docs/demo/authoring/evidence/rubric-propagation.json](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/evidence/rubric-propagation.json) — `38ea2e9c3ccb`
 - [docs/demo/authoring/evidence/schema-check.json](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/evidence/schema-check.json) — `29a3c2b107a4`

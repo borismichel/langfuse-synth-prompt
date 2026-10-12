@@ -294,7 +294,7 @@
         "docs/demo/authoring/evidence/release-024-standard-gate-awaiting_confirm.json": "4549c4951050b98e463358111a604cab004885e177714ffdded01cbee159870f",
         "docs/demo/authoring/evidence/release-024-thinking.png": "d8a64c51c922db0120e038c99d8c48b990f1ad306f2ceddd9253b0d588edad9e",
         "docs/demo/authoring/evidence/release-024-verify-progress.png": "78c6dcc023e565ea0a91325c07cafa4c499a87c9bc5986fda8b75655e612f1e4",
-        "docs/demo/authoring/evidence/release-025-depot.json": "525b871fd4f4674c46b8d2fb6699152dc178f855ba66f8763fdeaf813cfa0591",
+        "docs/demo/authoring/evidence/release-025-depot.json": "cd6fdaa769bd45ae7e31126fb53829607910b0e318efdb783be1fb2c0b6e7238",
         "docs/demo/authoring/evidence/release-025-release.json": "d1e5bf2301d82552ab70c15e6074cf991fad6b38e4e19e681251c6f6212e7d08",
         "docs/demo/authoring/evidence/rubric-propagation.json": "38ea2e9c3ccb18c3ee5c037764fb831d5532fb93f09ec4687cec6e152061960c",
         "docs/demo/authoring/evidence/schema-check.json": "29a3c2b107a45d889d0136fc4d7785065bc700246aacec2694de22fe2de72526",
@@ -380,7 +380,7 @@
         "usecase.yaml": "9e8128ce356e0e5f00542f859aeebee525a644e4ee1556ad4dd6533579c5e434"
       },
       "decision_file": "docs/demo/authoring/REVIEW.md",
-      "note": "v0.2.5 published and local Depot catalog active/published. 349 tests and image checks passed; current project voice transition verified. Depot registry PR284 remains queued for unavailable CI runner; reviewed branch locally deployed, all companion containers preserved.",
+      "note": "Local v0.2.5 catalog reverified active/published; current companion UI hash matches release. Full Depot web checks pass; API1192pass,1baseline-reproduced failure,1optional skip. Remote PR284 merge requires explicit pending-CI approval after automatic review rejection.",
       "input_checkpoint": "3ab3369adcebcde06841275f2507edcd50c6d51be33c63180eb586e76a540052"
     }
   }

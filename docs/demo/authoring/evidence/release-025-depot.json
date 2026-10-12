@@ -1,5 +1,5 @@
 {
-  "verified_at": "2026-10-12T12:38:58.408450+00:00",
+  "verified_at": "2026-10-12T12:55:32.287229+00:00",
   "api_health": 200,
   "catalog_http_status": 200,
   "catalog": {
@@ -22,7 +22,21 @@
     "spec_review": "passed independent parent reviewer",
     "kit_ci": "success",
     "kit_publish": "success",
-    "worker_cosign_policy": "enabled; exact image signature verified"
+    "worker_cosign_policy": "enabled; exact image signature verified",
+    "web_full_suite": {
+      "pure": 458,
+      "mounted": 14,
+      "typecheck": "passed"
+    },
+    "api_full_suite": {
+      "passed": 1192,
+      "failed": 1,
+      "skipped": 1,
+      "lint": "passed",
+      "migrations": "passed",
+      "failure": "Existing slug substring check matches prompt inside promptly comments; identical failure on parent7170e5c, test/source unchanged.",
+      "skip": "Live Infisical credentials absent in isolated test environment"
+    }
   },
   "merge": {
     "state": "open",
@@ -31,7 +45,8 @@
     "check_status": "QUEUED",
     "check_url": "https://github.com/borismichel/langfuse-demo-depot/actions/runs/38250007586/job/114813544550",
     "registered_repository_runners": 0,
-    "allow_auto_merge": false
+    "allow_auto_merge": false,
+    "approval": "Specific pending-CI approval requested after automatic approval review rejected merge; no merge attempted through a workaround."
   },
   "local_change": "API rebuilt and recreated with existing compose settings plus API build-context override; no other service restarted",
   "preserved_containers": [
@@ -93,5 +108,6 @@
     }
   ],
   "runtime_build_override": "/private/tmp/depot-release-025-rollout.yml",
-  "runtime_source_checkout": "/private/tmp/depot-prompt-025"
+  "runtime_source_checkout": "/private/tmp/depot-prompt-025",
+  "companion_static_file": "Running current companion app.js SHA256 matches source/released UI: 6d1a3e75263900571cec484425f3d07e482bc0d23b9810ceb163c2c8efee7869"
 }
