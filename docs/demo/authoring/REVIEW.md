@@ -1,5 +1,14 @@
 # Authoring implementation review
 
+2026-10-12 companion follow-up: the user’s running v0.2.2 surface retained the
+old loading copy despite catalog publication. Both running Prompt companions
+received a narrowly scoped, byte-verified static frontend patch: “Thinking…”
+and Enter to send, Shift+Enter for a newline, with composition/repeat guards.
+The source fix and regression are included on main. This is a running-instance
+correction, not a new immutable release or a change to seed provenance. A
+replacement container from an old deployment image would need the fix again.
+[Receipt and scope](evidence/chat-controls-hotfix.json).
+
 Updated 2026-10-12: **v0.2.4 is admitted and published in Depot.** The
 [cross-kit comparison](CROSS_KIT_SEED_REVIEW.md) consolidates plan confirmation,
 streamed seed/setup/verification progress, reset guidance and a container-tested

@@ -1,0 +1,28 @@
+{
+  "date": "2026-10-12",
+  "kind": "running-container static frontend patch",
+  "scope": [
+    {
+      "container": "portal-live-2337d511-4a7d-4a9e-b257-11596f445bf0",
+      "before_sha256": "81a1d427a4645a1d13cb4bb8ac60cb2d486a06ba12a743c7dcbd3eddd386e9da",
+      "after_sha256": "0af0b34b920e36de6781910dbc6fa043d199ad8211a411fd21c2d2b43e6a881f",
+      "path": "/usr/local/lib/python3.12/site-packages/synth/companion/static/app.js",
+      "change": "Thinking copy and composer key binding only; no backend restart or data mutation"
+    },
+    {
+      "container": "portal-live-5492474c-8c0c-426c-b2d7-f16f5d1a7de1",
+      "before_sha256": "81a1d427a4645a1d13cb4bb8ac60cb2d486a06ba12a743c7dcbd3eddd386e9da",
+      "after_sha256": "0af0b34b920e36de6781910dbc6fa043d199ad8211a411fd21c2d2b43e6a881f",
+      "path": "/usr/local/lib/python3.12/site-packages/synth/companion/static/app.js",
+      "change": "Thinking copy and composer key binding only; no backend restart or data mutation"
+    }
+  ],
+  "limitation": "Replacement containers from the older deployment image do not inherit this patch. Kit source includes the change for the next immutable release.",
+  "validation": {
+    "composer_regression": "failed before change; passed after and against both actual patched frontends",
+    "reply_renderer": "passed",
+    "companion_runtime_tests": "43 passed",
+    "browser": "Current v0.2.2 demo: Shift+Enter inserted newline without sending; Enter submitted and showed Thinking\u2026",
+    "screenshot": "chat-controls-thinking.png"
+  }
+}

@@ -36,7 +36,9 @@ jobs:
         with:
           node-version: "22"
       - name: Reply rendering and inert-content safety
-        run: node tests/test_reply_rendering.cjs
+        run: |
+          node tests/test_reply_rendering.cjs
+          node tests/test_chat_composer.cjs
       # The Contract as executable checks (portal #198). Enforcing, not --advisory: a
       # scaffolded kit is born in the target shape, so a violation here is a regression,
       # never migration debt.

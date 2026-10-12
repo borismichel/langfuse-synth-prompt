@@ -149,6 +149,11 @@ $('save-feedback').onclick=async()=>{if(!feedback)return;$('save-feedback').disa
 $('cancel-feedback').onclick=closeFeedback;
 $('feedback-dialog').addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault();closeFeedback()}if(e.key==='Tab'){const first=$('feedback-comment'),last=$('cancel-feedback');if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}});
 $('composer').onsubmit=e=>{e.preventDefault();send($('message').value)};
+$('message').addEventListener('keydown',e=>{
+  if(e.key!=='Enter'||e.shiftKey||e.isComposing||e.keyCode===229)return;
+  e.preventDefault();
+  if(!e.repeat&&!$('send').disabled)$('composer').requestSubmit();
+});
 $('message').oninput=updateControls;
 $('new').onclick=()=>{chats.delete(current);notice('');render();$('message').focus()};
 $('theme').onclick=()=>{params.set('theme',params.get('theme')==='dark'?'light':'dark');appearance()};
