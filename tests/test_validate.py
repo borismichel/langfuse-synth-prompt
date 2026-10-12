@@ -54,3 +54,16 @@ def test_depot_model_defaults_match_original_provider_ids_and_runtime_policy():
     assert sample["LLM_MODEL"] == EXPERIMENT_MODEL
     assert sample["LANGFUSE_EVAL_PROVIDER"] == "anthropic"
     assert sample["LANGFUSE_EVAL_MODEL"] == EVALUATION_MODEL
+
+
+def test_manifest_and_runtime_share_the_container_validated_volume_limit():
+    import yaml
+    from synth.config import load_config
+
+    doc = yaml.safe_load(MANIFEST.read_text())
+    maximum = doc["config_schema"]["properties"]["generation.target_traces"]["maximum"]
+    assert maximum == 6000
+    path = MANIFEST.parent / doc["base_config"]["default"]
+    assert load_config(path, overrides=[f"generation.target_traces={maximum}"]).generation.target_traces == maximum
+    with pytest.raises(ValueError, match="1..6000"):
+        load_config(path, overrides=[f"generation.target_traces={maximum + 1}"])

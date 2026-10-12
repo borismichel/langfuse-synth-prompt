@@ -1,6 +1,7 @@
 """Read exact current-run evidence via core; unrelated project data cannot pass."""
 from __future__ import annotations
 from dataclasses import dataclass, field
+from collections.abc import Callable
 from datetime import datetime
 import time
 from langfuse_synth_core.target import TargetProfile
@@ -9,6 +10,7 @@ from .state import RunState
 from .catalog import decode_rubric_revisions
 from .scores import read_score_value, SCORE_CONTRACT
 from .receipt import _decoded
+from .progress import progress_scope, report as progress_report
 
 @dataclass
 class Check:
@@ -19,8 +21,11 @@ class Check:
 @dataclass
 class VerifyReport:
     checks: list[Check] = field(default_factory=list)
+    log: Callable[[str], None] | None = field(default=None, repr=False)
     def add(self, name: str, ok: bool, detail: str):
         self.checks.append(Check(name, bool(ok), detail))
+        if self.log is not None:
+            self.log(f"{'PASS' if ok else 'FAIL'} {name}: {detail}")
     @property
     def ok(self) -> bool:
         return bool(self.checks) and all(c.ok for c in self.checks)
@@ -69,8 +74,13 @@ def verify_trace(reader, expected: dict) -> Check:
     return Check(f'trace:{tid}', not problems, '; '.join(problems[:8]) if problems else 'Exact observations, prompt versions, payloads, session, timestamps and score subjects match')
 
 
-def run_verify(cfg: Config, *, log=print, reader=None, clock=time.monotonic, sleep=time.sleep) -> VerifyReport:
-    report = VerifyReport()
+def run_verify(cfg: Config, *, log=progress_report, reader=None, clock=time.monotonic, sleep=time.sleep) -> VerifyReport:
+    with progress_scope('Starting verification: checking the imported run receipt.', log) as progress:
+        return _run_verify(cfg, log=progress, reader=reader, clock=clock, sleep=sleep)
+
+
+def _run_verify(cfg: Config, *, log, reader, clock, sleep) -> VerifyReport:
+    report = VerifyReport(log=log)
     if not RunState.exists():
         report.add('receipt',False,'No seed receipt in this state directory'); log('✗ No seed receipt in this state directory'); return report
     state = RunState.load()
@@ -88,23 +98,39 @@ def run_verify(cfg: Config, *, log=print, reader=None, clock=time.monotonic, sle
     if cfg.generation.as_of_date:
         report.add('as_of_date',state.run_receipt['run_date'][:10]==cfg.generation.as_of_date.isoformat(),'Run anchor matches requested date')
     if reader is None:
+        log('Resolving the target read API.')
         reader = TargetProfile.detect(cfg.target.base_url).resolved().reader()
     pending = {e['id']:e for e in state.run_receipt['representative_traces']}
+    total = len(pending)
     checks = {}
+    # This bounds visibility retries, not total command runtime. Every required
+    # trace still gets its first read, even if earlier network requests ran slowly.
     deadline = clock() + cfg.verification.timeout_seconds
+    first_pass = True
     while pending:
         for tid,e in list(pending.items()):
+            if not first_pass and clock() >= deadline:
+                break
+            log(f'Checking current-run trace {tid}; {total - len(pending)}/{total} verified.')
             try: check=verify_trace(reader,e)
             except Exception as exc: check=Check(f'trace:{tid}',False,f'Read failed ({type(exc).__name__}); inspect target access/ingestion')
             checks[tid]=check
-            if check.ok: del pending[tid]
+            if check.ok:
+                del pending[tid]
+                report.add(check.name, check.ok, check.detail)
+            else:
+                log(f'Waiting for current-run evidence: {check.name}; {check.detail}')
+        first_pass = False
         if not pending or clock() >= deadline: break
+        log(f'Waiting for {len(pending)}/{total} current-run traces before another visibility check.')
         sleep(min(cfg.verification.poll_seconds,max(0,deadline-clock())))
-    report.checks.extend(checks.values())
+    for tid in pending:
+        check = checks[tid]
+        report.add(check.name, check.ok, check.detail)
     # Asset verifier independently reads prompt labels/versions, dataset items and rules.
     from .assets import verify_assets
-    for name, ok, detail in verify_assets(cfg, state.provisioning, check_labels=not bool(state.expansion)):
-        report.add(name,ok,detail)
-    for check in report.checks:
-        log(f"{'✓' if check.ok else '✗'} {check.name}: {check.detail}")
+    log('Checking provisioned prompts, datasets, evaluators and historical experiments.')
+    for name, ok, detail in verify_assets(cfg, state.provisioning, check_labels=not bool(state.expansion), log=log):
+        report.checks.append(Check(name, bool(ok), detail))
+    log(f'Verification complete: {sum(c.ok for c in report.checks)}/{len(report.checks)} checks passed.')
     return report

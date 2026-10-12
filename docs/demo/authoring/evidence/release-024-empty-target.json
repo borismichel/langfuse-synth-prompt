@@ -1,0 +1,19 @@
+{
+  "projects": {
+    "count": 1,
+    "meta": null
+  },
+  "datasets": {
+    "count": 0,
+    "meta": {
+      "page": 1,
+      "limit": 1,
+      "totalItems": 0,
+      "totalPages": 0
+    }
+  },
+  "observations-v2": {
+    "count": 0,
+    "meta": {}
+  }
+}

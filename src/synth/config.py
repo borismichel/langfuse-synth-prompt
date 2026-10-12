@@ -57,8 +57,8 @@ def _model_factory(raw: dict) -> Config:
     verification = raw.get('verification') or {}
     count = int(generation.get('target_traces', 1620))
     seed = int(generation.get('seed', 42))
-    if not 1 <= count <= 100000 or seed < 0:
-        raise ValueError('target_traces must be 1..100000 and seed must be non-negative')
+    if not 1 <= count <= 6000 or seed < 0:
+        raise ValueError('target_traces must be 1..6000 and seed must be non-negative')
     return Config(
         Target(str(target.get('host', 'http://localhost:3000')), str(target.get('project_hint', 'demo'))),
         Generation(seed, count, parse_as_of_date(generation.get('as_of_date'))),

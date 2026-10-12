@@ -1,4 +1,11 @@
-# Deployment pipeline follow-up — release checklist
+# Deployment release checklist
+
+## v0.2.4 consolidated correction
+
+See [cross-kit comparison](CROSS_KIT_SEED_REVIEW.md) for confirmed gaps and regression evidence.
+Offline verification, exact release, admission and rollout results are pending final reconciliation.
+
+## Previous v0.2.2 delivery
 
 This checklist records published v0.2.2. The unchanged story and companion carry
 forward the completed v0.2.1 presenter rehearsal recorded in

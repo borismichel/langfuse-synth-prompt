@@ -37,10 +37,10 @@ config_schema:
     generation.target_traces:
       type: integer
       minimum: 1
-      maximum: 100000
+      maximum: 6000
       default: 1620
       title: Target traces
-      description: Production-history trace count over 28 complete local days. The full story uses 1620
+      description: Production-history trace count over 28 complete local days, up to the validated 6000-trace container limit. The full story uses 1620
         traces and 2100 generations; small runs retain representative families where volume permits. Historical
         experiment fixtures are a separate fixed cohort. This is the only volume control; nine prompts,
         eight initial versions per agent prompt, four reusable text building blocks, nine datasets and eighteen
@@ -118,3 +118,10 @@ live_components:
   - path: /
     title: Prompt Portfolio — live chat
   health_path: /healthz
+
+teardown:
+  note: >-
+    Langfuse ingestion is append-only. Depot teardown stops companion instances and
+    releases portal resources; it does not delete Langfuse data. Use a fresh demo
+    project for another seed, or explicitly clear the previous project in Langfuse
+    before deploying again. Never retry a partial seed against an uncleared project.

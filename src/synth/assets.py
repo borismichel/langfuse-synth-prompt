@@ -15,7 +15,7 @@ from urllib.parse import quote
 
 from synth.catalog import dataset_items, load_fixture, score_definitions, system_prompt
 from .scores import FACTUAL_CRITERIA
-from .progress import report
+from .progress import report, progress_scope
 
 from .model_policy import MODEL_PRICES
 from .prompt_composition import COMPOSITION_REVISION, building_blocks, compose_chat_prompt
@@ -234,13 +234,15 @@ def _rule_matches(actual: dict, expected: dict) -> bool:
             and _mapping_equal(assignments[0].get("variableMapping"), wanted["variableMapping"]))
 
 
-def _evaluation_assets(cfg, api, *, create: bool, update_model: bool = False) -> dict:
+def _evaluation_assets(cfg, api, *, create: bool, update_model: bool = False, log=None) -> dict:
     result = {"evaluators": {}, "evaluator_rules": {}, "missing": []}
     settings = getattr(cfg, "evaluation", None)
     provider, model = getattr(settings, "provider", ""), getattr(settings, "model", "")
     if not (provider and model):
         result["missing"].append("Set evaluation.provider/model and run the separate model-using evaluator setup before seed.")
         return result
+    if log:
+        log('Reading the judge connection, evaluator definitions and live rules.')
     connection = next((c for c in _inventory(api, "/api/public/llm-connections") if c.get("provider") == provider), None)
     if not connection or (not connection.get("withDefaultModels") and model not in connection.get("customModels", [])):
         result["missing"].append("Selected judge provider/model is not available through a configured Langfuse LLM connection.")
@@ -253,6 +255,8 @@ def _evaluation_assets(cfg, api, *, create: bool, update_model: bool = False) ->
     for eid, definition in definitions.items():
         if definition["producer"] != "llm-judge":
             continue
+        if log:
+            log(f'Checking evaluator and live rule {eid} before setup writes.')
         desired = evaluator_body(eid, definition, provider, model)
         matches = [e for e in inventory if e.get("name") == desired["name"]]
         if len(matches) > 1:
@@ -289,7 +293,9 @@ def _evaluation_assets(cfg, api, *, create: bool, update_model: bool = False) ->
             if not evaluator or not (_rule_matches(rule, wanted_rule) or (update_model and _rule_matches(rule, legacy_rule))):
                 raise AssetConflict(f"Existing live rule conflicts with accepted {eid} mapping")
         planned.append((eid, definition, desired, evaluator, rule))
-    for eid, definition, desired, evaluator, rule in planned:
+    for index, (eid, definition, desired, evaluator, rule) in enumerate(planned, 1):
+        if log:
+            log(f'Configuring evaluator and live rule {index}/{len(planned)}: {eid}')
         if update_model and not _evaluator_matches(evaluator, desired):
             identifier, old_version_id = evaluator["id"], evaluator.get("versionId")
             path = "/api/public/v2/evaluators/" + quote(identifier, safe="")
@@ -399,7 +405,7 @@ def ensure_llm_connection(cfg, *, api: AssetAPI) -> None:
         raise AssetConflict("Created LLM connection did not read back as the expected provider configuration; inspect before retrying.")
 
 
-def configure_evaluators(cfg, *, api: AssetAPI | None = None, update_model: bool = False) -> dict:
+def configure_evaluators(cfg, *, api: AssetAPI | None = None, update_model: bool = False, log=report) -> dict:
     """Explicit developer setup: saving evaluators MAY CALL A MODEL for validation.
 
     Never invoked by the seed path. It writes no RunState, reuses exact existing
@@ -409,9 +415,12 @@ def configure_evaluators(cfg, *, api: AssetAPI | None = None, update_model: bool
     to the production naming policy and online-only evaluation filter. Rubrics,
     score definitions, variable mappings and resource IDs remain unchanged.
     """
-    api = api or AssetAPI(cfg.target.base_url)
-    ensure_llm_connection(cfg, api=api)
-    return _evaluation_assets(cfg, api, create=True, update_model=update_model)
+    with progress_scope('Starting evaluator setup: checking the model connection.', log) as progress:
+        api = api or AssetAPI(cfg.target.base_url)
+        ensure_llm_connection(cfg, api=api)
+        result = _evaluation_assets(cfg, api, create=True, update_model=update_model, log=progress)
+        progress(f"Evaluator setup complete: {len(result['evaluators'])} definitions; {len(result['missing'])} pending prerequisites.")
+        return result
 
 
 def experiment_evaluator_prompts() -> list[dict]:
@@ -458,7 +467,12 @@ def _experiment_rule_matches(actual: dict, expected: dict) -> bool:
                 for a in wanted_assignments))
 
 
-def configure_evaluator_mappings(cfg, *, api: AssetAPI | None = None, log=print) -> dict:
+def configure_evaluator_mappings(cfg, *, api: AssetAPI | None = None, log=report) -> dict:
+    with progress_scope('Starting experiment setup: validating the imported history.', log) as progress:
+        return _configure_evaluator_mappings(cfg, api=api, log=progress)
+
+
+def _configure_evaluator_mappings(cfg, *, api: AssetAPI | None = None, log) -> dict:
     """Explicit post-seed setup; never invoked by seed or ordinary eval setup.
 
     Verify the completed authored import first, preserve experiment overrides,
@@ -504,13 +518,15 @@ def configure_evaluator_mappings(cfg, *, api: AssetAPI | None = None, log=print)
         raise AssetConflict("Mapping setup requires successful full verification of the imported history and assets.")
 
     api = api or AssetAPI(cfg.target.base_url)
-    discovered = _evaluation_assets(cfg, api, create=False)
+    log('Checking existing evaluators and dataset assignments before mapping changes.')
+    discovered = _evaluation_assets(cfg, api, create=False, log=log)
     if discovered["missing"]:
         raise AssetConflict("Complete existing evaluator setup before changing mappings.")
     prompts, definitions = experiment_evaluator_prompts(), score_definitions()
     rules = _inventory(api, "/api/public/v2/evaluation-rules", cursor=True)
     planned_rules, planned_evaluators = [], []
     for prompt in prompts:
+        log(f"Checking experiment assignment: {prompt['dataset_id']}")
         dataset = state.provisioning.get("datasets", {}).get(prompt["dataset_id"], {})
         if not dataset.get("id"):
             raise AssetConflict(f"Missing imported dataset {prompt['dataset_id']}")
@@ -543,14 +559,16 @@ def configure_evaluator_mappings(cfg, *, api: AssetAPI | None = None, log=print)
     experiment_rules = {}
     # All definitions/rules have been checked before the first external write.
     # Persist every experiment override before changing any evaluator default.
-    for dataset_id, desired, actual in planned_rules:
+    for index, (dataset_id, desired, actual) in enumerate(planned_rules, 1):
+        log(f'Configuring experiment assignment {index}/{len(planned_rules)}: {dataset_id}')
         if actual is None:
             created = api.create("/api/public/v2/evaluation-rules", desired)
             actual = api.read("/api/public/v2/evaluation-rules/" + quote(created["id"], safe=""))
             if actual.get("id") != created["id"] or not _experiment_rule_matches(actual, desired):
                 raise AssetConflict(f"Experiment rule for {dataset_id} did not read back exactly")
         experiment_rules[dataset_id] = {"id": actual["id"], "name": actual["name"], "enabled": True}
-    for eid, desired, evaluator in planned_evaluators:
+    for index, (eid, desired, evaluator) in enumerate(planned_evaluators, 1):
+        log(f'Configuring live evaluator mapping {index}/{len(planned_evaluators)}: {eid}')
         if not _evaluator_matches(evaluator, desired):
             identifier, version_id = evaluator["id"], evaluator["versionId"]
             evaluator_path = "/api/public/v2/evaluators/" + quote(identifier, safe="")
@@ -578,6 +596,7 @@ def configure_evaluator_mappings(cfg, *, api: AssetAPI | None = None, log=print)
         os.replace(temporary_path, path)
     finally:
         temporary_path.unlink(missing_ok=True)
+    log(f'Experiment setup complete: {len(experiment_rules)} dataset assignments and {len(planned_evaluators)} live mappings.')
     return {**discovered, "experiment_rules": experiment_rules}
 
 
@@ -789,10 +808,15 @@ def bind_historical_experiments(events: list[dict], provisioning: dict, links: l
     return bound, receipts
 
 
-def verify_assets(cfg, provisioning: dict, *, api=None, check_labels: bool = True) -> list[tuple[str, bool, str]]:
+def verify_assets(cfg, provisioning: dict, *, api=None, check_labels: bool = True, log=report) -> list[tuple[str, bool, str]]:
     """Read exact persisted resources; failed prerequisites remain failed checks."""
     api = api or AssetAPI(cfg.target.base_url)
     checks: list[tuple[str, bool, str]] = []
+
+    def record(check):
+        checks.append(check)
+        name, ok, detail = check
+        log(f"{'PASS' if ok else 'FAIL'} {name}: {detail}")
 
     def mapping_equal(actual, expected):
         fields = ("variable", "source", "jsonPath")
@@ -800,26 +824,27 @@ def verify_assets(cfg, provisioning: dict, *, api=None, check_labels: bool = Tru
         return normal(actual) == normal(expected)
 
     def check(name, operation):
+        log(f'Checking asset: {name}')
         try:
             ok = bool(operation())
-            checks.append((name, ok, "matches provisioned asset" if ok else "persisted asset mismatch"))
+            record((name, ok, "matches provisioned asset" if ok else "persisted asset mismatch"))
         except Exception as exc:
             # Remote errors can contain request context. Keep diagnostics secret-free.
-            checks.append((name, False, f"read/check failed ({type(exc).__name__})"))
+            record((name, False, f"read/check failed ({type(exc).__name__})"))
 
     check("asset-project", lambda: [p["id"] for p in api.read("/api/public/projects")["data"]] == [provisioning["project_id"]])
     for name, expected in [("prompts", 9), ("datasets", 9), ("score_configs", 12), ("models", 3)]:
-        checks.append(("asset-inventory-" + name, len(provisioning.get(name, {})) == expected,
+        record(("asset-inventory-" + name, len(provisioning.get(name, {})) == expected,
                        f"Expected {expected} recorded {name}"))
     for missing in provisioning.get("missing", []):
-        checks.append(("asset-prerequisite", False, missing))
+        record(("asset-prerequisite", False, missing))
     composition = provisioning.get("prompt_composition")
     if composition:
-        checks.append(("prompt-composition-contract", composition == COMPOSITION_REVISION,
+        record(("prompt-composition-contract", composition == COMPOSITION_REVISION,
                        "Known native text-component storage contract required."))
         blocks = building_blocks()
         receipts = provisioning.get("building_blocks", {})
-        checks.append(("building-block-coverage", set(receipts) == set(blocks),
+        record(("building-block-coverage", set(receipts) == set(blocks),
                        "Four text prompt families required in addition to nine agent chat prompts."))
         for key, block in blocks.items():
             block_path = "/api/public/v2/prompts/" + quote(block["name"], safe="")
@@ -859,7 +884,7 @@ def verify_assets(cfg, provisioning: dict, *, api=None, check_labels: bool = Tru
             check(f"development-{prompt['id']}", lambda path=path: api.read(path, {"label": "development"}).get("version") == 8)
         dataset = provisioning.get("datasets", {}).get(prompt["dataset_id"], {})
         expected_items = {i["case_id"]: i for i in dataset_items(prompt["id"])}
-        checks.append((f"dataset-item-coverage-{prompt['dataset_id']}",
+        record((f"dataset-item-coverage-{prompt['dataset_id']}",
                        {i["case_id"] for i in dataset.get("items", [])} == set(expected_items),
                        "Every accepted dataset case must have a recorded persisted item"))
         check(f"dataset-{prompt['dataset_id']}", lambda dataset=dataset:
@@ -873,9 +898,9 @@ def verify_assets(cfg, provisioning: dict, *, api=None, check_labels: bool = Tru
                 return actual.get("input") == expected_input and actual.get("expectedOutput") == expected["expected_output"] and actual.get("metadata") == expected_meta
             check(f"dataset-item-{item['case_id']}", item_check)
     definitions = score_definitions()
-    checks.append(("score-config-coverage", set(provisioning.get("score_configs", {})) == set(definitions), "Twelve criterion configurations required."))
-    checks.append(("model-coverage", set(provisioning.get("models", {})) == set(MODEL_PRICES), "Three provider base pricing definitions required."))
-    checks.append(("dataset-coverage", set(provisioning.get("datasets", {})) == {p["dataset_id"] for p in load_fixture("portfolio")["prompts"]}, "Nine matching datasets required."))
+    record(("score-config-coverage", set(provisioning.get("score_configs", {})) == set(definitions), "Twelve criterion configurations required."))
+    record(("model-coverage", set(provisioning.get("models", {})) == set(MODEL_PRICES), "Three provider base pricing definitions required."))
+    record(("dataset-coverage", set(provisioning.get("datasets", {})) == {p["dataset_id"] for p in load_fixture("portfolio")["prompts"]}, "Nine matching datasets required."))
     for eid, receipt in provisioning.get("score_configs", {}).items():
         def score_check(eid=eid, receipt=receipt):
             actual = api.read("/api/public/score-configs/" + quote(receipt["id"], safe=""))
@@ -892,7 +917,7 @@ def verify_assets(cfg, provisioning: dict, *, api=None, check_labels: bool = Tru
             return actual.get("modelName") == name and prices.get("input") == expected[0] / 1e6 and prices.get("output") == expected[1] / 1e6
         check(f"model-{name}", model_check)
     expected_judges = {eid for eid, d in definitions.items() if d["producer"] == "llm-judge"}
-    checks.append(("managed-evaluator-coverage", expected_judges == set(provisioning.get("evaluators", {})), "Ten managed rubric definitions required; missing setup is not live-ready."))
+    record(("managed-evaluator-coverage", expected_judges == set(provisioning.get("evaluators", {})), "Ten managed rubric definitions required; missing setup is not live-ready."))
     for eid, receipt in provisioning.get("evaluators", {}).items():
         def evaluator_check(eid=eid, receipt=receipt):
             actual = api.read("/api/public/v2/evaluators/" + quote(receipt["id"], safe=""))
@@ -922,7 +947,7 @@ def verify_assets(cfg, provisioning: dict, *, api=None, check_labels: bool = Tru
     if provisioning.get("evaluator_mapping_mode") == "live":
         experiment_rules = provisioning.get("experiment_rules", {})
         prompts = experiment_evaluator_prompts()
-        checks.append(("experiment-rule-coverage", set(experiment_rules) == {p["dataset_id"] for p in prompts},
+        record(("experiment-rule-coverage", set(experiment_rules) == {p["dataset_id"] for p in prompts},
                        "Seven dataset assignment rules required; deterministic-only datasets have no managed judges."))
         for prompt in prompts:
             def experiment_rule_check(prompt=prompt):

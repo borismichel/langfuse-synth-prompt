@@ -97,3 +97,13 @@ open and asserts that progress reaches its stdout pipe before the request finish
 It also requires the actual manifest’s plan confirmation gate. Both failed before
 the fix and pass after it; the full kit suite passes with 336 tests. Published
 v0.2.2 deployments retain their existing manifest until upgraded or recreated.
+
+## Consolidated v0.2.4 comparison
+
+The [EV/MRM comparison](CROSS_KIT_SEED_REVIEW.md) extends progress to all setup and
+verification phases, aligns HTTP health with actual readiness and adds the missing
+manifest reset note. Materializing the old advertised 100,000-trace maximum failed
+in a 2 GiB container despite the plan itself being fast. The runtime and manifest
+now enforce a validated 6,000-history-trace maximum. Planning success alone is not
+scale validation. Atomic seed does not use Depot’s measured spool-cap gate; the
+estimate is advisory and the operator must confirm it before generation.

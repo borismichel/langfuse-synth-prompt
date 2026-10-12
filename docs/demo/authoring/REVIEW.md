@@ -1,10 +1,13 @@
 # Authoring implementation review
 
-v0.2.3 candidate, 2026-10-12: natural “Thinking…” chat copy, the standard
-Depot plan confirmation gate, and flushed seed progress during asset provisioning
-and import. Both reported deployment defects were reproduced before the fix;
-all 336 kit tests pass. Release, admission and rollout are pending for this
-candidate; v0.2.2 evidence below remains historical.
+v0.2.4 candidate, 2026-10-12: the [cross-kit comparison](CROSS_KIT_SEED_REVIEW.md)
+consolidates plan confirmation, streamed seed/setup/verification progress, truthful
+reset guidance and a container-tested 6,000-trace ceiling. Companion health retains
+the pinned core liveness/readiness contract.
+Natural “Thinking…” chat copy is included. v0.2.3 was published for validation
+but held out of the catalog when the broader audit found remaining gaps.
+Release, admission and rollout for v0.2.4 are recorded separately; older results
+below remain historical evidence, not a new candidate verdict.
 
 Updated 2026-10-09. **v0.2.2 is published in Depot; kit and Depot changes are on main.**
 The [release checklist](SHIP_CHECKLIST.md) records explicit probe/plan stages,

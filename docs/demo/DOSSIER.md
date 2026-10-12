@@ -123,7 +123,7 @@ Recorded decision/evidence: `docs/demo/prototype/REVIEW.md`
 
 ### authoring: ready
 
-v0.2.3 fixes standard plan confirmation and streamed seed progress; 336 tests pass, release and affected delivered verification pending.
+v0.2.4 consolidates cross-kit comparison: confirmation, streamed setup/seed/verification, reset guidance and validated maximum. 344 tests, validation and conformance passed. Exact release and admission pending.
 
 Recorded decision/evidence: `docs/demo/authoring/REVIEW.md`
 
@@ -139,6 +139,7 @@ Recorded decision/evidence: `docs/demo/authoring/REVIEW.md`
 - [docs/demo/authoring/CATEGORICAL_BUILD.md](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/CATEGORICAL_BUILD.md) — `4e0f30230e11`
 - [docs/demo/authoring/COMPANION.md](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/COMPANION.md) — `4b751107be1e`
 - [docs/demo/authoring/COMPONENTS_REHEARSAL.md](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/COMPONENTS_REHEARSAL.md) — `cf1f6f90f97c`
+- [docs/demo/authoring/CROSS_KIT_SEED_REVIEW.md](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/CROSS_KIT_SEED_REVIEW.md) — `484b3a80a986`
 - [docs/demo/authoring/DEPOT_ACCESS.md](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/DEPOT_ACCESS.md) — `642083047cfa`
 - [docs/demo/authoring/DEPOT_ONBOARDING.md](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/DEPOT_ONBOARDING.md) — `e02a8224db78`
 - [docs/demo/authoring/EVALUATOR_MAPPING_REPAIR.md](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/EVALUATOR_MAPPING_REPAIR.md) — `bb4188ac4cc6`
@@ -150,10 +151,10 @@ Recorded decision/evidence: `docs/demo/authoring/REVIEW.md`
 - [docs/demo/authoring/NATIVE_REHEARSAL.md](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/NATIVE_REHEARSAL.md) — `70f2eb321608`
 - [docs/demo/authoring/NULLABLE_EVALUATOR_RESEARCH.md](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/NULLABLE_EVALUATOR_RESEARCH.md) — `7376545a02d1`
 - [docs/demo/authoring/OPERATIONAL_REVISION.md](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/OPERATIONAL_REVISION.md) — `836e3abe436e`
-- [docs/demo/authoring/PREFLIGHT.md](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/PREFLIGHT.md) — `5055762417ab`
+- [docs/demo/authoring/PREFLIGHT.md](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/PREFLIGHT.md) — `af2b14a8cbe0`
 - [docs/demo/authoring/READINESS_RESEARCH.md](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/READINESS_RESEARCH.md) — `f2d8eb33bb46`
-- [docs/demo/authoring/REVIEW.md](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/REVIEW.md) — `091eedebddef`
-- [docs/demo/authoring/SHIP_CHECKLIST.md](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/SHIP_CHECKLIST.md) — `4765d0aa62af`
+- [docs/demo/authoring/REVIEW.md](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/REVIEW.md) — `cf6c2e82f9e2`
+- [docs/demo/authoring/SHIP_CHECKLIST.md](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/SHIP_CHECKLIST.md) — `202dca1ee2b3`
 - [docs/demo/authoring/TRACE_DESIGN_AUDIT.md](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/TRACE_DESIGN_AUDIT.md) — `3399ccf4c7d7`
 - [docs/demo/authoring/V4_COMPATIBILITY.md](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/V4_COMPATIBILITY.md) — `f99cc56d1d6f`
 - [docs/demo/authoring/evidence/application-guide-companion.png](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/evidence/application-guide-companion.png) — `e58fce90b9be`
@@ -255,16 +256,23 @@ Recorded decision/evidence: `docs/demo/authoring/REVIEW.md`
 - [docs/demo/authoring/evidence/refined-companion-feedback.jpg](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/evidence/refined-companion-feedback.jpg) — `1b30f3b66837`
 - [docs/demo/authoring/evidence/refined-container-smoke.json](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/evidence/refined-container-smoke.json) — `02f3f82197c8`
 - [docs/demo/authoring/evidence/refined-live-session.json](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/evidence/refined-live-session.json) — `92d8c7e83f89`
+- [docs/demo/authoring/evidence/release-023-admission.json](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/evidence/release-023-admission.json) — `4001a7ede71a`
+- [docs/demo/authoring/evidence/release-023-admission.png](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/evidence/release-023-admission.png) — `f2926cab4fdc`
+- [docs/demo/authoring/evidence/release-023-custom-step.png](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/evidence/release-023-custom-step.png) — `d2d1d87d6461`
+- [docs/demo/authoring/evidence/release-023-project.png](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/evidence/release-023-project.png) — `c2d40b83ed70`
+- [docs/demo/authoring/evidence/release-023-seed-start.png](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/evidence/release-023-seed-start.png) — `0893f46fac7d`
+- [docs/demo/authoring/evidence/release-024-empty-target.json](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/evidence/release-024-empty-target.json) — `09464db2dce1`
+- [docs/demo/authoring/evidence/release-024-project.png](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/evidence/release-024-project.png) — `df3274839624`
 - [docs/demo/authoring/evidence/rubric-propagation.json](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/evidence/rubric-propagation.json) — `38ea2e9c3ccb`
 - [docs/demo/authoring/evidence/schema-check.json](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/evidence/schema-check.json) — `29a3c2b107a4`
 - [docs/demo/authoring/evidence/tests-v0.2.1.txt](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/evidence/tests-v0.2.1.txt) — `6459cae42d15`
 - [docs/demo/authoring/evidence/tests.txt](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/evidence/tests.txt) — `e75eebae240f`
 - [docs/demo/authoring/evidence/trace-shapes.json](https://github.com/borismichel/langfuse-synth-prompt/blob/main/docs/demo/authoring/evidence/trace-shapes.json) — `c895df736326`
-- [pyproject.toml](https://github.com/borismichel/langfuse-synth-prompt/blob/main/pyproject.toml) — `909a2053a908`
+- [pyproject.toml](https://github.com/borismichel/langfuse-synth-prompt/blob/main/pyproject.toml) — `1b370d6fa7b0`
 - [src/synth/__init__.py](https://github.com/borismichel/langfuse-synth-prompt/blob/main/src/synth/__init__.py) — `21d4cf5ad7b9`
-- [src/synth/assets.py](https://github.com/borismichel/langfuse-synth-prompt/blob/main/src/synth/assets.py) — `1d24bf4fb8d8`
+- [src/synth/assets.py](https://github.com/borismichel/langfuse-synth-prompt/blob/main/src/synth/assets.py) — `44df032b27be`
 - [src/synth/catalog.py](https://github.com/borismichel/langfuse-synth-prompt/blob/main/src/synth/catalog.py) — `a0ab98a45ac5`
-- [src/synth/cli.py](https://github.com/borismichel/langfuse-synth-prompt/blob/main/src/synth/cli.py) — `192906d56bda`
+- [src/synth/cli.py](https://github.com/borismichel/langfuse-synth-prompt/blob/main/src/synth/cli.py) — `2db729601b57`
 - [src/synth/companion/__init__.py](https://github.com/borismichel/langfuse-synth-prompt/blob/main/src/synth/companion/__init__.py) — `37d535e6c923`
 - [src/synth/companion/app.py](https://github.com/borismichel/langfuse-synth-prompt/blob/main/src/synth/companion/app.py) — `016d47e5f70e`
 - [src/synth/companion/preview.py](https://github.com/borismichel/langfuse-synth-prompt/blob/main/src/synth/companion/preview.py) — `67a282650966`
@@ -279,7 +287,7 @@ Recorded decision/evidence: `docs/demo/authoring/REVIEW.md`
 - [src/synth/companion/static/fonts/space-grotesk.ttf](https://github.com/borismichel/langfuse-synth-prompt/blob/main/src/synth/companion/static/fonts/space-grotesk.ttf) — `3e699ead1876`
 - [src/synth/companion/static/style.css](https://github.com/borismichel/langfuse-synth-prompt/blob/main/src/synth/companion/static/style.css) — `042e3f35b8c1`
 - [src/synth/companion/templates/index.html](https://github.com/borismichel/langfuse-synth-prompt/blob/main/src/synth/companion/templates/index.html) — `f26cdfa5f193`
-- [src/synth/config.py](https://github.com/borismichel/langfuse-synth-prompt/blob/main/src/synth/config.py) — `f2b60ea19a87`
+- [src/synth/config.py](https://github.com/borismichel/langfuse-synth-prompt/blob/main/src/synth/config.py) — `26147f00ec70`
 - [src/synth/expansion.py](https://github.com/borismichel/langfuse-synth-prompt/blob/main/src/synth/expansion.py) — `0accd7ff6cc7`
 - [src/synth/fixtures/__init__.py](https://github.com/borismichel/langfuse-synth-prompt/blob/main/src/synth/fixtures/__init__.py) — `e3b0c44298fc`
 - [src/synth/fixtures/conversations.json](https://github.com/borismichel/langfuse-synth-prompt/blob/main/src/synth/fixtures/conversations.json) — `645d3b660bc8`
@@ -295,7 +303,7 @@ Recorded decision/evidence: `docs/demo/authoring/REVIEW.md`
 - [src/synth/model_policy.py](https://github.com/borismichel/langfuse-synth-prompt/blob/main/src/synth/model_policy.py) — `672fec0be5bb`
 - [src/synth/operation_names.py](https://github.com/borismichel/langfuse-synth-prompt/blob/main/src/synth/operation_names.py) — `a5f77e596a34`
 - [src/synth/preflight.py](https://github.com/borismichel/langfuse-synth-prompt/blob/main/src/synth/preflight.py) — `d8e60695f212`
-- [src/synth/progress.py](https://github.com/borismichel/langfuse-synth-prompt/blob/main/src/synth/progress.py) — `0d91a4a692e8`
+- [src/synth/progress.py](https://github.com/borismichel/langfuse-synth-prompt/blob/main/src/synth/progress.py) — `38e8f9c04317`
 - [src/synth/prompt_composition.py](https://github.com/borismichel/langfuse-synth-prompt/blob/main/src/synth/prompt_composition.py) — `d43a51828145`
 - [src/synth/prompt_references.py](https://github.com/borismichel/langfuse-synth-prompt/blob/main/src/synth/prompt_references.py) — `f8aad1de9e12`
 - [src/synth/receipt.py](https://github.com/borismichel/langfuse-synth-prompt/blob/main/src/synth/receipt.py) — `85398fa4a15e`
@@ -303,13 +311,13 @@ Recorded decision/evidence: `docs/demo/authoring/REVIEW.md`
 - [src/synth/scores.py](https://github.com/borismichel/langfuse-synth-prompt/blob/main/src/synth/scores.py) — `f8c00006852f`
 - [src/synth/seed.py](https://github.com/borismichel/langfuse-synth-prompt/blob/main/src/synth/seed.py) — `e510c27309ba`
 - [src/synth/state.py](https://github.com/borismichel/langfuse-synth-prompt/blob/main/src/synth/state.py) — `1e59a02ec9f5`
-- [src/synth/verify.py](https://github.com/borismichel/langfuse-synth-prompt/blob/main/src/synth/verify.py) — `2a76a4e79170`
+- [src/synth/verify.py](https://github.com/borismichel/langfuse-synth-prompt/blob/main/src/synth/verify.py) — `17855b0cb177`
 - [tests/golden/prompt_spool.ndjson](https://github.com/borismichel/langfuse-synth-prompt/blob/main/tests/golden/prompt_spool.ndjson) — `4e84805199a7`
 - [tests/golden_seed.py](https://github.com/borismichel/langfuse-synth-prompt/blob/main/tests/golden_seed.py) — `89ca40c5528d`
 - [tests/test_assets.py](https://github.com/borismichel/langfuse-synth-prompt/blob/main/tests/test_assets.py) — `0a1b3dab0d53`
 - [tests/test_companion_runtime.py](https://github.com/borismichel/langfuse-synth-prompt/blob/main/tests/test_companion_runtime.py) — `caefad24eb49`
 - [tests/test_configuration_refresh.py](https://github.com/borismichel/langfuse-synth-prompt/blob/main/tests/test_configuration_refresh.py) — `9cc12336c713`
-- [tests/test_deployment_pipeline.py](https://github.com/borismichel/langfuse-synth-prompt/blob/main/tests/test_deployment_pipeline.py) — `1f2f12ca47f5`
+- [tests/test_deployment_pipeline.py](https://github.com/borismichel/langfuse-synth-prompt/blob/main/tests/test_deployment_pipeline.py) — `f90e4395227f`
 - [tests/test_determinism.py](https://github.com/borismichel/langfuse-synth-prompt/blob/main/tests/test_determinism.py) — `24549a562ff4`
 - [tests/test_evaluator_mapping_setup.py](https://github.com/borismichel/langfuse-synth-prompt/blob/main/tests/test_evaluator_mapping_setup.py) — `70324f117326`
 - [tests/test_expansion.py](https://github.com/borismichel/langfuse-synth-prompt/blob/main/tests/test_expansion.py) — `601f0ee105e9`
@@ -329,8 +337,9 @@ Recorded decision/evidence: `docs/demo/authoring/REVIEW.md`
 - [tests/test_run_evidence.py](https://github.com/borismichel/langfuse-synth-prompt/blob/main/tests/test_run_evidence.py) — `82c534a689ab`
 - [tests/test_sdk_metadata.py](https://github.com/borismichel/langfuse-synth-prompt/blob/main/tests/test_sdk_metadata.py) — `8016ae25512a`
 - [tests/test_seed_progress.py](https://github.com/borismichel/langfuse-synth-prompt/blob/main/tests/test_seed_progress.py) — `a39d930b2fb5`
-- [tests/test_validate.py](https://github.com/borismichel/langfuse-synth-prompt/blob/main/tests/test_validate.py) — `92b36f0caff4`
-- [usecase.yaml](https://github.com/borismichel/langfuse-synth-prompt/blob/main/usecase.yaml) — `ad30ebe6eb7b`
+- [tests/test_validate.py](https://github.com/borismichel/langfuse-synth-prompt/blob/main/tests/test_validate.py) — `4239adddcbef`
+- [tests/test_verification_progress.py](https://github.com/borismichel/langfuse-synth-prompt/blob/main/tests/test_verification_progress.py) — `c52333bd5bf7`
+- [usecase.yaml](https://github.com/borismichel/langfuse-synth-prompt/blob/main/usecase.yaml) — `9e8128ce356e`
 
 ## Readiness
 

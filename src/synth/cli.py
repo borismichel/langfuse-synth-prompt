@@ -53,10 +53,12 @@ def _cmd_plan(args: argparse.Namespace) -> int:
 def _cmd_configure_evaluators(args: argparse.Namespace) -> int:
     from langfuse_synth_core.seed.ingest import assert_demo_project
     from .assets import configure_evaluators, configure_evaluator_mappings
+    from .progress import progress_scope
     cfg = load_config(args.config, overrides=args.set)
-    assert_demo_project(cfg.target.base_url, cfg.target.project_hint)
-    result = (configure_evaluator_mappings(cfg) if args.update_mappings
-              else configure_evaluators(cfg, update_model=args.update_model))
+    with progress_scope('Starting evaluator setup: validating the target project.') as progress:
+        assert_demo_project(cfg.target.base_url, cfg.target.project_hint)
+        result = (configure_evaluator_mappings(cfg, log=progress) if args.update_mappings
+                  else configure_evaluators(cfg, update_model=args.update_model, log=progress))
     print(f"Configured {len(result.get('evaluators', {}))} managed evaluator definitions.")
     for missing in result.get('missing', []):
         print(f"Pending: {missing}")

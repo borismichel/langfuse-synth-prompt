@@ -34,7 +34,7 @@ def test_manifest_dispatches_setup_seed_experiment_setup_and_final_verification(
         configs.append(cfg)
         calls.append('plan')
 
-    def setup(cfg, *, update_model):
+    def setup(cfg, *, update_model, log):
         assert calls == ['probe', 'plan'] and update_model is False
         configs.append(cfg)
         calls.append('prepare-model-validated-evaluators')
@@ -46,7 +46,7 @@ def test_manifest_dispatches_setup_seed_experiment_setup_and_final_verification(
         configs.append(cfg)
         calls.append('import-model-free-history')
 
-    def mappings(cfg):
+    def mappings(cfg, *, log):
         assert calls == ['probe', 'plan', 'prepare-model-validated-evaluators', 'import-model-free-history']
         configs.append(cfg)
         calls.append('verify-history-before-enabling-experiment-rules')
