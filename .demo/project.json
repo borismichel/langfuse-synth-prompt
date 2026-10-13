@@ -167,7 +167,7 @@
         "docs/demo/authoring/OPERATIONAL_REVISION.md": "836e3abe436e7c1f580e2ef18bc57d10a8ab134034f8ae532110515d41a332da",
         "docs/demo/authoring/PREFLIGHT.md": "f26b9e7dd9cb0915b1ea862873c8add40a03b02b911018d83e4e86a768c9da1d",
         "docs/demo/authoring/READINESS_RESEARCH.md": "f2d8eb33bb4657f875c74a7c9712c3dbfeca5de2d9cc6fc9e4777defb3980ac7",
-        "docs/demo/authoring/REVIEW.md": "70f4b76f0e51701beb4f22c14c61e6442ee566cf8329555316ca76291cd6990c",
+        "docs/demo/authoring/REVIEW.md": "a8c9b18b2c293029f609a07f546a99f1f0bf67e4bc3f24e23ac7d1d047f3fb75",
         "docs/demo/authoring/SHIP_CHECKLIST.md": "4bcf466003b2c2e5ed9ce5b0545d4d8d8686591393d145a851964e63ff21f7eb",
         "docs/demo/authoring/TRACE_DESIGN_AUDIT.md": "3399ccf4c7d7e179d8b0a4e0ccadf08d56569807119cdf6dd3f0ea33dd903abe",
         "docs/demo/authoring/V4_COMPATIBILITY.md": "f99cc56d1d6f1a8b7c98cf9f4c585c80c27514fad1b431f426324c92ac6fe96a",
@@ -194,6 +194,7 @@
         "docs/demo/authoring/evidence/chat-pending-hotfix.json": "3d732e147608eb24259c9236522a832a5af6d2d5fa72ff724318140cb5e4d982",
         "docs/demo/authoring/evidence/chat-pending.png": "8377f503dc13cf45131213534cdf4b45cc1dc790d10bdeb056dfcfd6d193ce2b",
         "docs/demo/authoring/evidence/companion-four-turns.jpg": "f72337cd508fc348a5cc419fc0c3b4179012228b71006ed164433fa650e88272",
+        "docs/demo/authoring/evidence/companion-prompt-example.png": "59b3c772db2c0faf27e764b70392af0e9bcd1f645453afb667c84a64ae6ec26d",
         "docs/demo/authoring/evidence/components-before-promotion.png": "d283675fdea0150b2d66300a5691e541a8dfe07ad57874da4a61d3903095b709",
         "docs/demo/authoring/evidence/components-experiments.json": "6c8791365c34ea109490e376ee6b923d2e304ede3540c439d81d02db816e8da7",
         "docs/demo/authoring/evidence/components-folder.png": "4e334311ad50f427cf79811a3cc7245e3efd72e28bb8e5a4b84cb91cf41b2fa4",
@@ -320,8 +321,8 @@
         "src/synth/companion/static/fonts/geist-mono.ttf": "5c1b7b77c2d6132460f03b60c175adc80da1ebd0b418c785135b1aed27a28b30",
         "src/synth/companion/static/fonts/inter.ttf": "29160a80ff49ddcab2c97711247e08b1fab27a484a329ce8b813d820dc559031",
         "src/synth/companion/static/fonts/space-grotesk.ttf": "3e699ead1876244fa392243054ddefe7cf631b488438828a8a100731a22ab995",
-        "src/synth/companion/static/style.css": "042e3f35b8c1c809c16b07208267476fe3bdee11a313c9623644c2b7f45c1ac2",
-        "src/synth/companion/templates/index.html": "f26cdfa5f19336db55917c043fb8c186e854d38e99daddc9b3fe83d65f3355e8",
+        "src/synth/companion/static/style.css": "c7e472a233c44b72a1013bc2efa8593f976d2b22e970c1faf01cfbc27d6acf8d",
+        "src/synth/companion/templates/index.html": "d5897ecd06c70375c9dc20e479807cc27f302248861ece8ed26148a86fcf8af6",
         "src/synth/config.py": "26147f00ec70dbba948d62ebb4412fbe0ecf8fc938ce080615aea52e19fbc73f",
         "src/synth/expansion.py": "2e0d3039cc8f93e09aa2e0985713aaba0d0054e0f25e7ac2ce2d63fb79989412",
         "src/synth/fixtures/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
@@ -380,7 +381,7 @@
         "usecase.yaml": "9e8128ce356e0e5f00542f859aeebee525a644e4ee1556ad4dd6533579c5e434"
       },
       "decision_file": "docs/demo/authoring/REVIEW.md",
-      "note": "Depot PR284 and documentation PR242 merged under explicit user approval. Primary main02dad63 API rebuilt; exact published v0.2.5 catalog and health verified; all14 non-API containers preserved. No open kit or Depot PRs.",
+      "note": "Optional prompt retrieval/variable example installed on requested current companion and saved in source. Visual and syntax checks pass. Existing published v0.2.5 image unchanged; example awaits next release.",
       "input_checkpoint": "3ab3369adcebcde06841275f2507edcd50c6d51be33c63180eb586e76a540052"
     }
   }

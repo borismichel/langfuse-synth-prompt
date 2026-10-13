@@ -1,5 +1,19 @@
 # Authoring implementation review
 
+2026-10-13: added an optional “How this chat uses Langfuse” Python example below
+the chat. It shows production retrieval and compilation of reference_context,
+conversation_history and user_message, matching the runtime retrieval call.
+Installed the template and CSS on companion `7112d5f9-f467-474c-93fa-a285e646ec59`
+without a process restart or data changes. This is a running-instance update and
+kit source change; the published v0.2.5 image remains unchanged.
+Python syntax, desktop/light/dark rendering and keyboard access checked; at a
+390px content viewport the page has no horizontal overflow and code scrolls within
+its panel. Existing brand tokens/fonts retained, including Space Grotesk substitution.
+[Delivered screenshot](evidence/companion-prompt-example.png).
+Sources: [retrieval and compile](https://langfuse.com/docs/prompt-management/get-started),
+[message placeholders](https://langfuse.com/docs/prompt-management/features/message-placeholders),
+[caching](https://langfuse.com/docs/prompt-management/features/caching).
+
 2026-10-12: **v0.2.5 is published and active in the local Depot catalog.**
 Kit main and signed image include selective composition and chat usability fixes.
 Depot PR #284 merged with explicit user approval of pending CI after local
