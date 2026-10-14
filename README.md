@@ -38,7 +38,7 @@ Langfuse project; the accepted visual prototype remains in `design/prototype`.
 .venv/bin/python -m pytest -q
 ```
 
-The pinned core release is v4.2.0; the Langfuse Python SDK is 4.17.0. CI runs the
+The pinned core release is v4.3.0; the Langfuse Python SDK is 4.17.0. CI runs the
 same tests and conformance checks. The golden spool covers 24 history traces plus
 18 authored experiment examples. Process-repeatability checks vary Python hash
 seeds with egress blocked. No model generates seed content.
