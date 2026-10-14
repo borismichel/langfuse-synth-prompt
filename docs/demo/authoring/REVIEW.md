@@ -243,3 +243,12 @@ release after registration.
 ## Depot wizard schedule and presets — 2026-10-14
 
 The user's Depot324 implementation request requires inclusive fixed history, an authored rehearsal preset and generic editable configuration. [Candidate evidence](SETUP_330.md) records the date-convention translation, real offline generation/readback, strict local gates and authenticated wizard captures. Authoring is ready for review. Release publication and live candidate verification remain separate; no new human acceptance is inferred. The existing unpublished companion retrieval/variable example on main is preserved.
+
+## Python SDK v5 candidate — 2026-10-14
+
+The user's Depot #318/#322 implementation request upgrades the accepted package
+without changing its story or prototype. [SDK v5 candidate evidence](SDK_V5.md)
+records the real exported-metadata regression, correction, public score-delivery
+checks and unchanged historical golden. Authoring remains ready for review;
+published-image verification, fresh-target admission and live rehearsal are
+separate required milestones. No new user acceptance is inferred.

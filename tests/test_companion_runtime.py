@@ -561,7 +561,7 @@ def test_live_rubric_provenance_separates_input_reply_and_trace(prompt_id):
     definitions = score_definitions()
     applicable = prompt_by_id(prompt_id)['evaluation_ids']
     expected_all = {eid: definitions[eid]['revision'] for eid in applicable}
-    assert json.loads(root.trace_fields['metadata']['trace_rubric_revisions']) == expected_all
+    assert root.trace_fields['metadata']['trace_rubric_revisions'] == expected_all
     for target, subject in ((root, 'user_input'), (generation, 'assistant_reply')):
         metadata = target.fields['metadata']
         assert 'rubric_revision' not in metadata

@@ -5,8 +5,8 @@
   "branch": "main",
   "core": {
     "repository": "https://github.com/borismichel/langfuse-synth-core",
-    "ref": "v4.3.0",
-    "commit": "ba4a4a276079ed49865becffc7955acde148147a"
+    "ref": "v5.0.0",
+    "commit": "5f56e75f9a8b5d160ddf54a8fcde380d0d15a205"
   },
   "depot_repository": "https://github.com/borismichel/langfuse-demo-depot",
   "skills_repository": "https://github.com/borismichel/my-skills",
@@ -142,10 +142,10 @@
       "files": {
         ".dockerignore": "be988156e3df481508e7fda764571b945add2154fd428b596112d4cac2b70ef7",
         ".github/workflows/ci.yml": "c4a1fbb32d369483ae6167c6495ade6dc0728ba3935c4dd7e370306112f117ab",
-        ".github/workflows/publish.yml": "de957598897cc7bdd33dad92baf2302afe9e7740d25d7dedb7af2e1528f28a8b",
+        ".github/workflows/publish.yml": "12aae2517f22f3e52817db23e4836ba1ee885618bcbd0e1a6ceca85b784bc9fa",
         "DEMO_SCRIPT.md": "c7e528c34f0b96a38f4714ceebcf68e43f6ed84c0e646f23ae783adb675c956f",
         "Dockerfile": "086aaccafa08239cd0f0f7d053ce540864cb2ede6b6e9bb0cf5772b3d94ff117",
-        "README.md": "225a0edccdae14b61ccaca7896411f0038c7527bbb7d57c7470c650f20900df1",
+        "README.md": "0185258a3d8f722b8999aa41cd0238710236ab4ace303a50c7f7344e1bfe269d",
         "config/demo.yaml": "f11d13f1d2db31eb0e1f6614b77f223eeb42cae1f69be4b6277be703b0b318d9",
         "docs/demo/authoring/ASSETS.md": "77c79438053d76b0bd8e42b42366fa1bff2e282a2124897d602f5f4ce06177f4",
         "docs/demo/authoring/BRAND_REFINEMENT.md": "84c62a32fc750d40f2d29c91cf320731d8db3a605424ffe7cad18b20ee302ea2",
@@ -167,7 +167,8 @@
         "docs/demo/authoring/OPERATIONAL_REVISION.md": "836e3abe436e7c1f580e2ef18bc57d10a8ab134034f8ae532110515d41a332da",
         "docs/demo/authoring/PREFLIGHT.md": "f26b9e7dd9cb0915b1ea862873c8add40a03b02b911018d83e4e86a768c9da1d",
         "docs/demo/authoring/READINESS_RESEARCH.md": "f2d8eb33bb4657f875c74a7c9712c3dbfeca5de2d9cc6fc9e4777defb3980ac7",
-        "docs/demo/authoring/REVIEW.md": "43ce24e64aeeb3f6ed2cec2ca4cc8e492fe4eb27165d65061b9d12ad5ec10c3a",
+        "docs/demo/authoring/REVIEW.md": "1841a703581568b69f5ece785c96ecf9521e28576e828d7a20578553ad74aa83",
+        "docs/demo/authoring/SDK_V5.md": "1439637fe4bf522f0c5967ada42e67e86f3b209e3190f021cecf21b0945b7493",
         "docs/demo/authoring/SETUP_330.md": "40816fd92db8c96fe2c2891d27b0dc1aad5cb7d157ab86837e9ab6054bfffc3b",
         "docs/demo/authoring/SHIP_CHECKLIST.md": "4bcf466003b2c2e5ed9ce5b0545d4d8d8686591393d145a851964e63ff21f7eb",
         "docs/demo/authoring/TRACE_DESIGN_AUDIT.md": "3399ccf4c7d7e179d8b0a4e0ccadf08d56569807119cdf6dd3f0ea33dd903abe",
@@ -308,7 +309,7 @@
         "docs/demo/authoring/setup-330/generation.json": "2d984688483466342e60337122dd06e2a1d1d41e53943aa30c05600b9b4fb625",
         "docs/demo/authoring/setup-330/golden-review.json": "558045806d80fb8f6b168ee26d80fb43b6038bd44fd16c012c98fe8989bb3bbc",
         "docs/demo/authoring/setup-330/offline-check.json": "e1ef96a3e966f759a284b986f5e688b12d47166085acbd481c5d737a9d43f2c3",
-        "pyproject.toml": "9336a85bcb2ec0f787e3992f1a8a8b6f7115f37d7c7856eaee48d3a56ca779ce",
+        "pyproject.toml": "ad8c09874f7b91f0afc4c100b42a44eeaec0a2dc40b63b56b2ace79700c8410e",
         "src/synth/__init__.py": "21d4cf5ad7b945741efc61245176ae837ba99c54cbde9345abcad29753957c27",
         "src/synth/assets.py": "e71cb3ba3aa9183176c2207460448ccd4dd4349c347398d52057b673022cce2a",
         "src/synth/catalog.py": "8057d63ee4d6c2761dadbc4d37cda6f8d3d2c3236fca4ee83c5ff0a106e67faa",
@@ -316,7 +317,7 @@
         "src/synth/companion/__init__.py": "37d535e6c92335da4aa858c684d7d989c7afe8fb0af5f3aeeb1fd2fa1f7e4b5d",
         "src/synth/companion/app.py": "016d47e5f70ee9c2c61f06b46f664774ad32b2b73f72bf42948be2cf85adbf56",
         "src/synth/companion/preview.py": "67a282650966d9e3da660ec868ace261df1286b0ee73ed856244ded2542eae67",
-        "src/synth/companion/service.py": "7456433fc4163439321d5c8398c265a804e0e50aa3303fcb9d998922a9cd21e5",
+        "src/synth/companion/service.py": "ca35225bea800ff15a92ff350ce89e7d4a9969bf24369e3d33e49a1922f1df28",
         "src/synth/companion/static/app.js": "6d1a3e75263900571cec484425f3d07e482bc0d23b9810ceb163c2c8efee7869",
         "src/synth/companion/static/brand.css": "e392c790cb7507217541baf9bb21e7f8c7271e364b7d6ad1c69fa0659d19b5fc",
         "src/synth/companion/static/fonts/GeistMono-OFL.txt": "1781d2806a07d91c4edf4740b88449fab7d0eadad53f7c351b94cd4d4eb8c00f",
@@ -358,7 +359,7 @@
         "tests/test_assets.py": "0a1b3dab0d5302ddecb138285bdafe1363a7f1176a26adf08f56b8b6a57b9339",
         "tests/test_chat_composer.cjs": "768c191e21a2dc1055c63b64b662f60c9ae0c8b3b5fd30a6636a42f67fb58c6e",
         "tests/test_chat_pending.cjs": "fd0bedc496d3e664af73eb2e738a9fe4a28871cb54550e9ab94b7ae19877326c",
-        "tests/test_companion_runtime.py": "caefad24eb49dc394e9bfbb0c58531f6b13fe91b33b193d9609127ad48055832",
+        "tests/test_companion_runtime.py": "3f8d6bfea5eb29b290df5249f5675a72f10ae1e8157fd0de30f49bf1a5a95ba6",
         "tests/test_configuration_refresh.py": "9cc12336c713462fb76d9cb7046a799c441de231a8d5dc9307aeee7b0ea88603",
         "tests/test_deployment_pipeline.py": "f90e4395227f5c418fe5f987c4c906213d5fb9ede1f5cafa95a55b20ac51f0d9",
         "tests/test_determinism.py": "24549a562ff43f1937181d6b49fbb7bc170a5422bd957221f7081055b848aa6e",
@@ -378,7 +379,7 @@
         "tests/test_reply_rendering.cjs": "35133a3330ef88f61ef7d2829f6d9f57c5adb9afc3b6a4073cf105b21092c620",
         "tests/test_retargeting.py": "c537b647b91f90a1aed2028da5793b5881f94bdf64f6d71bf1b8f6d5a116f3f0",
         "tests/test_run_evidence.py": "82c534a689abe8a42634195ce69aff57201171a73cd0302d0dc921cc3bd84074",
-        "tests/test_sdk_metadata.py": "8016ae25512ac3c62e6371744fcf6becfd4a96221ae4add518823bde8c1aa1df",
+        "tests/test_sdk_metadata.py": "e118f0e5cbce45147cf65d9495a714cb5f68bc09f0450b3a52ad83596398ac7d",
         "tests/test_seed_progress.py": "a39d930b2fb5c32cf70808c788f5c3d17db30aa20e87c5259d5825b3aed6484d",
         "tests/test_setup_schedule.py": "c6bab1d821a1e2c74a40d5e3fb7ff05b522f2b8c4aea197fd2eb9069dd294595",
         "tests/test_validate.py": "4239adddcbef955a53d5023e29d031424b95a498c26abc21277f36cfea67845d",
@@ -386,7 +387,7 @@
         "usecase.yaml": "0a1584de646790b80edc92bd889aa430d289ce208c21846a0aca1b4f81325701"
       },
       "decision_file": "docs/demo/authoring/REVIEW.md",
-      "note": "Depot324/330 inclusive schedule, authored rehearsal and Custom configuration: offline ready; release/live verification tracked separately.",
+      "note": "Depot318/322 SDK v5 maintenance: offline gates pass; released-image admission and presenter rehearsal remain separate milestones.",
       "input_checkpoint": "3ab3369adcebcde06841275f2507edcd50c6d51be33c63180eb586e76a540052"
     }
   }
