@@ -1,10 +1,11 @@
 """Actual SDK/export regression for trace metadata overwriting scoped rubrics.
 
 Public OtelIngestionProcessor.ts (c106bb3d) lines 438–474 merges observation
-metadata then trace metadata. SDK 4.17.0 propagation coerces non-strings with
-str(value); observation updates JSON-encode structured metadata. No networking.
+metadata then trace metadata. SDK v5 JSON-encodes structured values once.
+Observe actual spans and public score HTTP delivery without external networking.
 """
 import json
+import httpx
 import pytest
 from langfuse import Langfuse
 from langfuse.api.prompts.types.prompt import Prompt_Chat
@@ -39,39 +40,42 @@ def sdk_emitter(monkeypatch, request):
     import socket
     monkeypatch.setattr(socket.socket, 'connect', lambda *a, **k: pytest.fail('No network allowed'))
     exporter = InMemorySpanExporter()
+    scores = []
+
+    def receive(request):
+        assert request.method == 'POST' and request.url.path == '/api/public/scores'
+        scores.extend(json.loads(request.content))
+        return httpx.Response(202, json={'message': 'Accepted'})
+
     client = Langfuse(public_key='pk-offline-' + request.node.name, secret_key='sk-offline',
                       base_url='http://offline.invalid', tracer_provider=TracerProvider(),
-                      span_exporter=exporter)
+                      span_exporter=exporter,
+                      httpx_client=httpx.Client(transport=httpx.MockTransport(receive)))
     emitter = LiveEmitter('http://offline.invalid', client=client)
     try:
-        yield emitter, exporter
+        yield emitter, exporter, scores
     finally:
         client.shutdown()
 
 
-@pytest.mark.parametrize('distinct,serialize', [(False, False), (False, True), (True, False), (True, True)])
-def test_real_export_isolates_metadata_collision_and_python_repr(sdk_emitter, distinct, serialize):
-    emitter, exporter = sdk_emitter
+@pytest.mark.parametrize('distinct', [False, True])
+def test_real_export_preserves_structured_metadata_and_scoped_ownership(sdk_emitter, distinct):
+    emitter, exporter, _ = sdk_emitter
     full = rubric_revisions('PR-03')
     scoped = rubric_revisions('PR-03', subject='user_input')
     key = 'trace_rubric_revisions' if distinct else 'rubric_revisions'
-    with emitter.trace('request', metadata={key: json.dumps(full) if serialize else full}) as root:
+    with emitter.trace('request', metadata={key: full}) as root:
         root.update(metadata={'rubric_revisions': scoped})
     attrs = dict(exporter.get_finished_spans()[0].attributes)
     merged = merged_exported_metadata(attrs)
     assert (merged['rubric_revisions'] == scoped) is distinct
-    raw = attrs['langfuse.trace.metadata.' + key]
-    if serialize:
-        assert json.loads(raw) == full
-    else:
-        assert raw == str(full)
-        with pytest.raises(ValueError):
-            json.loads(raw)
+    # Exactly one decode yields a dictionary, not a pre-serialized JSON string.
+    assert json.loads(attrs['langfuse.trace.metadata.' + key]) == full
 
 
 @pytest.mark.parametrize('pid', ['PR-01', 'PR-02', 'PR-03'])
 def test_service_real_sdk_preserves_scoped_rubrics_and_context(sdk_emitter, pid):
-    emitter, exporter = sdk_emitter
+    emitter, exporter, _ = sdk_emitter
     class Adapter(FixtureAdapter):
         is_fixture = False
         def emitter(self, **kwargs):
@@ -93,7 +97,12 @@ def test_service_real_sdk_preserves_scoped_rubrics_and_context(sdk_emitter, pid)
         assert merged['evaluation_subject'] == subject
         assert merged['evaluation_mode'] == 'online'
         assert merged['current_user_message'] == turn['user']
-        assert 'reference_context' in merged
+        reference = merged['reference_context']
+        assert reference['id'] == 'SRC-01'
+        assert reference['monthly_fee'] == 4
+        assert reference['waiver']['fee'] == 0
+        assert reference['waiver']['exclusions'] == ['Transfers from your own accounts do not count as salary deposits.']
+        assert merged['prior_messages'] == []
         assert 'langfuse.trace.metadata.rubric_revisions' not in attrs
         assert json.loads(attrs['langfuse.trace.metadata.trace_rubric_revisions']) == rubric_revisions(pid)
     retriever = merged_exported_metadata(spans[REFERENCE_RETRIEVER_NAME])
@@ -101,6 +110,12 @@ def test_service_real_sdk_preserves_scoped_rubrics_and_context(sdk_emitter, pid)
     assert 'evaluation_mode' not in retriever
     assert retriever['trace_rubric_revisions'] == rubric_revisions(pid)
     generation = spans[GENERATION_OPERATION_NAME]
+    assert json.loads(generation['langfuse.observation.usage_details']) == turn['usage']
+    assert generation['langfuse.observation.model.name'] == turn['model']
+    assert json.loads(generation['langfuse.observation.output']) == [{'role': 'assistant', 'content': turn['reply']}]
+    root_attrs = spans[ROOT_NAME_BY_PROMPT[pid]]
+    assert json.loads(root_attrs['langfuse.observation.input']) == {'messages': [{'role': 'user', 'content': turn['user']}]}
+    assert root_attrs['langfuse.observation.output'] == generation['langfuse.observation.output']
     assert generation['langfuse.observation.prompt.name'] == turn['prompt_name']
     assert generation['langfuse.observation.prompt.version'] == 7
     root = merged_exported_metadata(spans[ROOT_NAME_BY_PROMPT[pid]])
@@ -117,11 +132,8 @@ def test_service_real_sdk_preserves_scoped_rubrics_and_context(sdk_emitter, pid)
     assert 'langfuse.observation.prompt.name' not in spans[REFERENCE_RETRIEVER_NAME]
 
 
-def test_feedback_real_sdk_payload_targets_saved_root_and_is_enqueued_once(sdk_emitter, monkeypatch):
-    emitter, _exporter = sdk_emitter
-    events = []
-    monkeypatch.setattr(emitter.client._resources, 'add_score_task',
-                        lambda event, **kwargs: events.append(event))
+def test_feedback_real_sdk_delivers_once_to_saved_root_after_a_later_reply(sdk_emitter):
+    emitter, exporter, scores = sdk_emitter
     class Adapter(FixtureAdapter):
         is_fixture = False
         def emitter(self, **kwargs):
@@ -138,9 +150,10 @@ def test_feedback_real_sdk_payload_targets_saved_root_and_is_enqueued_once(sdk_e
     for _ in range(2):
         receipt = service.feedback(session['session_id'], session['token'],
                                    first['request_id'], 0, 'I disagree with this explanation.')
-    assert len(events) == 1
-    assert events[0]['type'] == 'score-create'
-    payload = events[0]['body'].dict(by_alias=True)
+    emitter.flush()
+    assert receipt['status'] == 'submitted'
+    assert len(scores) == 1
+    payload = scores[0]
     assert payload['name'] == 'user-thumbs'
     assert payload['dataType'] == 'BOOLEAN' and payload['value'] == 0
     assert payload['traceId'] == first['trace_id'] != second['trace_id']
@@ -148,3 +161,7 @@ def test_feedback_real_sdk_payload_targets_saved_root_and_is_enqueued_once(sdk_e
     assert payload['id'] == receipt['score_id']
     assert payload['comment'] == 'I disagree with this explanation.'
     assert payload['metadata']['signal_source'] == 'explicit-user-feedback'
+    roots = [s for s in exporter.get_finished_spans() if s.name == ROOT_NAME_BY_PROMPT['PR-01']]
+    assert len(roots) == 2
+    assert [format(s.context.trace_id, '032x') for s in roots] == [first['trace_id'], second['trace_id']]
+    assert [format(s.context.span_id, '016x') for s in roots] == [first['root_observation_id'], second['root_observation_id']]
