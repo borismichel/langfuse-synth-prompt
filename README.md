@@ -38,14 +38,15 @@ Langfuse project; the accepted visual prototype remains in `design/prototype`.
 .venv/bin/python -m pytest -q
 ```
 
-The pinned core release is v4.3.0; the Langfuse Python SDK is 4.17.0. CI runs the
+The pinned core release is v5.0.0; the Langfuse Python SDK is 5.0.1. CI runs the
 same tests and conformance checks. The golden spool covers 24 history traces plus
 18 authored experiment examples. Process-repeatability checks vary Python hash
 seeds with egress blocked. No model generates seed content.
 
 ## Deployment
 
-Use a dedicated, fresh demo project and the supported Depot secret workflow.
+Use Langfuse Cloud or self-hosted Langfuse >=4.59.0, a dedicated fresh demo
+project and the supported Depot secret workflow.
 `.env.example` names the required environment variables; neither the CLI nor the
 repository silently loads secret files. A model connection inside Langfuse powers
 native experiments and managed evaluators; the companion separately receives its
