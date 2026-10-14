@@ -174,7 +174,10 @@ class ConversationService:
                                 raise
                     model_reference = generation_reference(reference, calculation, result)
                     context = {**context, "reference_context": reference}
-                    metadata = {**metadata, **context}
+                    # Keep the structured record for inspection and a JSON string leaf
+                    # for evaluator JSONPath after Cloud flattens nested metadata.
+                    metadata = {**metadata, **context,
+                                "eval_reference_context": json.dumps(reference, ensure_ascii=False)}
                     root.update(metadata=metadata)
                     # No cache/fallback: each request resolves the real production label.
                     prompt = self.adapter.langfuse().get_prompt(
