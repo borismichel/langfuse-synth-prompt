@@ -236,7 +236,7 @@ def test_usage_cost_and_version_periods(history):
         from zoneinfo import ZoneInfo
         day = (timestamp.astimezone(ZoneInfo("Europe/Berlin")).date() - ANCHOR.date()).days
         version = next(v for v in prompt_by_id(meta["prompt_id"])["versions"] if v["version"] == meta["resolved_version"])
-        assert version["relative_days_inclusive"][0] <= day <= version["relative_days_inclusive"][1]
+        assert version["relative_days_inclusive"][0] + 1 <= day <= version["relative_days_inclusive"][1] + 1
 
 
 def test_full_scale_is_a_plan_not_an_unperformed_seed():
@@ -257,8 +257,8 @@ def test_dst_and_retargeted_dates():
     with pytest.raises(ValueError, match="timezone-aware"):
         build_events(1, {}, run_date=datetime(2026, 1, 1))
     events = build_events(7, {"seed": 42}, run_date=ANCHOR + timedelta(days=365))
-    lower = local_day_bounds(ANCHOR + timedelta(days=365), -28)[0].timestamp()
-    upper = local_day_bounds(ANCHOR + timedelta(days=365), -1)[1].timestamp()
+    lower = local_day_bounds(ANCHOR + timedelta(days=365), -27)[0].timestamp()
+    upper = local_day_bounds(ANCHOR + timedelta(days=365), 0)[1].timestamp()
     assert all(lower <= int(e["startTimeUnixNano"]) / 1e9 < upper for e in events if "spanId" in e)
 
 

@@ -2,6 +2,7 @@
 from __future__ import annotations
 from datetime import datetime
 import os
+import json
 from pathlib import Path
 import shutil
 import sys
@@ -113,7 +114,8 @@ def run_seed(cfg: Config, *, dry_run: bool=False, do_import: bool=True,
             raise ValueError('Expansion cannot be combined with dry-run, spool-only or configuration refresh.')
         from .expansion import run_expansion
         delta = run_expansion(cfg, previous_spool=Path(expand_existing), log=log)
-        deliver_artifacts()
+        runbook = deliver_artifacts()
+        (runbook.parent / 'SCHEDULE.json').write_text(json.dumps(RunState.load().run_receipt['schedule'], indent=2) + '\n')
         return delta
     if refresh_configuration:
         if dry_run or not do_import:
@@ -169,6 +171,7 @@ def run_seed(cfg: Config, *, dry_run: bool=False, do_import: bool=True,
         state.save()
         raise
     state.save()
-    deliver_artifacts()
+    runbook = deliver_artifacts()
+    (runbook.parent / 'SCHEDULE.json').write_text(json.dumps(state.run_receipt['schedule'], indent=2) + '\n')
     log(f'Seed complete ({state.import_status}); run receipt: {RunState.state_path()}')
     return spool_path

@@ -1,0 +1,46 @@
+{
+  "before": {
+    "rows": 287,
+    "observations": 113,
+    "traces": 42,
+    "scores": 174,
+    "names": {
+      "explain-product": 10,
+      "retrieve-product-context": 20,
+      "generate-response": 50,
+      "explain-fees": 7,
+      "calculate-fee": 1,
+      "guide-application": 5,
+      "review-service-request": 4,
+      "summarize-conversation": 4,
+      "extract-document-fields": 3,
+      "draft-customer-message": 3,
+      "classify-service-intent": 2,
+      "rewrite-service-query": 2,
+      "prepare-handoff-note": 2
+    }
+  },
+  "after": {
+    "rows": 287,
+    "observations": 113,
+    "traces": 42,
+    "scores": 174,
+    "names": {
+      "explain-product": 10,
+      "retrieve-product-context": 20,
+      "generate-response": 50,
+      "explain-fees": 7,
+      "calculate-fee": 1,
+      "guide-application": 5,
+      "review-service-request": 4,
+      "summarize-conversation": 4,
+      "extract-document-fields": 3,
+      "draft-customer-message": 3,
+      "classify-service-intent": 2,
+      "rewrite-service-query": 2,
+      "prepare-handoff-note": 2
+    }
+  },
+  "stable_span_ids": true,
+  "stable_score_values": true
+}

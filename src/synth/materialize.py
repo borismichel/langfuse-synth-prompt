@@ -123,6 +123,9 @@ def local_day_bounds(run_date: datetime, day_offset: int) -> tuple[datetime, dat
 
 
 def _version(prompt_id: str, day: int) -> int:
+    # Authored eras use the original prior-day convention. Translate the calendar
+    # day, preserving version ordering and every era's duration.
+    day -= 1
     for version in prompt_by_id(prompt_id)["versions"]:
         interval = version["relative_days_inclusive"]
         if version["use"] == "production_history" and interval[0] <= day <= interval[1]:
@@ -131,13 +134,15 @@ def _version(prompt_id: str, day: int) -> int:
 
 
 def _session_schedule(count: int, rng: Rng, run_date: datetime) -> list[tuple[datetime, int]]:
-    weekday = [d for d in range(-28, 0) if local_day_bounds(run_date, d)[0].astimezone(BERLIN).weekday() < 5]
-    weekend = [d for d in range(-28, 0) if d not in weekday]
+    weekday = [d for d in range(-27, 1) if local_day_bounds(run_date, d)[0].astimezone(BERLIN).weekday() < 5]
+    weekend = [d for d in range(-27, 1) if d not in weekday]
     weekend_count = round(count * .25)
     def spread(days, n):
         return [days[round(i * (len(days) - 1) / max(1, n - 1)) % len(days)] for i in range(n)]
     choices = spread(weekend, weekend_count) + spread(weekday, count - weekend_count)
     rng.sub("days").shuffle(choices)
+    if choices and 0 not in choices:
+        choices[-1] = 0  # Even a one-trace Custom run includes the selected day.
     allocations = _allocate(count, {"overnight": 25, "daytime": 40, "evening": 35})
     buckets = [key for key, n in allocations.items() for _ in range(n)]
     rng.sub("hours").shuffle(buckets)
@@ -153,8 +158,8 @@ def _session_schedule(count: int, rng: Rng, run_date: datetime) -> list[tuple[da
 
 
 def _task_timestamp(index: int, rng: Rng, run_date: datetime) -> tuple[datetime, int]:
-    days = [d for d in range(-28, 0) if local_day_bounds(run_date, d)[0].astimezone(BERLIN).weekday() < 5]
-    day = -1 if index == 0 else days[(index - 1) % len(days)]
+    days = [d for d in range(-27, 1) if local_day_bounds(run_date, d)[0].astimezone(BERLIN).weekday() < 5]
+    day = 0 if index == 0 else days[(index - 1) % len(days)]
     local = local_day_bounds(run_date, day)[0].astimezone(BERLIN).replace(
         hour=rng.randint(9, 17), minute=rng.randint(0, 59), second=rng.randint(0, 59))
     return local.astimezone(timezone.utc), day
@@ -410,7 +415,7 @@ def build_historical_experiment_events(params: Mapping[str, Any], *, run_date: d
         pid, version = item["prompt_id"], item["prompt_version"]
         prompt = prompt_by_id(pid)
         day = next(v for v in prompt["versions"] if v["version"] == version)["relative_days_inclusive"][0]
-        timestamp = local_day_bounds(run_date, day)[0] + timedelta(hours=12, minutes=index)
+        timestamp = local_day_bounds(run_date, day + 1)[0] + timedelta(hours=12, minutes=index)
         r = rng.sub("case", index)
         trace_id = r.trace_id(index)
         question, source = item["input"]["user_message"], item["input"]["reference_context"]
