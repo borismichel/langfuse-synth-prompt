@@ -1,4 +1,5 @@
 """Post-import mapping migration preserves native experiments and seeded history."""
+import json
 from copy import deepcopy
 from dataclasses import asdict
 from datetime import date
@@ -167,9 +168,11 @@ def test_mapping_contract_resolves_all_accepted_dataset_contexts():
                         'prior_messages': item['input']['conversation_history'],
                         'reference_context': item['input']['reference_context']}
             native = native_metadata_shape(assets.experiment_item_metadata(item))
+            live_context = native_metadata_shape({**expected,
+                'eval_reference_context': json.dumps(expected['reference_context'])})
             for eid in prompt['evaluation_ids']:
                 if score_definitions()[eid]['producer'] != 'llm-judge': continue
-                for live, source in ((True, expected), (False, native)):
+                for live, source in ((True, live_context), (False, native)):
                     for mapping in assets.variable_mapping(eid, live=live):
                         if mapping['source'] == 'output':
                             assert 'jsonPath' not in mapping

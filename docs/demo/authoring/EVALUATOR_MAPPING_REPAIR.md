@@ -1,5 +1,8 @@
 # Evaluator mapping repair — 2026-10-09
 
+This records the SDK v4 repair. For the SDK v5 live reference selector and its
+separate release verification status, see [SDK v5 evidence](SDK_V5.md).
+
 The final-project editor preview exposed a real configuration mismatch: nine
 judge definitions used experiment-item metadata defaults, while their sample
 observations came from live requests. The production rules already supplied
