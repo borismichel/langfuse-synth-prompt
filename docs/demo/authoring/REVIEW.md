@@ -239,3 +239,7 @@ configuration step is included in the runbook. Depot admission remains pending
 until a released candidate completes its actual ladder; no local test is treated
 as admission. Reusable text-prompt components are requested for a subsequent
 release after registration.
+
+## Depot wizard schedule and presets — 2026-10-14
+
+The user's Depot324 implementation request requires inclusive fixed history, an authored rehearsal preset and generic editable configuration. [Candidate evidence](SETUP_330.md) records the date-convention translation, real offline generation/readback, strict local gates and authenticated wizard captures. Authoring is ready for review. Release publication and live candidate verification remain separate; no new human acceptance is inferred. The existing unpublished companion retrieval/variable example on main is preserved.

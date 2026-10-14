@@ -19,7 +19,7 @@ disclosed in metadata and this runbook; the last-month history remains authored.
 Use the dedicated demo project produced by the seed run. Confirm the current seed
 receipt passed verification; offline preview fixtures are not live evidence. The
 intended full portfolio has 1,620 history traces, 2,100 generations and 9,320 eligible
-synthetic outcomes across 28 complete days, plus a separate small historical
+synthetic outcomes across 28 local calendar days including the as-of date, plus a separate small historical
 experiment cohort. Seeded scores are authored examples, not historical model-judge
 runs. These are fictional products, users and conversations. Historical cost
 details apply an explicit 3× multiplier to usage × base model prices; live calls

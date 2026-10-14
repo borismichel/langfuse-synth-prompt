@@ -155,7 +155,7 @@ session links documented in the rehearsal. Earlier projects, experiments and
 calibration failures are preserved in [authoring review](docs/demo/authoring/REVIEW.md).
 
 The full population specification is 1,620 production-history traces, 2,100
-generations and 9,320 eligible outcomes over 28 complete days, plus eighteen small
+generations and 9,320 eligible outcomes over 28 local calendar days including the as-of date, plus eighteen small
 historical experiment traces. E-02/E-03 include explicit Not applicable categories;
 missing, pending and failed executions remain distinct.
 History, products, accounting prices, user identities and replies are synthetic.
