@@ -93,12 +93,12 @@ def test_historical_experiment_binding_carries_the_same_native_context():
 
 
 @pytest.mark.parametrize('eid', [f'E-{index:02}' for index in range(1, 12)])
-def test_experiment_defaults_change_without_changing_live_rule_context(eid):
+def test_live_and_experiment_rules_select_their_complete_context(eid):
     for mapping in variable_mapping(eid, live=True):
         if mapping['source'] == 'output':
             continue
         assert mapping == {'variable': mapping['variable'], 'source': 'metadata',
-                           'jsonPath': '$.' + mapping['variable']}
+                           'jsonPath': ('$.eval_' if mapping['variable'] == 'reference_context' else '$.') + mapping['variable']}
     for mapping in variable_mapping(eid, live=False):
         if mapping['source'] == 'output':
             continue

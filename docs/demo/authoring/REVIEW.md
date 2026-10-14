@@ -252,3 +252,12 @@ records the real exported-metadata regression, correction, public score-delivery
 checks and unchanged historical golden. Authoring remains ready for review;
 published-image verification, fresh-target admission and live rehearsal are
 separate required milestones. No new user acceptance is inferred.
+
+
+2026-10-14: v0.2.8 is ready for independent implementation review following the
+released v0.2.7 live evaluator context failure. The focused SDK/Cloud-shape test
+failed for all three bots before the correction and now preserves the complete
+reference record through the configured selector. See [SDK v5 evidence](SDK_V5.md).
+This records a review request, not new human acceptance or Cloud success. The
+failed target and its original scores remain evidence; fresh release/admission
+and live verification are pending.

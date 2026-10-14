@@ -165,3 +165,66 @@ def test_feedback_real_sdk_delivers_once_to_saved_root_after_a_later_reply(sdk_e
     assert len(roots) == 2
     assert [format(s.context.trace_id, '032x') for s in roots] == [first['trace_id'], second['trace_id']]
     assert [format(s.context.span_id, '016x') for s in roots] == [first['root_observation_id'], second['root_observation_id']]
+
+
+@pytest.mark.parametrize('pid', ['PR-01', 'PR-02', 'PR-03'])
+def test_live_factual_judge_mapping_receives_complete_record_after_cloud_flattening(sdk_emitter, pid):
+    """The evaluator must receive reference facts, not infer them from prior replies."""
+    from synth.assets import variable_mapping
+    from synth.catalog import load_fixture
+    from test_experiment_mapping import native_metadata_shape, select
+
+    emitter, exporter, _ = sdk_emitter
+    class Adapter(FixtureAdapter):
+        is_fixture = False
+        def emitter(self, **kwargs):
+            return emitter
+        def get_prompt(self, name, **kwargs):
+            return ChatPromptClient(Prompt_Chat(name=name, version=7, config={}, labels=['production'],
+                tags=[], prompt=chat_prompt(pid, 7)))
+    service = ConversationService(Adapter())
+    session = service.new(pid)
+    prior_messages = []
+    for index in range(2):
+        message = dataset_items(pid)[0]['input']['user_message']
+        turn = service.turn(session['session_id'], session['token'], message, f'judge-context-{index}')
+        assert turn['status'] == 'complete'
+        spans = {span.name: dict(span.attributes) for span in exporter.get_finished_spans()}
+        attrs = spans[GENERATION_OPERATION_NAME]
+        # The v5 ingestion boundary decodes each SDK attribute once; storage then
+        # flattens nested objects, as observed in the released-image rehearsal.
+        structured = merged_exported_metadata(attrs)
+        ingested = dict(structured)
+        # Cloud preserves the wire encoding of JSON-looking string leaves so
+        # storage reads do not turn an intentional string into an object.
+        for key, value in structured.items():
+            if isinstance(value, str):
+                try:
+                    json.loads(value)
+                except ValueError:
+                    continue
+                ingested[key] = json.dumps(value)
+        stored = native_metadata_shape(ingested)
+        # extractObservationVariables deep-parses stored leaves before JSONPath.
+        for key, value in stored.items():
+            if isinstance(value, str):
+                try:
+                    stored[key] = json.loads(value)
+                except ValueError:
+                    pass
+        expected = {'reference_context': load_fixture('product')['source'],
+                    'current_user_message': message, 'prior_messages': prior_messages}
+        for eid in ('E-02', 'E-03', 'E-04'):
+            for mapping in variable_mapping(eid, live=True):
+                if mapping['variable'] == 'assistant_reply':
+                    assert mapping == {'variable': 'assistant_reply', 'source': 'output'}
+                    continue
+                assert mapping['source'] == 'metadata'
+                assert select(stored, mapping['jsonPath']) == expected[mapping['variable']]
+        # Keep the inspectable structured value and scoped rubric ownership.
+        assert structured['reference_context'] == load_fixture('product')['source']
+        assert structured['rubric_revisions'] == rubric_revisions(pid, subject='assistant_reply')
+        assert structured['trace_rubric_revisions'] == rubric_revisions(pid)
+        prior_messages.extend([{'role': 'user', 'content': message},
+                               {'role': 'assistant', 'content': turn['reply']}])
+        exporter.clear()

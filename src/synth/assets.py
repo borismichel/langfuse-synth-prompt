@@ -139,7 +139,7 @@ def variable_mapping(eid: str, *, live: bool) -> list[dict]:
         if variable == "assistant_reply":
             result.append({"variable": variable, "source": "output"})
         else:
-            prefix = "$." if live else "$.eval_"
+            prefix = "$." if live and variable != "reference_context" else "$.eval_"
             result.append({"variable": variable,
                            "source": "metadata" if live else "experiment_item_metadata",
                            "jsonPath": prefix + variable})
