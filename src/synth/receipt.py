@@ -94,7 +94,13 @@ def make_receipt(events: list[dict], spool_path: Path, *, run_date: datetime, se
             b = e['body']
             scores.append({k: b.get(k) for k in ('id','name','value','observationId','dataType')})
         traces.append({'id':tid,'observations':observations,'scores':scores})
-    return {'schema_version':1,'score_contract':SCORE_CONTRACT,'run_date':run_date.isoformat(),'seed':seed,'target_traces':target_traces,
+    timestamps = [int(e[key]) for e in spans for key in ('startTimeUnixNano', 'endTimeUnixNano')]
+    schedule = {'version': 1, 'requested': {'as_of_date': run_date.date().isoformat(),
+                'history_days': 28, 'timezone': 'Europe/Berlin', 'end': 'inclusive'},
+                'generated_range': {'start': datetime.fromtimestamp(min(timestamps) / 1e9, timezone.utc).isoformat(),
+                                    'end': datetime.fromtimestamp(max(timestamps) / 1e9, timezone.utc).isoformat(),
+                                    'timezone': 'Europe/Berlin'} if timestamps else None}
+    return {'schedule': schedule, 'schema_version':1,'score_contract':SCORE_CONTRACT,'run_date':run_date.isoformat(),'seed':seed,'target_traces':target_traces,
             'spool_sha256':hashlib.sha256(spool_path.read_bytes()).hexdigest(),
             'spooled_events':len(events),'representative_traces':traces,
             'actual_traces':len({e['traceId'] for e in spans}),
