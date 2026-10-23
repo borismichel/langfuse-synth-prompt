@@ -5,8 +5,8 @@
   "branch": "main",
   "core": {
     "repository": "https://github.com/borismichel/langfuse-synth-core",
-    "ref": "v5.0.0",
-    "commit": "5f56e75f9a8b5d160ddf54a8fcde380d0d15a205"
+    "ref": "v5.1.0",
+    "commit": "ee87bf749b95a3a1026c655830c95dd2219ca83d"
   },
   "depot_repository": "https://github.com/borismichel/langfuse-demo-depot",
   "skills_repository": "https://github.com/borismichel/my-skills",
